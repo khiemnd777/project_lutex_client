@@ -33,9 +33,9 @@ $ yarn build:ssr --secure=false --api-host=localhost --api-port=1337 --port=7777
 ## Development
 ```sh
 $ yarn build:dev
-$ yarn build:dev --secure=false --api-host=linlee.studio --api-port=1337
+$ yarn build:dev --secure=false --api-host=localhost --api-port=1337
 $ yarn build:ssr:dev
-$ yarn build:ssr:dev --secure=false --api-host=linlee.studio --api-port=1337 --port=7777
+$ yarn build:ssr:dev --secure=false --api-host=localhost --api-port=1337 --port=7777
 ```
 ## Debugging
 During development we use sourcemap to debug ts/tsx code dirrectly on browser (IE, Chrome, FireFox, Edge).
