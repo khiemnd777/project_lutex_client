@@ -1,0 +1,44 @@
+@import '../../../theme/default/theme.scss';
+
+nav.nav {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  background: $primaryLight;
+  height: 100vh;
+  text-align: left;
+  padding: 2rem;
+  position: fixed;
+  top: 0;
+  left: 0;
+  transition: transform 0.3s ease-in-out;
+  transform: translateX(-100%);
+  z-index: 10;
+  opacity: 0.95;
+
+  &[open='true'] {
+    transform: translateX(0) !important;
+  }
+
+  @media (max-width: $mobile) {
+    width: 100%;
+    display: flex;
+  }
+  a {
+    font-size: $fontSizeNavMobile;
+    text-transform: uppercase;
+    padding: 2rem 0;
+    font-weight: $boldWeight;
+    letter-spacing: $letterSpacingNavMobile;
+    color: $primaryDark;
+    transition: color 0.3s linear;
+
+    @media (max-width: $mobile) {
+      text-align: center;
+    }
+
+    &:hover {
+      color: $primaryHover;
+    }
+  }
+}

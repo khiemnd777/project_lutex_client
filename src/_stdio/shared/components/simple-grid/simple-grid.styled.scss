@@ -1,0 +1,66 @@
+@import '../../../theme/default/theme.scss';
+
+$padding: 5px;
+
+.grid {
+  display: block;
+  margin: 0;
+  padding: 0;
+  .grid_item {
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    cursor: pointer;
+    margin: 0;
+    float: left;
+    padding: $padding;
+    width: calc(100% / 4);
+    opacity: 0;
+    transition: all ease 0.5s;
+    &.grid_item_visible {
+      opacity: 1;
+    }
+    &:hover {
+      img {
+        cursor: pointer;
+        &.img_primary {
+          opacity: 0;
+        }
+        &.img_secondary {
+          opacity: 1;
+        }
+      }
+    }
+    @media (max-width: $macbook) {
+      width: calc(100% / 3);
+    }
+    @media (max-width: $ipad) {
+      width: calc(100% / 2);
+    }
+    @media (max-width: $mobile) {
+      width: 100%;
+      padding: 3px;
+    }
+    img {
+      display: block;
+      width: 100%;
+      height: auto;
+      transition: all ease 0.5s;
+      cursor: pointer;
+      &.img_secondary {
+        width: calc(100% - #{2 * $padding});
+        position: absolute;
+        top: $padding;
+        left: $padding;
+        opacity: 0;
+      }
+    }
+    h1 {
+      font-size: 1.07rem;
+      font-weight: $lightWeight;
+      width: 100%;
+      text-align: center;
+      margin-top: 0.6rem;
+    }
+  }
+}

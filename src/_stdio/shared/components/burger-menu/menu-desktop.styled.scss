@@ -1,0 +1,53 @@
+@import "../../../theme/default/theme.scss";
+
+nav.nav {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 100%;
+  transition: all ease 0.5s;
+  .background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: $primaryBackground;
+    z-index: -1;
+  }
+  &.stick {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    padding: 0.8rem 0;
+    z-index: 999999;
+    .background {
+      opacity: 0.85;
+    }
+  }
+  a {
+    font-size: $fontSizeNavDefault;
+    padding: 0 0.75rem;
+    letter-spacing: $letterSpacingNav;
+    font-weight: $regularWeight;
+    text-transform: uppercase;
+    color: $primaryGrey;
+    transition: all ease 0.5s;
+    &.active {
+      span {
+        color: $primaryDark;
+        font-weight: $boldWeight;
+      }
+    }
+    &:hover:not(.active) {
+      transform: scale(0.9);
+      span {
+        font-weight: $boldWeight;
+      }
+    }
+  }
+  @media (max-width: $mobile) {
+    display: none;
+  }
+}

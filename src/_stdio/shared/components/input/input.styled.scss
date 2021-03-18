@@ -1,0 +1,37 @@
+@import "../../../theme/default/theme.scss";
+
+.form_field {
+  @include flexColumn;
+  width: 100%;
+  align-items: flex-start;
+  .title {
+    margin-bottom: 0.3rem;
+    @include fontStyleDefault;
+    font-weight: $regularWeight;
+    .required {
+      margin-left: 0.3rem;
+      color: $errorColor;
+    }
+  }
+  .field {
+    display: flex;
+    width: 100%;
+    input,
+    textarea {
+      flex: 1;
+      @include fontStyleDefault;
+      height: 2.4rem;
+      padding: 0 0.5rem;
+      border: 0.13rem solid $primaryDark;
+      transition: all ease 0.5s;
+      &.error {
+        border-color: $errorColor;
+        background-color: $errorBackgroundColor;
+      }
+    }
+    .longtext {
+      height: 7rem;
+      font-size: 1.2rem;
+    }
+  }
+}

@@ -1,0 +1,13 @@
+.popup_container {
+  display: flex;
+  flex-direction: row;
+  position: fixed;
+  right: 100px;
+  top: 100px;
+}
+
+
+.popup_btn_close {
+  font-size: 20px;
+  font-weight: bold;
+}

@@ -1,0 +1,111 @@
+@import './variable';
+
+input,
+textarea,
+select {
+  border: 1px solid $color-silver-sand;
+  color: $color-shuttle-gray;
+  padding: 5px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+input::-ms-clear,
+textarea::-ms-clear,
+select::-ms-clear {
+  display: none;
+}
+
+select:not([multiple="multiple"]) {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background: $color-white url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCI+PHBhdGggZD0iTTkuOTc4IDIwLjk4N0M0LjQ5IDE1LjUgMCAxMC45NyAwIDEwLjkyYzAtLjExNCAxLjc3NC0xLjg4NCAxLjg4OC0xLjg4NC4wNDggMCA0LjE0MiA0LjA1NSA5LjEgOS4wMTJMMjAgMjcuMDZsOS4wMTMtOS4wMTJjNC45NTctNC45NTcgOS4wNTMtOS4wMTIgOS4xMDItOS4wMTIuMTE0IDAgMS44ODQgMS43NzMgMS44ODQgMS44ODcgMCAuMDg1LTE5LjkxNSAyMC4wNC0yMCAyMC4wNC0uMDI0IDAtNC41MzQtNC40OS0xMC4wMjItOS45NzZ6Ii8+PC9zdmc+');
+  background-repeat: no-repeat;
+  background-position: calc(100% - 5px), center;
+  background-size: 10px 10px;
+  padding: 5px 20px 5px 2%;
+}
+
+select::-ms-expand {
+  display: none;
+}
+
+/* Override styling of default dropdown to make it consistent with all browser */
+input:disabled,
+textarea:disabled,
+select:disabled {
+  background: $color-iron;
+}
+
+input.readonly,
+textarea.readonly {
+  background-color: $color-iron;
+  pointer-events: none;
+}
+
+input:read-only,
+input[readonly="readonly"],
+input.readonly,
+textarea:read-only,
+textarea[readonly="readonly"] {
+  background-color: $color-iron;
+}
+
+textarea.resize-none {
+  resize: none;
+}
+
+.radio {
+  display: inline;
+  position: relative;
+  padding-left: 25px;
+  padding-right: 5px;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  font-size: 14px;
+  &:hover input ~ .checkmark {
+    background-color: #aaaaaa !important;
+  }
+  input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+  }
+  .checkmark {
+    position: absolute;
+    top: 2;
+    left: 0;
+    height: 16px;
+    width: 16px;
+    background-color: #d5dbe5;
+    border-radius: 50%;
+    border: 1px solid rgba(118, 118, 118, 0.75);
+    &:after {
+      top: 50%;
+      left: 50%;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      border: 1px solid #ffffff;
+      transform: translate(-50%, -50%);
+      background: #ffffff;
+      content: "";
+      position: absolute;
+      display: none;
+    }
+  }
+  input:checked {
+    ~ .checkmark {
+      background-color: #2469b2;
+      &::after {
+        display: block;
+      }
+    }
+  }
+}
+

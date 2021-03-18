@@ -1,0 +1,30 @@
+.scroll_top {
+  display: flex;
+  align-items: center;
+  align-content: center;
+  position: fixed;
+  bottom: 20px;
+  right: 30px;
+  font-size: 18px;
+  border: none;
+  outline: none;
+  background-color: transparent;
+  color: #000;
+  cursor: pointer;
+  border-radius: 50%;
+  width: 47px;
+  height: 47px;
+  border: 3px solid #000;
+  opacity: 0;
+  transition: opacity ease 0.5s;
+  z-index: 99;
+  &.show {
+    opacity: 1;
+  }
+  .content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
