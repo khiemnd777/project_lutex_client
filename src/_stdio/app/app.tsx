@@ -9,6 +9,14 @@ import graphqlClient from '_stdio/shared/utils/graphql/graphql-client';
 import RouterProvider from '_stdio/core/router/router-provider';
 
 const App = () => {
+  return (
+    <ApolloProvider client={graphqlClient}>
+      <StdApp />
+    </ApolloProvider>
+  );
+};
+
+const StdApp = () => {
   const [localState, setLocalState] = useState({ loading: true });
 
   useEffect(() => {
@@ -18,12 +26,8 @@ const App = () => {
     return <Loading message="Initializing..." />;
   }
   return (
-    <div>
-      <ApolloProvider client={graphqlClient}>
-        <div class={app}>
-          <RouterProvider />
-        </div>
-      </ApolloProvider>
+    <div class={app}>
+      <RouterProvider />
     </div>
   );
 };

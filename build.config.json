@@ -1,6 +1,0 @@
-{
-  "template": "src/template/",
-  "dist": "wwwroot/",
-  "distScript": "wwwroot/",
-  "distCss": "wwwroot/"
-}

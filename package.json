@@ -6,15 +6,15 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint ./src/**/*.{js,jsx,ts,tsx}",
-    "build": "npx rollup -c --environment NODE_ENV:production",
-    "build:staging": "npx rollup -c --environment NODE_ENV:production,SITE:staging",
-    "build:beta": "npx rollup -c --environment NODE_ENV:production,SITE:beta",
-    "build:dev": "npx rollup -c --environment NODE_ENV:development",
-    "watch": "npx rollup -c -w --environment NODE_ENV:development",
+    "build": "npx rollup -c ./src/_stdio/config/rollup.config.js --environment NODE_ENV:production",
+    "build:staging": "npx rollup -c ./src/_stdio/config/rollup.config.js --environment NODE_ENV:production,SITE:staging",
+    "build:beta": "npx rollup -c ./src/_stdio/config/rollup.config.js --environment NODE_ENV:production,SITE:beta",
+    "build:dev": "npx rollup -c ./src/_stdio/config/rollup.config.js --environment NODE_ENV:development",
+    "watch": "npx rollup -c ./src/_stdio/config/rollup.config.js -w --environment NODE_ENV:development",
     "serve": "npx node-static . --port=8099",
-    "build:ssr:dev": "npx rollup -c ssr-rollup.config.js --environment NODE_ENV:development",
-    "build:ssr": "npx rollup -c ssr-rollup.config.js --environment NODE_ENV:production",
-    "watch:ssr": "npx rollup -c ssr-rollup.config.js -w --environment NODE_ENV:development",
+    "build:ssr:dev": "npx rollup -c ./src/_stdio/config/ssr-rollup.config.js --environment NODE_ENV:development",
+    "build:ssr": "npx rollup -c ./src/_stdio/config/ssr-rollup.config.js --environment NODE_ENV:production",
+    "watch:ssr": "npx rollup -c ./src/_stdio/config/ssr-rollup.config.js -w --environment NODE_ENV:development",
     "start:ssr": "node ./wwwroot/server.js"
   },
   "repository": {

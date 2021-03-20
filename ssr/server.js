@@ -9,8 +9,8 @@ const argv = yargs(hideBin(process.argv)).argv;
 const port = argv.port || '{{PORT}}';
 const app = express();
 const env = process.env.NODE_ENV;
-const secureProtocol = !!argv.secure && argv.secure === 'true' ||
-  !argv.secure && '{{SECURE}}' === 'true' ? 'https' : 'http';
+const secureProtocol =
+  (!!argv.secure && argv.secure === 'true') || (!argv.secure && '{{SECURE}}' === 'true') ? 'https' : 'http';
 const apiPort = argv.apiPort || '{{API_PORT}}';
 const apiHostName = argv.apiHost || '{{API_HOST}}';
 const apiHost = `${secureProtocol}://${apiHostName}:${apiPort}/`;
@@ -26,11 +26,13 @@ const genrateHtml = (req, res, seoData) => {
       const seoMetaTags = generateSeoMetaTags(seoData);
       data = data.replace('{{metaTags}}', seoMetaTags);
       data = data.replace('{{title}}', seoData.title);
+    } else {
+      data = data.replace('{{metaTags}}', '');
+      data = data.replace('{{title}}', '');
     }
     return res.send(data);
   });
 };
-
 
 const generateSeoMetaTags = (seoData) => {
   return `
@@ -58,14 +60,14 @@ app.use(/^\/*((?!\.).)*$/, (req, res, next) => {
 //   const seoResp = await axios.get(`${apiHost}page`);
 //   genrateHtml(req, res, seoResp.data);
 // });
-         
+
 // app.get('/page/:params', async (req, res) => {
 //   const seoResp = await axios.get(`${apiHost}page?params=${req.params.params}`);
 //   genrateHtml(req, res, seoResp.data);
 // });
 
 app.use(express.static(path.resolve(__dirname, '../', 'wwwroot')));
-  
+
 app.listen(port, () => {
   console.log(`App launched on ${port}`);
   console.log(`API launched on ${apiHost}`);
