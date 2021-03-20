@@ -2,8 +2,9 @@ import createStore from 'redux-zero';
 import { connect } from 'redux-zero/devtools';
 import { applyMiddleware } from 'redux-zero/middleware';
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface StoreModel {}
+export interface StoreModel {
+  name?: string;
+}
 
 const initialState = {};
 

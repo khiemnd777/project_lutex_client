@@ -1,4 +1,4 @@
-import each from 'lodash-es/each';
+import map from 'lodash-es/map';
 import { Fragment, FunctionalComponent, h } from 'preact';
 import { WidgetFactory } from '../widget/widget-factory';
 import { IndicatedWidgetType } from '../widget/widget-types';
@@ -10,7 +10,13 @@ interface PlaceholderArgs {
 
 const Placeholder: FunctionalComponent<PlaceholderArgs> = ({ name, widgets }) => {
   const consumedWidgets = WidgetFactory.GetForPlaceholder(name, widgets);
-  return <Fragment>{each(consumedWidgets, (widget) => widget?.component)}</Fragment>;
+  return (
+    <Fragment>
+      {map(consumedWidgets, (widget) =>
+        widget?.config?.call(null, { name: widget.name, configName: widget.configName, component: widget.component })
+      )}
+    </Fragment>
+  );
 };
 
 export default Placeholder;

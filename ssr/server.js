@@ -45,24 +45,24 @@ const generateSeoMetaTags = (seoData) => {
   `;
 };
 
-// app.use(/^\/*((?!\.).)*$/, (req, res, next) => {
-//   genrateHtml(req, res);
+app.use(/^\/*((?!\.).)*$/, (req, res, next) => {
+  genrateHtml(req, res);
+});
+
+// app.get('/', async (req, res) => {
+//   const seoResp = await axios.get(`${apiHost}index`);
+//   genrateHtml(req, res, seoResp.data);
 // });
 
-app.get('/', async (req, res) => {
-  const seoResp = await axios.get(`${apiHost}index`);
-  genrateHtml(req, res, seoResp.data);
-});
-
-app.get('/page', async (req, res) => {
-  const seoResp = await axios.get(`${apiHost}page`);
-  genrateHtml(req, res, seoResp.data);
-});
+// app.get('/page', async (req, res) => {
+//   const seoResp = await axios.get(`${apiHost}page`);
+//   genrateHtml(req, res, seoResp.data);
+// });
          
-app.get('/page/:params', async (req, res) => {
-  const seoResp = await axios.get(`${apiHost}page?params=${req.params.params}`);
-  genrateHtml(req, res, seoResp.data);
-});
+// app.get('/page/:params', async (req, res) => {
+//   const seoResp = await axios.get(`${apiHost}page?params=${req.params.params}`);
+//   genrateHtml(req, res, seoResp.data);
+// });
 
 app.use(express.static(path.resolve(__dirname, '../', 'wwwroot')));
   

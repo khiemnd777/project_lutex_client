@@ -1,18 +1,25 @@
-import { ComponentClass, FunctionalComponent } from 'preact';
+import { FunctionalComponent } from 'preact';
+import { WidgetArgs, WidgetConfigArgs } from './widget-interfaces';
 
-export type AssembliedWidgetType<P = any, S = any> = {
+export type AssembliedWidgetConfigType = {
+  configName?: string;
+  component: FunctionalComponent<WidgetConfigArgs>;
+};
+
+export type AssembliedWidgetType = {
   name: string;
   configName?: string;
   friendlyName?: string;
-  component: ComponentClass<P, S> | FunctionalComponent<P>;
+  component: FunctionalComponent<WidgetArgs>;
 };
 
-export type ConsumedWidgetType<P = any, S = any> = {
+export type ConsumedWidgetType = {
   name: string;
   configName?: string;
   friendlyName?: string;
   placeholder: string;
-  component: ComponentClass<P, S> | FunctionalComponent<P>;
+  config: FunctionalComponent<WidgetConfigArgs>;
+  component: FunctionalComponent<WidgetArgs>;
 };
 
 export type IndicatedWidgetType = {
@@ -22,6 +29,10 @@ export type IndicatedWidgetType = {
   placeholder: string;
 };
 
-export type WidgetFactoryType<P = any, S = any> = {
-  [name: string]: AssembliedWidgetType<P, S>;
+export type WidgetFactoryType = {
+  [name: string]: AssembliedWidgetType;
+};
+
+export type WidgetConfigType = {
+  [name: string]: AssembliedWidgetConfigType;
 };

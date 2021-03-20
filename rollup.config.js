@@ -7,6 +7,7 @@ import rollupJson from '@rollup/plugin-json';
 import rollupFilesize from 'rollup-plugin-filesize';
 import rollupBabel from '@rollup/plugin-babel';
 import rollupReplace from '@rollup/plugin-replace';
+import graphql from '@rollup/plugin-graphql';
 import { terser } from 'rollup-plugin-terser';
 import htmlCustom from './rollup.html.custom';
 import preact from 'rollup-plugin-preact';
@@ -88,6 +89,7 @@ const plugins = [
   }),
   rollupFilesize(),
   htmlCustom(),
+  graphql(),
 ];
 
 !isDevelopmentEnv && plugins.push(terser());

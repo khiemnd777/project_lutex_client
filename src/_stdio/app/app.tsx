@@ -1,9 +1,12 @@
+import '../core/template/template-registrar';
 import { h } from 'preact';
-import AppRouter from '../routes/routes';
 import { useState, useEffect } from 'preact/hooks';
 import Loading from '../shared/components/loading/loading';
 import { connect } from 'redux-zero/preact';
 import { app } from './app.styled.scss';
+import { ApolloProvider } from '@apollo/client';
+import graphqlClient from '_stdio/shared/utils/graphql/graphql-client';
+import RouterProvider from '_stdio/core/router/router-provider';
 
 const App = () => {
   const [localState, setLocalState] = useState({ loading: true });
@@ -15,8 +18,14 @@ const App = () => {
     return <Loading message="Initializing..." />;
   }
   return (
-    <div class={app}>
-      <AppRouter />
+    <div>
+      {/* <Provider store={appStore}> */}
+      <ApolloProvider client={graphqlClient}>
+        <div class={app}>
+          <RouterProvider />
+        </div>
+      </ApolloProvider>
+      {/* </Provider> */}
     </div>
   );
 };

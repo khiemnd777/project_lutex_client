@@ -1,12 +1,16 @@
-import { filter, map } from 'lodash';
-import { ComponentClass, FunctionalComponent } from 'preact';
-import { ConsumedWidgetType, IndicatedWidgetType, WidgetFactoryType } from './widget-types';
+import filter from 'lodash-es/filter';
+import map from 'lodash-es/map';
+import { FunctionalComponent } from 'preact';
+import { WidgetArgs, WidgetConfigArgs } from './widget-interfaces';
+import { ConsumedWidgetType, IndicatedWidgetType, WidgetConfigType, WidgetFactoryType } from './widget-types';
 
 export class WidgetFactory {
   static widgets: WidgetFactoryType = {};
+  static widgetConfigs: WidgetConfigType = {};
+
   static Register(
     name: string,
-    component: ComponentClass | FunctionalComponent,
+    component: FunctionalComponent<WidgetArgs>,
     configName?: string,
     friendlyName?: string
   ) {
@@ -17,23 +21,35 @@ export class WidgetFactory {
         friendlyName: friendlyName,
         component: component,
       };
+      return this;
     }
     throw new Error('Duplicated widget name');
   }
-  static Consume<P = any, S = any>(
-    name: string,
-    placeholder: string,
-    configName?: string
-  ): ConsumedWidgetType<P, S> | null {
+
+  static RegisterConfig(configName: string, component: FunctionalComponent<WidgetConfigArgs>) {
+    if (!this.widgetConfigs[configName]) {
+      this.widgetConfigs[configName] = {
+        configName: configName,
+        component: component,
+      };
+      return this;
+    }
+    throw new Error('Duplicated widget configuration name');
+  }
+
+  static Consume(name: string, placeholder: string, configName?: string): ConsumedWidgetType | null {
     const matchedWidget = this.widgets[name];
     if (matchedWidget) {
+      const assembliedConfigName = configName ? configName : matchedWidget.configName;
+      const assembliedConfig = this.widgetConfigs[assembliedConfigName || ''];
       return {
         name: matchedWidget.name,
         placeholder: placeholder,
         configName: configName ? configName : matchedWidget.configName,
         friendlyName: matchedWidget.friendlyName,
+        config: assembliedConfig.component,
         component: matchedWidget.component,
-      } as ConsumedWidgetType<P, S>;
+      } as ConsumedWidgetType;
     }
     return null;
   }
