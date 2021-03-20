@@ -19,13 +19,11 @@ const App = () => {
   }
   return (
     <div>
-      {/* <Provider store={appStore}> */}
       <ApolloProvider client={graphqlClient}>
         <div class={app}>
           <RouterProvider />
         </div>
       </ApolloProvider>
-      {/* </Provider> */}
     </div>
   );
 };

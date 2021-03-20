@@ -14,7 +14,7 @@ const prepareIndicatedWidgets = (widgets: RouterWidgetType[]) => {
     return {
       name: widget.widget.Name,
       placeholder: widget.Placeholder,
-      configName: widget.widget.ConfigurationName,
+      configName: widget.ConfigurationName || widget.widget.ConfigurationName,
     } as IndicatedWidgetType;
   });
   return indicatedWidgets;

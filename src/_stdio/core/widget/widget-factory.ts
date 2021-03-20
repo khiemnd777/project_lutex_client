@@ -4,31 +4,42 @@ import { FunctionalComponent } from 'preact';
 import { WidgetArgs, WidgetConfigArgs } from './widget-interfaces';
 import { ConsumedWidgetType, IndicatedWidgetType, WidgetConfigType, WidgetFactoryType } from './widget-types';
 
-export class WidgetFactory {
-  static widgets: WidgetFactoryType = {};
-  static widgetConfigs: WidgetConfigType = {};
+const WIDGETS = 'widgets';
+const WIDGET_CONFIGS = 'widgetConfigs';
 
+const getWidgets = () => {
+  return (window[WIDGETS] as WidgetFactoryType) || (window[WIDGETS] = {});
+};
+
+const getWidgetConfigs = () => {
+  return (window[WIDGET_CONFIGS] as WidgetConfigType) || (window[WIDGET_CONFIGS] = {});
+};
+
+export class WidgetFactory {
   static Register(
     name: string,
+    friendlyName: string,
     component: FunctionalComponent<WidgetArgs>,
-    configName?: string,
-    friendlyName?: string
+    config: FunctionalComponent<WidgetConfigArgs>
   ) {
-    if (!this.widgets[name]) {
-      this.widgets[name] = {
+    const widgets = getWidgets();
+    if (!widgets[name]) {
+      widgets[name] = {
         name: name,
-        configName: configName,
+        configName: name,
         friendlyName: friendlyName,
         component: component,
       };
+      this.RegisterConfig(name, config);
       return this;
     }
     throw new Error('Duplicated widget name');
   }
 
   static RegisterConfig(configName: string, component: FunctionalComponent<WidgetConfigArgs>) {
-    if (!this.widgetConfigs[configName]) {
-      this.widgetConfigs[configName] = {
+    const widgetConfigs = getWidgetConfigs();
+    if (!widgetConfigs[configName]) {
+      widgetConfigs[configName] = {
         configName: configName,
         component: component,
       };
@@ -38,10 +49,14 @@ export class WidgetFactory {
   }
 
   static Consume(name: string, placeholder: string, configName?: string): ConsumedWidgetType | null {
-    const matchedWidget = this.widgets[name];
+    const widgets = getWidgets();
+    const matchedWidget = widgets[name];
     if (matchedWidget) {
-      const assembliedConfigName = configName ? configName : matchedWidget.configName;
-      const assembliedConfig = this.widgetConfigs[assembliedConfigName || ''];
+      const widgetConfigs = getWidgetConfigs();
+      let assembliedConfig = widgetConfigs[configName || ''];
+      if (!assembliedConfig) {
+        assembliedConfig = widgetConfigs[matchedWidget.configName || ''];
+      }
       return {
         name: matchedWidget.name,
         placeholder: placeholder,

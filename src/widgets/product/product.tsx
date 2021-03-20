@@ -1,5 +1,7 @@
 import { FunctionalComponent, h } from 'preact';
-import { WidgetArgs } from '_stdio/core/widget/widget-interfaces';
+import WidgetAssembler from '_stdio/core/widget/widget-assembler';
+import { WidgetFactory } from '_stdio/core/widget/widget-factory';
+import { WidgetArgs, WidgetConfigArgs } from '_stdio/core/widget/widget-interfaces';
 
 const Product: FunctionalComponent<WidgetArgs> = ({ name }) => {
   return (
@@ -9,4 +11,21 @@ const Product: FunctionalComponent<WidgetArgs> = ({ name }) => {
   );
 };
 
-export default Product;
+const ProductConfig: FunctionalComponent<WidgetConfigArgs> = ({ component }) => {
+  return (
+    <div>
+      <WidgetAssembler component={component} args={{ name: 'abc' }} />
+    </div>
+  );
+};
+
+const ProductConfig1: FunctionalComponent<WidgetConfigArgs> = ({ component }) => {
+  return (
+    <div>
+      <WidgetAssembler component={component} args={{ name: 'abc1' }} />
+    </div>
+  );
+};
+
+WidgetFactory.Register('product', 'Product', Product, ProductConfig);
+WidgetFactory.RegisterConfig('product1', ProductConfig1);

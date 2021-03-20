@@ -17,6 +17,7 @@ export const GraphRouters = () => {
           ... on ComponentPluginsWidget {
             Enabled
             Placeholder
+            ConfigurationName
             widget {
               Name
               ConfigurationName

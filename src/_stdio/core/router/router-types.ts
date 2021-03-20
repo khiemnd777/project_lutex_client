@@ -10,6 +10,7 @@ type RouterWidgetDetailType = {
 export type RouterWidgetType = {
   Enabled: boolean;
   Placeholder: string;
+  ConfigurationName: string;
   widget: RouterWidgetDetailType;
 };
 

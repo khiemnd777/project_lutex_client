@@ -1,5 +1,6 @@
 import { FunctionalComponent, h } from 'preact';
 import Placeholder from '_stdio/core/placeholder/placeholder';
+import { TemplateFactory } from '_stdio/core/template/template-factory';
 import { TemplateArgs } from '_stdio/core/template/template-interfaces';
 
 const SimpleTemplate: FunctionalComponent<TemplateArgs> = ({ widgets }) => {
@@ -18,4 +19,4 @@ const SimpleTemplate: FunctionalComponent<TemplateArgs> = ({ widgets }) => {
   );
 };
 
-export default SimpleTemplate;
+TemplateFactory.Register('simple_template', SimpleTemplate);
