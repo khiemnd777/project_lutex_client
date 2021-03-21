@@ -2,7 +2,8 @@ import { FunctionalComponent } from 'preact';
 import { WidgetArgs, WidgetConfigArgs } from './widget-interfaces';
 
 export type AssembliedWidgetConfigType = {
-  configName?: string;
+  name: string;
+  configName: string;
   component: FunctionalComponent<WidgetConfigArgs>;
 };
 
@@ -34,5 +35,23 @@ export type WidgetFactoryType = {
 };
 
 export type WidgetConfigType = {
-  [name: string]: AssembliedWidgetConfigType;
+  [name: string]: AssembliedWidgetConfigType[];
+};
+
+type WidgetDetailType = {
+  Name: string;
+  ConfigurationName: string;
+};
+
+export type WidgetType = {
+  Enabled: boolean;
+  Placeholder: string;
+  ConfigurationName: string;
+  widget: WidgetDetailType;
+};
+
+export type WidgetResponseType = {
+  routers: {
+    Widgets: WidgetType[];
+  }[];
 };

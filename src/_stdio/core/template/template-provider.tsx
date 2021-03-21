@@ -10,10 +10,6 @@ interface TemplateProviderArgs {
 const TemplateProvider: FunctionalComponent<TemplateProviderArgs> = ({ name, widgets }) => {
   if (!name) return <div></div>;
   const matchedTemplate = TemplateFactory.Get(name);
-  if (matchedTemplate && matchedTemplate?.defaultProps) {
-    const props = matchedTemplate?.defaultProps;
-    props.widgets = widgets;
-  }
   return <div>{matchedTemplate?.call(null, { widgets: widgets })}</div>;
 };
 

@@ -28,4 +28,4 @@ const ProductConfig1: FunctionalComponent<WidgetConfigArgs> = ({ component }) =>
 };
 
 WidgetFactory.Register('product', 'Product', Product, ProductConfig);
-WidgetFactory.RegisterConfig('product1', ProductConfig1);
+WidgetFactory.RegisterConfig('product', 'product1', ProductConfig1);

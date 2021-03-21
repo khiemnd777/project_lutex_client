@@ -1,5 +1,7 @@
+import { find } from 'lodash-es';
 import filter from 'lodash-es/filter';
 import map from 'lodash-es/map';
+import size from 'lodash-es/size';
 import { FunctionalComponent } from 'preact';
 import { WidgetArgs, WidgetConfigArgs } from './widget-interfaces';
 import { ConsumedWidgetType, IndicatedWidgetType, WidgetConfigType, WidgetFactoryType } from './widget-types';
@@ -30,22 +32,23 @@ export class WidgetFactory {
         friendlyName: friendlyName,
         component: component,
       };
-      this.RegisterConfig(name, config);
+      this.RegisterConfig(name, name, config);
       return this;
     }
     throw new Error('Duplicated widget name');
   }
 
-  static RegisterConfig(configName: string, component: FunctionalComponent<WidgetConfigArgs>) {
+  static RegisterConfig(name: string, configName: string, component: FunctionalComponent<WidgetConfigArgs>) {
     const widgetConfigs = getWidgetConfigs();
     if (!widgetConfigs[configName]) {
-      widgetConfigs[configName] = {
-        configName: configName,
-        component: component,
-      };
-      return this;
+      widgetConfigs[configName] = [];
     }
-    throw new Error('Duplicated widget configuration name');
+    widgetConfigs[configName].push({
+      name: name,
+      configName: configName,
+      component: component,
+    });
+    return this;
   }
 
   static Consume(name: string, placeholder: string, configName?: string): ConsumedWidgetType | null {
@@ -53,16 +56,17 @@ export class WidgetFactory {
     const matchedWidget = widgets[name];
     if (matchedWidget) {
       const widgetConfigs = getWidgetConfigs();
-      let assembliedConfig = widgetConfigs[configName || ''];
-      if (!assembliedConfig) {
-        assembliedConfig = widgetConfigs[matchedWidget.configName || ''];
+      let assembliedConfigs = widgetConfigs[configName || ''];
+      if (!size(assembliedConfigs)) {
+        assembliedConfigs = widgetConfigs[matchedWidget.configName || ''];
       }
+      const assembliedConfig = find(assembliedConfigs, (config) => config.name === name);
       return {
         name: matchedWidget.name,
         placeholder: placeholder,
         configName: configName ? configName : matchedWidget.configName,
         friendlyName: matchedWidget.friendlyName,
-        config: assembliedConfig.component,
+        config: assembliedConfig?.component,
         component: matchedWidget.component,
       } as ConsumedWidgetType;
     }

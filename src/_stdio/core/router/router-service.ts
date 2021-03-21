@@ -5,23 +5,13 @@ export const GraphRouters = () => {
   const query = useQuery<RouterResponseType>(gql`
     query {
       routers(where: { Enabled: true }) {
+        id
         Name
         Path
         template {
           Name
           Placeholders {
             Name
-          }
-        }
-        Widgets {
-          ... on ComponentPluginsWidget {
-            Enabled
-            Placeholder
-            ConfigurationName
-            widget {
-              Name
-              ConfigurationName
-            }
           }
         }
         Enabled

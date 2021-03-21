@@ -20,10 +20,10 @@ type RouterTempalteType = {
 };
 
 type RouterType = {
+  id: string;
   Name: string;
   Path: string;
   template: RouterTempalteType;
-  Widgets: RouterWidgetType[];
   Enabled: boolean;
 };
 
