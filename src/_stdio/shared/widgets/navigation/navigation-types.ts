@@ -17,6 +17,7 @@ export type DetailNavigationGraphResult = {
 export type NavigationType = {
   id: string;
   Name: string;
+  DisplayName: string;
   Root: boolean;
   Path: string;
   Icon: string;

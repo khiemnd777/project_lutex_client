@@ -17,6 +17,7 @@ export type DetailProductCatalogGraphResult = {
 export type ProductCatalogType = {
   id: string;
   Name: string;
+  DisplayName: string;
   Slug: string;
   Root: boolean;
   Icon: string;

@@ -8,6 +8,7 @@ import {
 const navigationProps = `
   id
   Name
+  DisplayName
   Root
   Path
   Icon

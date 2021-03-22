@@ -8,6 +8,7 @@ import {
 const productCatalogProps = `
   id
   Name
+  DisplayName
   Slug
   Root
   Icon
