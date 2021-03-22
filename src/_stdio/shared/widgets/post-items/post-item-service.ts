@@ -1,4 +1,5 @@
 import { gql, useQuery } from '@apollo/client';
+import { ImageGraphProps } from '_stdio/shared/constants/image-constants';
 import { AvailablePostItemsGraphResult, DetailPostItemType } from './post-item-types';
 
 const postItemProps = `
@@ -12,6 +13,15 @@ const postItemProps = `
 const detailPostItemProps = `
   ${postItemProps}
   Body
+  Catalogs{
+    id
+  }
+  Related_Items{
+    id
+  }
+  Slider{
+    ${ImageGraphProps}
+  }
 `;
 
 export const GraphAvailablePostItems = (datetimeNow: Date) => {

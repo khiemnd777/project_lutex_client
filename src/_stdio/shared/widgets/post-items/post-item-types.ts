@@ -1,3 +1,5 @@
+import { FullImageType } from '../../types/image-types';
+
 export type AvailablePostItemsGraphResult = {
   postItems: PostItemType[];
 };
@@ -21,4 +23,11 @@ export type DetailPostItemType = {
   Body: string;
   PostOn: Date;
   PostOff: Date;
+  Related_Items: {
+    id: string;
+  }[];
+  Catalogs: {
+    id: string;
+  }[];
+  Slider: FullImageType[];
 };
