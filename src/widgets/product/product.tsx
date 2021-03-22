@@ -1,9 +1,18 @@
+import { QueryResult } from '@apollo/client';
 import { FunctionalComponent, h } from 'preact';
+import { useEffect, useState } from 'preact/hooks';
 import WidgetAssembler from '_stdio/core/widget/widget-assembler';
 import { WidgetFactory } from '_stdio/core/widget/widget-factory';
 import { WidgetArgs, WidgetConfigArgs } from '_stdio/core/widget/widget-interfaces';
 
 const Product: FunctionalComponent<WidgetArgs> = ({ name }) => {
+  // const [datetimeNow, setDatetimeNow] = useState<Date>({} as Date);
+  // useEffect(() => {
+  //   GetDatetimeServer().then((x) => setDatetimeNow(x));
+  // }, []);
+  // const {data, loading, error} = GraphAvailablePostItems(datetimeNow);
+  // const posts = !loading && !error ? data?.postItems : null;
+  // console.log(posts);
   return (
     <div>
       <span>Product widget {name}</span>
