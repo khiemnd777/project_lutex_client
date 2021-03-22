@@ -23,3 +23,19 @@ export type FullImageType = {
     small: ImageType;
   };
 };
+
+export type MediaType = {
+  Caption: string;
+  Media: {
+    url: string;
+    provider_metadata: {
+      resource_type: string;
+    };
+    formats: {
+      thumbnail: ImageType;
+      large: ImageType;
+      medium: ImageType;
+      small: ImageType;
+    };
+  }[];
+};

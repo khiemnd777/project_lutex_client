@@ -8,3 +8,12 @@ export const ImageGraphProps = `
   url
   formats
 `;
+
+export const MediaGraphProps = `
+  Caption
+  Media {
+    url
+    provider_metadata
+    formats 
+  }
+`;

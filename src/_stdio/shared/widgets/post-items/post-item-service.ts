@@ -1,5 +1,5 @@
 import { gql, useQuery } from '@apollo/client';
-import { ImageGraphProps } from '_stdio/shared/constants/image-constants';
+import { MediaGraphProps } from '_stdio/shared/constants/image-constants';
 import { AvailablePostItemsGraphResult, DetailPostItemType } from './post-item-types';
 
 const postItemProps = `
@@ -8,6 +8,9 @@ const postItemProps = `
   Short
   PostOn
   PostOff
+  Cover{
+    ${MediaGraphProps}
+  }
 `;
 
 const detailPostItemProps = `
@@ -19,27 +22,54 @@ const detailPostItemProps = `
   Related_Items{
     id
   }
-  Slider{
-    ${ImageGraphProps}
+  Media{
+    ${MediaGraphProps}
   }
 `;
 
-export const GraphAvailablePostItems = (datetimeNow: Date) => {
+const availablePostItemCondition = (datetimeNow: Date) => `
+  _or: [
+    { PostOn_null: true },
+    {
+      PostOn_lte: "${datetimeNow}"
+      _or: [
+        { PostOff_null: true }, 
+        { PostOff_gte: "${datetimeNow}" }
+      ]
+    }
+  ]
+`;
+
+export const GraphAvailablePostItems = (datetimeNow: Date, start: number, limit: number) => {
   return useQuery<AvailablePostItemsGraphResult>(gql`
     query {
       postItems (
         where: {
-          _or: [
-            { PostOn_null: true },
-            {
-              PostOn_lte: "${datetimeNow}"
-              _or: [
-                { PostOff_null: true }, 
-                { PostOff_gte: "${datetimeNow}" }
-              ]
-            }
-          ]
+          ${availablePostItemCondition(datetimeNow)}
         }
+        sort:"createdAt:desc"
+        start: ${start}
+        limit: ${limit}
+      ) {
+        ${postItemProps}
+      }
+    }
+  `);
+};
+
+export const GraphPostItemInCatalog = (catalogId: string, datetimeNow: Date, start: number, limit: number) => {
+  return useQuery<AvailablePostItemsGraphResult>(gql`
+    query {
+      postItems (
+        where: {
+          Catalogs: {
+            id:"${catalogId}"
+          }
+          ${availablePostItemCondition(datetimeNow)}
+        }
+        sort:"createdAt:desc"
+        start: ${start}
+        limit: ${limit}
       ) {
         ${postItemProps}
       }

@@ -1,4 +1,4 @@
-import { FullImageType } from '../../types/image-types';
+import { MediaType } from '../../types/image-types';
 
 export type AvailablePostItemsGraphResult = {
   postItems: PostItemType[];
@@ -14,6 +14,7 @@ export type PostItemType = {
   Short: string;
   PostOn: Date;
   PostOff: Date;
+  Cover: MediaType[];
 };
 
 export type DetailPostItemType = {
@@ -29,5 +30,6 @@ export type DetailPostItemType = {
   Catalogs: {
     id: string;
   }[];
-  Slider: FullImageType[];
+  Cover: MediaType[];
+  Media: MediaType[];
 };
