@@ -1,4 +1,4 @@
-import { Fragment, FunctionalComponent, h } from 'preact';
+import { FunctionalComponent, h } from 'preact';
 import TemplateProvider from '../template/template-provider';
 import { PrepareIndicatedWidgetByRouter } from '../widget/widget-utils';
 
@@ -9,11 +9,7 @@ interface RouterPageArgs {
 }
 const RouterPage: FunctionalComponent<RouterPageArgs> = ({ routerId, templateName }) => {
   const indicatedWidgets = PrepareIndicatedWidgetByRouter(routerId);
-  return (
-    <Fragment>
-      <TemplateProvider name={templateName} widgets={indicatedWidgets} />
-    </Fragment>
-  );
+  return <TemplateProvider name={templateName} widgets={indicatedWidgets} />;
 };
 
 export default RouterPage;

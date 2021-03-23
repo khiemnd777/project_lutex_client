@@ -1,12 +1,18 @@
 import { WidgetArgs } from '_stdio/core/widget/widget-interfaces';
 
 export interface PostCatalogsSideColumnWidgetArgs extends WidgetArgs {
-  items: PostCatalogType[];
-  [x: string]: any;
+  items?: PostCatalogType[];
+  totalCount?: number;
+  onShowMore?: (e: MouseEvent) => void;
 }
 
 export type RootPostCatalogGraphResult = {
-  postCatalogs: NavigationType[];
+  postCatalogsConnection: {
+    aggregate: {
+      totalCount: number;
+    };
+  };
+  postCatalogs: PostCatalogType[];
 };
 
 export type ChildrenPostCatalogGraphResult = {

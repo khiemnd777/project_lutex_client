@@ -22,7 +22,7 @@ const getWidgetConfigs = <Widget extends WidgetArgs, Config = WidgetConfigArgs<W
 };
 
 export class WidgetFactory {
-  static Register<Widget extends WidgetArgs, Config = WidgetConfigArgs<Widget>>(
+  static Register2<Widget extends WidgetArgs, Config = WidgetConfigArgs<Widget>>(
     name: string,
     friendlyName: string,
     component: FunctionalComponent<Widget>,
@@ -37,6 +37,24 @@ export class WidgetFactory {
         component: component,
       };
       this.RegisterConfig(name, name, config);
+      return this;
+    }
+    throw new Error('Duplicated widget name');
+  }
+
+  static Register<Widget extends WidgetArgs, Config = WidgetConfigArgs<Widget>>(
+    name: string,
+    friendlyName: string,
+    component: FunctionalComponent<Widget>
+  ) {
+    const widgets: WidgetFactoryType<Widget> = getWidgets();
+    if (!widgets[name]) {
+      widgets[name] = {
+        name: name,
+        configName: name,
+        friendlyName: friendlyName,
+        component: component,
+      };
       return this;
     }
     throw new Error('Duplicated widget name');

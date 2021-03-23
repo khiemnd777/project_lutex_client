@@ -2,7 +2,7 @@ import { FunctionalComponent } from 'preact';
 import { ParameterConsumedType, ParameterResultType } from '_stdio/shared/types/parameter-types';
 import { WidgetArgs, WidgetConfigArgs } from './widget-interfaces';
 
-export type AssembliedWidgetConfigType<Config extends WidgetConfigArgs> = {
+export type AssembliedWidgetConfigType<Widget extends WidgetArgs, Config extends WidgetConfigArgs<Widget>> = {
   name: string;
   configName: string;
   component: FunctionalComponent<Config>;
@@ -37,7 +37,7 @@ export type WidgetFactoryType<Widget extends WidgetArgs> = {
   [name: string]: AssembliedWidgetType<Widget>;
 };
 
-export type WidgetConfigType<Config extends WidgetConfigArgs> = {
+export type WidgetConfigType<Widget extends WidgetArgs, Config = WidgetConfigArgs<Widget>> = {
   [name: string]: AssembliedWidgetConfigType<Config>[];
 };
 

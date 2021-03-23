@@ -1,0 +1,14 @@
+.template_two_sub_columns {
+  height: 100%;
+  .body {
+    height: 100%;
+    .left {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      .left_bottom {
+        flex: 1;
+      }
+    }
+  }
+}
