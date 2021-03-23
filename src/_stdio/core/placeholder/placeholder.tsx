@@ -13,7 +13,12 @@ const Placeholder: FunctionalComponent<PlaceholderArgs> = ({ name, widgets }) =>
   return (
     <Fragment>
       {map(consumedWidgets, (widget) =>
-        widget?.config?.call(null, { name: widget.name, configName: widget.configName, component: widget.component })
+        widget?.config?.call(null, {
+          name: widget.name,
+          configName: widget.configName,
+          component: widget.component,
+          parameters: widget.parameters,
+        })
       )}
     </Fragment>
   );

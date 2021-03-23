@@ -1,17 +1,18 @@
 import { FunctionalComponent } from 'preact';
+import { ParameterConsumedType, ParameterResultType } from '_stdio/shared/types/parameter-types';
 import { WidgetArgs, WidgetConfigArgs } from './widget-interfaces';
 
-export type AssembliedWidgetConfigType = {
+export type AssembliedWidgetConfigType<Config extends WidgetConfigArgs> = {
   name: string;
   configName: string;
-  component: FunctionalComponent<WidgetConfigArgs>;
+  component: FunctionalComponent<Config>;
 };
 
-export type AssembliedWidgetType = {
+export type AssembliedWidgetType<Widget extends WidgetArgs> = {
   name: string;
   configName?: string;
   friendlyName?: string;
-  component: FunctionalComponent<WidgetArgs>;
+  component: FunctionalComponent<Widget>;
 };
 
 export type ConsumedWidgetType = {
@@ -19,8 +20,9 @@ export type ConsumedWidgetType = {
   configName?: string;
   friendlyName?: string;
   placeholder: string;
-  config: FunctionalComponent<WidgetConfigArgs>;
+  config: FunctionalComponent<WidgetConfigArgs<WidgetArgs>>;
   component: FunctionalComponent<WidgetArgs>;
+  parameters?: ParameterConsumedType[];
 };
 
 export type IndicatedWidgetType = {
@@ -28,19 +30,21 @@ export type IndicatedWidgetType = {
   configName?: string;
   friendlyName?: string;
   placeholder: string;
+  parameters?: ParameterConsumedType[];
 };
 
-export type WidgetFactoryType = {
-  [name: string]: AssembliedWidgetType;
+export type WidgetFactoryType<Widget extends WidgetArgs> = {
+  [name: string]: AssembliedWidgetType<Widget>;
 };
 
-export type WidgetConfigType = {
-  [name: string]: AssembliedWidgetConfigType[];
+export type WidgetConfigType<Config extends WidgetConfigArgs> = {
+  [name: string]: AssembliedWidgetConfigType<Config>[];
 };
 
 type WidgetDetailType = {
   Name: string;
   ConfigurationName: string;
+  Parameters: ParameterResultType[];
 };
 
 export type WidgetType = {
@@ -48,6 +52,7 @@ export type WidgetType = {
   Placeholder: string;
   ConfigurationName: string;
   widget: WidgetDetailType;
+  Parameters: ParameterResultType[];
 };
 
 export type WidgetResponseType = {

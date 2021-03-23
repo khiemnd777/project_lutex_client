@@ -1,3 +1,10 @@
+import { WidgetArgs } from '_stdio/core/widget/widget-interfaces';
+
+export interface PostCatalogsSideColumnWidgetArgs extends WidgetArgs {
+  items: PostCatalogType[];
+  [x: string]: any;
+}
+
 export type RootPostCatalogGraphResult = {
   postCatalogs: NavigationType[];
 };

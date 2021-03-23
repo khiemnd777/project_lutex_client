@@ -13,6 +13,14 @@ export const GraphWidgetByRouter = (routerId: string) => {
             widget {
               Name
               ConfigurationName
+              Parameters{
+                Name
+                Value
+              }
+            }
+            Parameters{
+              Name
+              Value
             }
           }
         }
