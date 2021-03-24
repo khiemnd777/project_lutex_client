@@ -17,3 +17,8 @@ export const MediaGraphProps = `
     formats 
   }
 `;
+
+export const IMAGE_FORMAT_THUMPNAIL = 'thumbnail';
+export const IMAGE_FORMAT_LARGE = 'large';
+export const IMAGE_FORMAT_MEDIUM = 'medium';
+export const IMAGE_FORMAT_SMALL = 'small';

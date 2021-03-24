@@ -5,6 +5,7 @@ export const typePoliciesConfig = () => {
     Query: {
       fields: {
         postCatalogs: startLimitPagination(),
+        postItems: startLimitPagination(),
       },
     },
   };

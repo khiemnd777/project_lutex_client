@@ -2,7 +2,6 @@ import { gql, useQuery } from '@apollo/client';
 import {
   ChildrenPostCatalogGraphResult,
   DetailPostCatalogGraphResult,
-  PostCatalogType,
   RootPostCatalogGraphResult,
 } from './post-catalog-types';
 

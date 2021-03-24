@@ -1,4 +1,4 @@
-@import 'theme.scss';
+@import "theme.scss";
 
 html,
 body {
@@ -20,11 +20,12 @@ blockquote {
   padding: 0;
 }
 body {
-  background-color: $primaryBackground;
   font-family: $fontFamily;
   font-weight: $regularWeight;
   font-size: $fontSizeDefault;
   text-rendering: optimizeLegibility;
+  background-color: #333;
+  color: #fff;
 }
 h1 {
   padding: 0;

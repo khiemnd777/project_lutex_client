@@ -16,7 +16,6 @@ const TemplateTwoSubColumns: FunctionalComponent<TemplateArgs> = ({ widgets }) =
       <div class={cx('body')}>
         <div class={cx('left')}>
           <Placeholder name={'Left'} widgets={widgets} />
-          <div class={cx('left_bottom')}></div>
         </div>
         <div class={cx('right')}>
           <Placeholder name={'Right'} widgets={widgets} />

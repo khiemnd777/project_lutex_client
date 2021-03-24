@@ -75,3 +75,19 @@ export const convertNumberToString = (number: number, length: number, fillString
 export function concatStrings(sep: string, ...strs: string[]): string {
   return filter(strs, (it) => !!it).join(sep || ' ');
 }
+
+export const threeDotsAt = (str?: string, at?: number): string => {
+  if (!str) return '';
+  at || (at = 10);
+  const regStr = new RegExp(`([\\w,\\.:;"'!@#\\$%\\^&\\*\\(\\)\\?\\[\\]0-9]+\\s){${at}}\\w+`);
+  const matchedStr = regStr.exec(str);
+  if (matchedStr) {
+    const regexp = new RegExp('(' + matchedStr[0] + ')?.*'); //fetches first 3 words and makes regural expression to lookbehind this positively
+    const output = str.replace(regexp, function ($0, $1) {
+      //mimicks positive lookbehind
+      return $1 ? $1 + '...' : $0;
+    });
+    return output;
+  }
+  return str;
+};
