@@ -1,4 +1,4 @@
-import { FieldPolicy, Reference } from '@apollo/client';
+import { FieldPolicy, Reference, TypePolicies } from '@apollo/client';
 
 export const typePoliciesConfig = () => {
   return {
@@ -8,7 +8,7 @@ export const typePoliciesConfig = () => {
         postItems: startLimitPagination(),
       },
     },
-  };
+  } as TypePolicies;
 };
 
 type KeyArgs = FieldPolicy<any>['keyArgs'];
@@ -18,7 +18,7 @@ type KeyArgs = FieldPolicy<any>['keyArgs'];
 // this implementation and make the appropriate changes.
 const startLimitPagination = <T = Reference>(keyArgs: KeyArgs = false): FieldPolicy<T[]> => {
   return {
-    keyArgs,
+    keyArgs: keyArgs,
     merge(existing, incoming, { args }) {
       const merged = existing ? existing.slice(0) : [];
       const start = args ? args.start : merged.length;

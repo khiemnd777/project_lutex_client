@@ -13,6 +13,7 @@ const postItemProps = `
   Catalogs{
     id
     DisplayName
+    Slug
   }
   Cover{
     ${MediaGraphProps}
@@ -77,15 +78,15 @@ export const GraphAvailablePostItems = (datetimeNow: Date, start: number, limit:
   );
 };
 
-export const GraphPostItemInCatalog = (catalogId: string, datetimeNow: Date, start: number, limit: number) => {
+export const GraphPostItemInCatalog = (slug: string, datetimeNow: Date, start: number, limit: number) => {
   return useQuery<AvailablePostItemsGraphResult>(
     gql`
-    query ($start:Int, $limit:Int) {
+    query ($slug:String, $start:Int, $limit:Int) {
       ${postItemsConnection}
       postItems (
         where: {
           Catalogs: {
-            id:"${catalogId}"
+            Slug: $slug
           }
           ${availablePostItemCondition(datetimeNow)}
         }
@@ -99,9 +100,12 @@ export const GraphPostItemInCatalog = (catalogId: string, datetimeNow: Date, sta
   `,
     {
       variables: {
+        slug,
         start,
         limit,
       },
+      nextFetchPolicy: 'cache-first',
+      fetchPolicy: 'no-cache',
     }
   );
 };

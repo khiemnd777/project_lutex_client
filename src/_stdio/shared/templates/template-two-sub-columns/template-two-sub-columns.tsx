@@ -7,22 +7,22 @@ import classNamesBind from 'classnames/bind';
 
 const cx = classNamesBind.bind(styles);
 
-const TemplateTwoSubColumns: FunctionalComponent<TemplateArgs> = ({ widgets }) => {
+const TemplateTwoSubColumns: FunctionalComponent<TemplateArgs> = ({ widgets, matches }) => {
   return (
     <div class={cx('template_two_sub_columns')}>
       <div class={cx('header')}>
-        <Placeholder name={'Header'} widgets={widgets} />
+        <Placeholder name={'Header'} widgets={widgets} matches={matches} />
       </div>
       <div class={cx('body')}>
         <div class={cx('left')}>
-          <Placeholder name={'Left'} widgets={widgets} />
+          <Placeholder name={'Left'} widgets={widgets} matches={matches} />
         </div>
         <div class={cx('right')}>
-          <Placeholder name={'Right'} widgets={widgets} />
+          <Placeholder name={'Right'} widgets={widgets} matches={matches} />
         </div>
       </div>
       <div class={cx('footer')}>
-        <Placeholder name={'Footer'} widgets={widgets} />
+        <Placeholder name={'Footer'} widgets={widgets} matches={matches} />
       </div>
     </div>
   );

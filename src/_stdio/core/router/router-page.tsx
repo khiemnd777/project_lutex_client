@@ -6,10 +6,11 @@ interface RouterPageArgs {
   routerId: string;
   name?: string;
   templateName?: string;
+  matches?: Record<string, string>;
 }
-const RouterPage: FunctionalComponent<RouterPageArgs> = ({ routerId, templateName }) => {
+const RouterPage: FunctionalComponent<RouterPageArgs> = ({ routerId, templateName, matches }) => {
   const indicatedWidgets = PrepareIndicatedWidgetByRouter(routerId);
-  return <TemplateProvider name={templateName} widgets={indicatedWidgets} />;
+  return <TemplateProvider name={templateName} widgets={indicatedWidgets} matches={matches} />;
 };
 
 export default RouterPage;

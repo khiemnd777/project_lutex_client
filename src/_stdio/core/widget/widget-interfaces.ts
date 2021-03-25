@@ -5,6 +5,7 @@ export interface WidgetArgs {
   name?: string;
   configName?: string;
   parameters?: ParameterConsumedType[];
+  matches?: Record<string, string>;
 }
 
 export interface WidgetConfigArgs<T extends WidgetArgs> extends WidgetArgs {
