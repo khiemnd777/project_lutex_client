@@ -4,10 +4,17 @@ import { AvailablePostItemsGraphResult, DetailPostItemType } from './post-item-t
 
 const postItemProps = `
   id
+  Slug
   Title
   Short
   PostOn
   PostOff
+  createdAt
+  Catalogs{
+    id
+    DisplayName
+    Slug
+  }
   Cover{
     ${MediaGraphProps}
   }
@@ -16,14 +23,19 @@ const postItemProps = `
 const detailPostItemProps = `
   ${postItemProps}
   Body
-  Catalogs{
-    id
-  }
   Related_Items{
     id
   }
   Media{
     ${MediaGraphProps}
+  }
+`;
+
+const postItemsConnection = `
+  postItemsConnection{
+    aggregate{
+      totalCount
+    }
   }
 `;
 
@@ -41,40 +53,61 @@ const availablePostItemCondition = (datetimeNow: Date) => `
 `;
 
 export const GraphAvailablePostItems = (datetimeNow: Date, start: number, limit: number) => {
-  return useQuery<AvailablePostItemsGraphResult>(gql`
-    query {
+  return useQuery<AvailablePostItemsGraphResult>(
+    gql`
+    query ($start:Int, $limit:Int) {
+      ${postItemsConnection}
       postItems (
         where: {
           ${availablePostItemCondition(datetimeNow)}
         }
         sort:"createdAt:desc"
-        start: ${start}
-        limit: ${limit}
+        start: $start
+        limit: $limit
       ) {
         ${postItemProps}
       }
     }
-  `);
+  `,
+    {
+      variables: {
+        start,
+        limit,
+      },
+    }
+  );
 };
 
-export const GraphPostItemInCatalog = (catalogId: string, datetimeNow: Date, start: number, limit: number) => {
-  return useQuery<AvailablePostItemsGraphResult>(gql`
-    query {
+export const GraphPostItemInCatalog = (slug: string, datetimeNow: Date, start: number, limit: number) => {
+  return useQuery<AvailablePostItemsGraphResult>(
+    gql`
+    query ($slug:String, $start:Int, $limit:Int) {
+      ${postItemsConnection}
       postItems (
         where: {
           Catalogs: {
-            id:"${catalogId}"
+            Slug: $slug
           }
           ${availablePostItemCondition(datetimeNow)}
         }
         sort:"createdAt:desc"
-        start: ${start}
-        limit: ${limit}
+        start: $start
+        limit: $limit
       ) {
         ${postItemProps}
       }
     }
-  `);
+  `,
+    {
+      variables: {
+        slug,
+        start,
+        limit,
+      },
+      nextFetchPolicy: 'cache-first',
+      fetchPolicy: 'no-cache',
+    }
+  );
 };
 
 export const GraphDetailPostItem = (postItemId: string) => {

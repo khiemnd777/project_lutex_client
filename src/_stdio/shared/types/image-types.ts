@@ -39,3 +39,19 @@ export type MediaType = {
     };
   }[];
 };
+
+export type SingpleMediaType = {
+  Caption: string;
+  Media: {
+    url: string;
+    provider_metadata: {
+      resource_type: string;
+    };
+    formats: {
+      thumbnail: ImageType;
+      large: ImageType;
+      medium: ImageType;
+      small: ImageType;
+    };
+  };
+};

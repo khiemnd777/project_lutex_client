@@ -15,14 +15,32 @@ const postCatalogProps = `
   DisplayOrder
 `;
 
-export const GraphRootPostCatalogs = () => {
-  return useQuery<RootPostCatalogGraphResult>(gql`
-    query {
-      postCatalogs(where: { Root: true }) {
+export const GraphRootPostCatalogs = (start: number, limit: number) => {
+  return useQuery<RootPostCatalogGraphResult>(
+    gql`
+    query Feed ($start:Int, $limit:Int) {
+      postCatalogsConnection{
+        aggregate{
+          totalCount
+        }
+      }
+      postCatalogs(
+        where: { Root: true }
+        sort: "DisplayOrder:asc"
+        start: $start
+        limit: $limit
+      ){
         ${postCatalogProps}
       }
     }
-  `);
+  `,
+    {
+      variables: {
+        start,
+        limit,
+      },
+    }
+  );
 };
 
 export const GraphDetailPostCatalog = (postCatalogId: string) => {

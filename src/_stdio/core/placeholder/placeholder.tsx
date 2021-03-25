@@ -6,14 +6,21 @@ import { IndicatedWidgetType } from '../widget/widget-types';
 interface PlaceholderArgs {
   name: string;
   widgets?: IndicatedWidgetType[];
+  matches?: Record<string, string>;
 }
 
-const Placeholder: FunctionalComponent<PlaceholderArgs> = ({ name, widgets }) => {
+const Placeholder: FunctionalComponent<PlaceholderArgs> = ({ name, widgets, matches }) => {
   const consumedWidgets = WidgetFactory.GetForPlaceholder(name, widgets);
   return (
     <Fragment>
       {map(consumedWidgets, (widget) =>
-        widget?.config?.call(null, { name: widget.name, configName: widget.configName, component: widget.component })
+        widget?.config?.call(null, {
+          name: widget.name,
+          configName: widget.configName,
+          component: widget.component,
+          parameters: widget.parameters,
+          matches: matches,
+        })
       )}
     </Fragment>
   );

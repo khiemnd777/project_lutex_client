@@ -3,28 +3,32 @@ import filter from 'lodash-es/filter';
 import map from 'lodash-es/map';
 import size from 'lodash-es/size';
 import { FunctionalComponent } from 'preact';
+import { ParameterConsumedType } from '_stdio/shared/types/parameter-types';
 import { WidgetArgs, WidgetConfigArgs } from './widget-interfaces';
 import { ConsumedWidgetType, IndicatedWidgetType, WidgetConfigType, WidgetFactoryType } from './widget-types';
 
 const WIDGETS = 'widgets';
 const WIDGET_CONFIGS = 'widgetConfigs';
 
-const getWidgets = () => {
-  return (window[WIDGETS] as WidgetFactoryType) || (window[WIDGETS] = {});
+const getWidgets = <Widget extends WidgetArgs>() => {
+  return (window[WIDGETS] as WidgetFactoryType<Widget>) || (window[WIDGETS] = {} as WidgetFactoryType<Widget>);
 };
 
-const getWidgetConfigs = () => {
-  return (window[WIDGET_CONFIGS] as WidgetConfigType) || (window[WIDGET_CONFIGS] = {});
+const getWidgetConfigs = <Widget extends WidgetArgs, Config = WidgetConfigArgs<Widget>>() => {
+  return (
+    (window[WIDGET_CONFIGS] as WidgetConfigType<Config>[]) ||
+    (window[WIDGET_CONFIGS] = {} as WidgetConfigType<Config>[])
+  );
 };
 
 export class WidgetFactory {
-  static Register(
+  static Register2<Widget extends WidgetArgs, Config = WidgetConfigArgs<Widget>>(
     name: string,
     friendlyName: string,
-    component: FunctionalComponent<WidgetArgs>,
-    config: FunctionalComponent<WidgetConfigArgs>
+    component: FunctionalComponent<Widget>,
+    config: FunctionalComponent<Config>
   ) {
-    const widgets = getWidgets();
+    const widgets: WidgetFactoryType<Widget> = getWidgets();
     if (!widgets[name]) {
       widgets[name] = {
         name: name,
@@ -38,8 +42,30 @@ export class WidgetFactory {
     throw new Error('Duplicated widget name');
   }
 
-  static RegisterConfig(name: string, configName: string, component: FunctionalComponent<WidgetConfigArgs>) {
-    const widgetConfigs = getWidgetConfigs();
+  static Register<Widget extends WidgetArgs, Config = WidgetConfigArgs<Widget>>(
+    name: string,
+    friendlyName: string,
+    component: FunctionalComponent<Widget>
+  ) {
+    const widgets: WidgetFactoryType<Widget> = getWidgets();
+    if (!widgets[name]) {
+      widgets[name] = {
+        name: name,
+        configName: name,
+        friendlyName: friendlyName,
+        component: component,
+      };
+      return this;
+    }
+    throw new Error('Duplicated widget name');
+  }
+
+  static RegisterConfig<Widget extends WidgetArgs, Config = WidgetConfigArgs<Widget>>(
+    name: string,
+    configName: string,
+    component: FunctionalComponent<Config>
+  ) {
+    const widgetConfigs: WidgetConfigType<Config>[] = getWidgetConfigs();
     if (!widgetConfigs[configName]) {
       widgetConfigs[configName] = [];
     }
@@ -51,7 +77,12 @@ export class WidgetFactory {
     return this;
   }
 
-  static Consume(name: string, placeholder: string, configName?: string): ConsumedWidgetType | null {
+  static Consume(
+    name: string,
+    placeholder: string,
+    configName?: string,
+    parameters?: ParameterConsumedType[]
+  ): ConsumedWidgetType | null {
     const widgets = getWidgets();
     const matchedWidget = widgets[name];
     if (matchedWidget) {
@@ -68,6 +99,7 @@ export class WidgetFactory {
         friendlyName: matchedWidget.friendlyName,
         config: assembliedConfig?.component,
         component: matchedWidget.component,
+        parameters: parameters,
       } as ConsumedWidgetType;
     }
     return null;
@@ -78,7 +110,9 @@ export class WidgetFactory {
     indicatedWidgets?: IndicatedWidgetType[]
   ): (ConsumedWidgetType | null)[] {
     const matchedIndictaedWidgets = filter(indicatedWidgets, (x) => x.placeholder == placeholder);
-    const matchedConsumedWidgets = map(matchedIndictaedWidgets, (x) => this.Consume(x.name, placeholder, x.configName));
+    const matchedConsumedWidgets = map(matchedIndictaedWidgets, (x) =>
+      this.Consume(x.name, placeholder, x.configName, x.parameters)
+    );
     return filter(matchedConsumedWidgets, (x) => x != null);
   }
 }

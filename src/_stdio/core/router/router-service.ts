@@ -10,9 +10,6 @@ export const GraphRouters = () => {
         Path
         template {
           Name
-          Placeholders {
-            Name
-          }
         }
         Enabled
       }

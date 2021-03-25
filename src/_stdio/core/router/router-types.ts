@@ -1,7 +1,3 @@
-type RouterPlaceholderType = {
-  Name: string;
-};
-
 type RouterWidgetDetailType = {
   Name: string;
   ConfigurationName: string;
@@ -16,7 +12,6 @@ export type RouterWidgetType = {
 
 type RouterTempalteType = {
   Name: string;
-  Placeholders: RouterPlaceholderType[];
 };
 
 type RouterType = {
