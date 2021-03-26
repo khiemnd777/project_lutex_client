@@ -1,28 +1,27 @@
-import styles from './post-items-list.styled.scss';
 import { FunctionalComponent, h } from 'preact';
-import { WidgetFactory } from '_stdio/core/widget/widget-factory';
 import { PostItemsListWidgetArgs } from './post-items-list-interfaces';
-import classNamesBind from 'classnames/bind';
 import size from 'lodash-es/size';
 import map from 'lodash-es/map';
 import first from 'lodash-es/first';
-import TemplateGrid, { showTemplateGridItem } from '_stdio/shared/components/template-grid/template-grid';
-import TemplateGridItem, { TemplateGridArgs } from '_stdio/shared/components/template-grid/template-grid-item';
 import { PostItemType } from './post-item-types';
 import { Ref } from 'preact/hooks';
 import { LazyLoadImage, ScrollPosition } from 'react-lazy-load-image-component';
 import Masonry from 'masonry-layout';
+import { WidgetFactory } from '_stdio/core/widget/widget-factory';
+import TemplateGrid, { showTemplateGridItem } from '_stdio/shared/components/template-grid/template-grid';
+import TemplateGridItem, { TemplateGridArgs } from '_stdio/shared/components/template-grid/template-grid-item';
 import { threeDotsAt } from '_stdio/shared/utils/string.utils';
 import { timeSince } from '_stdio/shared/utils/date.utils';
-
-const cx = classNamesBind.bind(styles);
+import { BuildClassNameBind } from '_stdio/core/theme/theme-utils';
 
 const PostItemsListWidget: FunctionalComponent<PostItemsListWidgetArgs> = ({
+  theme,
   items,
   totalCount,
   datetimeServer,
   onFetchMore,
 }) => {
+  const cx = BuildClassNameBind(theme.Name, 'post_items_list');
   return (
     <div class={cx('post_items_list', size(items) ? 'visible' : null)}>
       <TemplateGrid

@@ -16,32 +16,12 @@ const getWidgets = <Widget extends WidgetArgs>() => {
 
 const getWidgetConfigs = <Widget extends WidgetArgs, Config = WidgetConfigArgs<Widget>>() => {
   return (
-    (window[WIDGET_CONFIGS] as WidgetConfigType<Config>[]) ||
-    (window[WIDGET_CONFIGS] = {} as WidgetConfigType<Config>[])
+    (window[WIDGET_CONFIGS] as WidgetConfigType<Widget, Config>[]) ||
+    (window[WIDGET_CONFIGS] = {} as WidgetConfigType<Widget, Config>[])
   );
 };
 
 export class WidgetFactory {
-  static Register2<Widget extends WidgetArgs, Config = WidgetConfigArgs<Widget>>(
-    name: string,
-    friendlyName: string,
-    component: FunctionalComponent<Widget>,
-    config: FunctionalComponent<Config>
-  ) {
-    const widgets: WidgetFactoryType<Widget> = getWidgets();
-    if (!widgets[name]) {
-      widgets[name] = {
-        name: name,
-        configName: name,
-        friendlyName: friendlyName,
-        component: component,
-      };
-      this.RegisterConfig(name, name, config);
-      return this;
-    }
-    throw new Error('Duplicated widget name');
-  }
-
   static Register<Widget extends WidgetArgs, Config = WidgetConfigArgs<Widget>>(
     name: string,
     friendlyName: string,
@@ -65,7 +45,7 @@ export class WidgetFactory {
     configName: string,
     component: FunctionalComponent<Config>
   ) {
-    const widgetConfigs: WidgetConfigType<Config>[] = getWidgetConfigs();
+    const widgetConfigs: WidgetConfigType<Widget, Config>[] = getWidgetConfigs();
     if (!widgetConfigs[configName]) {
       widgetConfigs[configName] = [];
     }
