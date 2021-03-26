@@ -1,19 +1,18 @@
-import styles from './post-catalogs-side-column.styled.scss';
 import map from 'lodash-es/map';
 import size from 'lodash-es/size';
 import { FunctionalComponent, h } from 'preact';
 import { WidgetFactory } from '_stdio/core/widget/widget-factory';
 import { PostCatalogsSideColumnWidgetArgs } from './post-catalog-types';
-import classNamesBind from 'classnames/bind';
 import { Link } from 'preact-router/match';
-
-const cx = classNamesBind.bind(styles);
+import { BuildClassNameBind } from '_stdio/core/theme/theme-utils';
 
 const PostCatalogsSideColumnWidget: FunctionalComponent<PostCatalogsSideColumnWidgetArgs> = ({
+  theme,
   items,
   totalCount,
   onShowMore,
 }) => {
+  const cx = BuildClassNameBind(theme.Name, 'post_catalogs_side_column');
   return (
     <div class={cx('post_catalogs_side_column', size(items) ? 'visible' : null)}>
       <ul>

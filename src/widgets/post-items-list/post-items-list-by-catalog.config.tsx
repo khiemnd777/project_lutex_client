@@ -12,6 +12,7 @@ import { PostItemsListWidgetArgs } from './post-items-list-interfaces';
 import { GraphPostItemInCatalog } from './post-items-service';
 
 export const PostItemsListByCatalogWidgetConfig: FunctionalComponent<WidgetConfigArgs<PostItemsListWidgetArgs>> = ({
+  theme,
   component,
   parameters,
   matches,
@@ -33,10 +34,11 @@ export const PostItemsListByCatalogWidgetConfig: FunctionalComponent<WidgetConfi
   return (
     <Fragment>
       {component?.call(null, {
-        items: items,
+        theme,
+        items,
         totalCount: 0,
-        parameters: parameters,
-        datetimeServer: datetimeServer,
+        parameters,
+        datetimeServer,
         onFetchMore: async () => {
           if (totalCount && size(items) < totalCount) {
             await fetchMore({

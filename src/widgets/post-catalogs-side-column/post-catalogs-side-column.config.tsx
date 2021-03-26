@@ -6,6 +6,7 @@ import { GraphRootPostCatalogs } from './post-catalog-service';
 import { PostCatalogsSideColumnWidgetArgs, PostCatalogType } from './post-catalog-types';
 
 const PostCatalogsSideColumnWidgetConfig: FunctionalComponent<WidgetConfigArgs<PostCatalogsSideColumnWidgetArgs>> = ({
+  theme,
   component,
   parameters,
 }) => {
@@ -15,6 +16,7 @@ const PostCatalogsSideColumnWidgetConfig: FunctionalComponent<WidgetConfigArgs<P
   return (
     <Fragment>
       {component?.call(null, {
+        theme: theme,
         items: items,
         totalCount: totalCount,
         parameters: parameters,
