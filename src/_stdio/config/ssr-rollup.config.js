@@ -20,6 +20,7 @@ const secureProtocol = argv.secure || 'false';
 const apiPort = argv.apiPort || 1337;
 const apiHostName = argv.apiHost || (env === 'development' ? 'localhost' : 'lutex.io');
 const port = argv.port || 7777;
+const distPath = argv.dist || (env === 'development' ? './wwwroot' : '');
 
 const plugins = [
   rollupResolve({
@@ -41,6 +42,7 @@ const plugins = [
     SECURE: secureProtocol,
     API_PORT: apiPort,
     API_HOST: apiHostName,
+    DIST_PATH: distPath,
     delimiters: ['{{', '}}'],
   }),
   rollupJson({

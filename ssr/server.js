@@ -6,6 +6,7 @@ const yargs = require('yargs/yargs');
 const { hideBin } = require('yargs/helpers');
 const argv = yargs(hideBin(process.argv)).argv;
 
+const distPath = argv.dist || '{{DIST_PATH}}';
 const port = argv.port || '{{PORT}}';
 const app = express();
 const env = process.env.NODE_ENV;
@@ -16,7 +17,7 @@ const apiHostName = argv.apiHost || '{{API_HOST}}';
 const apiHost = `${secureProtocol}://${apiHostName}:${apiPort}/`;
 
 const genrateHtml = (req, res, seoData) => {
-  const domFile = env === 'development' ? './wwwroot/index.html' : './index.html';
+  const domFile = `${distPath}/index.html`;
   fs.readFile(path.resolve(domFile), 'utf-8', async (err, data) => {
     if (err) {
       console.log(err);

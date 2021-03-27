@@ -1,9 +1,0 @@
-@import "../theme.scss";
-
-.template {
-  @include primaryPageStyle;
-  @include twoAreas;
-}
-.template_simple {
-  @include primaryPageStyle;
-}

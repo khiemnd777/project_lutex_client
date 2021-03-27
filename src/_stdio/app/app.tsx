@@ -1,5 +1,5 @@
-import '_stdio/core/template/template-registrar';
-import 'theme/theme-registrar';
+import 'templates/template-registrar';
+import 'themes/theme-registrar';
 import 'widgets/widget-registrar';
 import { h } from 'preact';
 import { useState, useEffect } from 'preact/hooks';
