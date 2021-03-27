@@ -6,17 +6,18 @@ const yargs = require('yargs/yargs');
 const { hideBin } = require('yargs/helpers');
 const argv = yargs(hideBin(process.argv)).argv;
 
+const distPath = argv.dist || '{{DIST_PATH}}';
 const port = argv.port || '{{PORT}}';
 const app = express();
 const env = process.env.NODE_ENV;
-const secureProtocol = !!argv.secure && argv.secure === 'true' ||
-  !argv.secure && '{{SECURE}}' === 'true' ? 'https' : 'http';
+const secureProtocol =
+  (!!argv.secure && argv.secure === 'true') || (!argv.secure && '{{SECURE}}' === 'true') ? 'https' : 'http';
 const apiPort = argv.apiPort || '{{API_PORT}}';
 const apiHostName = argv.apiHost || '{{API_HOST}}';
 const apiHost = `${secureProtocol}://${apiHostName}:${apiPort}/`;
 
 const genrateHtml = (req, res, seoData) => {
-  const domFile = env === 'development' ? './wwwroot/index.html' : './index.html';
+  const domFile = `${distPath}/index.html`;
   fs.readFile(path.resolve(domFile), 'utf-8', async (err, data) => {
     if (err) {
       console.log(err);
@@ -26,11 +27,13 @@ const genrateHtml = (req, res, seoData) => {
       const seoMetaTags = generateSeoMetaTags(seoData);
       data = data.replace('{{metaTags}}', seoMetaTags);
       data = data.replace('{{title}}', seoData.title);
+    } else {
+      data = data.replace('{{metaTags}}', '');
+      data = data.replace('{{title}}', '');
     }
     return res.send(data);
   });
 };
-
 
 const generateSeoMetaTags = (seoData) => {
   return `
@@ -45,27 +48,27 @@ const generateSeoMetaTags = (seoData) => {
   `;
 };
 
-// app.use(/^\/*((?!\.).)*$/, (req, res, next) => {
-//   genrateHtml(req, res);
+app.use(/^\/*((?!\.).)*$/, (req, res, next) => {
+  genrateHtml(req, res);
+});
+
+// app.get('/', async (req, res) => {
+//   const seoResp = await axios.get(`${apiHost}index`);
+//   genrateHtml(req, res, seoResp.data);
 // });
 
-app.get('/', async (req, res) => {
-  const seoResp = await axios.get(`${apiHost}index`);
-  genrateHtml(req, res, seoResp.data);
-});
+// app.get('/page', async (req, res) => {
+//   const seoResp = await axios.get(`${apiHost}page`);
+//   genrateHtml(req, res, seoResp.data);
+// });
 
-app.get('/page', async (req, res) => {
-  const seoResp = await axios.get(`${apiHost}page`);
-  genrateHtml(req, res, seoResp.data);
-});
-         
-app.get('/page/:params', async (req, res) => {
-  const seoResp = await axios.get(`${apiHost}page?params=${req.params.params}`);
-  genrateHtml(req, res, seoResp.data);
-});
+// app.get('/page/:params', async (req, res) => {
+//   const seoResp = await axios.get(`${apiHost}page?params=${req.params.params}`);
+//   genrateHtml(req, res, seoResp.data);
+// });
 
 app.use(express.static(path.resolve(__dirname, '../', 'wwwroot')));
-  
+
 app.listen(port, () => {
   console.log(`App launched on ${port}`);
   console.log(`API launched on ${apiHost}`);

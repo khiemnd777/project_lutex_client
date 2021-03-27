@@ -1,0 +1,27 @@
+.post_items_list {
+  opacity: 0;
+  transition: opacity ease 0.5s;
+  &.visible {
+    opacity: 1;
+  }
+  .container {
+    display: flex;
+    padding: 0 15px;
+    margin-bottom: 10px;
+    .image_container {
+      flex: 2;
+      .image {
+        width: 100%;
+      }
+    }
+    .content_container {
+      flex: 8;
+      margin-left: 10px;
+      .title {
+        text-decoration: none;
+        color: #fff;
+        font-size: 15px;
+      }
+    }
+  }
+}

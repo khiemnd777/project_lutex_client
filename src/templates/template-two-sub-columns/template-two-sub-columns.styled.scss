@@ -1,0 +1,17 @@
+.template_two_sub_columns {
+  height: 100%;
+  .body {
+    height: 100%;
+    display: flex;
+    .left {
+      flex: 2;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      overflow-y: scroll;
+    }
+    .right {
+      flex: 8;
+    }
+  }
+}
