@@ -7,7 +7,7 @@ export interface WidgetArgs {
   name?: string;
   configName?: string;
   parameters?: ParameterConsumedType[];
-  matches?: Record<string, string>;
+  routerParams?: Record<string, string>;
 }
 
 export interface WidgetConfigArgs<T extends WidgetArgs> {
@@ -16,5 +16,5 @@ export interface WidgetConfigArgs<T extends WidgetArgs> {
   name?: string;
   configName?: string;
   parameters?: ParameterConsumedType[];
-  matches?: Record<string, string>;
+  routerParams?: Record<string, string>;
 }

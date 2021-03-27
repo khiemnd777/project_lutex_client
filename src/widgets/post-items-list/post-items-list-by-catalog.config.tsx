@@ -15,7 +15,7 @@ export const PostItemsListByCatalogWidgetConfig: FunctionalComponent<WidgetConfi
   theme,
   component,
   parameters,
-  matches,
+  routerParams,
 }) => {
   const [datetimeServer, setDatetimeServer] = useState<Date>({} as Date);
   useEffect(() => {
@@ -24,7 +24,7 @@ export const PostItemsListByCatalogWidgetConfig: FunctionalComponent<WidgetConfi
     });
   }, []);
   let result = {} as QueryResult<AvailablePostItemsGraphResult, Record<string, any>>;
-  const slug = matches?.slug || '';
+  const slug = routerParams?.slug || '';
   if (!isEmpty(datetimeServer)) {
     result = GraphPostItemInCatalog(slug, datetimeServer, 0, LIMIT);
   }

@@ -8,10 +8,10 @@ interface PlaceholderArgs {
   name: string;
   theme: ThemeType;
   widgets?: IndicatedWidgetType[];
-  matches?: Record<string, string>;
+  routerParams?: Record<string, string>;
 }
 
-const Placeholder: FunctionalComponent<PlaceholderArgs> = ({ name, theme, widgets, matches }) => {
+const Placeholder: FunctionalComponent<PlaceholderArgs> = ({ name, theme, widgets, routerParams }) => {
   const consumedWidgets = WidgetFactory.GetForPlaceholder(name, widgets);
   return (
     <Fragment>
@@ -22,7 +22,7 @@ const Placeholder: FunctionalComponent<PlaceholderArgs> = ({ name, theme, widget
           configName: widget.configName,
           component: widget.component,
           parameters: widget.parameters,
-          matches: matches,
+          routerParams: routerParams,
         })
       )}
     </Fragment>
