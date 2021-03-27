@@ -1,4 +1,6 @@
-import '../core/template/template-registrar';
+import '_stdio/core/template/template-registrar';
+import 'theme/theme-registrar';
+import 'widgets/widget-registrar';
 import { h } from 'preact';
 import { useState, useEffect } from 'preact/hooks';
 import Loading from '../shared/components/loading/loading';
@@ -37,9 +39,12 @@ const StdApp = () => {
       </div>
     );
   }
+  // init theming to the app at the html element.
+  const fetchedTheme = GetTheme(data?.environment.Theme.Theme);
+  document.documentElement.classList.add(fetchedTheme.Name);
   return (
     <div class={app}>
-      <RouterProvider theme={GetTheme(data?.environment.Theme.Theme)} />
+      <RouterProvider theme={fetchedTheme} />
     </div>
   );
 };
