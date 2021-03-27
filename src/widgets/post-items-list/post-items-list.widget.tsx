@@ -13,12 +13,14 @@ import TemplateGridItem, { TemplateGridArgs } from '_stdio/shared/components/tem
 import { threeDotsAt } from '_stdio/shared/utils/string.utils';
 import { timeSince } from '_stdio/shared/utils/date.utils';
 import { BuildClassNameBind } from '_stdio/core/theme/theme-utils';
+import find from 'lodash-es/find';
 
 const PostItemsListWidget: FunctionalComponent<PostItemsListWidgetArgs> = ({
   theme,
   items,
   totalCount,
   datetimeServer,
+  routerParams,
   onFetchMore,
 }) => {
   const cx = BuildClassNameBind(theme.Name, 'post_items_list');
@@ -45,7 +47,11 @@ const PostItemsListWidget: FunctionalComponent<PostItemsListWidgetArgs> = ({
                         <span>{item.Title}</span>
                       </a>
                     ) : null}
-                    {size(item.Catalogs) ? <div class={cx('catalog')}>{first(item.Catalogs)?.DisplayName}</div> : null}
+                    {size(item.Catalogs) ? (
+                      <div class={cx('catalog')}>
+                        {find(item.Catalogs, (catalog) => catalog.Slug === routerParams?.slug)?.DisplayName}
+                      </div>
+                    ) : null}
                     {size(item.createdAt) ? (
                       <div class={cx('created_at')}>
                         {timeSince(new Date(!datetimeServer ? new Date() : datetimeServer), new Date(item.createdAt))}

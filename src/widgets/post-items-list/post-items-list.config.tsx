@@ -15,6 +15,7 @@ export const PostItemsListWidgetConfig: FunctionalComponent<WidgetConfigArgs<Pos
   theme,
   component,
   parameters,
+  routerParams,
 }) => {
   const [datetimeServer, setDatetimeServer] = useState<Date>({} as Date);
   useEffect(() => {
@@ -36,6 +37,7 @@ export const PostItemsListWidgetConfig: FunctionalComponent<WidgetConfigArgs<Pos
         items,
         totalCount: 0,
         parameters,
+        routerParams,
         datetimeServer,
         onFetchMore: async () => {
           if (totalCount && size(items) < totalCount) {
