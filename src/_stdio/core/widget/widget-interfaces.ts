@@ -1,3 +1,4 @@
+import { ApolloError } from '@apollo/client';
 import { FunctionalComponent } from 'preact';
 import { ParameterConsumedType } from '_stdio/shared/types/parameter-types';
 import { ThemeType } from '../theme/theme-types';
@@ -9,7 +10,7 @@ interface WidgetAbstractArgs {
   parameters?: ParameterConsumedType[];
   routerParams?: Record<string, string>;
   loading?: boolean;
-  error?: boolean;
+  error?: ApolloError;
 }
 
 export interface WidgetArgs extends WidgetAbstractArgs {

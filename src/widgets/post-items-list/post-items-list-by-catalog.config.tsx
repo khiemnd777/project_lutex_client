@@ -36,9 +36,11 @@ export const PostItemsListByCatalogWidgetConfig: FunctionalComponent<WidgetConfi
       {component?.call(null, {
         theme,
         items,
-        totalCount: 0,
+        totalCount,
         parameters,
         datetimeServer,
+        loading,
+        error,
         routerParams,
         onFetchMore: async () => {
           if (totalCount && size(items) < totalCount) {

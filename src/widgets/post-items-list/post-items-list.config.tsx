@@ -35,7 +35,9 @@ export const PostItemsListWidgetConfig: FunctionalComponent<WidgetConfigArgs<Pos
       {component?.call(null, {
         theme,
         items,
-        totalCount: 0,
+        loading,
+        error,
+        totalCount,
         parameters,
         routerParams,
         datetimeServer,
