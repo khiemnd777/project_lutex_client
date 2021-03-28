@@ -2,6 +2,7 @@ import { gql, useQuery } from '@apollo/client';
 import {
   ChildrenNavigationGraphResult,
   DetailNavigationGraphResult,
+  NavigationsGraphResult,
   RootNavigationGraphResult,
 } from './navigation-types';
 
@@ -13,6 +14,36 @@ const navigationProps = `
   Path
   Icon
   DisplayOrder
+`;
+
+const fullNavigationProps = `
+  ${navigationProps}
+  Children {
+    ... on ComponentNavigationCatalog {
+      __typename
+      id
+      Children{
+        id
+        Name
+        DisplayName
+        Slug
+      }
+      Router{
+        id
+        Path
+      }
+    }
+    ... on ComponentNavigationOthers {
+      __typename
+      id
+      Children{
+        id
+        Name
+        DisplayName
+        Path
+      }
+    }
+  }
 `;
 
 export const GraphRootNavigations = () => {
@@ -49,4 +80,22 @@ export const GraphChildrenNavigations = (parentId: string) => {
     }
   `);
   return query;
+};
+
+export const GraphNavigations = (root: boolean) => {
+  return useQuery<NavigationsGraphResult>(
+    gql`
+      query($root: Boolean) {
+        navigations(where: { Root: $root }) {
+          ${fullNavigationProps}
+        }
+      }
+    `,
+    {
+      variables: {
+        root,
+      },
+      fetchPolicy: 'cache-first',
+    }
+  );
 };
