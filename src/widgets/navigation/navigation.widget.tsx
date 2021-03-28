@@ -1,10 +1,10 @@
-import first from 'lodash-es/first';
 import map from 'lodash-es/map';
 import size from 'lodash-es/size';
-import { FunctionalComponent, h } from 'preact';
-import { Link } from 'preact-router';
+import { Fragment, FunctionalComponent, h } from 'preact';
+import { Link } from 'preact-router/match';
 import { BuildClassNameBind } from '_stdio/core/theme/theme-utils';
 import { WidgetFactory } from '_stdio/core/widget/widget-factory';
+import { replaceByKeyPairValue } from '_stdio/shared/utils/string.utils';
 import { ChildrenNavigationEnum } from './navigation-enums';
 import { NavigationWidgetArgs } from './navigation-interfaces';
 import {
@@ -24,7 +24,7 @@ const NavigationWidget: FunctionalComponent<NavigationWidgetArgs> = ({ items, th
 };
 
 interface BuildNavigationArgs {
-  items: FullNavigationType[];
+  items?: FullNavigationType[];
 }
 
 const BuildNavigation: FunctionalComponent<BuildNavigationArgs> = ({ items }) => {
@@ -37,7 +37,7 @@ const BuildNavigation: FunctionalComponent<BuildNavigationArgs> = ({ items }) =>
         const children = item.Children;
         return (
           <li>
-            <Link path={path}>
+            <Link href={path}>
               <i class={icon}></i>
               <span>{displayName}</span>
             </Link>
@@ -57,8 +57,8 @@ const BuildChildren: FunctionalComponent<BuildChildrenArgs> = ({ items }) => {
   if (!size(items)) {
     return null;
   }
-  return !size(first(items)?.Children) ? null : (
-    <ul>
+  return (
+    <Fragment>
       {map(items, (item) => {
         switch (item.__typename) {
           case ChildrenNavigationEnum.PostCatalog: {
@@ -100,7 +100,7 @@ const BuildChildren: FunctionalComponent<BuildChildrenArgs> = ({ items }) => {
           }
         }
       })}
-    </ul>
+    </Fragment>
   );
 };
 
@@ -109,7 +109,21 @@ interface BuildPostCatalogNavItemsArgs {
 }
 
 const BuildPostCatalogNavItems: FunctionalComponent<BuildPostCatalogNavItemsArgs> = ({ items }) => {
-  return <li></li>;
+  return (
+    <ul>
+      {map(items, (item) => {
+        const routerPath = item.RouterPath;
+        const path = replaceByKeyPairValue(routerPath, item);
+        return (
+          <li>
+            <Link href={path}>
+              <span>{item.DisplayName}</span>
+            </Link>
+          </li>
+        );
+      })}
+    </ul>
+  );
 };
 
 interface BuildOtherNavItemArgs {
@@ -117,7 +131,19 @@ interface BuildOtherNavItemArgs {
 }
 
 const BuildOthersNavItems: FunctionalComponent<BuildOtherNavItemArgs> = ({ items }) => {
-  return <li></li>;
+  return (
+    <ul>
+      {map(items, (item) => {
+        return (
+          <li>
+            <Link href={item.Path}>
+              <span>{item.DisplayName}</span>
+            </Link>
+          </li>
+        );
+      })}
+    </ul>
+  );
 };
 
-WidgetFactory.Register('navigation', 'Navigation', NavigationWidget);
+export default WidgetFactory.Register('navigation', 'Navigation', NavigationWidget);

@@ -4,4 +4,18 @@
   &.visible {
     opacity: 1;
   }
+  ul {
+    li {
+      margin-left: 1rem;
+      a {
+        text-decoration: none;
+        color: #fff;
+      }
+      ul {
+        li{
+          margin-left: 1rem;
+        }
+      }
+    }
+  }
 }
