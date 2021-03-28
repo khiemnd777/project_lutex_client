@@ -1,4 +1,4 @@
-import { filter } from 'lodash-es';
+import { filter, forEach } from 'lodash-es';
 import { MathFloor } from './math.utils';
 
 export function toLowerCase(str: string | undefined | null): string {
@@ -90,4 +90,17 @@ export const threeDotsAt = (str?: string, at?: number): string => {
     return output;
   }
   return str;
+};
+
+export const replaceByKeyPairValue = (routerPath: string, replacedVal: Record<string, string>, prefix = ':') => {
+  let result = String(routerPath).toLowerCase();
+  for (const prop in replacedVal) {
+    const value = replacedVal[prop];
+    if (undefined !== typeof value && value !== null) {
+      const lowerCasedKey = prop.toLowerCase();
+      result = result.replace(`${prefix}${lowerCasedKey}`, value);
+    }
+  }
+  const regx = new RegExp(`\\/${prefix}[a-zA-Z0-9]+\\?*`, 'g');
+  return result.replace(regx, '');
 };
