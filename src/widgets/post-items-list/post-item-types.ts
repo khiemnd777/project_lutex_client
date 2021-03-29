@@ -1,4 +1,4 @@
-import { MediaType, SingpleMediaType } from '_stdio/shared/types/image-types';
+import { MediaType, SingleMediaType } from '_stdio/shared/types/image-types';
 
 export type AvailablePostItemsGraphResult = {
   postItemsConnection: {
@@ -26,7 +26,7 @@ export type PostItemType = {
     DisplayName: string;
     Slug: string;
   }[];
-  Cover: SingpleMediaType[];
+  Cover: SingleMediaType[];
 };
 
 export type DetailPostItemType = {

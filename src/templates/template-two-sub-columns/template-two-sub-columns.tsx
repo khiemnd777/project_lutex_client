@@ -1,11 +1,11 @@
-import styles from './template-two-sub-columns.styled.scss';
+// import styles from './template-two-sub-columns.styled.scss';
 import { FunctionalComponent, h } from 'preact';
 import Placeholder from '_stdio/core/placeholder/placeholder';
 import { TemplateFactory } from '_stdio/core/template/template-factory';
 import { TemplateArgs } from '_stdio/core/template/template-interfaces';
 import classNamesBind from 'classnames/bind';
 
-const cx = classNamesBind.bind(styles);
+const cx = classNamesBind.bind({});
 
 const TemplateTwoSubColumns: FunctionalComponent<TemplateArgs> = ({ theme, widgets, routerParams }) => {
   return (

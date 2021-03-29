@@ -1,4 +1,4 @@
-@import 'theme.scss';
+@import "theme";
 .default {
   &,
   body {
@@ -15,8 +15,8 @@
     font-weight: $regularWeight;
     font-size: $fontSizeDefault;
     text-rendering: optimizeLegibility;
-  background-color: #333;
-    color: #fff;
+    background-color: $primaryBackground;
+    color: $primaryFontColor;
   }
   *,
   *:before,
@@ -33,6 +33,11 @@
   }
   a {
     text-decoration: none;
+    font-family: $fontLinkFamily;
+    color: $primaryFontColor;
+    &:hover {
+      color: $primaryHoverColor;
+    }
   }
   img {
     outline: none;

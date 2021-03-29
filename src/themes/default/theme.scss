@@ -1,14 +1,31 @@
-@import '../../_stdio/shared/scss/common';
-@import '../../_stdio/shared/scss/responsive';
-$primaryLayoutWidth: 70%;
+@import "../../_stdio/shared/scss/common";
+@import "../../_stdio/shared/scss/responsive";
+
+$fontFamily: "Roboto", sans-serif;
+$fontLinkFamily: "Roboto Condensed", sans-serif;
+
+$primaryLayoutWidth: 65%;
 $secondaryLayoutWidth: 90%;
 $mobileLayoutWidth: 85%;
 $secondaryMobileLayoutWidth: 100%;
+$primaryBackground: #fff;
+$primaryFontColor: #424242;
+$primaryColor: #83a46a;
+$primaryHoverColor: #83a46a;
+
+$bolderWeight: 700;
+$boldWeight: 600;
+$thinWeight: 100;
+$lightWeight: 300;
+$regularWeight: 400;
+$lightBoldWeight: 500;
+
+$navFontSize: 16px;
+
 $primaryDark: #0d0c1d;
 $primaryGrey: #72717b;
 $primaryLightGrey: #dadada;
 $primaryLight: #effffa;
-$primaryBackground: #fff;
 $primaryHover: #343078;
 $errorColor: #f00;
 $errorBackgroundColor: #ffd8d8;
@@ -16,11 +33,6 @@ $primaryMarginTop: 2.1rem;
 $primaryMarginBottom: 2.1rem;
 $secondaryMarginTop: 1rem;
 $secondaryMarginRight: 1rem;
-$boldWeight: 600;
-$thinWeight: 100;
-$lightWeight: 300;
-$regularWeight: 400;
-$lightBoldWeight: 500;
 $primaryFlexDirection: column;
 $letterSpacingNavMobile: 0.5rem;
 $letterSpacingNav: 0.25rem;
@@ -29,7 +41,6 @@ $fontSizeDefault: 0.85rem;
 $fontSizeMobile: 1rem;
 $fontSizeButtonDefault: 1rem;
 $fontSizeNavMobile: 2rem;
-$fontFamily: 'Roboto', sans-serif;
 
 @mixin twoAreas {
   .above_section {

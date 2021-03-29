@@ -1,0 +1,35 @@
+@import "../../theme";
+
+@mixin container {
+  display: flex;
+  @include primaryLayout;
+}
+
+.template_one_column {
+  .header {
+    width: 100vw;
+    .header_top {
+      height: 35px;
+      background-color: $primaryColor;
+      .container {
+        @include container;
+      }
+    }
+    .header_middle {
+      .container {
+        @include container;
+        .header_middle_left {
+          flex: 1;
+        }
+        .header_middle_right {
+          flex: 9;
+        }
+      }
+    }
+    .header_bottom {
+      .container {
+        @include container;
+      }
+    }
+  }
+}

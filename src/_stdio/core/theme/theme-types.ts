@@ -1,4 +1,4 @@
-export type ThemeWidgetType = {
+export type ThemeRegisteredType = {
   widgetName: string;
   style: Record<string, string>;
 };

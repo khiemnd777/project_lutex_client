@@ -20,7 +20,7 @@ const Loading: FunctionalComponent<LoadingProps> = ({ message, size, fontSize, b
   const style: any = {};
   fontSize && (style['font-size'] = fontSize);
   return (
-    <div class="wb-loading" style={style}>
+    <div class="loading" style={style}>
       <div class="loader" style={loadStyle}></div>
       {message ? <span>{message}</span> : null}
     </div>

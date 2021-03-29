@@ -5,3 +5,5 @@ import './post-items-list/post-items-list.config';
 import './post-items-list/post-items-list-by-catalog.config';
 import './navigation/navigation.widget';
 import './navigation/navigation.config';
+import './logo/logo.widget';
+import './logo/logo.config';

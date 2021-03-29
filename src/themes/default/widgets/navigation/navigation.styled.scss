@@ -1,21 +1,40 @@
+@import "../../theme";
+
 .navigation {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  height: 100%;
   opacity: 0;
   transition: opacity ease 0.5s;
   &.visible {
     opacity: 1;
   }
   ul {
+    display: flex;
     li {
-      margin-left: 1rem;
       a {
+        font-size: $navFontSize;
         text-decoration: none;
-        color: #fff;
+        color: $primaryFontColor;
+        text-transform: uppercase;
+        padding: 0 20px;
       }
-      ul {
-        li{
-          margin-left: 1rem;
+      &:first-child {
+        a {
+          padding-left: 0;
         }
       }
+      &:last-child {
+        a {
+          padding-right: 0;
+        }
+      }
+      // ul {
+      //   li {
+      //     margin-left: 1rem;
+      //   }
+      // }
     }
   }
 }

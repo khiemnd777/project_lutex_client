@@ -4,6 +4,7 @@ import { Fragment, FunctionalComponent, h } from 'preact';
 import { Link } from 'preact-router/match';
 import { BuildClassNameBind } from '_stdio/core/theme/theme-utils';
 import { WidgetFactory } from '_stdio/core/widget/widget-factory';
+import Loading from '_stdio/shared/components/loading/loading';
 import { replaceByKeyPairValue } from '_stdio/shared/utils/string.utils';
 import { ChildrenNavigationEnum } from './navigation-enums';
 import { NavigationWidgetArgs } from './navigation-interfaces';
@@ -14,7 +15,10 @@ import {
   PostCatalogNavItemType,
 } from './navigation-types';
 
-const NavigationWidget: FunctionalComponent<NavigationWidgetArgs> = ({ items, theme }) => {
+const NavigationWidget: FunctionalComponent<NavigationWidgetArgs> = ({ items, theme, loading }) => {
+  if (loading) {
+    return <Loading />;
+  }
   const cx = BuildClassNameBind(theme.Name, 'navigation');
   return (
     <div class={cx('navigation', size(items) ? 'visible' : null)}>

@@ -6,6 +6,8 @@ export type ImageType = {
   mime: string;
   size: string;
   url: string;
+  width: number;
+  height: number;
 };
 
 export type FullImageType = {
@@ -26,8 +28,8 @@ export type FullImageType = {
 
 export type MediaType = {
   Caption: string;
+  url: string;
   Media: {
-    url: string;
     provider_metadata: {
       resource_type: string;
     };
@@ -40,7 +42,7 @@ export type MediaType = {
   }[];
 };
 
-export type SingpleMediaType = {
+export type SingleMediaType = {
   Caption: string;
   Media: {
     url: string;

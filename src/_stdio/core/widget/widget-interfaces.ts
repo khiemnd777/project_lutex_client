@@ -9,12 +9,11 @@ interface WidgetAbstractArgs {
   configName?: string;
   parameters?: ParameterConsumedType[];
   routerParams?: Record<string, string>;
-  loading?: boolean;
-  error?: ApolloError;
 }
 
 export interface WidgetArgs extends WidgetAbstractArgs {
-  [x: string]: any;
+  loading?: boolean;
+  error?: ApolloError;
 }
 
 export interface WidgetConfigArgs<T extends WidgetArgs> extends WidgetAbstractArgs {
