@@ -26,11 +26,11 @@ const StdApp = () => {
     setLocalState({ loading: false });
   }, []);
   if (localState.loading) {
-    return <Loading message="Initializing..." />;
+    return null;
   }
   const { data, loading, error } = GraphTheme();
   if (loading) {
-    return <Loading message={'Fetching theme...'} />;
+    return null;
   }
   if (error) {
     return (
