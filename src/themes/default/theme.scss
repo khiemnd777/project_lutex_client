@@ -4,9 +4,13 @@
 $fontFamily: "Roboto", sans-serif;
 $fontLinkFamily: "Roboto Condensed", sans-serif;
 
+$ipadProLWidth: 85%;
+$ipadLWidth: 94%;
+$ipadWidth: 95%;
+$mobileLayoutWidth: 85%;
+
 $primaryLayoutWidth: 65%;
 $secondaryLayoutWidth: 90%;
-$mobileLayoutWidth: 85%;
 $secondaryMobileLayoutWidth: 100%;
 $primaryBackground: #fff;
 $primaryFontColor: #424242;
@@ -112,11 +116,17 @@ $fontSizeNavMobile: 2rem;
 @mixin primaryLayout {
   @include noPadding;
   width: $primaryLayoutWidth;
+  @media (max-width: $ipadProL) {
+    width: $ipadProLWidth;
+  }
   @media (max-width: $ipadPro) {
-    width: $mobileLayoutWidth;
+    width: $ipadLWidth;
+  }
+  @media (max-width: $ipadL) {
+    width: $ipadLWidth;
   }
   @media (max-width: $ipad) {
-    width: $mobileLayoutWidth;
+    width: $ipadWidth;
   }
   @media (max-width: $mobile) {
     width: $mobileLayoutWidth;

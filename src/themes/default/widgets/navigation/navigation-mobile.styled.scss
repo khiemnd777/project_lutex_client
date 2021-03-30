@@ -1,0 +1,51 @@
+@import "../../theme";
+
+.navigation_mobile {
+  display: none;
+  position: fixed;
+  flex-direction: column;
+  align-items: center;
+  width: 100vw;
+  height: calc(100% - 120px);
+  opacity: 0;
+  top: 120px;
+  left: 0;
+  transform: translateX(100%);
+  transition: all ease-in-out 0.75s;
+  &.visible {
+    opacity: 0;
+  }
+  &[open="true"] {
+    transform: translateX(0) !important;
+    opacity: 1;
+  }
+  @media (max-width: $mobile) {
+    display: flex;
+  }
+  ul {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    z-index: 10;
+    li {
+      border-bottom: 1px dashed $primaryColor;
+      a {
+        display: block;
+        font-size: $navFontSize;
+        text-decoration: none;
+        color: $primaryFontColor;
+        text-transform: uppercase;
+        padding: 20px;
+      }
+    }
+  }
+  .overlay {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: $primaryLight;
+    opacity: 0.25;
+  }
+}

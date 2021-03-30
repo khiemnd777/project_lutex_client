@@ -15,14 +15,23 @@
         @include container;
       }
     }
+    $marginTop: 15px;
     .header_middle {
       .container {
         @include container;
         .header_middle_left {
-          flex: 1;
+          max-width: 80px;
+          margin-top: $marginTop;
+          @media (max-width: $mobile) {
+            max-width: 60px;
+          }
         }
         .header_middle_right {
-          flex: 9;
+          flex: 1;
+          margin-top: $marginTop;
+          @media (max-width: $mobile) {
+            position: relative;
+          }
         }
       }
     }

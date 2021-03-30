@@ -1,12 +1,15 @@
 @import "../../theme";
 
-.navigation {
+.navigation_desktop {
   display: flex;
   flex-direction: row-reverse;
   align-items: center;
   height: 100%;
   opacity: 0;
   transition: opacity ease 0.5s;
+  @media (max-width: $mobile) {
+    display: none;
+  }
   &.visible {
     opacity: 1;
   }
@@ -14,11 +17,21 @@
     display: flex;
     li {
       a {
+        display: block;
         font-size: $navFontSize;
         text-decoration: none;
         color: $primaryFontColor;
         text-transform: uppercase;
         padding: 0 20px;
+        text-align: center;
+        @media (max-width: $ipadL) {
+          font-size: 15px;
+          padding: 0 15px;
+        }
+        @media (max-width: $ipad) {
+          font-size: 13px;
+          padding: 0 7px;
+        }
       }
       &:first-child {
         a {

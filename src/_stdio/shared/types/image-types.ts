@@ -18,12 +18,7 @@ export type FullImageType = {
   mime: string;
   size: string;
   url: string;
-  formats: {
-    thumbnail: ImageType;
-    large: ImageType;
-    medium: ImageType;
-    small: ImageType;
-  };
+  formats: MediaFormats;
 };
 
 export type MediaType = {
@@ -33,12 +28,7 @@ export type MediaType = {
     provider_metadata: {
       resource_type: string;
     };
-    formats: {
-      thumbnail: ImageType;
-      large: ImageType;
-      medium: ImageType;
-      small: ImageType;
-    };
+    formats: MediaFormats;
   }[];
 };
 
@@ -49,11 +39,13 @@ export type SingleMediaType = {
     provider_metadata: {
       resource_type: string;
     };
-    formats: {
-      thumbnail: ImageType;
-      large: ImageType;
-      medium: ImageType;
-      small: ImageType;
-    };
+    formats: MediaFormats;
   };
+};
+
+export type MediaFormats = {
+  thumbnail: ImageType;
+  large: ImageType;
+  medium: ImageType;
+  small: ImageType;
 };
