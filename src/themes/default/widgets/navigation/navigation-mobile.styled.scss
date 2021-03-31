@@ -1,22 +1,24 @@
 @import "../../theme";
 
+$deltaCap: 120px;
+
 .navigation_mobile {
   display: none;
   position: fixed;
   flex-direction: column;
   align-items: center;
   width: 100vw;
-  height: calc(100% - 120px);
+  height: calc(100% - #{$deltaCap});
   opacity: 0;
-  top: 120px;
+  top: $deltaCap;
   left: 0;
-  transform: translateX(100%);
-  transition: all ease-in-out 0.75s;
+  transform: translateY(calc(100% - #{$deltaCap}));
+  transition: all ease-in-out 1s;
   &.visible {
     opacity: 0;
   }
   &[open="true"] {
-    transform: translateX(0) !important;
+    transform: translateY(0) !important;
     opacity: 1;
   }
   @media (max-width: $mobile) {
