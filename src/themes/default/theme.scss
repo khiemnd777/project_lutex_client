@@ -1,13 +1,14 @@
-@import "../../_stdio/shared/scss/common";
-@import "../../_stdio/shared/scss/responsive";
+@import '../../_stdio/shared/scss/common';
+@import '../../_stdio/shared/scss/responsive';
 
-$fontFamily: "Roboto", sans-serif;
-$fontLinkFamily: "Roboto Condensed", sans-serif;
+$fontFamily: 'Roboto', sans-serif;
+$fontLinkFamily: 'Roboto Condensed', sans-serif;
 
 $ipadProLWidth: 85%;
 $ipadLWidth: 94%;
 $ipadWidth: 95%;
 $mobileLayoutWidth: 85%;
+$macLayoutWidth: 81%;
 
 $primaryLayoutWidth: 65%;
 $secondaryLayoutWidth: 90%;
@@ -116,6 +117,9 @@ $fontSizeNavMobile: 2rem;
 @mixin primaryLayout {
   @include noPadding;
   width: $primaryLayoutWidth;
+  @media (max-width: $macbook) {
+    width: $macLayoutWidth;
+  }
   @media (max-width: $ipadProL) {
     width: $ipadProLWidth;
   }
