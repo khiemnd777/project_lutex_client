@@ -1,0 +1,33 @@
+@import '../../theme';
+
+.carousel {
+  opacity: 0;
+  margin-top: 10px;
+  width: 100%;
+  height: 550px;
+  @media (max-width: $macbook) {
+    height: 412px;
+  }
+  @media (max-width: $ipadProL) {
+    height: 391px;
+  }
+  @media (max-width: $ipadL) {
+    height: 631px;
+  }
+  @media (max-width: $ipad) {
+    height: 473px;
+  }
+  @media (max-width: $iphonePlus) {
+    height: 262px;
+  }
+  @media (max-width: $iphoneX) {
+    height: 300px;
+  }
+  transition: opacity ease 0.5s;
+  &.visible {
+    opacity: 1;
+  }
+  .item {
+    width: 100%;
+  }
+}

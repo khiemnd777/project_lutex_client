@@ -1,9 +1,10 @@
+import { template } from 'lodash';
 import filter from 'lodash-es/filter';
 import first from 'lodash-es/first';
 import map from 'lodash-es/map';
 import size from 'lodash-es/size';
 import { ParameterConsumedType } from '_stdio/shared/types/parameter-types';
-import { GraphWidgetByRouter } from './widget-service';
+import { GraphWidgetByRouter, GraphWidgetByTemplate } from './widget-service';
 import { IndicatedWidgetType, WidgetType } from './widget-types';
 
 const prepareIndicatedWidgets = (widgets: WidgetType[]) => {
@@ -34,5 +35,12 @@ export const PrepareIndicatedWidgetByRouter = (routerId: string) => {
   const { data, loading, error } = GraphWidgetByRouter(routerId);
   const router = !loading && !error ? first(data?.routers) : null;
   const widgets = (router && prepareIndicatedWidgets(router.Widgets)) || [];
+  return widgets;
+};
+
+export const PrepareIndicatedWidgetByTemplate = (templateId: string) => {
+  const { data, loading, error } = GraphWidgetByTemplate(templateId);
+  const template = !loading && !error ? first(data?.templates) : null;
+  const widgets = (template && prepareIndicatedWidgets(template.Widgets)) || [];
   return widgets;
 };

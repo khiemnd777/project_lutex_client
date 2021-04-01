@@ -55,8 +55,14 @@ export type WidgetType = {
   Parameters: ParameterResultType[];
 };
 
-export type WidgetResponseType = {
+export type RouterWidgetResponseType = {
   routers: {
+    Widgets: WidgetType[];
+  }[];
+};
+
+export type TemplateWidgetResponseType = {
+  templates: {
     Widgets: WidgetType[];
   }[];
 };

@@ -25,9 +25,7 @@ const TemplateOneColumn: FunctionalComponent<TemplateArgs> = ({ theme, widgets, 
           </div>
         </div>
         <div class={cx('header_bottom')}>
-          <div class={cx('container')}>
-            <Placeholder name={'header_bottom'} theme={theme} widgets={widgets} routerParams={routerParams} />
-          </div>
+          <Placeholder name={'header_bottom'} theme={theme} widgets={widgets} routerParams={routerParams} />
         </div>
       </div>
     </div>

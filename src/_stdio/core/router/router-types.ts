@@ -11,6 +11,7 @@ export type RouterWidgetType = {
 };
 
 type RouterTempalteType = {
+  id: string;
   Name: string;
 };
 
