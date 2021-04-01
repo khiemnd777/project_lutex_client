@@ -13,3 +13,6 @@ import './logo/logo.config';
 
 import './carousel/carousel.widget';
 import './home-carousel/home-carousel.config';
+
+import './home-about-us/home-about-us.widget';
+import './home-about-us/home-about-us.config';

@@ -13,8 +13,12 @@ $macLayoutWidth: 81%;
 $primaryLayoutWidth: 65%;
 $secondaryLayoutWidth: 90%;
 $secondaryMobileLayoutWidth: 100%;
+
 $primaryBackground: #fff;
 $primaryFontColor: #424242;
+$primaryHeaderColor: #d95e57;
+$primaryButtonColor: #d95e57;
+$primaryButtonTextColor: #fff;
 $primaryColor: #83a46a;
 $primaryHoverColor: #83a46a;
 
@@ -26,6 +30,22 @@ $regularWeight: 400;
 $lightBoldWeight: 500;
 
 $navFontSize: 16px;
+
+@mixin button {
+  & {
+    display: inline-block;
+    padding: 7px 30px;
+    font-family: $fontFamily;
+    background-color: $primaryButtonColor;
+    border-radius: 50px;
+    color: $primaryButtonTextColor;
+    text-transform: uppercase;
+    &:hover {
+      background: $primaryHoverColor;
+      color: $primaryFontColor;
+    }
+  }
+}
 
 $primaryDark: #0d0c1d;
 $primaryGrey: #72717b;

@@ -1,20 +1,25 @@
+export const SlimImageGraphProps = `
+  id
+  url
+  provider_metadata
+  formats
+`;
+
 export const ImageGraphProps = `
+  ${SlimImageGraphProps}
   name
   alternativeText
   caption
   ext
   mime
   size
-  url
-  formats
 `;
 
 export const MediaGraphProps = `
+  id
   Caption
   Media {
-    url
-    provider_metadata
-    formats 
+    ${SlimImageGraphProps}
   }
 `;
 

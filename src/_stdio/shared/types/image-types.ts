@@ -23,26 +23,21 @@ export type FullImageType = {
 
 export type MultipleMediaType = {
   Caption: string;
-  Media: {
-    id: string;
-    url: string;
-    provider_metadata: {
-      resource_type: string;
-    };
-    formats: MediaFormats;
-  }[];
+  Media: MediaType[];
 };
 
 export type SingleMediaType = {
   Caption: string;
-  Media: {
-    id: string;
-    url: string;
-    provider_metadata: {
-      resource_type: string;
-    };
-    formats: MediaFormats;
+  Media: MediaType;
+};
+
+export type MediaType = {
+  id: string;
+  url: string;
+  provider_metadata: {
+    resource_type: string;
   };
+  formats: MediaFormats;
 };
 
 export type MediaFormats = {

@@ -1,0 +1,82 @@
+@import '../../theme';
+
+.home_about_us {
+  $marginTopCommon: 1rem;
+  $marginCommon: 2rem;
+  opacity: 0;
+  transition: opacity ease 0.5s;
+  width: 100%;
+  margin-top: 5rem;
+  &.visible {
+    opacity: 1;
+  }
+  .container {
+    display: flex;
+    @media (max-width: $mobile) {
+      flex-direction: column;
+    }
+    @include primaryLayout;
+    .media {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      align-content: center;
+      img {
+        width: 100%;
+      }
+    }
+    .content {
+      flex: 1;
+      margin-left: $marginCommon;
+      .header {
+        font-size: 18px;
+        margin-top: $marginTopCommon;
+        .mark {
+          width: 11px;
+          height: 11px;
+          background-color: $primaryColor;
+          display: inline-block;
+          margin-bottom: 1px;
+          margin-right: 10px;
+        }
+      }
+      .title {
+        font-size: 28px;
+        font-weight: $boldWeight;
+        color: $primaryHeaderColor;
+        text-transform: uppercase;
+        margin-top: $marginTopCommon;
+      }
+      .enumeration {
+        margin-top: $marginCommon;
+        .item {
+          display: flex;
+          margin-bottom: 1.5rem;
+          .icon {
+            width: 56px;
+          }
+          .enumeration_content {
+            flex: 1;
+            margin-left: 15px;
+            display: flex;
+            align-items: center;
+            a {
+              display: block;
+              cursor: pointer;
+            }
+            span {
+              display: block;
+            }
+          }
+        }
+      }
+      .explore_detail {
+        display: flex;
+        margin-top: $marginCommon;
+        a {
+          @include button;
+        }
+      }
+    }
+  }
+}

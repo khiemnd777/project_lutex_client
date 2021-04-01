@@ -28,6 +28,9 @@ const TemplateOneColumn: FunctionalComponent<TemplateArgs> = ({ theme, widgets, 
           <Placeholder name={'header_bottom'} theme={theme} widgets={widgets} routerParams={routerParams} />
         </div>
       </div>
+      <div class={cx('body')}>
+        <Placeholder name={'body'} theme={theme} widgets={widgets} routerParams={routerParams} />
+      </div>
     </div>
   );
 };

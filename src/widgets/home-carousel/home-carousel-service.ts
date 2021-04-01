@@ -8,7 +8,6 @@ export const GraphHomeCarousel = () => {
       homeCarousel {
         id
         Media {
-          id
           ${MediaGraphProps}
         }
       }
