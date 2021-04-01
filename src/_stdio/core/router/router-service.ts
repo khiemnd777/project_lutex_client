@@ -9,6 +9,7 @@ export const GraphRouters = () => {
         Name
         Path
         template {
+          id
           Name
         }
         Enabled

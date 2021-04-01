@@ -1,5 +1,5 @@
 import styles from './simple-slider.styled.scss';
-import arrowStyles from '../../../scss/_arrow.scss';
+import arrowStyles from '../../scss/_arrow.scss';
 import classNames from 'classnames/bind';
 import { size } from 'lodash-es';
 import { FunctionalComponent, h } from 'preact';
@@ -98,14 +98,14 @@ const SimpleSlider: FunctionalComponent<SliderArgs> = ({
         opacity={alterViewIndex === 0 ? 1 : 0}
         transitionDuration={transitionDuration / 1000}
       >
-        {alternate1.template}
+        {alternate1?.template}
       </AlterItem>
       <AlterItem
         className={cx('alternate')}
         opacity={alterViewIndex === 1 ? 1 : 0}
         transitionDuration={transitionDuration / 1000}
       >
-        {alternate2.template}
+        {alternate2?.template}
       </AlterItem>
     </div>
   );

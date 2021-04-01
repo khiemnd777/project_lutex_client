@@ -13,25 +13,29 @@ export const GetSingleMedia = (
   }
   const formats = singleMedia.Media.formats;
   if (!isEmpty(formats)) {
-    if (formatEnums === MediaFormatEnums.thumbnail) {
-      if (formats.thumbnail) {
-        return formats.thumbnail;
+    switch (formatEnums) {
+      case MediaFormatEnums.thumbnail: {
+        if (formats.thumbnail) {
+          return formats.thumbnail;
+        }
       }
-    }
-    if (formatEnums === MediaFormatEnums.small) {
-      if (formats.small) {
-        return formats.small;
+      case MediaFormatEnums.small: {
+        if (formats.small) {
+          return formats.small;
+        }
       }
-    }
-    if (formatEnums === MediaFormatEnums.medium) {
-      if (formats.medium) {
-        return formats.medium;
+      case MediaFormatEnums.medium: {
+        if (formats.medium) {
+          return formats.medium;
+        }
       }
-    }
-    if (formatEnums === MediaFormatEnums.large) {
-      if (formats.large) {
-        return formats.large;
+      case MediaFormatEnums.large: {
+        if (formats.large) {
+          return formats.large;
+        }
       }
+      default:
+        break;
     }
   }
   const media = singleMedia.Media;

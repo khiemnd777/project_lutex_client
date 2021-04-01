@@ -21,10 +21,11 @@ export type FullImageType = {
   formats: MediaFormats;
 };
 
-export type MediaType = {
+export type MultipleMediaType = {
   Caption: string;
-  url: string;
   Media: {
+    id: string;
+    url: string;
     provider_metadata: {
       resource_type: string;
     };
@@ -35,6 +36,7 @@ export type MediaType = {
 export type SingleMediaType = {
   Caption: string;
   Media: {
+    id: string;
     url: string;
     provider_metadata: {
       resource_type: string;
