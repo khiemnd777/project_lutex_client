@@ -34,6 +34,7 @@ export type PostType = {
 
 export type VisualizedPostType = {
   Title: string;
+  CreatedAt: Date;
   Url: string;
   Cover?: SingleMediaType;
-}
+};

@@ -16,9 +16,11 @@ import { VisualizedPostType } from './feature-post-types';
 import TemplateGrid from '_stdio/shared/components/template-grid/template-grid';
 import TemplateGridItem, { TemplateGridArgs } from '_stdio/shared/components/template-grid/template-grid-item';
 import ImageContainer from '_stdio/shared/components/image-container/image-container';
+import { timeSince } from '_stdio/shared/utils/date.utils';
 
 const FeaturePostWidget: FunctionalComponent<FeaturePostWidgetArgs> = ({
   theme,
+  datetimeServer,
   backgroundColor,
   data,
   parameters,
@@ -43,6 +45,7 @@ const FeaturePostWidget: FunctionalComponent<FeaturePostWidgetArgs> = ({
     return {
       Title: title,
       Url: url,
+      CreatedAt: post.createdAt,
       Cover: cover,
     } as VisualizedPostType;
   });
@@ -62,7 +65,13 @@ const FeaturePostWidget: FunctionalComponent<FeaturePostWidgetArgs> = ({
         ) : null}
         {size(posts) ? (
           <div class={cx('post_items_container')}>
-            <PostItemsBuilder theme={theme} explorationText={explorationText} dateEnabled={dateEnabled} posts={posts} />
+            <PostItemsBuilder
+              theme={theme}
+              datetimeServer={datetimeServer}
+              explorationText={explorationText}
+              dateEnabled={dateEnabled}
+              posts={posts}
+            />
           </div>
         ) : null}
       </div>
@@ -72,12 +81,19 @@ const FeaturePostWidget: FunctionalComponent<FeaturePostWidgetArgs> = ({
 
 interface PostBuilderArgs {
   theme: ThemeType;
+  datetimeServer: Date;
   posts?: VisualizedPostType[];
   dateEnabled?: boolean;
   explorationText?: string;
 }
 
-const PostItemsBuilder: FunctionalComponent<PostBuilderArgs> = ({ posts, theme, dateEnabled, explorationText }) => {
+const PostItemsBuilder: FunctionalComponent<PostBuilderArgs> = ({
+  posts,
+  theme,
+  datetimeServer,
+  dateEnabled,
+  explorationText,
+}) => {
   const cx = BuildClassNameBind(theme.Name, 'feature_post');
   return (
     <TemplateGrid
@@ -99,6 +115,13 @@ const PostItemsBuilder: FunctionalComponent<PostBuilderArgs> = ({ posts, theme, 
                     scrollPosition={scrollPosition}
                     mGrid={mGrid}
                   />
+                  {dateEnabled ? (
+                    <div class={cx('post_item_created_at')}>
+                      <span>
+                        {timeSince(new Date(!datetimeServer ? new Date() : datetimeServer), new Date(post.CreatedAt))}
+                      </span>
+                    </div>
+                  ) : null}
                   <div class={cx('post_item_title')}>
                     <span>{threeDotsAt(post.Title, 30)}</span>
                   </div>
