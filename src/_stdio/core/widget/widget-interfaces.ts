@@ -5,6 +5,7 @@ import { ThemeType } from '../theme/theme-types';
 
 interface WidgetAbstractArgs {
   theme: ThemeType;
+  backgroundColor?: string;
   name?: string;
   configName?: string;
   parameters?: ParameterConsumedType[];

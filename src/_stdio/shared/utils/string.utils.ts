@@ -92,7 +92,7 @@ export const threeDotsAt = (str?: string, at?: number): string => {
   return str;
 };
 
-export const replaceByKeyPairValue = (routerPath: string, replacedVal: Record<string, string>, prefix = ':') => {
+export const replaceByKeyPairValue = (routerPath: string, replacedVal: Record<string, any>, prefix = ':') => {
   let result = String(routerPath).toLowerCase();
   for (const prop in replacedVal) {
     const value = replacedVal[prop];
@@ -103,4 +103,10 @@ export const replaceByKeyPairValue = (routerPath: string, replacedVal: Record<st
   }
   const regx = new RegExp(`\\/${prefix}[a-zA-Z0-9]+\\?*`, 'g');
   return result.replace(regx, '');
+};
+
+export const parseBool = (input?: string) => {
+  if (!input) return false;
+  const regex = /^\s*(true|1|on)\s*$/i;
+  return regex.test(input);
 };

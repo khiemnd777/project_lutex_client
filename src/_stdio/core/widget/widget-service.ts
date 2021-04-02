@@ -1,30 +1,36 @@
 import { gql, useQuery } from '@apollo/client';
 import { RouterWidgetResponseType, TemplateWidgetResponseType } from './widget-types';
 
+const widgetProps = `
+  Widgets {
+    ... on ComponentPluginsWidget {
+      Enabled
+      Placeholder
+      ConfigurationName
+      BackgroundColor
+      widget {
+        Name
+        ConfigurationName
+        BackgroundColor
+        Parameters {
+          Name
+          Value
+        }
+      }
+      Parameters {
+        Name
+        Value
+      }
+    }
+  }
+`;
+
 export const GraphWidgetByRouter = (routerId: string) => {
   const query = useQuery<RouterWidgetResponseType>(
     gql`
       query($routerId: String) {
         routers(where: { id: $routerId, Enabled: true }) {
-          Widgets {
-            ... on ComponentPluginsWidget {
-              Enabled
-              Placeholder
-              ConfigurationName
-              widget {
-                Name
-                ConfigurationName
-                Parameters {
-                  Name
-                  Value
-                }
-              }
-              Parameters {
-                Name
-                Value
-              }
-            }
-          }
+          ${widgetProps}
         }
       }
     `,
@@ -42,25 +48,7 @@ export const GraphWidgetByTemplate = (templateId: string) => {
     gql`
       query($templateId: String) {
         templates(where: { id: $templateId }) {
-          Widgets {
-            ... on ComponentPluginsWidget {
-              Enabled
-              Placeholder
-              ConfigurationName
-              widget {
-                Name
-                ConfigurationName
-                Parameters {
-                  Name
-                  Value
-                }
-              }
-              Parameters {
-                Name
-                Value
-              }
-            }
-          }
+          ${widgetProps}
         }
       }
     `,

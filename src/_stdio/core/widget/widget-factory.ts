@@ -61,6 +61,7 @@ export class WidgetFactory {
     name: string,
     placeholder: string,
     configName?: string,
+    backgroundColor?: string,
     parameters?: ParameterConsumedType[]
   ): ConsumedWidgetType | null {
     const widgets = getWidgets();
@@ -77,6 +78,7 @@ export class WidgetFactory {
         placeholder: placeholder,
         configName: configName ? configName : matchedWidget.configName,
         friendlyName: matchedWidget.friendlyName,
+        backgroundColor: backgroundColor,
         config: assembliedConfig?.component,
         component: matchedWidget.component,
         parameters: parameters,
@@ -91,7 +93,7 @@ export class WidgetFactory {
   ): (ConsumedWidgetType | null)[] {
     const matchedIndictaedWidgets = filter(indicatedWidgets, (x) => x.placeholder == placeholder);
     const matchedConsumedWidgets = map(matchedIndictaedWidgets, (x) =>
-      this.Consume(x.name, placeholder, x.configName, x.parameters)
+      this.Consume(x.name, placeholder, x.configName, x.backgroundColor, x.parameters)
     );
     return filter(matchedConsumedWidgets, (x) => x != null);
   }

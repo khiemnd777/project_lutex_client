@@ -19,6 +19,7 @@ export type ConsumedWidgetType = {
   name: string;
   configName?: string;
   friendlyName?: string;
+  backgroundColor?: string;
   placeholder: string;
   config: FunctionalComponent<WidgetConfigArgs<WidgetArgs>>;
   component: FunctionalComponent<WidgetArgs>;
@@ -29,6 +30,7 @@ export type IndicatedWidgetType = {
   name: string;
   configName?: string;
   friendlyName?: string;
+  backgroundColor?: string;
   placeholder: string;
   parameters?: ParameterConsumedType[];
 };
@@ -44,6 +46,7 @@ export type WidgetConfigType<Widget extends WidgetArgs, Config = WidgetConfigArg
 type WidgetDetailType = {
   Name: string;
   ConfigurationName: string;
+  BackgroundColor: string;
   Parameters: ParameterResultType[];
 };
 
@@ -51,6 +54,7 @@ export type WidgetType = {
   Enabled: boolean;
   Placeholder: string;
   ConfigurationName: string;
+  BackgroundColor: string;
   widget: WidgetDetailType;
   Parameters: ParameterResultType[];
 };

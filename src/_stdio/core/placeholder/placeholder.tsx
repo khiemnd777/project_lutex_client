@@ -1,3 +1,4 @@
+import isEmpty from 'lodash-es/isEmpty';
 import map from 'lodash-es/map';
 import { Fragment, FunctionalComponent, h } from 'preact';
 import { ThemeType } from '../theme/theme-types';
@@ -16,14 +17,24 @@ const Placeholder: FunctionalComponent<PlaceholderArgs> = ({ name, theme, widget
   return (
     <Fragment>
       {map(consumedWidgets, (widget) =>
-        widget?.config?.call(null, {
-          name: widget.name,
-          theme: theme,
-          configName: widget.configName,
-          component: widget.component,
-          parameters: widget.parameters,
-          routerParams: routerParams,
-        })
+        widget?.config
+          ? widget?.config?.call(null, {
+              name: widget.name,
+              backgroundColor: widget.backgroundColor,
+              theme: theme,
+              configName: widget.configName,
+              component: widget.component,
+              parameters: widget.parameters,
+              routerParams: routerParams,
+            })
+          : widget?.component?.call(null, {
+              name: widget.name,
+              backgroundColor: widget.backgroundColor,
+              theme: theme,
+              configName: widget.configName,
+              parameters: widget.parameters,
+              routerParams: routerParams,
+            })
       )}
     </Fragment>
   );
