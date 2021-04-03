@@ -1,0 +1,34 @@
+@import "../../theme";
+
+.picked_navigation {
+  opacity: 0;
+  transition: opacity ease 0.5s;
+  &.visible {
+    opacity: 1;
+  }
+  .title {
+    font-family: $alterFontFamily;
+    font-size: 18px;
+    font-weight: $regularWeight;
+    text-transform: uppercase;
+    color: $highlightColor;
+  }
+  .children_container {
+    margin-top: 1rem;
+    ul {
+      display: block;
+      width: 100%;
+      li {
+        list-style: disc;
+        display: block;
+        width: 100%;
+        a {
+          font-family: $fontFamily;
+          display: block;
+          font-size: 14px;
+          padding: 5px 0;
+        }
+      }
+    }
+  }
+}

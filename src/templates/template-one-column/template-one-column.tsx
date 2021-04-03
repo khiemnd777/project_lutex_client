@@ -31,6 +31,14 @@ const TemplateOneColumn: FunctionalComponent<TemplateArgs> = ({ theme, widgets, 
       <div class={cx('body')}>
         <Placeholder name={'body'} theme={theme} widgets={widgets} routerParams={routerParams} />
       </div>
+      <div class={cx('footer')}>
+        <div class={cx('footer_above')}>
+          <Placeholder name={'footer_above'} theme={theme} widgets={widgets} routerParams={routerParams} />
+        </div>
+        <div class={cx('footer_bottom')}>
+          <Placeholder name={'footer_bottom'} theme={theme} widgets={widgets} routerParams={routerParams} />
+        </div>
+      </div>
     </div>
   );
 };

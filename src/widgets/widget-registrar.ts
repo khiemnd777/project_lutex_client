@@ -22,3 +22,6 @@ import './feature-post/feature-post.config';
 
 import './feature-catalog/feature-catalog.widget';
 import './feature-catalog/feature-catalog.config';
+
+import './picked-navigation/picked-navigation.widget';
+import './picked-navigation/picked-navigation.config';

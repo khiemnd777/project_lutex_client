@@ -11,3 +11,4 @@ import './widgets/home-carousel/config';
 import './widgets/home-about-us/config';
 import './widgets/feature-post/config';
 import './widgets/feature-catalog/config';
+import './widgets/picked-navigation/config';
