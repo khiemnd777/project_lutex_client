@@ -25,3 +25,6 @@ import './feature-catalog/feature-catalog.config';
 
 import './picked-navigation/picked-navigation.widget';
 import './picked-navigation/picked-navigation.config';
+
+import './contact-information/contact-information.widget';
+import './contact-information/contact-information.config';

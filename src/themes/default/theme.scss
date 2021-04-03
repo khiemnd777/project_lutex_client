@@ -34,9 +34,11 @@ $lightBoldWeight: 500;
 
 $fontSizeDefault: 14px;
 $navFontSize: 16px;
-$headerFontSize: 44px;
-$headerMobileFontSize: 34px;
+$headerFooterFontSize: 18px;
 $headerShortFontSize: 18px;
+$headerMobileFontSize: 34px;
+$headerFontSize: 44px;
+
 $moduleMarginTop: 5rem;
 
 @mixin button {

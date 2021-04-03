@@ -7,6 +7,7 @@ export type ContactInformationType = {
   Parameters: {
     Key: string;
     Value: string;
+    Link: string;
     Icon: string;
   }[];
 };

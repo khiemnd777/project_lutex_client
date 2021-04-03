@@ -1,6 +1,6 @@
 @import "../../theme";
 
-.picked_navigation {
+.contact_information {
   opacity: 0;
   transition: opacity ease 0.5s;
   &.visible {
@@ -21,11 +21,13 @@
       li {
         display: block;
         width: 100%;
-        a {
+        padding: 5px 0;
+        span {
           font-family: $fontFamily;
-          display: block;
           font-size: 14px;
-          padding: 5px 0;
+          &.key {
+            font-weight: $lightBoldWeight;
+          }
         }
       }
     }

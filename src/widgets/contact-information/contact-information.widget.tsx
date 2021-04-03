@@ -1,6 +1,7 @@
-import { size } from 'lodash-es';
+import { map, size } from 'lodash-es';
 import isEmpty from 'lodash-es/isEmpty';
 import { FunctionalComponent, h } from 'preact';
+import { Link } from 'preact-router/match';
 import { BuildClassNameBind } from '_stdio/core/theme/theme-utils';
 import { WidgetFactory } from '_stdio/core/widget/widget-factory';
 import { GetParameterValue } from '_stdio/shared/utils/params.util';
@@ -15,7 +16,26 @@ const ContactInformationWidget: FunctionalComponent<ContactInformationWidgetArgs
       <div class={cx('title')}>
         <span>{title}</span>
       </div>
-      {/* {size(data.Parameters)} */}
+      {size(data.Parameters) ? (
+        <div class={cx('children_container')}>
+          <ul>
+            {map(data.Parameters, (p) => {
+              return (
+                <li>
+                  <span class={cx('key')}>{p.Key}: </span>
+                  {p.Link ? (
+                    <Link href={p.Link}>
+                      <span class={cx('value')}>{p.Value}</span>
+                    </Link>
+                  ) : (
+                    <span class={cx('value')}>{p.Value}</span>
+                  )}
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+      ) : null}
     </div>
   );
 };

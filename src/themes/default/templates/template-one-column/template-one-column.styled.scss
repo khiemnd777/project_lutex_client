@@ -62,6 +62,9 @@
       @media (max-width: $mobile) {
         flex-direction: column;
       }
+      & > div {
+        flex: 1;
+      }
     }
     .footer_bottom {
       width: 100%;

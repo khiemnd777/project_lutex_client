@@ -9,6 +9,7 @@ export const GraphContactInformation = () => {
         Parameters {
           Key
           Value
+          Link
           Icon
         }
       }
