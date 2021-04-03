@@ -3,17 +3,14 @@ import { PostItemsListWidgetArgs } from './post-items-list-interfaces';
 import size from 'lodash-es/size';
 import map from 'lodash-es/map';
 import first from 'lodash-es/first';
-import { PostItemType } from './post-item-types';
-import { Ref } from 'preact/hooks';
-import { LazyLoadImage, ScrollPosition } from 'react-lazy-load-image-component';
-import Masonry from 'masonry-layout';
 import { WidgetFactory } from '_stdio/core/widget/widget-factory';
-import TemplateGrid, { showTemplateGridItem } from '_stdio/shared/components/template-grid/template-grid';
+import TemplateGrid from '_stdio/shared/components/template-grid/template-grid';
 import TemplateGridItem, { TemplateGridArgs } from '_stdio/shared/components/template-grid/template-grid-item';
 import { threeDotsAt } from '_stdio/shared/utils/string.utils';
 import { timeSince } from '_stdio/shared/utils/date.utils';
 import { BuildClassNameBind } from '_stdio/core/theme/theme-utils';
 import find from 'lodash-es/find';
+import ImageContainer from '_stdio/shared/components/image-container/image-container';
 
 const PostItemsListWidget: FunctionalComponent<PostItemsListWidgetArgs> = ({
   theme,
@@ -36,7 +33,8 @@ const PostItemsListWidget: FunctionalComponent<PostItemsListWidgetArgs> = ({
                   <ImageContainer
                     className={cx('image_container')}
                     imageClassName={cx('image')}
-                    model={item}
+                    src={first(item.Cover)?.Media?.formats?.thumbnail?.url}
+                    alt={item.Title}
                     gridItemRef={gridItemRef}
                     scrollPosition={scrollPosition}
                     mGrid={mGrid}
@@ -66,40 +64,6 @@ const PostItemsListWidget: FunctionalComponent<PostItemsListWidgetArgs> = ({
         })}
         dataLength={totalCount}
         nextFunc={onFetchMore}
-      />
-    </div>
-  );
-};
-
-interface ImageContainerArgs {
-  className?: string;
-  imageClassName?: string;
-  model: PostItemType;
-  gridItemRef?: Ref<HTMLDivElement>;
-  scrollPosition?: ScrollPosition;
-  mGrid?: () => Masonry;
-}
-
-const ImageContainer: FunctionalComponent<ImageContainerArgs> = ({
-  className,
-  imageClassName,
-  model,
-  gridItemRef,
-  scrollPosition,
-  mGrid,
-}) => {
-  return (
-    <div class={className}>
-      <LazyLoadImage
-        className={imageClassName}
-        afterLoad={() => {
-          showTemplateGridItem(gridItemRef);
-          const currentMGrid = mGrid?.call(null);
-          currentMGrid?.layout?.call(currentMGrid);
-        }}
-        scrollPosition={scrollPosition}
-        src={first(model.Cover)?.Media?.formats?.thumbnail?.url}
-        alt={model.Title}
       />
     </div>
   );

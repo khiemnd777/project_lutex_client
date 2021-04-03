@@ -1,4 +1,5 @@
 import { FunctionalComponent } from 'preact';
+import { SingleMediaType } from '_stdio/shared/types/image-types';
 import { ParameterConsumedType, ParameterResultType } from '_stdio/shared/types/parameter-types';
 import { WidgetArgs, WidgetConfigArgs } from './widget-interfaces';
 
@@ -19,6 +20,8 @@ export type ConsumedWidgetType = {
   name: string;
   configName?: string;
   friendlyName?: string;
+  backgroundColor?: string;
+  backgroundImage?: SingleMediaType;
   placeholder: string;
   config: FunctionalComponent<WidgetConfigArgs<WidgetArgs>>;
   component: FunctionalComponent<WidgetArgs>;
@@ -29,6 +32,8 @@ export type IndicatedWidgetType = {
   name: string;
   configName?: string;
   friendlyName?: string;
+  backgroundColor?: string;
+  backgroundImage?: SingleMediaType;
   placeholder: string;
   parameters?: ParameterConsumedType[];
 };
@@ -51,6 +56,8 @@ export type WidgetType = {
   Enabled: boolean;
   Placeholder: string;
   ConfigurationName: string;
+  BackgroundColor: string;
+  BackgroundImage?: SingleMediaType;
   widget: WidgetDetailType;
   Parameters: ParameterResultType[];
 };

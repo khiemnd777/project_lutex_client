@@ -14,6 +14,8 @@ const cb = classNamesBind.bind(styles);
 interface GridArgs {
   list: TemplateGridItem[];
   dataLength: number;
+  classGridItem?: string;
+  classGridItemContainer?: string;
   nextFunc: () => void;
   scrollPosition: ScrollPosition;
   onSelect?: (model: TemplateGridItem) => void;
@@ -27,6 +29,8 @@ export const showTemplateGridItem = (gridElmRef?: Ref<HTMLDivElement>) => {
 const TemplateGrid: FunctionalComponent<GridArgs> = ({
   list,
   dataLength,
+  classGridItem,
+  classGridItemContainer,
   nextFunc,
   scrollPosition,
   onSelect,
@@ -56,13 +60,13 @@ const TemplateGrid: FunctionalComponent<GridArgs> = ({
               return (
                 <div
                   ref={gridItemRef}
-                  class={cb('grid_item')}
+                  class={cb('grid_item', classGridItem)}
                   onClick={() => {
                     onSelect?.call(null, model);
                     !!model.url && route(model.url);
                   }}
                 >
-                  <div class={cb('grid_item_container')}>
+                  <div class={cb(classGridItemContainer, 'grid_item_container')}>
                     {model.template({
                       scrollPosition: scrollPosition,
                       gridItemRef: gridItemRef,

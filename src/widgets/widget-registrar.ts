@@ -16,3 +16,9 @@ import './home-carousel/home-carousel.config';
 
 import './home-about-us/home-about-us.widget';
 import './home-about-us/home-about-us.config';
+
+import './feature-post/feature-post.widget';
+import './feature-post/feature-post.config';
+
+import './feature-catalog/feature-catalog.widget';
+import './feature-catalog/feature-catalog.config';

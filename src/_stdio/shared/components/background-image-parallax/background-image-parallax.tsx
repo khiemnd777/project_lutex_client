@@ -12,6 +12,7 @@ interface BackgroundImageParallaxArgs {
   opacity?: number;
   alt?: string;
   primaryClassName?: string;
+  imageClassName?: string;
   transitionDuration?: number;
   alignment?: ParallaxAlignment;
   [x: string]: any;
@@ -23,6 +24,7 @@ export const BackgroundImageParallax: FunctionalComponent<BackgroundImageParalla
   opacity = 1,
   alt,
   primaryClassName,
+  imageClassName,
   transitionDuration,
   alignment = ParallaxAlignment.center,
   ...props
@@ -39,7 +41,13 @@ export const BackgroundImageParallax: FunctionalComponent<BackgroundImageParalla
 
   return !image ? null : (
     <div class={cx('parallax_block', primaryClassName)}>
-      <img ref={domRef} class={cx('parallax_image', alignmentClassName)} data-speed={speed} src={image} alt={alt} />
+      <img
+        ref={domRef}
+        class={cx('parallax_image', imageClassName, alignmentClassName)}
+        data-speed={speed}
+        src={image}
+        alt={alt}
+      />
       {props.children}
     </div>
   );

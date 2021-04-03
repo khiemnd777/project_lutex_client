@@ -1,0 +1,100 @@
+@import '../../theme';
+
+.feature_post {
+  opacity: 0;
+  transition: opacity ease 0.5s;
+  &.visible {
+    opacity: 1;
+  }
+  .container {
+    @include primaryLayout;
+    padding-top: $moduleMarginTop;
+    padding-bottom: $moduleMarginTop;
+    .title {
+      width: 100%;
+      text-align: center;
+      span {
+        color: $primaryHeaderColor;
+        text-transform: uppercase;
+        font-size: $headerFontSize;
+        @media (max-width: $mobile) {
+          font-size: $headerMobileFontSize;
+        }
+      }
+    }
+    .short {
+      margin-top: 0.5rem;
+      width: 100%;
+      text-align: center;
+      span {
+        font-size: $headerShortFontSize;
+        text-transform: uppercase;
+      }
+    }
+    .post_items_container {
+      margin-top: 2rem;
+      width: 100%;
+      .post_item_grid {
+        width: calc(100% / 3);
+        min-height: 400px;
+        .post_item_grid_container {
+          padding-left: 7.5px;
+          padding-right: 7.5px;
+        }
+        &:nth-child(3n + 0) {
+          .post_item_grid_container {
+            padding-right: 0;
+            padding-left: 15px;
+          }
+        }
+        &:nth-child(3n + 1) {
+          .post_item_grid_container {
+            padding-left: 0;
+            padding-right: 15px;
+          }
+        }
+        @media (max-width: $mobile) {
+          width: 100%;
+          padding-bottom: 2rem;
+          .post_item_grid_container {
+            padding: 0 !important;
+          }
+        }
+      }
+      .post_item {
+        width: 100%;
+        background-color: $primaryBackground;
+        .post_item_container {
+          width: 100%;
+          .post_item_cover {
+            img {
+              width: 100%;
+            }
+          }
+          $padding: 20px;
+          .post_item_created_at {
+            padding: $padding;
+            padding-bottom: 0;
+            span {
+              color: $primaryColor;
+            }
+          }
+          .post_item_title {
+            padding: $padding;
+            span {
+              font-size: 16px;
+              font-weight: $regularWeight;
+            }
+          }
+          .post_item_buttons {
+            padding: $padding;
+            padding-bottom: 30px;
+            a.button {
+              @include button;
+            }
+          }
+        }
+      }
+    }
+  }
+}

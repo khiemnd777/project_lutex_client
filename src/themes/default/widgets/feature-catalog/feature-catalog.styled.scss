@@ -1,0 +1,121 @@
+@import '../../theme';
+
+.feature_catalog {
+  opacity: 0;
+  position: relative;
+  transition: opacity ease 0.5s;
+  &.visible {
+    opacity: 1;
+  }
+  .header_background_image_container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 380px;
+    @media (max-width: $ipad) {
+      height: 306px;
+    }
+    @media (max-width: $mobile) {
+      height: 370px;
+    }
+    .header_background_image {
+      width: 100%;
+      @media (max-width: $macbook) {
+        width: 170%;
+      }
+      @media (max-width: $ipadL) {
+        width: 220%;
+      }
+      @media (max-width: $ipad) {
+        width: 260%;
+      }
+      @media (max-width: $mobile) {
+        width: 520%;
+      }
+    }
+  }
+  .container {
+    @include primaryLayout;
+    padding-top: $moduleMarginTop;
+    padding-bottom: $moduleMarginTop;
+    .title {
+      width: 100%;
+      text-align: center;
+      span {
+        color: $primaryHeaderColor;
+        text-transform: uppercase;
+        font-size: $headerFontSize;
+        @media (max-width: $mobile) {
+          font-size: $headerMobileFontSize;
+        }
+      }
+    }
+    .short {
+      margin-top: 0.5rem;
+      width: 100%;
+      text-align: center;
+      span {
+        font-size: $headerShortFontSize;
+        text-transform: uppercase;
+      }
+    }
+    .catalog_items_container {
+      margin-top: 2rem;
+      width: 100%;
+      // Template grid
+      .catalog_item_grid {
+        width: calc(100% / 3);
+        min-height: 400px;
+        .catalog_item_grid_container {
+          padding-left: 7.5px;
+          padding-right: 7.5px;
+        }
+        &:nth-child(3n + 0) {
+          .catalog_item_grid_container {
+            padding-right: 0;
+            padding-left: 15px;
+          }
+        }
+        &:nth-child(3n + 1) {
+          .catalog_item_grid_container {
+            padding-left: 0;
+            padding-right: 15px;
+          }
+        }
+        @media (max-width: $mobile) {
+          width: 100%;
+          padding-bottom: 2rem;
+          .catalog_item_grid_container {
+            padding: 0 !important;
+          }
+        }
+      }
+      .catalog_item {
+        width: 100%;
+        background-color: $primaryBackground;
+        .catalog_item_container {
+          width: 100%;
+          .catalog_item_cover {
+            img {
+              width: 100%;
+            }
+          }
+          $padding: 20px;
+          .catalog_item_title {
+            padding: $padding;
+            span {
+              display: block;
+              text-align: center;
+              font-size: 14px;
+              font-weight: $regularWeight;
+              color: $primaryFontColor;
+              text-transform: uppercase;
+              color: $primaryBackground;
+            }
+          }
+        }
+      }
+    }
+  }
+}
