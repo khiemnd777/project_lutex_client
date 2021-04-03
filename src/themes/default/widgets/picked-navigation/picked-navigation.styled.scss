@@ -12,9 +12,12 @@
     font-weight: $regularWeight;
     text-transform: uppercase;
     color: $highlightColor;
+    @media (max-width: $mobile) {
+      text-align: center;
+    }
   }
   .children_container {
-    margin-top: 1rem;
+    margin-top: $footerHeaderMarginTop;
     ul {
       display: block;
       width: 100%;

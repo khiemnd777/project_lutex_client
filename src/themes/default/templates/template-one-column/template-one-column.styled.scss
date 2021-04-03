@@ -53,17 +53,31 @@
     margin: 0;
     padding: 0;
     background-color: $footerBackgroundColor;
-    min-height: 291px;
     .footer_above {
       @include primaryLayout;
       display: flex;
-      padding-top: $moduleMarginTop;
-      padding-bottom: $moduleMarginTop;
+      padding-top: $moduleMarginTop / 2;
+      padding-bottom: $moduleMarginTop / 2;
       @media (max-width: $mobile) {
         flex-direction: column;
       }
       & > div {
         flex: 1;
+        padding: 0 0.5rem;
+        &:first-child {
+          padding-left: 0;
+        }
+        &:last-child {
+          padding-right: 0;
+        }
+        @media (max-width: $mobile) {
+          padding-left: 0;
+          padding-right: 0;
+          margin-top: 2rem;
+          &:first-child {
+            margin-top: 0;
+          }
+        }
       }
     }
     .footer_bottom {

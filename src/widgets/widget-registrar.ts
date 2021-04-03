@@ -28,3 +28,9 @@ import './picked-navigation/picked-navigation.config';
 
 import './contact-information/contact-information.widget';
 import './contact-information/contact-information.config';
+
+import './facebook-fanpage/facebook-fanpage.widget';
+import './facebook-fanpage/facebook-fanpage.config';
+
+import './copyright/copyright.widget';
+import './copyright/copyright.config';

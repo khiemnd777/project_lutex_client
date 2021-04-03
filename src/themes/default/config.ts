@@ -13,3 +13,5 @@ import './widgets/feature-post/config';
 import './widgets/feature-catalog/config';
 import './widgets/picked-navigation/config';
 import './widgets/contact-information/config';
+import './widgets/facebook-fanpage/config';
+import './widgets/copyright/config';

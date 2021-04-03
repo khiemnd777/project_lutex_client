@@ -1,0 +1,23 @@
+@import "../../theme";
+
+.facebook_fanpage {
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  .title {
+    font-family: $alterFontFamily;
+    font-size: $headerFooterFontSize;
+    font-weight: $regularWeight;
+    text-transform: uppercase;
+    color: $highlightColor;
+    @media (max-width: $mobile) {
+      text-align: center;
+    }
+  }
+  .container {
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    margin-top: $footerHeaderMarginTop;
+  }
+}
