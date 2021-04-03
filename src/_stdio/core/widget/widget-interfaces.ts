@@ -1,11 +1,13 @@
 import { ApolloError } from '@apollo/client';
 import { FunctionalComponent } from 'preact';
+import { SingleMediaType } from '_stdio/shared/types/image-types';
 import { ParameterConsumedType } from '_stdio/shared/types/parameter-types';
 import { ThemeType } from '../theme/theme-types';
 
 interface WidgetAbstractArgs {
   theme: ThemeType;
   backgroundColor?: string;
+  backgroundImage?: SingleMediaType;
   name?: string;
   configName?: string;
   parameters?: ParameterConsumedType[];

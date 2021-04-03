@@ -21,12 +21,14 @@ const prepareIndicatedWidgets = (widgets: WidgetType[]) => {
         foundExpectedParameter.Value = comparedParameter.Value;
       }
     }
-    const backgroundColor = widget.widget.BackgroundColor || widget.BackgroundColor;
+    const backgroundColor = widget.BackgroundColor;
+    const backgroundImage = widget.BackgroundImage;
     return {
       name: widget.widget.Name,
       placeholder: widget.Placeholder,
       configName: widget.ConfigurationName || widget.widget.ConfigurationName,
-      backgroundColor: backgroundColor,
+      backgroundColor,
+      backgroundImage,
       parameters: map(
         expectedParameters,
         (parameter) =>

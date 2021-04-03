@@ -1,5 +1,4 @@
 import { PropRef, useEffect, useState } from 'preact/hooks';
-import { getInnerHeight } from '_stdio/shared/utils/dom.utils';
 
 export enum ParallaxAlignment {
   left,
@@ -7,26 +6,26 @@ export enum ParallaxAlignment {
   right,
 }
 
-function parallaxImg(
+function parallaxImg2(
   img: HTMLImageElement,
   imgParent: HTMLElement,
   alignment: ParallaxAlignment = ParallaxAlignment.center
 ) {
   const dataSpeed = img.getAttribute('data-speed') || '0';
   const speed = parseInt(dataSpeed);
-  const imgY = imgParent.offsetTop;
-  const winY = window.scrollY;
+  const imgParentBoundingBox = imgParent.getBoundingClientRect();
+  const parentY = imgParentBoundingBox.top;
   const winH = window.outerHeight;
-  const parentH = getInnerHeight(imgParent);
+  const parentH = imgParentBoundingBox.height;
 
   // The next pixel to show on screen
-  const winBottom = winY + winH;
-  let imgPercent = winY >= imgY + parentH ? 100 : 0;
+  const winBottom = winH;
+  let imgPercent = parentY + parentH < 0 ? 100 : 0;
 
   // If block is shown on screen
-  if (winBottom > imgY && winY < imgY + parentH) {
+  if (parentY + parentH > 0 && parentY < winBottom) {
     // Number of pixels shown after block appear
-    const imgBottom = (winBottom - imgY) * speed;
+    const imgBottom = (winBottom - parentY) * speed;
     // Max number of pixels until block disappear
     const imgTop = winH + parentH;
     // Percentage between start showing until disappearing
@@ -43,7 +42,7 @@ export function initParallaxImg(
   alignment: ParallaxAlignment = ParallaxAlignment.center
 ) {
   if (!!ref.current && !!ref.current.parentElement) {
-    parallaxImg(ref.current, ref.current.parentElement, alignment);
+    parallaxImg2(ref.current, ref.current.parentElement, alignment);
   }
 }
 

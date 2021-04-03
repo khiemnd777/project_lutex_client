@@ -3,6 +3,7 @@ import filter from 'lodash-es/filter';
 import map from 'lodash-es/map';
 import size from 'lodash-es/size';
 import { FunctionalComponent } from 'preact';
+import { SingleMediaType } from '_stdio/shared/types/image-types';
 import { ParameterConsumedType } from '_stdio/shared/types/parameter-types';
 import { WidgetArgs, WidgetConfigArgs } from './widget-interfaces';
 import { ConsumedWidgetType, IndicatedWidgetType, WidgetConfigType, WidgetFactoryType } from './widget-types';
@@ -62,6 +63,7 @@ export class WidgetFactory {
     placeholder: string,
     configName?: string,
     backgroundColor?: string,
+    backgroundImage?: SingleMediaType,
     parameters?: ParameterConsumedType[]
   ): ConsumedWidgetType | null {
     const widgets = getWidgets();
@@ -75,13 +77,14 @@ export class WidgetFactory {
       const assembliedConfig = find(assembliedConfigs, (config) => config.name === name);
       return {
         name: matchedWidget.name,
-        placeholder: placeholder,
+        placeholder,
         configName: configName ? configName : matchedWidget.configName,
         friendlyName: matchedWidget.friendlyName,
-        backgroundColor: backgroundColor,
+        backgroundColor,
+        backgroundImage,
         config: assembliedConfig?.component,
         component: matchedWidget.component,
-        parameters: parameters,
+        parameters,
       } as ConsumedWidgetType;
     }
     return null;
@@ -93,7 +96,7 @@ export class WidgetFactory {
   ): (ConsumedWidgetType | null)[] {
     const matchedIndictaedWidgets = filter(indicatedWidgets, (x) => x.placeholder == placeholder);
     const matchedConsumedWidgets = map(matchedIndictaedWidgets, (x) =>
-      this.Consume(x.name, placeholder, x.configName, x.backgroundColor, x.parameters)
+      this.Consume(x.name, placeholder, x.configName, x.backgroundColor, x.backgroundImage, x.parameters)
     );
     return filter(matchedConsumedWidgets, (x) => x != null);
   }

@@ -1,4 +1,5 @@
 import { gql, useQuery } from '@apollo/client';
+import { MediaGraphProps } from '_stdio/shared/constants/image-constants';
 import { RouterWidgetResponseType, TemplateWidgetResponseType } from './widget-types';
 
 const widgetProps = `
@@ -8,10 +9,12 @@ const widgetProps = `
       Placeholder
       ConfigurationName
       BackgroundColor
+      BackgroundImage{
+        ${MediaGraphProps}
+      }
       widget {
         Name
         ConfigurationName
-        BackgroundColor
         Parameters {
           Name
           Value

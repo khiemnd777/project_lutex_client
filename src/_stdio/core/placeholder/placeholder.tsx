@@ -1,4 +1,3 @@
-import isEmpty from 'lodash-es/isEmpty';
 import map from 'lodash-es/map';
 import { Fragment, FunctionalComponent, h } from 'preact';
 import { ThemeType } from '../theme/theme-types';
@@ -21,6 +20,7 @@ const Placeholder: FunctionalComponent<PlaceholderArgs> = ({ name, theme, widget
           ? widget?.config?.call(null, {
               name: widget.name,
               backgroundColor: widget.backgroundColor,
+              backgroundImage: widget.backgroundImage,
               theme: theme,
               configName: widget.configName,
               component: widget.component,
@@ -30,6 +30,7 @@ const Placeholder: FunctionalComponent<PlaceholderArgs> = ({ name, theme, widget
           : widget?.component?.call(null, {
               name: widget.name,
               backgroundColor: widget.backgroundColor,
+              backgroundImage: widget.backgroundImage,
               theme: theme,
               configName: widget.configName,
               parameters: widget.parameters,
