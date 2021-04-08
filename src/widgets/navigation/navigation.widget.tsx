@@ -6,13 +6,13 @@ import { NavigationBurger } from './navigation.burger';
 import { NavigationDesktop } from './navigation.desktop';
 import { NavigationMobile } from './navigation.mobile';
 
-const NavigationWidget: FunctionalComponent<NavigationWidgetArgs> = ({ items, theme, loading }) => {
+const NavigationWidget: FunctionalComponent<NavigationWidgetArgs> = ({ data, theme, loading }) => {
   const [open, setOpen] = useState(false);
   return (
     <Fragment>
-      <NavigationBurger theme={theme} items={items} open={open} setOpen={setOpen} />
-      <NavigationMobile theme={theme} items={items} open={open} loading={loading} />
-      <NavigationDesktop theme={theme} items={items} loading={loading} />
+      <NavigationBurger theme={theme} data={data} open={open} setOpen={setOpen} />
+      <NavigationMobile theme={theme} data={data} open={open} loading={loading} />
+      <NavigationDesktop theme={theme} data={data} loading={loading} />
     </Fragment>
   );
 };

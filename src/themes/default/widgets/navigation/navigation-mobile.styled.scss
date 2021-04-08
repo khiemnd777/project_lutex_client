@@ -10,15 +10,19 @@ $deltaCap: 120px;
   width: 100vw;
   height: calc(100% - #{$deltaCap});
   opacity: 0;
-  top: $deltaCap;
+  padding-top: $deltaCap;
+  top: 0;
   left: 0;
-  transform: translateY(calc(100% - #{$deltaCap}));
+  // transform: translateY(calc(100% - #{$deltaCap}));
+  transform: translateX(100%);
   transition: all ease-in-out 1s;
+  z-index: 9999;
   &.visible {
     opacity: 0;
   }
   &[open="true"] {
-    transform: translateY(0) !important;
+    // transform: translateY(0) !important;
+    transform: translateX(0) !important;
     opacity: 1;
   }
   @media (max-width: $mobile) {
@@ -48,6 +52,6 @@ $deltaCap: 120px;
     top: 0;
     left: 0;
     background-color: $primaryBackground;
-    opacity: 0.25;
+    opacity: 0.96;
   }
 }

@@ -2,54 +2,51 @@ import map from 'lodash-es/map';
 import size from 'lodash-es/size';
 import { Fragment, FunctionalComponent, h } from 'preact';
 import { Link } from 'preact-router/match';
+import { useEffect, useRef, useState } from 'preact/hooks';
 import { BuildClassNameBind } from '_stdio/core/theme/theme-utils';
 import { replaceByKeyPairValue } from '_stdio/shared/utils/string.utils';
 import { ChildrenNavigationEnum } from './navigation-enums';
 import { NavigationWidgetArgs } from './navigation-interfaces';
-import {
-  ChildrenNavigationType,
-  FullNavigationType,
-  OtherNavItemType,
-  PostCatalogNavItemType,
-} from './navigation-types';
+import { ChildrenNavigationType, OtherNavItemType, PostCatalogNavItemType } from './navigation-types';
 
-export const NavigationDesktop: FunctionalComponent<NavigationWidgetArgs> = ({ items, theme, loading }) => {
+export const NavigationDesktop: FunctionalComponent<NavigationWidgetArgs> = ({ data, theme }) => {
   const cx = BuildClassNameBind(theme.Name, 'navigation_desktop');
+  const navRef = useRef<HTMLDivElement>();
+  const [navDom, setNavDom] = useState({} as HTMLElement);
+  const [addedSticky, setAddedSticky] = useState(false);
+  let navOffsetY = 0;
+  useEffect(() => {
+    if (navRef?.current) {
+      setNavDom(navRef.current);
+      navOffsetY = navDom.offsetTop;
+    }
+    const listener = () => {
+      if (navDom) {
+        if (window.pageYOffset >= navOffsetY) {
+          setAddedSticky(true);
+        } else {
+          setAddedSticky(false);
+        }
+      }
+    };
+    window.addEventListener('scroll', listener);
+    return () => {
+      window.removeEventListener('scroll', listener);
+    };
+  }, [navRef.current]);
   return (
-    <div class={cx('navigation_desktop', size(items) ? 'visible' : null)}>
-      <BuildNavigation items={items} />
+    <div
+      ref={navRef}
+      class={cx('navigation_desktop', addedSticky ? 'sticky' : null, size(data?.Children) ? 'visible' : null)}
+    >
+      <div class={cx('overlay')}></div>
+      <BuildChildren items={data?.Children} />
     </div>
   );
 };
 
-interface BuildNavigationArgs {
-  items?: FullNavigationType[];
-}
-
-const BuildNavigation: FunctionalComponent<BuildNavigationArgs> = ({ items }) => {
-  return (
-    <ul>
-      {map(items, (item) => {
-        const displayName = item.DisplayName;
-        const path = item.Path;
-        const icon = item.Icon;
-        const children = item.Children;
-        return (
-          <li>
-            <Link href={path}>
-              <i class={icon}></i>
-              <span>{displayName}</span>
-            </Link>
-            <BuildChildren items={children} />
-          </li>
-        );
-      })}
-    </ul>
-  );
-};
-
 interface BuildChildrenArgs {
-  items: ChildrenNavigationType[];
+  items?: ChildrenNavigationType[];
 }
 
 const BuildChildren: FunctionalComponent<BuildChildrenArgs> = ({ items }) => {

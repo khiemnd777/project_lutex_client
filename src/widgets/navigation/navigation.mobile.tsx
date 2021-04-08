@@ -6,51 +6,20 @@ import { BuildClassNameBind } from '_stdio/core/theme/theme-utils';
 import { replaceByKeyPairValue } from '_stdio/shared/utils/string.utils';
 import { ChildrenNavigationEnum } from './navigation-enums';
 import { NavigationMobileWidgetArgs } from './navigation-interfaces';
-import {
-  ChildrenNavigationType,
-  FullNavigationType,
-  OtherNavItemType,
-  PostCatalogNavItemType,
-} from './navigation-types';
+import { ChildrenNavigationType, OtherNavItemType, PostCatalogNavItemType } from './navigation-types';
 
-export const NavigationMobile: FunctionalComponent<NavigationMobileWidgetArgs> = ({ items, open, theme, loading }) => {
+export const NavigationMobile: FunctionalComponent<NavigationMobileWidgetArgs> = ({ data, open, theme }) => {
   const cx = BuildClassNameBind(theme.Name, 'navigation_mobile');
   return (
-    <div open={open} class={cx('navigation_mobile', size(items) ? 'visible' : null)}>
+    <div open={open} class={cx('navigation_mobile', size(data?.Children) ? 'visible' : null)}>
       <div class={cx('overlay')}></div>
-      <BuildNavigation items={items} />
+      <BuildChildren items={data?.Children} />
     </div>
   );
 };
 
-interface BuildNavigationArgs {
-  items?: FullNavigationType[];
-}
-
-const BuildNavigation: FunctionalComponent<BuildNavigationArgs> = ({ items }) => {
-  return (
-    <ul>
-      {map(items, (item) => {
-        const displayName = item.DisplayName;
-        const path = item.Path;
-        const icon = item.Icon;
-        const children = item.Children;
-        return (
-          <li>
-            <Link href={path}>
-              <i class={icon}></i>
-              <span>{displayName}</span>
-            </Link>
-            <BuildChildren items={children} />
-          </li>
-        );
-      })}
-    </ul>
-  );
-};
-
 interface BuildChildrenArgs {
-  items: ChildrenNavigationType[];
+  items?: ChildrenNavigationType[];
 }
 
 const BuildChildren: FunctionalComponent<BuildChildrenArgs> = ({ items }) => {

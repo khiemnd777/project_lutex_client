@@ -20,6 +20,24 @@ button.navigation_burger {
   &.visible {
     opacity: 1;
   }
+  &[open="true"],
+  &.sticky {
+    position: fixed;
+    top: 80px;
+    z-index: 9999;
+    right: 15px;
+    border-radius: 50%;
+    padding: 8px;
+    z-index: 99999;
+  }
+  &.sticky {
+    border: 2px solid $primaryColor;
+  }
+  &[open="true"] {
+    &.sticky {
+      border: none;
+    }
+  }
   @media (max-width: $mobile) {
     display: flex;
   }
@@ -48,7 +66,6 @@ button.navigation_burger {
   }
   &[open="true"] div {
     background-color: $primaryColor;
-
     &:first-child {
       transform: rotate(45deg);
     }
