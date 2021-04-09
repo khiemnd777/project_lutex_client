@@ -4,6 +4,7 @@ import { Fragment, FunctionalComponent, h } from 'preact';
 import { Link } from 'preact-router/match';
 import { useEffect, useRef, useState } from 'preact/hooks';
 import { BuildClassNameBind } from '_stdio/core/theme/theme-utils';
+import { onSticky } from '_stdio/shared/utils/hooks';
 import { replaceByKeyPairValue } from '_stdio/shared/utils/string.utils';
 import { ChildrenNavigationEnum } from './navigation-enums';
 import { NavigationWidgetArgs } from './navigation-interfaces';
@@ -12,28 +13,8 @@ import { ChildrenNavigationType, OtherNavItemType, PostCatalogNavItemType } from
 export const NavigationDesktop: FunctionalComponent<NavigationWidgetArgs> = ({ data, theme }) => {
   const cx = BuildClassNameBind(theme.Name, 'navigation_desktop');
   const navRef = useRef<HTMLDivElement>();
-  const [navDom, setNavDom] = useState({} as HTMLElement);
   const [addedSticky, setAddedSticky] = useState(false);
-  let navOffsetY = 0;
-  useEffect(() => {
-    if (navRef?.current) {
-      setNavDom(navRef.current);
-      navOffsetY = navDom.offsetTop;
-    }
-    const listener = () => {
-      if (navDom) {
-        if (window.pageYOffset >= navOffsetY) {
-          setAddedSticky(true);
-        } else {
-          setAddedSticky(false);
-        }
-      }
-    };
-    window.addEventListener('scroll', listener);
-    return () => {
-      window.removeEventListener('scroll', listener);
-    };
-  }, [navRef.current]);
+  onSticky(navRef, setAddedSticky);
   return (
     <div
       ref={navRef}
