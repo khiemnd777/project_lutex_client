@@ -27,7 +27,7 @@ export const useOnScrollGlobally = (handler: (evt: Event) => void) => {
   });
 };
 
-export const onSticky = (ref: PropRef<any>, handler: (sticked: boolean) => void) => {
+export const onSticky = (ref: PropRef<any>, stateHandler: (sticked: boolean) => void) => {
   let domRect: DOMRect;
   useEffect(() => {
     if (ref?.current) {
@@ -35,12 +35,12 @@ export const onSticky = (ref: PropRef<any>, handler: (sticked: boolean) => void)
     }
     const listener = () => {
       if (domRect) {
-        handler(window.pageYOffset >= domRect.top);
+        stateHandler(window.pageYOffset >= domRect.top);
       }
     };
     window.addEventListener('scroll', listener);
     return () => {
       window.removeEventListener('scroll', listener);
     };
-  }, [ref.current, handler]);
+  }, [ref.current, stateHandler]);
 };
