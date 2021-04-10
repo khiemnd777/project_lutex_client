@@ -105,7 +105,7 @@ export const GraphPostItemInCatalog = (slug: string, datetimeNow: Date, start: n
         limit,
       },
       nextFetchPolicy: 'cache-first',
-      fetchPolicy: 'no-cache',
+      fetchPolicy: 'cache-first',
     }
   );
 };

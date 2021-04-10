@@ -8,7 +8,7 @@ import TemplateGrid from '_stdio/shared/components/template-grid/template-grid';
 import TemplateGridItem, { TemplateGridArgs } from '_stdio/shared/components/template-grid/template-grid-item';
 import { threeDotsAt, tryParseInt } from '_stdio/shared/utils/string.utils';
 import { timeSince } from '_stdio/shared/utils/date.utils';
-import { BuildClassNameBind, GetClassNameValues } from '_stdio/core/theme/theme-utils';
+import { GetClassNameValues } from '_stdio/core/theme/theme-utils';
 import find from 'lodash-es/find';
 import ImageContainer from '_stdio/shared/components/image-container/image-container';
 import { Link } from 'preact-router/match';

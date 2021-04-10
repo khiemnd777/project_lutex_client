@@ -1,6 +1,6 @@
 import { size } from 'lodash-es';
 import { FunctionalComponent, h } from 'preact';
-import { StateUpdater, useEffect, useRef, useState } from 'preact/hooks';
+import { StateUpdater, useRef, useState } from 'preact/hooks';
 import { ThemeType } from '_stdio/core/theme/theme-types';
 import { BuildClassNameBind } from '_stdio/core/theme/theme-utils';
 import { onSticky } from '_stdio/shared/utils/hooks';
