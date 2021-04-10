@@ -1,4 +1,4 @@
-@import '../../theme';
+@import "../../theme";
 
 .post_items_list {
   opacity: 0;
@@ -8,7 +8,7 @@
   }
   .container {
     display: flex;
-    padding: 0 15px;
+    padding: 0 15px 0 25px;
     margin-bottom: 25px;
     .image_container {
       width: 300px;
@@ -33,6 +33,17 @@
       }
       .short {
         margin-top: 10px;
+      }
+    }
+    @media (max-width: $mobile) {
+      flex-direction: column;
+      padding: 25px 0;
+      .image_container {
+        width: 100%;
+      }
+      .content_container {
+        margin-left: 0;
+        margin-top: 25px;
       }
     }
   }

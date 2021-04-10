@@ -1,4 +1,4 @@
-@import '../../theme';
+@import "../../theme";
 
 @mixin container {
   display: flex;
@@ -49,7 +49,6 @@
     .body_middle {
       @include primaryLayout;
       display: flex;
-      height: 100%;
       padding-top: $moduleMarginTop;
       padding-bottom: $moduleMarginTop;
       .body_middle_left,
@@ -58,13 +57,22 @@
         padding: 0;
         display: flex;
         flex-direction: column;
-        height: 100%;
       }
       .body_middle_left {
         width: 17rem;
       }
       .body_middle_right {
         flex: 1;
+      }
+      @media (max-width: $mobile) {
+        flex-direction: column;
+        .body_middle_left {
+          width: 100%;
+        }
+        .body_middle_right {
+          flex: 1;
+          margin-top: $moduleMarginTop / 2;
+        }
       }
     }
   }
