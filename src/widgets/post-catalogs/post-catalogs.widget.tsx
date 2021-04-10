@@ -6,15 +6,15 @@ import { PostCatalogsSideColumnWidgetArgs } from './post-catalog-types';
 import { Link } from 'preact-router/match';
 import { BuildClassNameBind } from '_stdio/core/theme/theme-utils';
 
-const PostCatalogsSideColumnWidget: FunctionalComponent<PostCatalogsSideColumnWidgetArgs> = ({
+const PostCatalogsWidget: FunctionalComponent<PostCatalogsSideColumnWidgetArgs> = ({
   theme,
   items,
   totalCount,
   onShowMore,
 }) => {
-  const cx = BuildClassNameBind(theme.Name, 'post_catalogs_side_column');
+  const cx = BuildClassNameBind(theme.Name, 'post_catalogs');
   return (
-    <div class={cx('post_catalogs_side_column', size(items) ? 'visible' : null)}>
+    <div class={cx('post_catalogs', size(items) ? 'visible' : null)}>
       <ul>
         {map(items, (item) => {
           return (
@@ -37,4 +37,4 @@ const PostCatalogsSideColumnWidget: FunctionalComponent<PostCatalogsSideColumnWi
   );
 };
 
-WidgetFactory.Register('post_catalogs_side_column', 'Post catalogs side column', PostCatalogsSideColumnWidget);
+WidgetFactory.Register('post_catalogs', 'Post catalogs', PostCatalogsWidget);

@@ -4,10 +4,10 @@ import Placeholder from '_stdio/core/placeholder/placeholder';
 import { TemplateFactory } from '_stdio/core/template/template-factory';
 import { BuildClassNameBind } from '_stdio/core/theme/theme-utils';
 
-const TemplateOneColumn: FunctionalComponent<TemplateArgs> = ({ theme, widgets, routerParams }) => {
-  const cx = BuildClassNameBind(theme.Name, 'one_column');
+const TemplateTwoColumn: FunctionalComponent<TemplateArgs> = ({ theme, widgets, routerParams }) => {
+  const cx = BuildClassNameBind(theme.Name, 'two_column');
   return (
-    <div class={cx('template_one_column')}>
+    <div class={cx('template_two_column')}>
       <div class={cx('header')}>
         <div class={cx('header_top')}>
           <div class={cx('container')}>
@@ -29,7 +29,16 @@ const TemplateOneColumn: FunctionalComponent<TemplateArgs> = ({ theme, widgets, 
         </div>
       </div>
       <div class={cx('body')}>
-        <Placeholder name={'body'} theme={theme} widgets={widgets} routerParams={routerParams} />
+        <Placeholder name={'body_above'} theme={theme} widgets={widgets} routerParams={routerParams} />
+        <div class={cx('body_middle')}>
+          <div class={cx('body_middle_left')}>
+            <Placeholder name={'body_middle_left'} theme={theme} widgets={widgets} routerParams={routerParams} />
+          </div>
+          <div class={cx('body_middle_right')}>
+            <Placeholder name={'body_middle_right'} theme={theme} widgets={widgets} routerParams={routerParams} />
+          </div>
+        </div>
+        <Placeholder name={'body_bottom'} theme={theme} widgets={widgets} routerParams={routerParams} />
       </div>
       <div class={cx('footer')}>
         <div class={cx('footer_above')}>
@@ -43,4 +52,4 @@ const TemplateOneColumn: FunctionalComponent<TemplateArgs> = ({ theme, widgets, 
   );
 };
 
-export default TemplateFactory.Register('one_column', TemplateOneColumn);
+export default TemplateFactory.Register('two_column', TemplateTwoColumn);
