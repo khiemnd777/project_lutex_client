@@ -5,14 +5,18 @@ import { WidgetFactory } from '_stdio/core/widget/widget-factory';
 import { PostCatalogsSideColumnWidgetArgs } from './post-catalog-types';
 import { Link } from 'preact-router/match';
 import { BuildClassNameBind } from '_stdio/core/theme/theme-utils';
+import { threeDotsAt, tryParseInt } from '_stdio/shared/utils/string.utils';
+import { GetParameterValue } from '_stdio/shared/utils/params.util';
 
 const PostCatalogsWidget: FunctionalComponent<PostCatalogsSideColumnWidgetArgs> = ({
   theme,
   items,
+  parameters,
   totalCount,
   onShowMore,
 }) => {
   const cx = BuildClassNameBind(theme.Name, 'post_catalogs');
+  const threeDotAtParam = tryParseInt(GetParameterValue('threeDotAt', parameters)) || 9;
   return (
     <div class={cx('post_catalogs', size(items) ? 'visible' : null)}>
       <ul>
@@ -20,7 +24,7 @@ const PostCatalogsWidget: FunctionalComponent<PostCatalogsSideColumnWidgetArgs> 
           return (
             <li>
               <Link href={`/post-catalog/${item.Slug}`}>
-                <span>{item.Name}</span>
+                <span>{threeDotsAt(item.Name, threeDotAtParam)}</span>
               </Link>
             </li>
           );
