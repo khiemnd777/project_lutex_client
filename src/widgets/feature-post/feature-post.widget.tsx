@@ -6,7 +6,7 @@ import size from 'lodash-es/size';
 import { FunctionalComponent, h } from 'preact';
 import { Link } from 'preact-router/match';
 import { ThemeType } from '_stdio/core/theme/theme-types';
-import { BuildClassNameBind } from '_stdio/core/theme/theme-utils';
+import { BuildClassNameBind, GetClassNameValues } from '_stdio/core/theme/theme-utils';
 import { WidgetFactory } from '_stdio/core/widget/widget-factory';
 import { MediaFormatEnums } from '_stdio/shared/enums/image-enums';
 import { GetSingleMedia } from '_stdio/shared/utils/media.utils';
@@ -17,6 +17,7 @@ import TemplateGrid from '_stdio/shared/components/template-grid/template-grid';
 import TemplateGridItem, { TemplateGridArgs } from '_stdio/shared/components/template-grid/template-grid-item';
 import ImageContainer from '_stdio/shared/components/image-container/image-container';
 import { timeSince } from '_stdio/shared/utils/date.utils';
+import classNamesBind from 'classnames/bind';
 
 const FeaturePostWidget: FunctionalComponent<FeaturePostWidgetArgs> = ({
   theme,
@@ -94,11 +95,13 @@ const PostItemsBuilder: FunctionalComponent<PostBuilderArgs> = ({
   dateEnabled,
   explorationText,
 }) => {
-  const cx = BuildClassNameBind(theme.Name, 'feature_post');
+  const styleVals = GetClassNameValues(theme.Name, 'feature_post');
+  const cx = classNamesBind.bind(styleVals);
   return (
     <TemplateGrid
       classGridItem={cx('post_item_grid')}
       classGridItemContainer={cx('post_item_grid_container')}
+      classNames={styleVals}
       list={map(posts, (post) => {
         return {
           template: (templateGridArgs: TemplateGridArgs) => {

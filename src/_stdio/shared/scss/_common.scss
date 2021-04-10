@@ -27,3 +27,30 @@
   padding: 0;
   margin: 0 auto;
 }
+@mixin gridLayout($itemNumberOnRow, $paddingLeftNumber, $paddingRightNumber, $paddingUnit, $minHeight) {
+  width: calc(100% / #{$itemNumberOnRow});
+  min-height: $minHeight;
+  .grid_item_container {
+    padding-left: #{$paddingLeftNumber / 2 * $paddingUnit};
+    padding-right: #{$paddingRightNumber / 2 * $paddingUnit};
+  }
+  &:nth-child(#{$itemNumberOnRow}n + 0) {
+    .grid_item_container {
+      padding-right: 0;
+      padding-left: #{$paddingLeftNumber * $paddingUnit};
+    }
+  }
+  &:nth-child(#{$itemNumberOnRow}n + 1) {
+    .grid_item_container {
+      padding-left: 0;
+      padding-right: #{$paddingRightNumber * $paddingUnit};
+    }
+  }
+  @media (max-width: $mobile) {
+    width: 100%;
+    padding-bottom: 2rem;
+    .grid_item_container {
+      padding: 0 !important;
+    }
+  }
+}

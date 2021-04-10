@@ -6,11 +6,14 @@ import first from 'lodash-es/first';
 import { WidgetFactory } from '_stdio/core/widget/widget-factory';
 import TemplateGrid from '_stdio/shared/components/template-grid/template-grid';
 import TemplateGridItem, { TemplateGridArgs } from '_stdio/shared/components/template-grid/template-grid-item';
-import { threeDotsAt } from '_stdio/shared/utils/string.utils';
+import { threeDotsAt, tryParseInt } from '_stdio/shared/utils/string.utils';
 import { timeSince } from '_stdio/shared/utils/date.utils';
-import { BuildClassNameBind } from '_stdio/core/theme/theme-utils';
+import { BuildClassNameBind, GetClassNameValues } from '_stdio/core/theme/theme-utils';
 import find from 'lodash-es/find';
 import ImageContainer from '_stdio/shared/components/image-container/image-container';
+import { Link } from 'preact-router/match';
+import { GetParameterValue } from '_stdio/shared/utils/params.util';
+import classNamesBind from 'classnames/bind';
 
 const PostItemsListWidget: FunctionalComponent<PostItemsListWidgetArgs> = ({
   theme,
@@ -18,9 +21,12 @@ const PostItemsListWidget: FunctionalComponent<PostItemsListWidgetArgs> = ({
   totalCount,
   datetimeServer,
   routerParams,
+  parameters,
   onFetchMore,
 }) => {
-  const cx = BuildClassNameBind(theme.Name, 'post_items_list');
+  const cxVals = GetClassNameValues(theme.Name, 'post_items_list');
+  const cx = classNamesBind.bind(cxVals);
+  const shortWordSize = tryParseInt(GetParameterValue('shortWordSize', parameters)) || 20;
   return (
     <div class={cx('post_items_list', size(items) ? 'visible' : null)}>
       <TemplateGrid
@@ -41,9 +47,9 @@ const PostItemsListWidget: FunctionalComponent<PostItemsListWidgetArgs> = ({
                   />
                   <div class={cx('content_container')}>
                     {item.Title ? (
-                      <a href={`/${item.Slug}`} class={cx('title')}>
+                      <Link href={`/${item.Slug}`} class={cx('title')}>
                         <span>{item.Title}</span>
-                      </a>
+                      </Link>
                     ) : null}
                     {size(item.Catalogs) ? (
                       <div class={cx('catalog')}>
@@ -55,7 +61,7 @@ const PostItemsListWidget: FunctionalComponent<PostItemsListWidgetArgs> = ({
                         {timeSince(new Date(!datetimeServer ? new Date() : datetimeServer), new Date(item.createdAt))}
                       </div>
                     ) : null}
-                    {item.Short ? <div class={cx('short')}>{threeDotsAt(item.Short, 20)}</div> : null}
+                    {item.Short ? <div class={cx('short')}>{threeDotsAt(item.Short, shortWordSize)}</div> : null}
                   </div>
                 </div>
               );

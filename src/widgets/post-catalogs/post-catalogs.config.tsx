@@ -5,12 +5,13 @@ import { WidgetConfigArgs } from '_stdio/core/widget/widget-interfaces';
 import { GetParameterValue } from '_stdio/shared/utils/params.util';
 import { tryParseInt } from '_stdio/shared/utils/string.utils';
 import { GraphRootPostCatalogs } from './post-catalog-service';
-import { PostCatalogsSideColumnWidgetArgs, PostCatalogType } from './post-catalog-types';
+import { PostCatalogsWidgetArgs, PostCatalogType } from './post-catalog-types';
 
-const PostCatalogsWidgetConfig: FunctionalComponent<WidgetConfigArgs<PostCatalogsSideColumnWidgetArgs>> = ({
+const PostCatalogsWidgetConfig: FunctionalComponent<WidgetConfigArgs<PostCatalogsWidgetArgs>> = ({
   theme,
   component,
   parameters,
+  routerParams,
 }) => {
   const limit = tryParseInt(GetParameterValue('limit', parameters));
   const { data, loading, error, fetchMore } = GraphRootPostCatalogs(0, limit);
@@ -19,10 +20,11 @@ const PostCatalogsWidgetConfig: FunctionalComponent<WidgetConfigArgs<PostCatalog
   return (
     <Fragment>
       {component?.call(null, {
-        theme: theme,
-        items: items,
-        totalCount: totalCount,
-        parameters: parameters,
+        theme,
+        items,
+        totalCount,
+        parameters,
+        routerParams,
         onShowMore: async () => {
           if (totalCount && size(items) < totalCount) {
             await fetchMore({

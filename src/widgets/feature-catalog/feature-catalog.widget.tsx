@@ -4,7 +4,7 @@ import size from 'lodash-es/size';
 import first from 'lodash-es/first';
 import { FunctionalComponent, h } from 'preact';
 import { ThemeType } from '_stdio/core/theme/theme-types';
-import { BuildClassNameBind } from '_stdio/core/theme/theme-utils';
+import { BuildClassNameBind, GetClassNameValues } from '_stdio/core/theme/theme-utils';
 import { WidgetFactory } from '_stdio/core/widget/widget-factory';
 import { GetParameterOrDataValue, GetParameterValue } from '_stdio/shared/utils/params.util';
 import { replaceByKeyPairValue, threeDotsAt } from '_stdio/shared/utils/string.utils';
@@ -17,6 +17,7 @@ import { MediaFormatEnums } from '_stdio/shared/enums/image-enums';
 import { GetSingleMedia } from '_stdio/shared/utils/media.utils';
 import { Link } from 'preact-router/match';
 import { BackgroundImageParallax } from '_stdio/shared/components/background-image-parallax/background-image-parallax';
+import classNamesBind from 'classnames/bind';
 
 const FeatureCatalogWidget: FunctionalComponent<FeatureCatalogWidgetArgs> = ({
   data,
@@ -84,11 +85,13 @@ interface CatalogBuilderArgs {
 }
 
 const CatalogBuilder: FunctionalComponent<CatalogBuilderArgs> = ({ theme, catalogs }) => {
-  const cx = BuildClassNameBind(theme.Name, 'feature_catalog');
+  const styleVals = GetClassNameValues(theme.Name, 'feature_catalog');
+  const cx = classNamesBind.bind(styleVals);
   return (
     <TemplateGrid
       classGridItem={cx('catalog_item_grid')}
       classGridItemContainer={cx('catalog_item_grid_container')}
+      classNames={styleVals}
       list={map(catalogs, (catalog) => {
         return {
           template: (templateGridArgs: TemplateGridArgs) => {

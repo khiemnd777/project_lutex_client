@@ -1,6 +1,6 @@
 import { WidgetArgs } from '_stdio/core/widget/widget-interfaces';
 
-export interface PostCatalogsSideColumnWidgetArgs extends WidgetArgs {
+export interface PostCatalogsWidgetArgs extends WidgetArgs {
   items?: PostCatalogType[];
   totalCount?: number;
   onShowMore?: (e: MouseEvent) => void;

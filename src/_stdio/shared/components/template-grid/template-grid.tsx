@@ -9,8 +9,6 @@ import { trackWindowScroll, ScrollPosition } from 'react-lazy-load-image-compone
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { route } from 'preact-router';
 
-const cb = classNamesBind.bind(styles);
-
 interface GridArgs {
   list: TemplateGridItem[];
   dataLength: number;
@@ -19,10 +17,12 @@ interface GridArgs {
   nextFunc: () => void;
   scrollPosition: ScrollPosition;
   onSelect?: (model: TemplateGridItem) => void;
+  classNames?: Record<string, string>;
   [x: string]: any;
 }
 
 export const showTemplateGridItem = (gridElmRef?: Ref<HTMLDivElement>) => {
+  const cb = classNamesBind.bind(styles);
   gridElmRef?.current?.classList?.add(cb('grid_item_visible'));
 };
 
@@ -34,6 +34,7 @@ const TemplateGrid: FunctionalComponent<GridArgs> = ({
   nextFunc,
   scrollPosition,
   onSelect,
+  classNames,
   ...props
 }) => {
   const { children } = props;
@@ -42,6 +43,8 @@ const TemplateGrid: FunctionalComponent<GridArgs> = ({
   const getGrid = () => {
     return mGrid;
   };
+  const styleVals = { ...styles, ...classNames };
+  const cb = classNamesBind.bind(styleVals);
   useEffect(() => {
     if (!!gridElmRef.current && !mGrid) {
       const gridClassName = `.${gridElmRef.current?.className}`;

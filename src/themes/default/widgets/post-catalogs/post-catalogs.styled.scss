@@ -1,8 +1,19 @@
+@import '../../theme';
+
 .post_catalogs {
   opacity: 0;
   transition: opacity ease 0.5s;
   &.visible {
     opacity: 1;
+  }
+  .title {
+    padding: 10px;
+    background-color: $primaryColor;
+    span {
+      font-size: $headerListFontSize;
+      color: $fontBackground;
+      text-transform: uppercase;
+    }
   }
   ul {
     list-style: none;
@@ -18,6 +29,18 @@
         display: block;
         padding: 0.5rem;
         transition: all ease 0.25s;
+      }
+      &:hover {
+        a {
+          background-color: $primaryHoverColor;
+          color: $fontBackground !important;
+        }
+      }
+      &.selected {
+        a {
+          color: $primaryColor;
+          font-weight: $boldWeight;
+        }
       }
       &:hover {
         a {
