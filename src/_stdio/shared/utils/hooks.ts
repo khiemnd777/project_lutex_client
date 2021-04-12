@@ -1,4 +1,5 @@
-import { PropRef, useEffect } from 'preact/hooks';
+import { isEmpty } from 'lodash-es';
+import { PropRef, useEffect, useState } from 'preact/hooks';
 
 export const useOnClickOutside = (ref: PropRef<any>, handler: (evt: MouseEvent) => void) => {
   useEffect(() => {
@@ -27,20 +28,28 @@ export const useOnScrollGlobally = (handler: (evt: Event) => void) => {
   });
 };
 
-export const onSticky = (ref: PropRef<any>, stateHandler: (sticked: boolean) => void) => {
-  let domRect: DOMRect;
+export const onSticky = (ref: PropRef<any>, handler: (sticked: boolean) => void) => {
+  const [domRect, setDomRect] = useState({} as DOMRect);
+  const [stickyRecorded, setStickyRecorded] = useState(false);
   useEffect(() => {
-    if (ref?.current) {
-      domRect = ref.current.getBoundingClientRect();
+    if (ref?.current && isEmpty(domRect)) {
+      setDomRect(ref.current.getBoundingClientRect());
     }
+  }, [ref?.current]);
+
+  useEffect(() => {
     const listener = () => {
       if (domRect) {
-        stateHandler(window.pageYOffset >= domRect.top);
+        const sticked = window.pageYOffset >= domRect.top;
+        if (stickyRecorded !== sticked) {
+          handler(sticked);
+          setStickyRecorded(sticked)
+        }
       }
     };
     window.addEventListener('scroll', listener);
     return () => {
       window.removeEventListener('scroll', listener);
     };
-  }, [ref.current, stateHandler]);
+  }, [ref.current, handler]);
 };
