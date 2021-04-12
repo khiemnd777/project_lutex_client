@@ -50,7 +50,6 @@
         cursor: pointer;
         display: block;
         padding: 0.5rem;
-        height: 0px;
         transition: all ease 0.5s;
       }
       &:hover {
@@ -75,9 +74,6 @@
       opacity: 1;
       li {
         height: 33px;
-        a {
-          height: 33px;
-        }
       }
     }
   }
