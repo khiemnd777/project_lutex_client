@@ -2,9 +2,9 @@ import map from 'lodash-es/map';
 import size from 'lodash-es/size';
 import { Fragment, FunctionalComponent, h } from 'preact';
 import { Link } from 'preact-router/match';
-import { useEffect, useRef, useState } from 'preact/hooks';
+import { useRef, useState } from 'preact/hooks';
 import { BuildClassNameBind } from '_stdio/core/theme/theme-utils';
-import { onSticky } from '_stdio/shared/utils/hooks';
+import StickyAnchor from '_stdio/shared/components/sticky/sticky-anchor';
 import { replaceByKeyPairValue } from '_stdio/shared/utils/string.utils';
 import { ChildrenNavigationEnum } from './navigation-enums';
 import { NavigationWidgetArgs } from './navigation-interfaces';
@@ -14,15 +14,17 @@ export const NavigationDesktop: FunctionalComponent<NavigationWidgetArgs> = ({ d
   const cx = BuildClassNameBind(theme.Name, 'navigation_desktop');
   const navRef = useRef<HTMLDivElement>();
   const [addedSticky, setAddedSticky] = useState(false);
-  onSticky(navRef, setAddedSticky);
   return (
-    <div
-      ref={navRef}
-      class={cx('navigation_desktop', addedSticky ? 'sticky' : null, size(data?.Children) ? 'visible' : null)}
-    >
-      <div class={cx('overlay')}></div>
-      <BuildChildren items={data?.Children} />
-    </div>
+    <Fragment>
+      <StickyAnchor stickyRef={navRef} handler={setAddedSticky} />
+      <div
+        ref={navRef}
+        class={cx('navigation_desktop', addedSticky ? 'sticky' : null, size(data?.Children) ? 'visible' : null)}
+      >
+        <div class={cx('overlay')}></div>
+        <BuildChildren items={data?.Children} />
+      </div>
+    </Fragment>
   );
 };
 

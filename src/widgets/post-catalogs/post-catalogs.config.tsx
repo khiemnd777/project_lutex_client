@@ -4,8 +4,9 @@ import { WidgetFactory } from '_stdio/core/widget/widget-factory';
 import { WidgetConfigArgs } from '_stdio/core/widget/widget-interfaces';
 import { GetParameterValue } from '_stdio/shared/utils/params.util';
 import { tryParseInt } from '_stdio/shared/utils/string.utils';
+import { PostCatalogsWidgetArgs } from './post-catalog-interfaces';
 import { GraphRootPostCatalogs } from './post-catalog-service';
-import { PostCatalogsWidgetArgs, PostCatalogType } from './post-catalog-types';
+import { PostCatalogType } from './post-catalog-types';
 
 const PostCatalogsWidgetConfig: FunctionalComponent<WidgetConfigArgs<PostCatalogsWidgetArgs>> = ({
   theme,

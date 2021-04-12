@@ -1,4 +1,4 @@
-@import '../../theme';
+@import "../../theme";
 
 .post_catalogs {
   position: relative;
@@ -6,6 +6,20 @@
   transition: opacity ease 0.5s;
   &.visible {
     opacity: 1;
+  }
+  &.desktop {
+    display: block;
+  }
+  &.mobile {
+    display: none;
+  }
+  @media (max-width: $mobile) {
+    &.desktop {
+      display: none;
+    }
+    &.mobile {
+      display: block;
+    }
   }
   .title {
     position: relative;
@@ -57,7 +71,7 @@
         }
       }
     }
-    &[open='true'] {
+    &[open="true"] {
       opacity: 1;
       li {
         height: 33px;
@@ -79,13 +93,16 @@
       }
     }
   }
+  &.sticky {
+    position: fixed;
+    z-index: 10;
+    top: 90px;
+  }
   @media (max-width: $mobile) {
     &.sticky {
-      position: fixed;
       top: 0;
       left: 0;
       width: 100%;
-      z-index: 10;
     }
   }
 }
