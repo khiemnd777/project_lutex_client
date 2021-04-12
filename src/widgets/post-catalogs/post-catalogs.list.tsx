@@ -3,7 +3,7 @@ import size from 'lodash-es/size';
 import { FunctionalComponent, h } from 'preact';
 import { Link } from 'preact-router/match';
 import { BuildClassNameBind } from '_stdio/core/theme/theme-utils';
-import { threeDotsAt, tryParseInt } from '_stdio/shared/utils/string.utils';
+import { replaceByKeyPairValue, threeDotsAt, tryParseInt } from '_stdio/shared/utils/string.utils';
 import { GetParameterValue } from '_stdio/shared/utils/params.util';
 import PostCatalogBurger from './post-catalog-burger';
 import { PostCatalogsListArgs } from './post-catalog-interfaces';
@@ -34,9 +34,11 @@ const PostCatalogsList: FunctionalComponent<PostCatalogsListArgs> = ({
       </div>
       <ul open={open}>
         {map(items, (item) => {
+          const routerPath = item.Router?.Path;
+          const path = replaceByKeyPairValue(routerPath, item);
           return (
             <li class={cx(slug == item.Slug ? 'selected' : null)}>
-              <Link href={`/post-catalog/${item.Slug}`}>
+              <Link href={path}>
                 <span>{threeDotsAt(item.Name, threeDotAtParam)}</span>
               </Link>
             </li>

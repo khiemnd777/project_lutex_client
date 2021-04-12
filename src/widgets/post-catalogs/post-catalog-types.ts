@@ -26,5 +26,9 @@ export type PostCatalogType = {
   Slug: string;
   Root: boolean;
   Icon: string;
+  Router: {
+    id: string;
+    Path: string;
+  };
   DisplayOrder: number;
 };

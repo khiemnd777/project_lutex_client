@@ -12,6 +12,10 @@ const postCatalogProps = `
   Slug
   Root
   Icon
+  Router {
+    id
+    Path
+  }
   DisplayOrder
 `;
 
