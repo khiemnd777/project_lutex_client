@@ -1,5 +1,4 @@
-import { isEmpty } from 'lodash-es';
-import { PropRef, useEffect, useState } from 'preact/hooks';
+import { PropRef, useEffect } from 'preact/hooks';
 
 export const useOnClickOutside = (ref: PropRef<any>, handler: (evt: MouseEvent) => void) => {
   useEffect(() => {
@@ -28,28 +27,18 @@ export const useOnScrollGlobally = (handler: (evt: Event) => void) => {
   });
 };
 
-export const onSticky = (ref: PropRef<any>, handler: (sticked: boolean) => void) => {
-  const [domRect, setDomRect] = useState({} as DOMRect);
-  const [stickyRecorded, setStickyRecorded] = useState(false);
+export const onDelay = (handler: () => void, timeout: number) => {
   useEffect(() => {
-    if (ref?.current && isEmpty(domRect)) {
-      setDomRect(ref.current.getBoundingClientRect());
-    }
-  }, [ref?.current]);
+    window.setTimeout(() => {
+      handler();
+    }, timeout);
+  }, []);
+};
 
+export const onInterval = (handler: () => void, interval: number) => {
   useEffect(() => {
-    const listener = () => {
-      if (domRect) {
-        const sticked = window.pageYOffset >= domRect.top;
-        if (stickyRecorded !== sticked) {
-          handler(sticked);
-          setStickyRecorded(sticked)
-        }
-      }
-    };
-    window.addEventListener('scroll', listener);
-    return () => {
-      window.removeEventListener('scroll', listener);
-    };
-  }, [ref.current, handler]);
+    window.setInterval(() => {
+      handler();
+    }, interval);
+  }, []);
 };

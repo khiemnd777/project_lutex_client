@@ -27,6 +27,7 @@ export type MultipleMediaType = {
 };
 
 export type SingleMediaType = {
+  id: string;
   Caption: string;
   Media: MediaType;
 };
