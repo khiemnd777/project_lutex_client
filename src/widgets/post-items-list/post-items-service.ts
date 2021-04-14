@@ -10,7 +10,7 @@ const postItemProps = `
   PostOn
   PostOff
   createdAt
-  Catalogs{
+  Catalog{
     id
     DisplayName
     Slug
@@ -85,7 +85,7 @@ export const GraphPostItemInCatalog = (slug: string, datetimeNow: Date, start: n
       ${postItemsConnection}
       postItems (
         where: {
-          Catalogs: {
+          Catalog: {
             Slug: $slug
           }
           ${availablePostItemCondition(datetimeNow)}

@@ -2,6 +2,7 @@ import { FunctionalComponent, h } from 'preact';
 import { PostItemsListWidgetArgs } from './post-items-list-interfaces';
 import size from 'lodash-es/size';
 import map from 'lodash-es/map';
+import isEmpty from 'lodash-es/isEmpty';
 import first from 'lodash-es/first';
 import { WidgetFactory } from '_stdio/core/widget/widget-factory';
 import TemplateGrid from '_stdio/shared/components/template-grid/template-grid';
@@ -9,7 +10,6 @@ import TemplateGridItem, { TemplateGridArgs } from '_stdio/shared/components/tem
 import { threeDotsAt, tryParseInt } from '_stdio/shared/utils/string.utils';
 import { timeSince } from '_stdio/shared/utils/date.utils';
 import { GetClassNameValues } from '_stdio/core/theme/theme-utils';
-import find from 'lodash-es/find';
 import ImageContainer from '_stdio/shared/components/image-container/image-container';
 import { Link } from 'preact-router/match';
 import { GetParameterValue } from '_stdio/shared/utils/params.util';
@@ -20,7 +20,6 @@ const PostItemsListWidget: FunctionalComponent<PostItemsListWidgetArgs> = ({
   items,
   totalCount,
   datetimeServer,
-  routerParams,
   parameters,
   onFetchMore,
 }) => {
@@ -51,11 +50,7 @@ const PostItemsListWidget: FunctionalComponent<PostItemsListWidgetArgs> = ({
                         <span>{item.Title}</span>
                       </Link>
                     ) : null}
-                    {size(item.Catalogs) ? (
-                      <div class={cx('catalog')}>
-                        {find(item.Catalogs, (catalog) => catalog.Slug === routerParams?.slug)?.DisplayName}
-                      </div>
-                    ) : null}
+                    {isEmpty(item.Catalog) ? <div class={cx('catalog')}>{item.Catalog?.DisplayName}</div> : null}
                     {size(item.createdAt) ? (
                       <div class={cx('created_at')}>
                         {timeSince(new Date(!datetimeServer ? new Date() : datetimeServer), new Date(item.createdAt))}
