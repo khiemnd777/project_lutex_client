@@ -3,6 +3,7 @@ import { FunctionalComponent } from 'preact';
 import { SingleMediaType } from '_stdio/shared/types/image-types';
 import { ParameterConsumedType } from '_stdio/shared/types/parameter-types';
 import { ThemeType } from '../theme/theme-types';
+import { IndicatedWidgetType } from './widget-types';
 
 interface WidgetAbstractArgs {
   theme: ThemeType;
@@ -12,6 +13,7 @@ interface WidgetAbstractArgs {
   configName?: string;
   parameters?: ParameterConsumedType[];
   routerParams?: Record<string, string>;
+  widgets?: IndicatedWidgetType[];
 }
 
 export interface WidgetArgs extends WidgetAbstractArgs {

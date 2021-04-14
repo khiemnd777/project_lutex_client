@@ -26,6 +26,7 @@ const Placeholder: FunctionalComponent<PlaceholderArgs> = ({ name, theme, widget
               component: widget.component,
               parameters: widget.parameters,
               routerParams: routerParams,
+              widgets: widgets,
             })
           : widget?.component?.call(null, {
               name: widget.name,
@@ -35,6 +36,7 @@ const Placeholder: FunctionalComponent<PlaceholderArgs> = ({ name, theme, widget
               configName: widget.configName,
               parameters: widget.parameters,
               routerParams: routerParams,
+              widgets: widgets,
             })
       )}
     </Fragment>
