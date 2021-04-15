@@ -23,3 +23,27 @@ export type UpdateViewCountType = {
     ViewCount: number;
   };
 };
+
+export type PostItemViewCountGraphResult = {
+  postItemViewCountsConnection: {
+    aggregate: {
+      count: number;
+    };
+  };
+};
+
+export type PostItemLikeGraphResult = {
+  postItemLikesConnection: {
+    aggregate: {
+      count: number;
+    };
+  };
+};
+
+export type CreateViewCountGraphResult = {
+  createPostItemViewCount: {
+    postItemViewCount: {
+      id: number;
+    };
+  };
+};
