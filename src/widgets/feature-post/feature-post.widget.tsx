@@ -10,7 +10,7 @@ import { BuildClassNameBind, GetClassNameValues } from '_stdio/core/theme/theme-
 import { WidgetFactory } from '_stdio/core/widget/widget-factory';
 import { MediaFormatEnums } from '_stdio/shared/enums/image-enums';
 import { GetSingleMedia } from '_stdio/shared/utils/media.utils';
-import { parseBool, replaceByKeyPairValue, threeDotsAt } from '_stdio/shared/utils/string.utils';
+import { parseBool, threeDotsAt } from '_stdio/shared/utils/string.utils';
 import { FeaturePostWidgetArgs } from './feature-post-interfaces';
 import { VisualizedPostType } from './feature-post-types';
 import TemplateGrid from '_stdio/shared/components/template-grid/template-grid';
@@ -18,6 +18,7 @@ import TemplateGridItem, { TemplateGridArgs } from '_stdio/shared/components/tem
 import ImageContainer from '_stdio/shared/components/image-container/image-container';
 import { timeSince } from '_stdio/shared/utils/date.utils';
 import classNamesBind from 'classnames/bind';
+import { buildRouterPath } from '_stdio/core/router/router-utils';
 
 const FeaturePostWidget: FunctionalComponent<FeaturePostWidgetArgs> = ({
   theme,
@@ -41,7 +42,7 @@ const FeaturePostWidget: FunctionalComponent<FeaturePostWidgetArgs> = ({
   const posts = map(data.FeaturePosts, (fpost) => {
     const post = fpost.Post;
     const title = fpost.Title || post.Title;
-    const url = replaceByKeyPairValue(fpost.Router?.Path, post);
+    const url = buildRouterPath(fpost.Router?.Path, post);
     const cover = first(fpost.Media) || first(post.Cover);
     return {
       Title: title,

@@ -17,6 +17,19 @@ export const GraphPostItemBySlug = (slug: string) => {
           Title
           Short
           Body
+          createdAt
+          Router {
+            id
+            Path
+          }
+          Catalog {
+            id
+            DisplayName
+            Router {
+              id
+              Path
+            }
+          }
           Cover {
             id
             Caption

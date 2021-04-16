@@ -1,3 +1,4 @@
+import { SimpleRouterType } from '_stdio/core/router/router-types';
 import { SingleMediaType } from '_stdio/shared/types/image-types';
 
 export type PostItemGraphResult = {
@@ -10,6 +11,13 @@ export type PostItemType = {
   Title: string;
   Short: string;
   Body: string;
+  createdAt: string;
+  Router: SimpleRouterType;
+  Catalog: {
+    id: string;
+    DisplayName: string;
+    Router: SimpleRouterType;
+  };
   Cover: SingleMediaType[];
 };
 

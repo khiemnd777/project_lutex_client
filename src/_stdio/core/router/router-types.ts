@@ -23,6 +23,11 @@ type RouterType = {
   Enabled: boolean;
 };
 
+export type SimpleRouterType = {
+  id: string;
+  Path: string;
+};
+
 export type RouterResponseType = {
   routers: RouterType[];
 };

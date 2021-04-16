@@ -2,8 +2,8 @@ import map from 'lodash-es/map';
 import size from 'lodash-es/size';
 import { Fragment, FunctionalComponent, h } from 'preact';
 import { Link } from 'preact-router/match';
+import { buildRouterPath } from '_stdio/core/router/router-utils';
 import { BuildClassNameBind } from '_stdio/core/theme/theme-utils';
-import { replaceByKeyPairValue } from '_stdio/shared/utils/string.utils';
 import { ChildrenNavigationEnum } from './navigation-enums';
 import { NavigationMobileWidgetArgs } from './navigation-interfaces';
 import { ChildrenNavigationType, OtherNavItemType, PostCatalogNavItemType } from './navigation-types';
@@ -81,8 +81,7 @@ const BuildPostCatalogNavItems: FunctionalComponent<BuildPostCatalogNavItemsArgs
   return (
     <ul>
       {map(items, (item) => {
-        const routerPath = item.RouterPath;
-        const path = replaceByKeyPairValue(routerPath, item);
+        const path = buildRouterPath(item?.RouterPath, item);
         return (
           <li>
             <Link href={path}>

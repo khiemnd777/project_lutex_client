@@ -3,9 +3,9 @@ import map from 'lodash-es/map';
 import size from 'lodash-es/size';
 import { FunctionalComponent, h } from 'preact';
 import { Link } from 'preact-router/match';
+import { buildRouterPath } from '_stdio/core/router/router-utils';
 import { BuildClassNameBind } from '_stdio/core/theme/theme-utils';
 import { WidgetFactory } from '_stdio/core/widget/widget-factory';
-import { replaceByKeyPairValue } from '_stdio/shared/utils/string.utils';
 import { ChildrenNavigationEnum } from './picked-navigation-enums';
 import { PickedNavigationWidgetArgs } from './picked-navigation-interfaces';
 import { OtherNavItemType, PostCatalogNavItemType } from './picked-navigation-types';
@@ -75,8 +75,7 @@ const BuildPostCatalogNavItems: FunctionalComponent<BuildPostCatalogNavItemsArgs
   return (
     <ul>
       {map(items, (item) => {
-        const routerPath = item.RouterPath;
-        const path = replaceByKeyPairValue(routerPath, item);
+        const path = buildRouterPath(item?.RouterPath, item);
         return (
           <li>
             <Link href={path}>

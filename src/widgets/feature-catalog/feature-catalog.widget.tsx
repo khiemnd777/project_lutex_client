@@ -7,7 +7,7 @@ import { ThemeType } from '_stdio/core/theme/theme-types';
 import { BuildClassNameBind, GetClassNameValues } from '_stdio/core/theme/theme-utils';
 import { WidgetFactory } from '_stdio/core/widget/widget-factory';
 import { GetParameterOrDataValue, GetParameterValue } from '_stdio/shared/utils/params.util';
-import { replaceByKeyPairValue, threeDotsAt } from '_stdio/shared/utils/string.utils';
+import { threeDotsAt } from '_stdio/shared/utils/string.utils';
 import { FeatureCatalogWidgetArgs } from './feature-catalog-interfaces';
 import { VisualizedCatalogType } from './feature-catalog-types';
 import TemplateGrid from '_stdio/shared/components/template-grid/template-grid';
@@ -18,6 +18,7 @@ import { GetSingleMedia } from '_stdio/shared/utils/media.utils';
 import { Link } from 'preact-router/match';
 import { BackgroundImageParallax } from '_stdio/shared/components/background-image-parallax/background-image-parallax';
 import classNamesBind from 'classnames/bind';
+import { buildRouterPath } from '_stdio/core/router/router-utils';
 
 const FeatureCatalogWidget: FunctionalComponent<FeatureCatalogWidgetArgs> = ({
   data,
@@ -36,7 +37,7 @@ const FeatureCatalogWidget: FunctionalComponent<FeatureCatalogWidgetArgs> = ({
     const cat = fcat.Catalog;
     const title = fcat.Title || cat.DisplayName;
     const backgroundColor = fcat.BackgroundColor;
-    const url = replaceByKeyPairValue(fcat.Router?.Path, cat);
+    const url = buildRouterPath(fcat.Router?.Path, cat);
     const cover = first(fcat.Media);
     return {
       Title: title,

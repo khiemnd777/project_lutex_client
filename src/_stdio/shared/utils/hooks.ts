@@ -1,4 +1,5 @@
 import { PropRef, useEffect } from 'preact/hooks';
+import publicIp from 'public-ip';
 
 export const useOnClickOutside = (ref: PropRef<any>, handler: (evt: MouseEvent) => void) => {
   useEffect(() => {
@@ -27,18 +28,34 @@ export const useOnScrollGlobally = (handler: (evt: Event) => void) => {
   });
 };
 
-export const onDelay = (handler: () => void, timeout: number) => {
+export const useDelay = (handler: (onTime: boolean) => void, timeout: number) => {
   useEffect(() => {
     window.setTimeout(() => {
-      handler();
+      handler(true);
     }, timeout);
   }, []);
 };
 
-export const onInterval = (handler: () => void, interval: number) => {
+export const useInterval = (handler: (onTime: boolean) => void, interval: number) => {
   useEffect(() => {
     window.setInterval(() => {
-      handler();
+      handler(true);
     }, interval);
   }, []);
+};
+
+export const useIpv6 = (handler: (ipv6: string) => void) => {
+  useEffect(() => {
+    void publicIp.v6().then((ipv6) => {
+      handler(ipv6);
+    });
+  }, []);
+};
+
+export const useIpv4 = (handler: (ipv4: string) => void) => {
+  useEffect(() => {
+    void publicIp.v4().then((ipv4) => {
+      handler(ipv4);
+    });
+  });
 };
