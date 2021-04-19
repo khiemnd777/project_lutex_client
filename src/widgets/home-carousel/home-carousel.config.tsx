@@ -1,4 +1,4 @@
-import { FunctionalComponent } from 'preact';
+import { createElement, FunctionalComponent } from 'preact';
 import { CarouselWidgetArgs } from 'widgets/carousel/carousel-interfaces';
 import { WidgetFactory } from '_stdio/core/widget/widget-factory';
 import { WidgetConfigArgs } from '_stdio/core/widget/widget-interfaces';
@@ -14,7 +14,7 @@ const HomeCarouselWidgetConfig: FunctionalComponent<WidgetConfigArgs<CarouselWid
   const { data, loading, error } = GraphHomeCarousel();
   const items = !loading && !error && data ? data?.homeCarousel?.Media : ([] as SingleMediaType[]);
   const styleName = 'home_carousel';
-  return component?.call(null, {
+  return createElement(component, {
     items,
     styleName,
     theme,

@@ -1,4 +1,4 @@
-import { FunctionalComponent } from 'preact';
+import { createElement, FunctionalComponent } from 'preact';
 import { WidgetFactory } from '_stdio/core/widget/widget-factory';
 import { WidgetConfigArgs } from '_stdio/core/widget/widget-interfaces';
 import { FacebookFanpageWidgetArgs } from './facebook-fanpage-interfaces';
@@ -15,7 +15,7 @@ const FacebookFanpageWidgetConfig: FunctionalComponent<WidgetConfigArgs<Facebook
 }) => {
   const { data, loading, error } = GraphFacebookFanpage();
   const matchedData = data && !loading && !error ? data?.facebookFanpage : ({} as FacebookFanpageType);
-  return component?.call(null, {
+  return createElement(component, {
     data: matchedData,
     theme,
     loading,

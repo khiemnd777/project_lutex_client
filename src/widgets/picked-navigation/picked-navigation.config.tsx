@@ -1,5 +1,5 @@
 import first from 'lodash-es/first';
-import { FunctionalComponent } from 'preact';
+import { createElement, FunctionalComponent } from 'preact';
 import { WidgetFactory } from '_stdio/core/widget/widget-factory';
 import { WidgetConfigArgs } from '_stdio/core/widget/widget-interfaces';
 import { GetParameterValue } from '_stdio/shared/utils/params.util';
@@ -19,7 +19,7 @@ const PickedNavigationWidgetConfig: FunctionalComponent<WidgetConfigArgs<PickedN
   const { data, loading, error } = GraphPickedNavigation(name);
   const result = data && !loading && !error ? data?.navigations : [];
   const matchedData = first(result) || ({} as PickedNavigationType);
-  return component?.call(null, {
+  return createElement(component, {
     data: matchedData,
     backgroundImage,
     backgroundColor,

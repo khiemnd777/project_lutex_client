@@ -1,4 +1,4 @@
-import { Fragment, FunctionalComponent, h } from 'preact';
+import { createElement, Fragment, FunctionalComponent, h } from 'preact';
 import { ThemeType } from '../theme/theme-types';
 import { IndicatedWidgetType } from '../widget/widget-types';
 import { TemplateFactory } from './template-factory';
@@ -14,7 +14,11 @@ const TemplateProvider: FunctionalComponent<TemplateProviderArgs> = ({ theme, na
   if (!name) return <div></div>;
   const matchedTemplate = TemplateFactory.Get(name);
   return (
-    <Fragment>{matchedTemplate?.call(null, { theme: theme, widgets: widgets, routerParams: routerParams })}</Fragment>
+    <Fragment>
+      {matchedTemplate
+        ? createElement(matchedTemplate, { theme: theme, widgets: widgets, routerParams: routerParams })
+        : null}
+    </Fragment>
   );
 };
 

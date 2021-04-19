@@ -1,4 +1,4 @@
-import { FunctionalComponent } from 'preact';
+import { createElement, FunctionalComponent } from 'preact';
 import { WidgetFactory } from '_stdio/core/widget/widget-factory';
 import { WidgetConfigArgs } from '_stdio/core/widget/widget-interfaces';
 import { HomeAboutUsWidgetArgs } from './home-about-us-interfaces';
@@ -13,7 +13,7 @@ const HomeAboutUsWidgetConfig: FunctionalComponent<WidgetConfigArgs<HomeAboutUsW
 }) => {
   const { data, loading, error } = GraphHomeAboutUs();
   const item = !loading && !error ? data?.homeAboutUs : ({} as HomeAboutUsType);
-  return component?.call(null, {
+  return createElement(component, {
     data: item,
     theme,
     loading,

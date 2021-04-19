@@ -1,5 +1,5 @@
 import map from 'lodash-es/map';
-import { Fragment, FunctionalComponent, h } from 'preact';
+import { createElement, Fragment, FunctionalComponent, h } from 'preact';
 import { ThemeType } from '../theme/theme-types';
 import { WidgetFactory } from '../widget/widget-factory';
 import { IndicatedWidgetType } from '../widget/widget-types';
@@ -17,7 +17,7 @@ const Placeholder: FunctionalComponent<PlaceholderArgs> = ({ name, theme, widget
     <Fragment>
       {map(consumedWidgets, (widget) =>
         widget?.config
-          ? widget?.config?.call(null, {
+          ? createElement(widget?.config, {
               name: widget.name,
               backgroundColor: widget.backgroundColor,
               backgroundImage: widget.backgroundImage,
@@ -28,7 +28,8 @@ const Placeholder: FunctionalComponent<PlaceholderArgs> = ({ name, theme, widget
               routerParams: routerParams,
               widgets: widgets,
             })
-          : widget?.component?.call(null, {
+          : widget?.component
+          ? createElement(widget?.component, {
               name: widget.name,
               backgroundColor: widget.backgroundColor,
               backgroundImage: widget.backgroundImage,
@@ -38,6 +39,7 @@ const Placeholder: FunctionalComponent<PlaceholderArgs> = ({ name, theme, widget
               routerParams: routerParams,
               widgets: widgets,
             })
+          : null
       )}
     </Fragment>
   );

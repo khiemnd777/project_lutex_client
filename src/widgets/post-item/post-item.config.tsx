@@ -1,9 +1,9 @@
 import { first, size } from 'lodash-es';
-import { FunctionComponent } from 'preact';
+import { createElement, FunctionComponent, h } from 'preact';
 import { useState } from 'preact/hooks';
 import { WidgetFactory } from '_stdio/core/widget/widget-factory';
 import { WidgetConfigArgs } from '_stdio/core/widget/widget-interfaces';
-import { useDelay, useVisitorId } from '_stdio/shared/utils/hooks';
+import { useDelay, useOnceAction, useVisitorId } from '_stdio/shared/utils/hooks';
 import { GetParameterValue } from '_stdio/shared/utils/params.util';
 import { tryParseInt } from '_stdio/shared/utils/string.utils';
 import { PostItemWidgetArgs } from './post-item-interface';
@@ -30,11 +30,19 @@ const PostItemWidgetConfig: FunctionComponent<WidgetConfigArgs<PostItemWidgetArg
 
   useDelay(setViewCountDelay, updateViewCountDelay);
   useVisitorId(setVisitorId);
-  if (viewCountDelay && result && visitorId) {
-    // CreateViewCount(result.id, visitorId);
-  }
-
-  return component?.call(null, {
+  useOnceAction(CreateViewCount, (func) => {
+    if (viewCountDelay && result && visitorId) {
+      void func({
+        variables: {
+          postId: result.id,
+          key: visitorId,
+        },
+      });
+      return true;
+    }
+    return false;
+  });
+  return createElement(component, {
     data: result,
     theme,
     loading,

@@ -1,4 +1,4 @@
-import { FunctionalComponent } from 'preact';
+import { createElement, FunctionalComponent } from 'preact';
 import { WidgetFactory } from '_stdio/core/widget/widget-factory';
 import { WidgetConfigArgs } from '_stdio/core/widget/widget-interfaces';
 import { ContactInformationWidgetArgs } from './contact-information-interfaces';
@@ -15,7 +15,7 @@ const ContactInformationWidgetConfig: FunctionalComponent<WidgetConfigArgs<Conta
 }) => {
   const { data, loading, error } = GraphContactInformation();
   const matchedData = data && !loading && !error ? data?.contactInformation : ({} as ContactInformationType);
-  return component?.call(null, {
+  return createElement(component, {
     data: matchedData,
     theme,
     parameters,

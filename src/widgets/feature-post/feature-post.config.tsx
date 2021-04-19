@@ -1,7 +1,7 @@
 import find from 'lodash-es/find';
 import first from 'lodash-es/first';
 import size from 'lodash-es/size';
-import { FunctionalComponent } from 'preact';
+import { createElement, FunctionalComponent } from 'preact';
 import { WidgetFactory } from '_stdio/core/widget/widget-factory';
 import { WidgetConfigArgs } from '_stdio/core/widget/widget-interfaces';
 import { FeaturePostWidgetArgs } from './feature-post-interfaces';
@@ -19,7 +19,7 @@ const FeaturePostWidgetConfig: FunctionalComponent<WidgetConfigArgs<FeaturePostW
   const { data, loading, error } = GraphFeaturePost(slug?.value || '');
   const result = data && !loading && !error ? data?.postCatalogs : [];
   const matchedData = size(result) ? first(result) : ({} as FeaturePostType);
-  return component?.call(null, {
+  return createElement(component, {
     data: matchedData,
     backgroundColor,
     theme,

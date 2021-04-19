@@ -35,18 +35,19 @@ export const useDelay = (handler: (onTime: boolean) => void, timeout: number) =>
       handler(true);
     }, timeout);
     return () => {
-      console.log(1);
       clearTimeout(delay);
-      handler(false);
     };
-  });
+  }, []);
 };
 
 export const useInterval = (handler: (onTime: boolean) => void, interval: number) => {
   useEffect(() => {
-    window.setInterval(() => {
+    const time = window.setInterval(() => {
       handler(true);
     }, interval);
+    return () => {
+      clearInterval(time);
+    };
   }, []);
 };
 

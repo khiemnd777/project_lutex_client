@@ -1,7 +1,7 @@
 import { QueryResult } from '@apollo/client';
 import { size } from 'lodash-es';
 import isEmpty from 'lodash-es/isEmpty';
-import { Fragment, FunctionalComponent, h } from 'preact';
+import { createElement, Fragment, FunctionalComponent, h } from 'preact';
 import { useEffect, useState } from 'preact/hooks';
 import { WidgetFactory } from '_stdio/core/widget/widget-factory';
 import { WidgetConfigArgs } from '_stdio/core/widget/widget-interfaces';
@@ -35,7 +35,7 @@ export const PostItemsListByCatalogWidgetConfig: FunctionalComponent<WidgetConfi
   const items = !loading && !error ? data?.postItems : [];
   return (
     <Fragment>
-      {component?.call(null, {
+      {createElement(component, {
         theme,
         items,
         totalCount,

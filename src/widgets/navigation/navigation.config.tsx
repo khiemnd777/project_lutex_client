@@ -1,5 +1,5 @@
 import first from 'lodash-es/first';
-import { Fragment, FunctionalComponent, h } from 'preact';
+import { createElement, Fragment, FunctionalComponent, h } from 'preact';
 import { WidgetFactory } from '_stdio/core/widget/widget-factory';
 import { WidgetConfigArgs } from '_stdio/core/widget/widget-interfaces';
 import { GetParameterValue } from '_stdio/shared/utils/params.util';
@@ -19,7 +19,7 @@ const NavigationWidgetConfig: FunctionalComponent<WidgetConfigArgs<NavigationWid
   const matchedData = first(items) || ({} as FullNavigationType);
   return (
     <Fragment>
-      {component?.call(null, {
+      {createElement(component, {
         theme,
         data: matchedData,
         loading,

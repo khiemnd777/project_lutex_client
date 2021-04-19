@@ -1,5 +1,4 @@
 import { gql, useMutation, useQuery } from '@apollo/client';
-import { useOnceAction } from '_stdio/shared/utils/hooks';
 import {
   CreateViewCountGraphResult,
   PostItemGraphResult,
