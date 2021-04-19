@@ -11,6 +11,7 @@ import graphqlClient from '_stdio/shared/utils/graphql/graphql-client';
 import RouterProvider from '_stdio/core/router/router-provider';
 import { GraphTheme } from '_stdio/core/theme/theme-service';
 import { GetTheme } from '_stdio/core/theme/theme-utils';
+import { useVisitorId } from '_stdio/shared/utils/hooks';
 
 const App = () => {
   return (
@@ -22,6 +23,8 @@ const App = () => {
 
 const StdApp = () => {
   const [localState, setLocalState] = useState({ loading: true });
+  const [visitorId, setVisitorId] = useState('');
+  useVisitorId(setVisitorId);
   useEffect(() => {
     setLocalState({ loading: false });
   }, []);
@@ -39,12 +42,13 @@ const StdApp = () => {
       </div>
     );
   }
+
   // init theming to the app at the html element.
   const fetchedTheme = GetTheme(data?.environment.Theme.Theme);
   document.documentElement.classList.add(fetchedTheme.Name);
   return (
     <div class={app}>
-      <RouterProvider theme={fetchedTheme} />
+      <RouterProvider theme={fetchedTheme} visitorId={visitorId} />
     </div>
   );
 };

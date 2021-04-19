@@ -1,9 +1,9 @@
 import { first, size } from 'lodash-es';
-import { createElement, FunctionComponent, h } from 'preact';
+import { createElement, FunctionComponent } from 'preact';
 import { useState } from 'preact/hooks';
 import { WidgetFactory } from '_stdio/core/widget/widget-factory';
 import { WidgetConfigArgs } from '_stdio/core/widget/widget-interfaces';
-import { useDelay, useOnceAction, useVisitorId } from '_stdio/shared/utils/hooks';
+import { useDelay, useOnceAction } from '_stdio/shared/utils/hooks';
 import { GetParameterValue } from '_stdio/shared/utils/params.util';
 import { tryParseInt } from '_stdio/shared/utils/string.utils';
 import { PostItemWidgetArgs } from './post-item-interface';
@@ -16,6 +16,7 @@ const PostItemWidgetConfig: FunctionComponent<WidgetConfigArgs<PostItemWidgetArg
   routerParams,
   parameters,
   widgets,
+  visitorId,
 }) => {
   const updateViewCountDelay = tryParseInt(GetParameterValue('updateViewCountDelay', parameters)) || 5000;
   const defaultSlug = GetParameterValue('slug', parameters);
@@ -26,10 +27,8 @@ const PostItemWidgetConfig: FunctionComponent<WidgetConfigArgs<PostItemWidgetArg
 
   // Update view-count.
   const [viewCountDelay, setViewCountDelay] = useState(false);
-  const [visitorId, setVisitorId] = useState('');
 
   useDelay(setViewCountDelay, updateViewCountDelay);
-  useVisitorId(setVisitorId);
   useOnceAction(CreateViewCount, (func) => {
     if (viewCountDelay && result && visitorId) {
       void func({
@@ -50,6 +49,7 @@ const PostItemWidgetConfig: FunctionComponent<WidgetConfigArgs<PostItemWidgetArg
     routerParams,
     parameters,
     widgets,
+    visitorId,
   });
 };
 

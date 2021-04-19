@@ -11,6 +11,7 @@ interface RouterPageArgs {
   name?: string;
   templateId: string;
   templateName?: string;
+  visitorId: string;
   matches?: Record<string, string>;
 }
 const RouterPage: FunctionalComponent<RouterPageArgs> = ({
@@ -18,6 +19,7 @@ const RouterPage: FunctionalComponent<RouterPageArgs> = ({
   templateId,
   templateName,
   theme,
+  visitorId,
   matches: routerParams,
 }) => {
   const indicatedWidgets = PrepareIndicatedWidgetByRouter(routerId);
@@ -29,7 +31,15 @@ const RouterPage: FunctionalComponent<RouterPageArgs> = ({
   if (size(templateWidgets)) {
     widgets = widgets.concat(templateWidgets);
   }
-  return <TemplateProvider theme={theme} name={templateName} widgets={widgets} routerParams={routerParams} />;
+  return (
+    <TemplateProvider
+      theme={theme}
+      name={templateName}
+      widgets={widgets}
+      routerParams={routerParams}
+      visitorId={visitorId}
+    />
+  );
 };
 
 export default RouterPage;

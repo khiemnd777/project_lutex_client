@@ -14,6 +14,7 @@ interface WidgetAbstractArgs {
   parameters?: ParameterConsumedType[];
   routerParams?: Record<string, string>;
   widgets?: IndicatedWidgetType[];
+  visitorId?: string;
 }
 
 export interface WidgetArgs extends WidgetAbstractArgs {
