@@ -1,5 +1,6 @@
-import { PropRef, useEffect } from 'preact/hooks';
-import publicIp from 'public-ip';
+import { PropRef, StateUpdater, useEffect, useState } from 'preact/hooks';
+import FingerprintJS from '@fingerprintjs/fingerprintjs';
+import { FetchResult, MutationFunctionOptions, MutationTuple, OperationVariables } from '@apollo/client';
 
 export const useOnClickOutside = (ref: PropRef<any>, handler: (evt: MouseEvent) => void) => {
   useEffect(() => {
@@ -30,10 +31,15 @@ export const useOnScrollGlobally = (handler: (evt: Event) => void) => {
 
 export const useDelay = (handler: (onTime: boolean) => void, timeout: number) => {
   useEffect(() => {
-    window.setTimeout(() => {
+    const delay = window.setTimeout(() => {
       handler(true);
     }, timeout);
-  }, []);
+    return () => {
+      console.log(1);
+      clearTimeout(delay);
+      handler(false);
+    };
+  });
 };
 
 export const useInterval = (handler: (onTime: boolean) => void, interval: number) => {
@@ -44,18 +50,38 @@ export const useInterval = (handler: (onTime: boolean) => void, interval: number
   }, []);
 };
 
-export const useIpv6 = (handler: (ipv6: string) => void) => {
+export const useVisitorId = (handler: (visitorId: string) => void) => {
   useEffect(() => {
-    void publicIp.v6().then((ipv6) => {
-      handler(ipv6);
-    });
+    // Initialize an agent at application startup.
+    void FingerprintJS.load()
+      .then((fp) => {
+        // Get the visitor identifier when you need it.
+        return fp.get();
+      })
+      .then((result) => {
+        // This is the visitor identifier:
+        const visitorId = result.visitorId;
+        handler(visitorId);
+      });
   }, []);
 };
 
-export const useIpv4 = (handler: (ipv4: string) => void) => {
+export const useOnceAction = <T = any>(
+  actionHandler: () => MutationTuple<T, OperationVariables>,
+  funcHandler: (
+    func: (
+      options?: MutationFunctionOptions<T, OperationVariables> | undefined
+    ) => Promise<FetchResult<T, Record<string, any>, Record<string, any>>>
+  ) => boolean
+) => {
+  const [once, setOnce] = useState(false);
+  const [func] = actionHandler();
   useEffect(() => {
-    void publicIp.v4().then((ipv4) => {
-      handler(ipv4);
-    });
+    if (!once) {
+      const funcResult = funcHandler(func);
+      if (funcResult) {
+        setOnce(funcResult);
+      }
+    }
   });
 };

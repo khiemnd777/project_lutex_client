@@ -1,10 +1,10 @@
 import { gql, useMutation, useQuery } from '@apollo/client';
+import { useOnceAction } from '_stdio/shared/utils/hooks';
 import {
   CreateViewCountGraphResult,
   PostItemGraphResult,
   PostItemLikeGraphResult,
   PostItemViewCountGraphResult,
-  UpdateViewCountGraphResult,
 } from './post-item-type';
 
 export const GraphPostItemBySlug = (slug: string) => {
@@ -44,48 +44,22 @@ export const GraphPostItemBySlug = (slug: string) => {
       variables: {
         slug,
       },
+      fetchPolicy: 'no-cache',
     }
   );
 };
 
-export const UpdateViewCount = (id: string) => {
-  return useMutation<UpdateViewCountGraphResult>(
-    gql`
-      mutation($id: String!) {
-        updatePostItem(input: { where: { id: $id }, data: { ViewCount: 0 } }) {
-          postItem {
-            id
-            Title
-            ViewCount
-          }
-        }
-      }
-    `,
-    {
-      variables: {
-        id,
-      },
-    }
-  );
-};
-
-export const CreateViewCount = (postId: string, ipv6: string) => {
+export const CreateViewCount = () => {
   return useMutation<CreateViewCountGraphResult>(
     gql`
-      mutation createPostViewCount($postId: ID, $ipv6: String) {
-        createPostItemViewCount(input: { data: { Ipv6: $ipv6, Post: $postId } }) {
+      mutation createPostViewCount($postId: ID, $key: String) {
+        createPostItemViewCount(input: { data: { Key: $key, Post: $postId } }) {
           postItemViewCount {
             id
           }
         }
       }
-    `,
-    {
-      variables: {
-        postId,
-        ipv6,
-      },
-    }
+    `
   );
 };
 

@@ -3,7 +3,7 @@ import { FunctionComponent } from 'preact';
 import { useState } from 'preact/hooks';
 import { WidgetFactory } from '_stdio/core/widget/widget-factory';
 import { WidgetConfigArgs } from '_stdio/core/widget/widget-interfaces';
-import { useDelay, useIpv6 } from '_stdio/shared/utils/hooks';
+import { useDelay, useVisitorId } from '_stdio/shared/utils/hooks';
 import { GetParameterValue } from '_stdio/shared/utils/params.util';
 import { tryParseInt } from '_stdio/shared/utils/string.utils';
 import { PostItemWidgetArgs } from './post-item-interface';
@@ -18,19 +18,20 @@ const PostItemWidgetConfig: FunctionComponent<WidgetConfigArgs<PostItemWidgetArg
   widgets,
 }) => {
   const updateViewCountDelay = tryParseInt(GetParameterValue('updateViewCountDelay', parameters)) || 5000;
-  const slug = routerParams?.['slug'] ?? '';
+  const defaultSlug = GetParameterValue('slug', parameters);
+  const slug = defaultSlug ?? routerParams?.['slug'] ?? '';
   const { data, loading, error } = GraphPostItemBySlug(slug);
   const list = data && !loading && !error ? data?.postItems : ([] as PostItemType[]);
   const result = size(list) ? first(list) : undefined;
 
   // Update view-count.
-  const [ipv6, setIpv6] = useState('');
   const [viewCountDelay, setViewCountDelay] = useState(false);
+  const [visitorId, setVisitorId] = useState('');
 
-  useIpv6(setIpv6);
   useDelay(setViewCountDelay, updateViewCountDelay);
-  if (viewCountDelay && result && ipv6) {
-    CreateViewCount(result.id, ipv6);
+  useVisitorId(setVisitorId);
+  if (viewCountDelay && result && visitorId) {
+    // CreateViewCount(result.id, visitorId);
   }
 
   return component?.call(null, {

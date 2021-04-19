@@ -19,27 +19,36 @@ import ImageContainer from '_stdio/shared/components/image-container/image-conta
 import { timeSince } from '_stdio/shared/utils/date.utils';
 import classNamesBind from 'classnames/bind';
 import { buildRouterPath } from '_stdio/core/router/router-utils';
+import { useEffect, useState } from 'preact/hooks';
+import { GetDatetimeServer } from '_stdio/shared/utils/datetime-server/datetime-server';
 
 const FeaturePostWidget: FunctionalComponent<FeaturePostWidgetArgs> = ({
   theme,
-  datetimeServer,
   backgroundColor,
   data,
   parameters,
 }) => {
-  if (!data) return null;
   const cx = BuildClassNameBind(theme.Name, 'feature_post');
   const paramTitle = find(parameters, (p) => p.name === 'title');
   const paramTitleColor = find(parameters, (p) => p.name === 'titleColor');
   const paramShort = find(parameters, (p) => p.name === 'short');
   const paramsDateEnabled = find(parameters, (p) => p.name === 'dateEnabled');
   const paramsExplorationText = find(parameters, (p) => p.name === 'explorationText');
-  const title = paramTitle?.value || data.DisplayName;
+  const title = paramTitle?.value || data?.DisplayName;
   const titleColor = paramTitleColor?.value || '';
-  const short = paramShort?.value || data.Short;
+  const short = paramShort?.value || data?.Short;
   const dateEnabled = parseBool(paramsDateEnabled?.value);
   const explorationText = paramsExplorationText?.value || 'Explore';
-  const posts = map(data.FeaturePosts, (fpost) => {
+  const [datetimeServer, setDatetimeServer] = useState<Date>({} as Date);
+  useEffect(() => {
+    if (dateEnabled) {
+      void GetDatetimeServer().then((value) => {
+        setDatetimeServer(value);
+      });
+    }
+  }, []);
+
+  const posts = map(data?.FeaturePosts, (fpost) => {
     const post = fpost.Post;
     const title = fpost.Title || post.Title;
     const url = buildRouterPath(fpost.Router?.Path, post);
