@@ -3,9 +3,10 @@ import { createElement, FunctionComponent } from 'preact';
 import { useState } from 'preact/hooks';
 import { WidgetFactory } from '_stdio/core/widget/widget-factory';
 import { WidgetConfigArgs } from '_stdio/core/widget/widget-interfaces';
+import { ParameterConsumedType } from '_stdio/shared/types/parameter-types';
 import { useDelay, useOnceAction } from '_stdio/shared/utils/hooks';
 import { GetParameterValue } from '_stdio/shared/utils/params.util';
-import { tryParseInt } from '_stdio/shared/utils/string.utils';
+import { parseBool, tryParseInt } from '_stdio/shared/utils/string.utils';
 import { PostItemWidgetArgs } from './post-item-interface';
 import { CreateViewCount, GraphPostItemBySlug } from './post-item-service';
 import { PostItemType } from './post-item-type';
@@ -18,7 +19,6 @@ const PostItemWidgetConfig: FunctionComponent<WidgetConfigArgs<PostItemWidgetArg
   widgets,
   visitorId,
 }) => {
-  const updateViewCountDelay = tryParseInt(GetParameterValue('updateViewCountDelay', parameters)) || 5000;
   const defaultSlug = GetParameterValue('slug', parameters);
   const slug = defaultSlug ?? routerParams?.['slug'] ?? '';
   const { data, loading, error } = GraphPostItemBySlug(slug);
@@ -26,10 +26,27 @@ const PostItemWidgetConfig: FunctionComponent<WidgetConfigArgs<PostItemWidgetArg
   const result = size(list) ? first(list) : undefined;
 
   // Update view-count.
-  const [viewCountDelay, setViewCountDelay] = useState(false);
+  useUpdateViewCount(result, visitorId, parameters);
 
+  return createElement(component, {
+    data: result,
+    theme,
+    loading,
+    error,
+    routerParams,
+    parameters,
+    widgets,
+    visitorId,
+  });
+};
+
+const useUpdateViewCount = (result?: PostItemType, visitorId?: string, parameters?: ParameterConsumedType[]) => {
+  const updateViewCountDelay = tryParseInt(GetParameterValue('updateViewCountDelay', parameters)) || 5000;
+  const allowViewCount = parseBool(GetParameterValue('allowViewCount', parameters));
+  const [viewCountDelay, setViewCountDelay] = useState(false);
   useDelay(setViewCountDelay, updateViewCountDelay);
   useOnceAction(CreateViewCount, (func) => {
+    if (!allowViewCount) return true;
     if (viewCountDelay && result && visitorId) {
       void func({
         variables: {
@@ -40,16 +57,6 @@ const PostItemWidgetConfig: FunctionComponent<WidgetConfigArgs<PostItemWidgetArg
       return true;
     }
     return false;
-  });
-  return createElement(component, {
-    data: result,
-    theme,
-    loading,
-    error,
-    routerParams,
-    parameters,
-    widgets,
-    visitorId,
   });
 };
 

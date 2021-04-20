@@ -1,7 +1,7 @@
 import find from 'lodash-es/find';
 import dateFormat from 'dateformat';
 
-export const DATE_FORMAT = 'DD MMM, yyyy';
+export const DATE_FORMAT = 'dd mmm, yyyy';
 
 export const i18n_vn = {
   dayNames: [],

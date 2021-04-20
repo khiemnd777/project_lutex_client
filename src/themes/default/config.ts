@@ -16,3 +16,4 @@ import './widgets/picked-navigation/config';
 import './widgets/contact-information/config';
 import './widgets/facebook-fanpage/config';
 import './widgets/copyright/config';
+import './widgets/post-item/config';

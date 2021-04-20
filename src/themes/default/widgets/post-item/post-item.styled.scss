@@ -1,0 +1,85 @@
+@import "../../theme";
+
+$postFontColor: #000;
+$postShortFontColor: #757575;
+$postFontSize: 18px;
+$postShortFontSize: 16px;
+
+.post_item {
+  opacity: 0;
+  transition: opacity ease 0.5s;
+  &.visible {
+    opacity: 1;
+  }
+  .container {
+    @include primaryLayout;
+    padding-top: $moduleMarginTop;
+    padding-bottom: $moduleMarginTop;
+    .header {
+      padding-bottom: 1rem;
+      .row {
+        display: flex;
+        .catalog {
+          display: inline-block;
+        }
+        .seperate {
+          &::before {
+            display: flex;
+            content: ".";
+            align-items: center;
+            justify-content: center;
+            align-content: center;
+            height: 50%;
+            width: 25px;
+            font-weight: $boldWeight;
+          }
+        }
+        .created_date {
+          display: inline-block;
+        }
+      }
+    }
+    .body {
+      color: $postFontColor;
+      .post_title {
+        padding-bottom: 1rem;
+        width: 80%;
+        h1 {
+          font-size: 40px;
+          letter-spacing: -1px;
+          word-spacing: 3px;
+        }
+      }
+      .post_short {
+        span {
+          color: $postShortFontColor;
+          font-weight: $boldWeight;
+          font-size: $postShortFontSize;
+        }
+      }
+      .post_body {
+        display: flex;
+        .post_body_left {
+          width: 70px;
+        }
+        .post_body_right {
+          display: flex;
+          flex: 1;
+          .post_body_content_left {
+            flex: 3;
+            .post_body_content {
+              font-size: $postFontSize;
+              word-spacing: 2px;
+              line-height: 1.7rem;
+            }
+          }
+          .post_body_content_right {
+            flex: 1;
+          }
+        }
+      }
+    }
+    .footer {
+    }
+  }
+}

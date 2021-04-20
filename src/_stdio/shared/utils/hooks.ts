@@ -1,4 +1,4 @@
-import { PropRef, StateUpdater, useEffect, useState } from 'preact/hooks';
+import { PropRef, useEffect, useState } from 'preact/hooks';
 import FingerprintJS from '@fingerprintjs/fingerprintjs';
 import { FetchResult, MutationFunctionOptions, MutationTuple, OperationVariables } from '@apollo/client';
 

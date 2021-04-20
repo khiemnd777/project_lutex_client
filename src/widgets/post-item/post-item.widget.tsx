@@ -14,40 +14,52 @@ const PostItemWidget: FunctionalComponent<PostItemWidgetArgs> = ({ theme, data, 
   const catalogRouterPath = buildRouterPath(data?.Catalog?.Router?.Path ?? '', data?.Catalog);
   return (
     <div class={cx('post_item', !isEmpty(data) ? 'visible' : null)}>
-      <div class={cx('header')}>
-        <div class={cx('catalog')}>
-          <Link href={catalogRouterPath}>
-            <span>{data?.Catalog?.DisplayName}</span>
-          </Link>
-        </div>
-        <div class={cx('created_date')}>
-          <span>{convertDateFormat(data?.createdAt, DATE_FORMAT)}</span>
-        </div>
-      </div>
-      <div class={cx('body')}>
-        <div class={cx('post_title')}>
-          <h1>{data?.Title}</h1>
-        </div>
-        {!!data?.Short && (
-          <div class={cx('post_short')}>
-            <span>{data?.Short}</span>
-          </div>
-        )}
-        {!!data?.Body && (
-          <div class={cx('post_body')}>
-            <div class={cx('post_body_left')}>
-              <Placeholder name={'post_body_left'} theme={theme} routerParams={routerParams} widgets={widgets} />
+      <div class={cx('container')}>
+        <div class={cx('header')}>
+          <div class={cx('row')}>
+            <div class={cx('catalog')}>
+              <Link href={catalogRouterPath}>
+                <span>{data?.Catalog?.DisplayName}</span>
+              </Link>
             </div>
-            <div class={cx('post_body_right')}>
-              <Placeholder name={'post_body_right'} theme={theme} routerParams={routerParams} widgets={widgets} />
-              <div class={cx('post_body_content_container')}>
-                <div class={cx('post_body_content')} dangerouslySetInnerHTML={{ __html: marked(data.Body) }}></div>
+            <div class={cx('seperate')}></div>
+            <div class={cx('created_date')}>
+              <span>{convertDateFormat(data?.createdAt, DATE_FORMAT)}</span>
+            </div>
+          </div>
+        </div>
+        <div class={cx('body')}>
+          <div class={cx('post_title')}>
+            <h1>{data?.Title}</h1>
+          </div>
+          {!!data?.Short && (
+            <div class={cx('post_short')}>
+              <span>{data?.Short}</span>
+            </div>
+          )}
+          {!!data?.Body && (
+            <div class={cx('post_body')}>
+              <div class={cx('post_body_left')}>
+                <Placeholder name={'post_body_left'} theme={theme} routerParams={routerParams} widgets={widgets} />
+              </div>
+              <div class={cx('post_body_right')}>
+                <div class={cx('post_body_content_left')}>
+                  <div class={cx('post_body_content')} dangerouslySetInnerHTML={{ __html: marked(data.Body) }}></div>
+                </div>
+                <div class={cx('post_body_content_right')}>
+                  <Placeholder
+                    name={'post_body_content_right'}
+                    theme={theme}
+                    routerParams={routerParams}
+                    widgets={widgets}
+                  />
+                </div>
               </div>
             </div>
-          </div>
-        )}
+          )}
+        </div>
+        <div class={cx('footer')}></div>
       </div>
-      <div class={cx('footer')}></div>
     </div>
   );
 };
