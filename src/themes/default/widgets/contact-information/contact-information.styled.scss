@@ -1,0 +1,39 @@
+@import "../../theme";
+
+.contact_information {
+  flex: 1.25 !important;
+  opacity: 0;
+  transition: opacity ease 0.5s;
+  &.visible {
+    opacity: 1;
+  }
+  .title {
+    font-family: $alterFontFamily;
+    font-size: $headerFooterFontSize;
+    font-weight: $regularWeight;
+    text-transform: uppercase;
+    color: $highlightColor;
+    @media (max-width: $mobile) {
+      text-align: center;
+    }
+  }
+  .children_container {
+    margin-top: $footerHeaderMarginTop;
+    ul {
+      display: block;
+      width: 100%;
+      li {
+        display: block;
+        width: 100%;
+        padding: 5px 0;
+        span {
+          font-family: $fontFamily;
+          font-size: 14px;
+          &.key {
+            font-weight: $lightBoldWeight;
+          }
+        }
+      }
+    }
+  }
+}

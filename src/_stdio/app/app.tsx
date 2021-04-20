@@ -3,14 +3,15 @@ import 'themes/theme-registrar';
 import 'widgets/widget-registrar';
 import { h } from 'preact';
 import { useState, useEffect } from 'preact/hooks';
-import Loading from '../shared/components/loading/loading';
 import { connect } from 'redux-zero/preact';
 import { app } from './app.styled.scss';
 import { ApolloProvider } from '@apollo/client';
+import 'cache-policies/config';
 import graphqlClient from '_stdio/shared/utils/graphql/graphql-client';
 import RouterProvider from '_stdio/core/router/router-provider';
 import { GraphTheme } from '_stdio/core/theme/theme-service';
 import { GetTheme } from '_stdio/core/theme/theme-utils';
+import { useVisitorId } from '_stdio/shared/utils/hooks';
 
 const App = () => {
   return (
@@ -22,15 +23,17 @@ const App = () => {
 
 const StdApp = () => {
   const [localState, setLocalState] = useState({ loading: true });
+  const [visitorId, setVisitorId] = useState('');
+  useVisitorId(setVisitorId);
   useEffect(() => {
     setLocalState({ loading: false });
   }, []);
   if (localState.loading) {
-    return <Loading message="Initializing..." />;
+    return null;
   }
   const { data, loading, error } = GraphTheme();
   if (loading) {
-    return <Loading message={'Fetching theme...'} />;
+    return null;
   }
   if (error) {
     return (
@@ -39,12 +42,13 @@ const StdApp = () => {
       </div>
     );
   }
+
   // init theming to the app at the html element.
   const fetchedTheme = GetTheme(data?.environment.Theme.Theme);
   document.documentElement.classList.add(fetchedTheme.Name);
   return (
     <div class={app}>
-      <RouterProvider theme={fetchedTheme} />
+      <RouterProvider theme={fetchedTheme} visitorId={visitorId} />
     </div>
   );
 };

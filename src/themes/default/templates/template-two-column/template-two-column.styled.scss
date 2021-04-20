@@ -1,0 +1,118 @@
+@import "../../theme";
+
+@mixin container {
+  display: flex;
+  @include primaryLayout;
+}
+
+.template_two_column {
+  .header {
+    width: 100vw;
+    .header_top {
+      height: 35px;
+      background-color: $primaryColor;
+      .container {
+        @include container;
+      }
+    }
+    $marginTop: 15px;
+    .header_middle {
+      .container {
+        @include container;
+        .header_middle_left {
+          max-width: 80px;
+          margin-top: $marginTop;
+          @media (max-width: $mobile) {
+            max-width: 60px;
+          }
+        }
+        .header_middle_right {
+          flex: 1;
+          margin-top: $marginTop;
+          @media (max-width: $mobile) {
+            position: relative;
+          }
+        }
+      }
+    }
+    .header_bottom {
+      .container {
+        @include container;
+      }
+    }
+  }
+  .body {
+    width: 100vw;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    .body_middle {
+      @include primaryLayout;
+      display: flex;
+      padding-top: $moduleMarginTop;
+      padding-bottom: $moduleMarginTop;
+      .body_middle_left,
+      .body_middle_right {
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+      }
+      .body_middle_left {
+        width: 17rem;
+      }
+      .body_middle_right {
+        flex: 1;
+      }
+      @media (max-width: $mobile) {
+        flex-direction: column;
+        .body_middle_left {
+          width: 100%;
+        }
+        .body_middle_right {
+          flex: 1;
+          margin-top: $moduleMarginTop / 2;
+        }
+      }
+    }
+  }
+  .footer {
+    width: 100vw;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background-color: $footerBackgroundColor;
+    .footer_above {
+      @include primaryLayout;
+      display: flex;
+      padding-top: $moduleMarginTop / 2;
+      padding-bottom: $moduleMarginTop / 2;
+      @media (max-width: $mobile) {
+        flex-direction: column;
+      }
+      & > div {
+        flex: 1;
+        padding: 0 0.5rem;
+        &:first-child {
+          padding-left: 0;
+        }
+        &:last-child {
+          padding-right: 0;
+        }
+        @media (max-width: $mobile) {
+          padding-left: 0;
+          padding-right: 0;
+          margin-top: 2rem;
+          &:first-child {
+            margin-top: 0;
+          }
+        }
+      }
+    }
+    .footer_bottom {
+      width: 100%;
+      margin: 0;
+      padding: 0;
+    }
+  }
+}

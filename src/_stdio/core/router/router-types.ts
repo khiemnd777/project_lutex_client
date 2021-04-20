@@ -11,6 +11,7 @@ export type RouterWidgetType = {
 };
 
 type RouterTempalteType = {
+  id: string;
   Name: string;
 };
 
@@ -20,6 +21,11 @@ type RouterType = {
   Path: string;
   template: RouterTempalteType;
   Enabled: boolean;
+};
+
+export type SimpleRouterType = {
+  id: string;
+  Path: string;
 };
 
 export type RouterResponseType = {

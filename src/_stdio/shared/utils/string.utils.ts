@@ -79,7 +79,9 @@ export function concatStrings(sep: string, ...strs: string[]): string {
 export const threeDotsAt = (str?: string, at?: number): string => {
   if (!str) return '';
   at || (at = 10);
-  const regStr = new RegExp(`([\\w,\\.:;"'!@#\\$%\\^&\\*\\(\\)\\?\\[\\]0-9]+\\s){${at}}\\w+`);
+  // support kinds of word and unicode either.
+  const anyWord = `([\\w,\\.:;"'!@#\\$%\\^&\\*\\(\\)\\?\\[\\]0-9]|[^\\u0000-\\u007F])`;
+  const regStr = new RegExp(`(${anyWord}+\\s){${at}}${anyWord}+`);
   const matchedStr = regStr.exec(str);
   if (matchedStr) {
     const regexp = new RegExp('(' + matchedStr[0] + ')?.*'); //fetches first 3 words and makes regural expression to lookbehind this positively
@@ -92,7 +94,7 @@ export const threeDotsAt = (str?: string, at?: number): string => {
   return str;
 };
 
-export const replaceByKeyPairValue = (routerPath: string, replacedVal: Record<string, string>, prefix = ':') => {
+export const replaceByKeyPairValue = (routerPath: string, replacedVal: Record<string, any>, prefix = ':') => {
   let result = String(routerPath).toLowerCase();
   for (const prop in replacedVal) {
     const value = replacedVal[prop];
@@ -103,4 +105,15 @@ export const replaceByKeyPairValue = (routerPath: string, replacedVal: Record<st
   }
   const regx = new RegExp(`\\/${prefix}[a-zA-Z0-9]+\\?*`, 'g');
   return result.replace(regx, '');
+};
+
+export const parseBool = (input?: string) => {
+  if (!input) return false;
+  const regex = /^\s*(true|1|on)\s*$/i;
+  return regex.test(input);
+};
+
+export const tryParseInt = (input?: string) => {
+  if (!input) return 0;
+  return parseInt(input);
 };

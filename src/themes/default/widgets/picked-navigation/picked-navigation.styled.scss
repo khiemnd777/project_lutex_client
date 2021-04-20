@@ -1,0 +1,36 @@
+@import "../../theme";
+
+.picked_navigation {
+  opacity: 0;
+  transition: opacity ease 0.5s;
+  &.visible {
+    opacity: 1;
+  }
+  .title {
+    font-family: $alterFontFamily;
+    font-size: $headerFooterFontSize;
+    font-weight: $regularWeight;
+    text-transform: uppercase;
+    color: $highlightColor;
+    @media (max-width: $mobile) {
+      text-align: center;
+    }
+  }
+  .children_container {
+    margin-top: $footerHeaderMarginTop;
+    ul {
+      display: block;
+      width: 100%;
+      li {
+        display: block;
+        width: 100%;
+        a {
+          font-family: $fontFamily;
+          display: block;
+          font-size: 14px;
+          padding: 5px 0;
+        }
+      }
+    }
+  }
+}

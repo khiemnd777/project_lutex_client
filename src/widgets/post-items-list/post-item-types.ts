@@ -1,4 +1,4 @@
-import { MediaType, SingleMediaType } from '_stdio/shared/types/image-types';
+import { SingleMediaType } from '_stdio/shared/types/image-types';
 
 export type AvailablePostItemsGraphResult = {
   postItemsConnection: {
@@ -21,11 +21,7 @@ export type PostItemType = {
   PostOn: Date;
   PostOff: Date;
   createdAt: Date;
-  Catalogs: {
-    id: string;
-    DisplayName: string;
-    Slug: string;
-  }[];
+  Catalog?: PostCatalogType;
   Cover: SingleMediaType[];
 };
 
@@ -41,11 +37,13 @@ export type DetailPostItemType = {
   Related_Items: {
     id: string;
   }[];
-  Catalogs: {
-    id: string;
-    DisplayName: string;
-    Slug: string;
-  }[];
-  Cover: MediaType[];
-  Media: MediaType[];
+  Catalog: PostCatalogType;
+  Cover: SingleMediaType[];
+  Media: SingleMediaType[];
+};
+
+export type PostCatalogType = {
+  id: string;
+  DisplayName: string;
+  Slug: string;
 };

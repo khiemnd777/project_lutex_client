@@ -10,10 +10,8 @@ const navigationProps = `
   id
   Name
   DisplayName
-  Root
   Path
   Icon
-  DisplayOrder
 `;
 
 const fullNavigationProps = `
@@ -37,10 +35,7 @@ const fullNavigationProps = `
       __typename
       id
       Children{
-        id
-        Name
-        DisplayName
-        Path
+        ${navigationProps}
       }
     }
   }
@@ -94,6 +89,24 @@ export const GraphNavigations = (root: boolean) => {
     {
       variables: {
         root,
+      },
+      fetchPolicy: 'cache-first',
+    }
+  );
+};
+
+export const GraphNavigationsByName = (name: string) => {
+  return useQuery<NavigationsGraphResult>(
+    gql`
+      query($name: String) {
+        navigations(where: { Name: $name }) {
+          ${fullNavigationProps}
+        }
+      }
+    `,
+    {
+      variables: {
+        name,
       },
       fetchPolicy: 'cache-first',
     }

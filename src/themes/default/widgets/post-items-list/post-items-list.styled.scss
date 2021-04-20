@@ -1,3 +1,5 @@
+@import "../../theme";
+
 .post_items_list {
   opacity: 0;
   transition: opacity ease 0.5s;
@@ -6,21 +8,42 @@
   }
   .container {
     display: flex;
-    padding: 0 15px;
-    margin-bottom: 10px;
+    padding: 0 15px 0 25px;
+    margin-bottom: 25px;
     .image_container {
-      flex: 2;
+      width: 300px;
       .image {
         width: 100%;
       }
     }
     .content_container {
-      flex: 8;
-      margin-left: 10px;
+      flex: 1;
+      margin-left: 25px;
       .title {
         text-decoration: none;
-        color: #fff;
-        font-size: 15px;
+        font-size: $titleFontSize;
+        color: $primaryHeaderColor;
+      }
+      .catalog,
+      .created_at {
+        font-size: $smallFontSizeDefault;
+      }
+      .catalog {
+        margin-top: 10px;
+      }
+      .short {
+        margin-top: 10px;
+      }
+    }
+    @media (max-width: $mobile) {
+      flex-direction: column;
+      padding: 25px 0;
+      .image_container {
+        width: 100%;
+      }
+      .content_container {
+        margin-left: 0;
+        margin-top: 25px;
       }
     }
   }

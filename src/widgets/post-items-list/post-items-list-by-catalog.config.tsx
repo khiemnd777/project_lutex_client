@@ -1,13 +1,14 @@
 import { QueryResult } from '@apollo/client';
 import { size } from 'lodash-es';
 import isEmpty from 'lodash-es/isEmpty';
-import { Fragment, FunctionalComponent, h } from 'preact';
+import { createElement, Fragment, FunctionalComponent, h } from 'preact';
 import { useEffect, useState } from 'preact/hooks';
 import { WidgetFactory } from '_stdio/core/widget/widget-factory';
 import { WidgetConfigArgs } from '_stdio/core/widget/widget-interfaces';
 import { GetDatetimeServer } from '_stdio/shared/utils/datetime-server/datetime-server';
+import { GetParameterValue } from '_stdio/shared/utils/params.util';
+import { tryParseInt } from '_stdio/shared/utils/string.utils';
 import { AvailablePostItemsGraphResult } from './post-item-types';
-import { LIMIT } from './post-items-constants';
 import { PostItemsListWidgetArgs } from './post-items-list-interfaces';
 import { GraphPostItemInCatalog } from './post-items-service';
 
@@ -24,16 +25,17 @@ export const PostItemsListByCatalogWidgetConfig: FunctionalComponent<WidgetConfi
     });
   }, []);
   let result = {} as QueryResult<AvailablePostItemsGraphResult, Record<string, any>>;
+  const limit = tryParseInt(GetParameterValue('limit', parameters)) || 10;
   const slug = routerParams?.slug || '';
   if (!isEmpty(datetimeServer)) {
-    result = GraphPostItemInCatalog(slug, datetimeServer, 0, LIMIT);
+    result = GraphPostItemInCatalog(slug, datetimeServer, 0, limit);
   }
   const { data, loading, error, fetchMore } = result;
   const totalCount = !loading && !error ? data?.postItemsConnection.aggregate.totalCount : 0;
   const items = !loading && !error ? data?.postItems : [];
   return (
     <Fragment>
-      {component?.call(null, {
+      {createElement(component, {
         theme,
         items,
         totalCount,
@@ -47,7 +49,7 @@ export const PostItemsListByCatalogWidgetConfig: FunctionalComponent<WidgetConfi
             await fetchMore({
               variables: {
                 start: size(items),
-                limit: LIMIT,
+                limit: limit,
               },
             });
           }

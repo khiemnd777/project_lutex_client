@@ -17,6 +17,11 @@ export const BuildClassNameBind = (
   widgetName: string,
   styles?: Record<string, string>
 ): ClassNamesFn => {
-  const values = { ...ThemeFactory.Get(themeName, widgetName), ...styles } as Record<string, string>;
+  const values = { ...GetClassNameValues(themeName, widgetName), ...styles } as Record<string, string>;
   return classNamesBind.bind(values);
+};
+
+export const GetClassNameValues = (themeName: string, widgetName: string): Record<string, string> => {
+  const values = { ...ThemeFactory.Get(themeName, widgetName) } as Record<string, string>;
+  return values;
 };

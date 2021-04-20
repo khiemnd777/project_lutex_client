@@ -9,27 +9,32 @@ import { trackWindowScroll, ScrollPosition } from 'react-lazy-load-image-compone
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { route } from 'preact-router';
 
-const cb = classNamesBind.bind(styles);
-
 interface GridArgs {
   list: TemplateGridItem[];
   dataLength: number;
+  classGridItem?: string;
+  classGridItemContainer?: string;
   nextFunc: () => void;
   scrollPosition: ScrollPosition;
   onSelect?: (model: TemplateGridItem) => void;
+  classNames?: Record<string, string>;
   [x: string]: any;
 }
 
 export const showTemplateGridItem = (gridElmRef?: Ref<HTMLDivElement>) => {
+  const cb = classNamesBind.bind(styles);
   gridElmRef?.current?.classList?.add(cb('grid_item_visible'));
 };
 
 const TemplateGrid: FunctionalComponent<GridArgs> = ({
   list,
   dataLength,
+  classGridItem,
+  classGridItemContainer,
   nextFunc,
   scrollPosition,
   onSelect,
+  classNames,
   ...props
 }) => {
   const { children } = props;
@@ -38,6 +43,8 @@ const TemplateGrid: FunctionalComponent<GridArgs> = ({
   const getGrid = () => {
     return mGrid;
   };
+  const styleVals = { ...styles, ...classNames };
+  const cb = classNamesBind.bind(styleVals);
   useEffect(() => {
     if (!!gridElmRef.current && !mGrid) {
       const gridClassName = `.${gridElmRef.current?.className}`;
@@ -56,13 +63,13 @@ const TemplateGrid: FunctionalComponent<GridArgs> = ({
               return (
                 <div
                   ref={gridItemRef}
-                  class={cb('grid_item')}
+                  class={cb('grid_item', classGridItem)}
                   onClick={() => {
                     onSelect?.call(null, model);
                     !!model.url && route(model.url);
                   }}
                 >
-                  <div class={cb('grid_item_container')}>
+                  <div class={cb(classGridItemContainer, 'grid_item_container')}>
                     {model.template({
                       scrollPosition: scrollPosition,
                       gridItemRef: gridItemRef,

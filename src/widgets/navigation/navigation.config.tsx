@@ -1,8 +1,11 @@
-import { Fragment, FunctionalComponent, h } from 'preact';
+import first from 'lodash-es/first';
+import { createElement, Fragment, FunctionalComponent, h } from 'preact';
 import { WidgetFactory } from '_stdio/core/widget/widget-factory';
 import { WidgetConfigArgs } from '_stdio/core/widget/widget-interfaces';
+import { GetParameterValue } from '_stdio/shared/utils/params.util';
 import { NavigationWidgetArgs } from './navigation-interfaces';
-import { GraphNavigations } from './navigation-service';
+import { GraphNavigationsByName } from './navigation-service';
+import { FullNavigationType } from './navigation-types';
 
 const NavigationWidgetConfig: FunctionalComponent<WidgetConfigArgs<NavigationWidgetArgs>> = ({
   theme,
@@ -10,13 +13,15 @@ const NavigationWidgetConfig: FunctionalComponent<WidgetConfigArgs<NavigationWid
   parameters,
   routerParams,
 }) => {
-  const { data, loading, error } = GraphNavigations(true);
+  const name = GetParameterValue('name', parameters);
+  const { data, loading, error } = GraphNavigationsByName(name);
   const items = !loading && !error ? data?.navigations : [];
+  const matchedData = first(items) || ({} as FullNavigationType);
   return (
     <Fragment>
-      {component?.call(null, {
+      {createElement(component, {
         theme,
-        items,
+        data: matchedData,
         loading,
         error,
         routerParams,

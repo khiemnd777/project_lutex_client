@@ -1,18 +1,45 @@
+import size from 'lodash-es/size';
 import { FunctionalComponent, h } from 'preact';
 import TemplateProvider from '../template/template-provider';
 import { ThemeType } from '../theme/theme-types';
-import { PrepareIndicatedWidgetByRouter } from '../widget/widget-utils';
+import { IndicatedWidgetType } from '../widget/widget-types';
+import { PrepareIndicatedWidgetByRouter, PrepareIndicatedWidgetByTemplate } from '../widget/widget-utils';
 
 interface RouterPageArgs {
   routerId: string;
   theme: ThemeType;
   name?: string;
+  templateId: string;
   templateName?: string;
+  visitorId: string;
   matches?: Record<string, string>;
 }
-const RouterPage: FunctionalComponent<RouterPageArgs> = ({ routerId, templateName, theme, matches: routerParams }) => {
+const RouterPage: FunctionalComponent<RouterPageArgs> = ({
+  routerId,
+  templateId,
+  templateName,
+  theme,
+  visitorId,
+  matches: routerParams,
+}) => {
   const indicatedWidgets = PrepareIndicatedWidgetByRouter(routerId);
-  return <TemplateProvider theme={theme} name={templateName} widgets={indicatedWidgets} routerParams={routerParams} />;
+  const templateWidgets = PrepareIndicatedWidgetByTemplate(templateId);
+  let widgets = [] as IndicatedWidgetType[];
+  if (size(indicatedWidgets)) {
+    widgets = widgets.concat(indicatedWidgets);
+  }
+  if (size(templateWidgets)) {
+    widgets = widgets.concat(templateWidgets);
+  }
+  return (
+    <TemplateProvider
+      theme={theme}
+      name={templateName}
+      widgets={widgets}
+      routerParams={routerParams}
+      visitorId={visitorId}
+    />
+  );
 };
 
 export default RouterPage;

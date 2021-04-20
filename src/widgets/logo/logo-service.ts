@@ -9,7 +9,6 @@ export const GraphLogo = () => {
       environment {
         id
         Logo {
-          id
           ${MediaGraphProps}
         }
       }
