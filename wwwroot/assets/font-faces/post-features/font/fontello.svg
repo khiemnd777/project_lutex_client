@@ -1,0 +1,18 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg">
+<metadata>Copyright (C) 2021 by original authors @ fontello.com</metadata>
+<defs>
+<font id="fontello" horiz-adv-x="1000" >
+<font-face font-family="fontello" font-weight="400" font-stretch="normal" units-per-em="1000" ascent="850" descent="-150" />
+<missing-glyph horiz-adv-x="1000" />
+<glyph glyph-name="heart-empty" unicode="&#xe800;" d="M1063 562v-60q0-285-532-653-531 367-531 653v60q0 127 81 207t206 80q81 0 134-30t110-99q58 68 111 99t133 30q126 0 207-80t81-207z m-117-55v50q0 58-39 114t-95 61q-12 2-37 2-53 0-83-19t-72-69l-89-105-89 105q-42 49-72 69t-83 19q-24 0-37-2-56-6-93-60t-41-115v-50q0-30 17-75 68-199 398-441 329 239 399 441 16 50 16 75z" horiz-adv-x="1063" />
+
+<glyph glyph-name="heart" unicode="&#xe801;" d="M775 849q126 0 207-80t81-207v-60q0-285-532-653-531 367-531 653v60q0 127 81 207t206 80q81 0 134-30t110-99q58 68 111 99t133 30z" horiz-adv-x="1063" />
+
+<glyph glyph-name="link" unicode="&#xe802;" d="M1000 583q0-112-78-188l-175-176q-78-78-189-78-97 0-171 63l115 115q26-17 56-17 44 0 75 31l175 176q31 29 31 74 0 44-30 75t-75 30q-25 0-49-12t-33-34h-238l132 129q80 78 188 78 110 0 188-78t78-188z m-387-89l-115-115q-26 17-56 17-44 0-75-31l-175-176q-31-29-31-74 0-44 31-74t74-31q25 0 50 12t32 34h238l-132-129q-80-78-188-78-110 0-188 78t-78 188q0 112 78 188l175 176q78 78 189 78 97 0 171-63z" horiz-adv-x="1000" />
+
+<glyph glyph-name="facebook-rect" unicode="&#xf301;" d="M1000 761v-824q0-36-26-62t-62-26h-824q-36 0-62 26t-26 62v824q0 36 26 62t62 26h824q36 0 62-26t26-62z m-187-160l20 118q-43 15-143 15-79 0-123-58-26-34-26-119v-78h-79v-115h79v-400h149v400h118l9 115h-127v90q0 42 59 42 31 0 64-10z" horiz-adv-x="1000" />
+</font>
+</defs>
+</svg>
