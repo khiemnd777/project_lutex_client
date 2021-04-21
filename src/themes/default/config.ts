@@ -1,5 +1,5 @@
 import './font.scss';
-import '../../font-faces/config.scss';
+import '../../font-faces/config';
 import './style.scss';
 import './templates/template-one-column/config';
 import './templates/template-two-column/config';
