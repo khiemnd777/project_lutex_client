@@ -1,4 +1,4 @@
-@import "../../theme";
+@import '../../theme';
 
 $postFontColor: #000;
 $postShortFontColor: #757575;
@@ -25,7 +25,7 @@ $postShortFontSize: 16px;
         .seperate {
           &::before {
             display: flex;
-            content: ".";
+            content: '.';
             align-items: center;
             justify-content: center;
             align-content: center;
@@ -55,6 +55,7 @@ $postShortFontSize: 16px;
           color: $postShortFontColor;
           font-weight: $boldWeight;
           font-size: $postShortFontSize;
+          padding: 0 7.5rem 0 0;
         }
       }
       .post_body {
@@ -71,6 +72,7 @@ $postShortFontSize: 16px;
               font-size: $postFontSize;
               word-spacing: 2px;
               line-height: 1.7rem;
+              padding: 0 5rem 0 2.5rem;
             }
           }
           .post_body_content_right {
