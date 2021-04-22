@@ -6,17 +6,18 @@ import styles from './sticky-anchor.styled.scss';
 const cx = classNamesBind.bind(styles);
 
 interface StickyAnchorArgs {
+  paddingBottom?: number;
   stickyRef: PropRef<any>;
   handler: (sticky: boolean) => void;
 }
 
-const StickyAnchor: FunctionalComponent<StickyAnchorArgs> = ({ stickyRef, handler }) => {
+const StickyAnchor: FunctionalComponent<StickyAnchorArgs> = ({ paddingBottom, stickyRef, handler }) => {
   const anchorRef = useRef<HTMLDivElement>(null);
   const [stickyRecorded, setStickyRecorded] = useState(false);
   useEffect(() => {
     const listener = () => {
       const anchorDomRect = anchorRef.current.getBoundingClientRect();
-      const sticky = anchorDomRect.top <= 0;
+      const sticky = anchorDomRect.top - (paddingBottom ? paddingBottom : 0) <= 0;
       if (stickyRecorded !== sticky) {
         handler(sticky);
         setStickyRecorded(sticky);

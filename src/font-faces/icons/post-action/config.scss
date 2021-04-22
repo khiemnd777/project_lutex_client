@@ -54,16 +54,16 @@
   /* Uncomment for 3D effect */
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
 
-  &.icon-heart-empty:before {
+  &.icon_heart_empty:before {
     content: '\e800';
   } /* '' */
-  &.icon-heart:before {
+  &.icon_heart:before {
     content: '\e801';
   } /* '' */
-  &.icon-link:before {
+  &.icon_link:before {
     content: '\e802';
   } /* '' */
-  &.icon-facebook-rect:before {
+  &.icon_facebook_rect:before {
     content: '\f301';
   } /* '' */
 }

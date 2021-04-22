@@ -9,7 +9,7 @@ import { WidgetFactory } from '_stdio/core/widget/widget-factory';
 import { convertDateFormat, DATE_FORMAT } from '_stdio/shared/utils/date.utils';
 import { PostItemWidgetArgs } from './post-item-interface';
 
-const PostItemWidget: FunctionalComponent<PostItemWidgetArgs> = ({ theme, data, widgets, routerParams }) => {
+const PostItemWidget: FunctionalComponent<PostItemWidgetArgs> = ({ theme, visitorId, data, widgets, routerParams }) => {
   const cx = BuildClassNameBind(theme.Name, 'post_item');
   const catalogRouterPath = buildRouterPath(data?.Catalog?.Router?.Path ?? '', data?.Catalog);
   return (
@@ -40,7 +40,16 @@ const PostItemWidget: FunctionalComponent<PostItemWidgetArgs> = ({ theme, data, 
           {!!data?.Body && (
             <div class={cx('post_body')}>
               <div class={cx('post_body_left')}>
-                <Placeholder name={'post_body_left'} theme={theme} routerParams={routerParams} widgets={widgets} />
+                <Placeholder
+                  name={'post_action'}
+                  theme={theme}
+                  routerParams={routerParams}
+                  widgets={widgets}
+                  visitorId={visitorId}
+                  internalParams={{
+                    postItemId: data?.id,
+                  }}
+                />
               </div>
               <div class={cx('post_body_right')}>
                 <div class={cx('post_body_content_left')}>

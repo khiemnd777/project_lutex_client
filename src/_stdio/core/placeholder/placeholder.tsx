@@ -10,9 +10,17 @@ interface PlaceholderArgs {
   visitorId?: string;
   widgets?: IndicatedWidgetType[];
   routerParams?: Record<string, string>;
+  internalParams?: Record<string, any>;
 }
 
-const Placeholder: FunctionalComponent<PlaceholderArgs> = ({ name, theme, widgets, routerParams, visitorId }) => {
+const Placeholder: FunctionalComponent<PlaceholderArgs> = ({
+  name,
+  theme,
+  widgets,
+  routerParams,
+  visitorId,
+  internalParams,
+}) => {
   const consumedWidgets = WidgetFactory.GetForPlaceholder(name, widgets);
   return (
     <Fragment>
@@ -22,11 +30,12 @@ const Placeholder: FunctionalComponent<PlaceholderArgs> = ({ name, theme, widget
               name: widget.name,
               backgroundColor: widget.backgroundColor,
               backgroundImage: widget.backgroundImage,
-              theme: theme,
               configName: widget.configName,
               component: widget.component,
               parameters: widget.parameters,
-              routerParams: routerParams,
+              theme,
+              routerParams,
+              internalParams,
               widgets: widgets,
               visitorId,
             })
@@ -35,11 +44,12 @@ const Placeholder: FunctionalComponent<PlaceholderArgs> = ({ name, theme, widget
               name: widget.name,
               backgroundColor: widget.backgroundColor,
               backgroundImage: widget.backgroundImage,
-              theme: theme,
               configName: widget.configName,
               parameters: widget.parameters,
-              routerParams: routerParams,
-              widgets: widgets,
+              theme,
+              routerParams,
+              internalParams,
+              widgets,
               visitorId,
             })
           : null
