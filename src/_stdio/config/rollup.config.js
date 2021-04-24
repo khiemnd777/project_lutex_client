@@ -28,6 +28,10 @@ const secureProtocol = !!argv.secure && argv.secure === 'true' ? 'https' : 'http
 const apiPort = argv.apiPort || 1337;
 const apiHostName = argv.apiHost || (env === 'development' ? 'localhost' : 'lutex.io');
 const apiHost = `${secureProtocol}://${apiHostName}:${apiPort}/`;
+const clientSecureProtocal = !!argv.clientSecure && argv.clientSecure === 'true' ? 'https' : 'http';
+const clientHostName = argv.clientHost || (env === 'development' ? 'localhost' : 'lutex.io');
+const clientPort = argv.clientPort || (env === 'development' ? '7777' : '');
+const clientHost = `${clientSecureProtocal}://${clientHostName}${!!clientPort ? `:${clientPort}` : ''}/`;
 
 const plugins = [
   rollupTs2({
@@ -49,6 +53,7 @@ const plugins = [
     preventAssignment: true,
     exclude: 'node_modules/**',
     API_HOST: `${apiHost}`,
+    CLIENT_HOST: `${clientHost}`,
     delimiters: ['{{', '}}'],
   }),
   rollupBabel({

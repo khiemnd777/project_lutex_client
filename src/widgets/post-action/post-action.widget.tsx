@@ -8,12 +8,15 @@ import { BindFontFaceClassNames } from '_stdio/core/font-faces/font-face-utils';
 import StickyAnchor from '_stdio/shared/components/sticky/sticky-anchor';
 import { PropRef, useRef, useState } from 'preact/hooks';
 import PostActionLike from './post-action-like';
+import { PostItemType } from './post-action-types';
+import PostActionSharedLink from './post-action-shared-link';
 
 const PostActionWidget: FunctionalComponent<WidgetArgs> = ({ theme, visitorId, internalParams }) => {
   const cx = BuildClassNameBind(theme.Name, 'post_action');
   const icons = BindFontFaceClassNames('post_action');
   const postItemId = GetInternalParameterValue<string>('postItemId', internalParams);
   const postBodyLeftRef = GetInternalParameterValue<PropRef<HTMLDivElement>>('postBodyLeftRef', internalParams);
+  const postItem = GetInternalParameterValue<PostItemType>('postItem', internalParams);
   const stickedRef = useRef<HTMLDivElement>();
   const [addedSticky, setAddedSticky] = useState(false);
   return (
@@ -29,7 +32,7 @@ const PostActionWidget: FunctionalComponent<WidgetArgs> = ({ theme, visitorId, i
               <i class={`${cx('icon')} ${icons('icon', 'icon_facebook_rect')}`}></i>
             </li>
             <li>
-              <i class={`${cx('icon')} ${icons('icon', 'icon_link')}`}></i>
+              <PostActionSharedLink theme={theme} postItem={postItem} />
             </li>
           </ul>
         </div>

@@ -1,3 +1,5 @@
+import { SimpleRouterType } from '_stdio/core/router/router-types';
+
 export type CreateLikeGraphResult = {
   createPostItemLike: {
     postItemLike: {
@@ -21,4 +23,10 @@ export type PostItemLikeGraphResult = {
     };
     values: { id: string }[];
   };
+};
+
+export type PostItemType = {
+  id: string;
+  Slug: string;
+  Router: SimpleRouterType;
 };
