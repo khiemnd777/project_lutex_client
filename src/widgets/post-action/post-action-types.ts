@@ -7,7 +7,7 @@ export type CreateLikeGraphResult = {
 };
 
 export type PostItemLikeGraphResult = {
-  postItemLikeCountsConnection: {
+  postItemLikesConnection: {
     aggregate: {
       count: number;
     };
