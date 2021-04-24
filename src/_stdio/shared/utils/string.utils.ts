@@ -94,6 +94,11 @@ export const threeDotsAt = (str?: string, at?: number): string => {
   return str;
 };
 
+export const removeFirstSlashPath = (str?: string): string => {
+  if (!str) return '';
+  return str.replace(/^\/+/i, '');
+};
+
 export const replaceByKeyPairValue = (routerPath: string, replacedVal: Record<string, any>, prefix = ':') => {
   let result = String(routerPath).toLowerCase();
   for (const prop in replacedVal) {
