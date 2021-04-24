@@ -13,6 +13,7 @@ interface WidgetAbstractArgs {
   configName?: string;
   parameters?: ParameterConsumedType[];
   routerParams?: Record<string, string>;
+  internalParams?: Record<string, any>;
   widgets?: IndicatedWidgetType[];
   visitorId?: string;
 }

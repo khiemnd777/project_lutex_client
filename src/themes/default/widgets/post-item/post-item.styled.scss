@@ -1,4 +1,4 @@
-@import '../../theme';
+@import "../../theme";
 
 $postFontColor: #000;
 $postShortFontColor: #757575;
@@ -25,7 +25,7 @@ $postShortFontSize: 16px;
         .seperate {
           &::before {
             display: flex;
-            content: '.';
+            content: ".";
             align-items: center;
             justify-content: center;
             align-content: center;
@@ -44,39 +44,65 @@ $postShortFontSize: 16px;
       .post_title {
         padding-bottom: 1rem;
         width: 80%;
+        @media (max-width: $mobile) {
+          width: 100%;
+        }
         h1 {
           font-size: 40px;
           letter-spacing: -1px;
           word-spacing: 3px;
+          @media (max-width: $mobile) {
+            font-size: 20px;
+          }
         }
       }
       .post_short {
+        padding-bottom: 1rem;
         span {
           color: $postShortFontColor;
           font-weight: $boldWeight;
           font-size: $postShortFontSize;
-          padding: 0 7.5rem 0 0;
+          padding: 0 12rem 0 0;
+          display: inline-block;
+          @media (max-width: $mobile) {
+            width: 100%;
+            padding: 0;
+          }
         }
       }
       .post_body {
         display: flex;
         .post_body_left {
           width: 70px;
+          @media (max-width: $mobile) {
+            width: 35px;
+          }
         }
         .post_body_right {
           display: flex;
           flex: 1;
+          @media (max-width: $mobile) {
+            flex-direction: column;
+            padding-left: 10px;
+          }
           .post_body_content_left {
-            flex: 3;
+            flex: 1;
             .post_body_content {
               font-size: $postFontSize;
               word-spacing: 2px;
               line-height: 1.7rem;
               padding: 0 5rem 0 2.5rem;
+              p:first-child {
+                margin-block-start: 0;
+              }
+              @media (max-width: $mobile) {
+                padding: 0 0 0.5rem;
+                font-size: 16px;
+              }
             }
           }
           .post_body_content_right {
-            flex: 1;
+            width: 270px;
           }
         }
       }

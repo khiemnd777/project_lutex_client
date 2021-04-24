@@ -37,3 +37,5 @@ import './facebook-fanpage/facebook-fanpage.config';
 
 import './copyright/copyright.widget';
 import './copyright/copyright.config';
+
+import './post-action/post-action.widget';

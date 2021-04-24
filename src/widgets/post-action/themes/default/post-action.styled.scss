@@ -1,0 +1,43 @@
+@import "../../../../themes/default/theme";
+
+$commonColor: #777;
+$commonFontSize: 20px;
+
+.post_action {
+  transition: opacity ease 0.5s;
+  opacity: 0;
+  &.visible {
+    opacity: 1;
+  }
+  &.sticky {
+    position: fixed;
+    top: 80px;
+    width: 70px;
+    @media (max-width: $mobile) {
+      width: 35px;
+    }
+  }
+  .container {
+    .icons {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-block-start: 6px;
+      li {
+        margin-bottom: 2rem;
+        .icon {
+          cursor: pointer;
+          font-size: $commonFontSize;
+          color: $commonColor;
+        }
+        .like_count {
+          display: block;
+          text-align: center;
+          margin-block-start: 2px;
+          color: $commonColor;
+          font-weight: 600;
+        }
+      }
+    }
+  }
+}
