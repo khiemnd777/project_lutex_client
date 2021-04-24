@@ -2,6 +2,7 @@ import isEmpty from 'lodash-es/isEmpty';
 import marked from 'marked';
 import { FunctionalComponent, h } from 'preact';
 import { Link } from 'preact-router/match';
+import { useRef } from 'preact/hooks';
 import Placeholder from '_stdio/core/placeholder/placeholder';
 import { buildRouterPath } from '_stdio/core/router/router-utils';
 import { BuildClassNameBind } from '_stdio/core/theme/theme-utils';
@@ -12,6 +13,7 @@ import { PostItemWidgetArgs } from './post-item-interface';
 const PostItemWidget: FunctionalComponent<PostItemWidgetArgs> = ({ theme, visitorId, data, widgets, routerParams }) => {
   const cx = BuildClassNameBind(theme.Name, 'post_item');
   const catalogRouterPath = buildRouterPath(data?.Catalog?.Router?.Path ?? '', data?.Catalog);
+  const bodyLeftRef = useRef<HTMLDivElement>();
   return (
     <div class={cx('post_item', !isEmpty(data) ? 'visible' : null)}>
       <div class={cx('container')}>
@@ -39,7 +41,7 @@ const PostItemWidget: FunctionalComponent<PostItemWidgetArgs> = ({ theme, visito
           )}
           {!!data?.Body && (
             <div class={cx('post_body')}>
-              <div class={cx('post_body_left')}>
+              <div ref={bodyLeftRef} class={cx('post_body_left')}>
                 <Placeholder
                   name={'post_action'}
                   theme={theme}
@@ -48,6 +50,7 @@ const PostItemWidget: FunctionalComponent<PostItemWidgetArgs> = ({ theme, visito
                   visitorId={visitorId}
                   internalParams={{
                     postItemId: data?.id,
+                    postBodyLeftRef: bodyLeftRef,
                   }}
                 />
               </div>
