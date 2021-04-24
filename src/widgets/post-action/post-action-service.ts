@@ -1,5 +1,5 @@
 import { gql, useMutation, useQuery } from '@apollo/client';
-import { CreateLikeGraphResult, PostItemLikeGraphResult } from './post-action-types';
+import { CreateLikeGraphResult, DeleteLikeGraphResult, PostItemLikeGraphResult } from './post-action-types';
 
 export const CreateLike = () => {
   return useMutation<CreateLikeGraphResult>(
@@ -15,11 +15,25 @@ export const CreateLike = () => {
   );
 };
 
+export const DeleteLike = () => {
+  return useMutation<DeleteLikeGraphResult>(
+    gql`
+      mutation deletePostLike($id: ID!) {
+        deletePostItemLike(input: { where: { id: $id } }) {
+          postItemLike {
+            id
+          }
+        }
+      }
+    `
+  );
+};
+
 export const GraphPostItemLikeCount = (postId: string) => {
   return useQuery<PostItemLikeGraphResult>(
     gql`
-      query($id: String) {
-        postItemLikesConnection(where: { Post: { id: $id } }) {
+      query($postId: String) {
+        postItemLikesConnection(where: { Post: { id: $postId } }) {
           aggregate {
             count
           }
@@ -28,7 +42,7 @@ export const GraphPostItemLikeCount = (postId: string) => {
     `,
     {
       variables: {
-        id: postId,
+        postId,
       },
       fetchPolicy: 'no-cache',
     }
@@ -38,17 +52,20 @@ export const GraphPostItemLikeCount = (postId: string) => {
 export const GraphPostItemLikeExist = (postId: string, key: string) => {
   return useQuery<PostItemLikeGraphResult>(
     gql`
-      query($id: String, $key: String) {
-        postItemLikesConnection(where: { Post: { id: $id }, Key: $key }) {
+      query($postId: String, $key: String) {
+        postItemLikesConnection(where: { Post: { id: $postId }, Key: $key }) {
           aggregate {
             count
+          }
+          values {
+            id
           }
         }
       }
     `,
     {
       variables: {
-        id: postId,
+        postId,
         key,
       },
       fetchPolicy: 'no-cache',

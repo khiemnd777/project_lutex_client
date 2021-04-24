@@ -1,6 +1,14 @@
 export type CreateLikeGraphResult = {
-  createPostItemLikeCount: {
-    postItemLikeCount: {
+  createPostItemLike: {
+    postItemLike: {
+      id: number;
+    };
+  };
+};
+
+export type DeleteLikeGraphResult = {
+  deletePostItemLike: {
+    postItemLike: {
       id: number;
     };
   };
@@ -11,5 +19,6 @@ export type PostItemLikeGraphResult = {
     aggregate: {
       count: number;
     };
+    values: { id: string }[];
   };
 };
