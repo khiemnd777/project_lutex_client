@@ -16,10 +16,12 @@ const argv = yargs(hideBin(process.argv)).argv;
 console.log('Environment', env);
 
 // API HOST
+const port = argv.port || 7777;
 const secureProtocol = argv.secure || 'false';
 const apiPort = argv.apiPort || 1337;
 const apiHostName = argv.apiHost || (env === 'development' ? 'localhost' : 'lutex.io');
-const port = argv.port || 7777;
+const clientSecureProtocal = !!argv.clientSecure && argv.clientSecure === 'true' ? 'https' : 'http';
+const clientHostName = argv.clientHost || (env === 'development' ? 'localhost' : 'lutex.io');
 const distPath = argv.dist || (env === 'development' ? './wwwroot' : '');
 
 const plugins = [
@@ -42,6 +44,8 @@ const plugins = [
     SECURE: secureProtocol,
     API_PORT: apiPort,
     API_HOST: apiHostName,
+    CLIENT_SECURE: clientSecureProtocal,
+    CLIENT_HOST: clientHostName,
     DIST_PATH: distPath,
     delimiters: ['{{', '}}'],
   }),

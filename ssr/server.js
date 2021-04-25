@@ -10,11 +10,19 @@ const distPath = argv.dist || '{{DIST_PATH}}';
 const port = argv.port || '{{PORT}}';
 const app = express();
 const env = process.env.NODE_ENV;
+// Api host
 const secureProtocol =
   (!!argv.secure && argv.secure === 'true') || (!argv.secure && '{{SECURE}}' === 'true') ? 'https' : 'http';
 const apiPort = argv.apiPort || '{{API_PORT}}';
 const apiHostName = argv.apiHost || '{{API_HOST}}';
 const apiHost = `${secureProtocol}://${apiHostName}:${apiPort}/`;
+// Client host
+const clientSecureProtocal =
+  (!!argv.clientSecure && argv.clientSecure === 'true') || (!argv.secure && '{{CLIENT_SECURE}}' === 'true')
+    ? 'https'
+    : 'http';
+const clientHostName = argv.clientHost || '{{CLIENT_HOST}}';
+const clientHost = `${clientSecureProtocal}://${clientHostName}${!!port ? `:${port}` : ''}/`;
 
 const genrateHtml = (req, res, seoData) => {
   const domFile = `${distPath}/index.html`;
@@ -57,6 +65,11 @@ app.use(/^\/*((?!\.).)*$/, async (req, res, next) => {
     const seoUrl = `${apiHost}seo${req.baseUrl}`;
     const seoData = await axios.get(`${seoUrl}`);
     seo = seoData ? seoData.data : null;
+    if (seo && seo.Facebook) {
+      // Attach facebook's og:url
+      const realBaseUrl = req.baseUrl.replace(/^\/+/i, '');
+      !seo.Facebook.Url && (seo.Facebook.Url = `${clientHost}${realBaseUrl}`);
+    }
   } catch {}
   genrateHtml(req, res, seo);
 });
