@@ -26,7 +26,7 @@ const genrateHtml = (req, res, seoData) => {
     if (!!seoData) {
       const seoMetaTags = generateSeoMetaTags(seoData);
       data = data.replace('{{metaTags}}', seoMetaTags);
-      data = data.replace('{{title}}', seoData.title);
+      data = data.replace('{{title}}', seoData.Title);
     } else {
       data = data.replace('{{metaTags}}', '');
       data = data.replace('{{title}}', '');
@@ -36,36 +36,30 @@ const genrateHtml = (req, res, seoData) => {
 };
 
 const generateSeoMetaTags = (seoData) => {
+  const facebook = seoData.Facebook;
+  const title = seoData.Title;
+  const desc = seoData.Description;
   return `
-  <meta name="title" content="${seoData.title}">
-  <meta name="description" content="${seoData.description}">
-  <meta property="og:title" content="${seoData.title}">
-  <meta property="og:site_name" content="${seoData.title}">
-  <meta property="og:type" content="${seoData.type || 'website'}">
-  <meta property="og:url" content="${seoData.url || ''}">
-  <meta property="og:image" content="${seoData.image || ''}">
-  <meta property="og:description" content="${seoData.description}">
+  <meta name="title" content="${title}">
+  <meta name="description" content="${desc}">
+  <meta property="og:title" content="${facebook ? facebook.Title || title : title}">
+  <meta property="og:site_name" content="${facebook ? facebook.SiteName || '' : ''}">
+  <meta property="og:type" content="${facebook ? facebook.Type || 'website' : 'website'}">
+  <meta property="og:url" content="${facebook ? facebook.Url || '' : ''}">
+  <meta property="og:image" content="${facebook ? (facebook.Image && facebook.Image.url) || '' : ''}">
+  <meta property="og:description" content="${facebook ? facebook.Description || desc : desc}">
   `;
 };
 
-app.use(/^\/*((?!\.).)*$/, (req, res, next) => {
-  genrateHtml(req, res);
+app.use(/^\/*((?!\.).)*$/, async (req, res, next) => {
+  let seo = null;
+  try {
+    const seoUrl = `${apiHost}seo${req.baseUrl}`;
+    const seoData = await axios.get(`${seoUrl}`);
+    seo = seoData ? seoData.data : null;
+  } catch {}
+  genrateHtml(req, res, seo);
 });
-
-// app.get('/', async (req, res) => {
-//   const seoResp = await axios.get(`${apiHost}index`);
-//   genrateHtml(req, res, seoResp.data);
-// });
-
-// app.get('/page', async (req, res) => {
-//   const seoResp = await axios.get(`${apiHost}page`);
-//   genrateHtml(req, res, seoResp.data);
-// });
-
-// app.get('/page/:params', async (req, res) => {
-//   const seoResp = await axios.get(`${apiHost}page?params=${req.params.params}`);
-//   genrateHtml(req, res, seoResp.data);
-// });
 
 app.use(express.static(path.resolve(__dirname, '../', 'wwwroot')));
 
