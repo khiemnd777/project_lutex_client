@@ -3,19 +3,23 @@ import { Fragment, FunctionalComponent, h } from 'preact';
 import { WidgetFactory } from '_stdio/core/widget/widget-factory';
 import { WidgetArgs } from '_stdio/core/widget/widget-interfaces';
 import { BuildClassNameBind } from '_stdio/core/theme/theme-utils';
-import { GetInternalParameterValue } from '_stdio/shared/utils/params.util';
+import { GetInternalParameterValue, GetParameterValue } from '_stdio/shared/utils/params.util';
 import StickyAnchor from '_stdio/shared/components/sticky/sticky-anchor';
 import { PropRef, useRef, useState } from 'preact/hooks';
 import PostActionLike from './post-action-like';
 import { PostItemType } from './post-action-types';
 import PostActionSharedLink from './post-action-shared-link';
 import PostActionFacebook from './post-action-facebook';
+import { parseBool } from '_stdio/shared/utils/string.utils';
 
 const PostActionWidget: FunctionalComponent<WidgetArgs> = ({ theme, visitorId, internalParams, parameters }) => {
   const cx = BuildClassNameBind(theme.Name, 'post_action');
   const postItemId = GetInternalParameterValue<string>('postItemId', internalParams);
   const postBodyLeftRef = GetInternalParameterValue<PropRef<HTMLDivElement>>('postBodyLeftRef', internalParams);
   const postItem = GetInternalParameterValue<PostItemType>('postItem', internalParams);
+  const allowLike = parseBool(GetParameterValue('allowLike', parameters));
+  const allowFacebook = parseBool(GetParameterValue('allowFacebook', parameters));
+  const allowSharedLink = parseBool(GetParameterValue('allowSharedLink', parameters));
   const stickedRef = useRef<HTMLDivElement>();
   const [addedSticky, setAddedSticky] = useState(false);
   return (
@@ -24,15 +28,21 @@ const PostActionWidget: FunctionalComponent<WidgetArgs> = ({ theme, visitorId, i
       <div ref={stickedRef} class={cx('post_action', 'visible', addedSticky ? 'sticky' : null)}>
         <div class={cx('container')}>
           <ul class={cx('icons')}>
-            <li>
-              <PostActionLike theme={theme} postItemId={postItemId} visitorId={visitorId} />
-            </li>
-            <li>
-              <PostActionFacebook theme={theme} postItem={postItem} parameters={parameters} />
-            </li>
-            <li>
-              <PostActionSharedLink theme={theme} postItem={postItem} />
-            </li>
+            {allowLike && (
+              <li>
+                <PostActionLike theme={theme} postItemId={postItemId} visitorId={visitorId} />
+              </li>
+            )}
+            {allowFacebook && (
+              <li>
+                <PostActionFacebook theme={theme} postItem={postItem} parameters={parameters} />
+              </li>
+            )}
+            {allowSharedLink && (
+              <li>
+                <PostActionSharedLink theme={theme} postItem={postItem} />
+              </li>
+            )}
           </ul>
         </div>
       </div>

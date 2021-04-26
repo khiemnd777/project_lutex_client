@@ -32,7 +32,7 @@ const PostActionFacebook: FunctionalComponent<PostActionFacebookArgs> = ({ theme
         src={`https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v10.0&appId=${appId}&autoLogAppEvents=1`}
         nonce="gHcDBvPz"
       ></script>
-      <div class="fb-share-button" data-href={linkHref}>
+      <div>
         <a
           target="_blank"
           rel="noreferrer"
