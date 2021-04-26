@@ -1,4 +1,4 @@
-@import "../../theme";
+@import '../../theme';
 
 $postFontColor: #000;
 $postShortFontColor: #757575;
@@ -25,7 +25,7 @@ $postShortFontSize: 16px;
         .seperate {
           &::before {
             display: flex;
-            content: ".";
+            content: '.';
             align-items: center;
             justify-content: center;
             align-content: center;
@@ -108,6 +108,15 @@ $postShortFontSize: 16px;
       }
     }
     .footer {
+      .footer_container {
+        padding-top: $moduleMarginTop;
+        padding-left: 70px;
+        padding-right: 270px;
+        @media (max-width: $mobile) {
+          padding-left: 0;
+          padding-right: 0;
+        }
+      }
     }
   }
 }

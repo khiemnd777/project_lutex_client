@@ -110,6 +110,38 @@ export const GraphPostItemInCatalog = (slug: string, datetimeNow: Date, start: n
   );
 };
 
+export const GraphPostItemInCatalogId = (catalogId: string, datetimeNow: Date, start: number, limit: number) => {
+  return useQuery<AvailablePostItemsGraphResult>(
+    gql`
+    query ($catalogId:String, $start:Int, $limit:Int) {
+      ${postItemsConnection}
+      postItems (
+        where: {
+          Catalog: {
+            id: $catalogId
+          }
+          ${availablePostItemCondition(datetimeNow)}
+        }
+        sort:"createdAt:desc"
+        start: $start
+        limit: $limit
+      ) {
+        ${postItemProps}
+      }
+    }
+  `,
+    {
+      variables: {
+        catalogId,
+        start,
+        limit,
+      },
+      nextFetchPolicy: 'cache-first',
+      fetchPolicy: 'cache-first',
+    }
+  );
+};
+
 export const GraphDetailPostItem = (postItemId: string) => {
   return useQuery<DetailPostItemType>(gql`
     query {
