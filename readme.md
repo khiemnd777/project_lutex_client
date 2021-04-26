@@ -1,4 +1,4 @@
-# LUTEX.IO
+# Lutex.io
 ---
 ## Description
 LUTEX.IO - A Lutex's Product.
