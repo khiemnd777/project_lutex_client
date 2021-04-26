@@ -1,5 +1,5 @@
 # Lutex.io
-### A Lutex's Product.
+### A Lutex's product.
 ---
 ## What we have here?
 - [Preact](https://preactjs.com/) with API compatible with React. We use Preact for lightweight, fast and memory usage in mind.
