@@ -14,6 +14,7 @@ const PostItemWidget: FunctionalComponent<PostItemWidgetArgs> = ({ theme, visito
   const cx = BuildClassNameBind(theme.Name, 'post_item');
   const catalogRouterPath = buildRouterPath(data?.Catalog?.Router?.Path ?? '', data?.Catalog);
   const bodyLeftRef = useRef<HTMLDivElement>();
+  const bodyRightRef = useRef<HTMLDivElement>();
   return (
     <div class={cx('post_item', !isEmpty(data) ? 'visible' : null)}>
       <div class={cx('container')}>
@@ -56,7 +57,7 @@ const PostItemWidget: FunctionalComponent<PostItemWidgetArgs> = ({ theme, visito
                     },
                     CatalogId: data?.Catalog.id,
                     postItemId: data?.id,
-                    postBodyLeftRef: bodyLeftRef,
+                    containerRef: bodyLeftRef,
                   }}
                 />
               </div>
@@ -64,12 +65,16 @@ const PostItemWidget: FunctionalComponent<PostItemWidgetArgs> = ({ theme, visito
                 <div class={cx('post_body_content_left')}>
                   <div class={cx('post_body_content')} dangerouslySetInnerHTML={{ __html: marked(data.Body) }}></div>
                 </div>
-                <div class={cx('post_body_content_right')}>
+                <div ref={bodyRightRef} class={cx('post_body_content_right')}>
                   <Placeholder
                     name={'post_body_content_right'}
                     theme={theme}
                     routerParams={routerParams}
                     widgets={widgets}
+                    internalParams={{
+                      postId: data?.id,
+                      containerRef: bodyRightRef,
+                    }}
                   />
                 </div>
               </div>

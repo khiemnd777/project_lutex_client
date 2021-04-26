@@ -9,6 +9,7 @@ import { GetDatetimeServer } from '_stdio/shared/utils/datetime-server/datetime-
 import { GetParameterValue } from '_stdio/shared/utils/params.util';
 import { tryParseInt } from '_stdio/shared/utils/string.utils';
 import { AvailablePostItemsGraphResult } from './post-item-types';
+import PostItemsListByCatalogUtils from './post-items-list-by-catalog-utils';
 import { PostItemsListWidgetArgs } from './post-items-list-interfaces';
 import { GraphAvailablePostItems } from './post-items-service';
 
@@ -17,6 +18,7 @@ export const PostItemsListWidgetConfig: FunctionalComponent<WidgetConfigArgs<Pos
   component,
   parameters,
   routerParams,
+  internalParams,
 }) => {
   const [datetimeServer, setDatetimeServer] = useState<Date>({} as Date);
   useEffect(() => {
@@ -29,32 +31,17 @@ export const PostItemsListWidgetConfig: FunctionalComponent<WidgetConfigArgs<Pos
   if (!isEmpty(datetimeServer)) {
     result = GraphAvailablePostItems(datetimeServer, 0, limit);
   }
-  const { data, loading, error, fetchMore } = result;
-  const totalCount = !loading && !error ? data?.postItemsConnection.aggregate.totalCount : 0;
-  const items = !loading && !error ? data?.postItems : [];
   return (
-    <Fragment>
-      {createElement(component, {
-        theme,
-        items,
-        loading,
-        error,
-        totalCount,
-        parameters,
-        routerParams,
-        datetimeServer,
-        onFetchMore: async () => {
-          if (totalCount && size(items) < totalCount) {
-            await fetchMore({
-              variables: {
-                start: size(items),
-                limit: limit,
-              },
-            });
-          }
-        },
-      })}
-    </Fragment>
+    <PostItemsListByCatalogUtils
+      component={component}
+      result={result}
+      datetimeServer={datetimeServer}
+      theme={theme}
+      parameters={parameters}
+      routerParams={routerParams}
+      internalParams={internalParams}
+      limit={limit}
+    />
   );
 };
 

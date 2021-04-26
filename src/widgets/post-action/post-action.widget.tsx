@@ -15,7 +15,7 @@ import { parseBool } from '_stdio/shared/utils/string.utils';
 const PostActionWidget: FunctionalComponent<WidgetArgs> = ({ theme, visitorId, internalParams, parameters }) => {
   const cx = BuildClassNameBind(theme.Name, 'post_action');
   const postItemId = GetInternalParameterValue<string>('postItemId', internalParams);
-  const postBodyLeftRef = GetInternalParameterValue<PropRef<HTMLDivElement>>('postBodyLeftRef', internalParams);
+  const containerRef = GetInternalParameterValue<PropRef<HTMLDivElement>>('containerRef', internalParams);
   const postItem = GetInternalParameterValue<PostItemType>('postItem', internalParams);
   const allowLike = parseBool(GetParameterValue('allowLike', parameters));
   const allowFacebook = parseBool(GetParameterValue('allowFacebook', parameters));
@@ -24,7 +24,7 @@ const PostActionWidget: FunctionalComponent<WidgetArgs> = ({ theme, visitorId, i
   const [addedSticky, setAddedSticky] = useState(false);
   return (
     <Fragment>
-      <StickyAnchor stickyRef={stickedRef} containerRef={postBodyLeftRef} handler={setAddedSticky} paddingBottom={80} />
+      <StickyAnchor stickyRef={stickedRef} containerRef={containerRef} handler={setAddedSticky} paddingBottom={80} />
       <div ref={stickedRef} class={cx('post_action', 'visible', addedSticky ? 'sticky' : null)}>
         <div class={cx('container')}>
           <ul class={cx('icons')}>

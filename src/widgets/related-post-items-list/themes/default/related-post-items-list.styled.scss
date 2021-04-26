@@ -1,0 +1,34 @@
+@import "../../../../themes/default/theme";
+.related_posts {
+  opacity: 0;
+  transition: opacity ease 0.5s;
+  &.visible {
+    opacity: 1;
+  }
+  &.sticky {
+    position: fixed;
+    top: 80px;
+    width: 270px;
+    @media (max-width: $mobile) {
+      position: static;
+      width: 100%;
+    }
+  }
+  .related_posts_body {
+    .related_posts_body_container {
+      ul {
+        li {
+          padding-top: 1rem;
+          padding-bottom: 1rem;
+          border-bottom: 1px solid $primaryColor;
+          &:first-child {
+            padding-top: 0;
+          }
+          &:last-child {
+            border-bottom: none;
+          }
+        }
+      }
+    }
+  }
+}

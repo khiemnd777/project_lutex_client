@@ -42,3 +42,6 @@ import './copyright/copyright.config';
 import './post-action/post-action.widget';
 
 import './title/title.widget';
+
+import './related-post-items-list/related-post-items-list.widget';
+import './related-post-items-list/related-post-items-list.config';
