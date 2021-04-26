@@ -40,3 +40,5 @@ import './copyright/copyright.widget';
 import './copyright/copyright.config';
 
 import './post-action/post-action.widget';
+
+import './title/title.widget';
