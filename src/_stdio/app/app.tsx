@@ -9,9 +9,10 @@ import { ApolloProvider } from '@apollo/client';
 import 'cache-policies/config';
 import graphqlClient from '_stdio/shared/utils/graphql/graphql-client';
 import RouterProvider from '_stdio/core/router/router-provider';
-import { GraphTheme } from '_stdio/core/theme/theme-service';
+import { FetchTheme, GraphTheme } from '_stdio/core/theme/theme-service';
 import { GetTheme } from '_stdio/core/theme/theme-utils';
 import { useVisitorId } from '_stdio/shared/utils/hooks';
+import { ThemeType } from '_stdio/core/theme/theme-types';
 
 const App = () => {
   return (
@@ -24,6 +25,12 @@ const App = () => {
 const StdApp = () => {
   const [localState, setLocalState] = useState({ loading: true });
   const [visitorId, setVisitorId] = useState('');
+  const [theme, setTheme] = useState<ThemeType>({} as ThemeType);
+  useEffect(() => {
+    void FetchTheme().then((theme) => {
+      setTheme(theme);
+    });
+  }, []);
   useVisitorId(setVisitorId);
   useEffect(() => {
     setLocalState({ loading: false });
@@ -31,20 +38,7 @@ const StdApp = () => {
   if (localState.loading) {
     return null;
   }
-  const { data, loading, error } = GraphTheme();
-  if (loading) {
-    return null;
-  }
-  if (error) {
-    return (
-      <div>
-        <span>Fetching theme errors.</span>
-      </div>
-    );
-  }
-
-  // init theming to the app at the html element.
-  const fetchedTheme = GetTheme(data?.environment.Theme.Theme);
+  const fetchedTheme = GetTheme(theme);
   document.documentElement.classList.add(fetchedTheme.Name);
   return (
     <div class={app}>

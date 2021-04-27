@@ -17,3 +17,5 @@ import './widgets/contact-information/config';
 import './widgets/facebook-fanpage/config';
 import './widgets/copyright/config';
 import './widgets/post-item/config';
+import './widgets/post-action/config';
+import './widgets/related-post-items-list/config';

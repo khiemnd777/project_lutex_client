@@ -1,4 +1,3 @@
-import './themes/default/config';
 import { Fragment, FunctionalComponent, h } from 'preact';
 import { BuildClassNameBind } from '_stdio/core/theme/theme-utils';
 import { WidgetFactory } from '_stdio/core/widget/widget-factory';

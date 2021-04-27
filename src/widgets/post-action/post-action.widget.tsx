@@ -1,4 +1,3 @@
-import './themes/default/config';
 import { Fragment, FunctionalComponent, h } from 'preact';
 import { WidgetFactory } from '_stdio/core/widget/widget-factory';
 import { WidgetArgs } from '_stdio/core/widget/widget-interfaces';
