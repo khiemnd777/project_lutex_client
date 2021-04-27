@@ -14,6 +14,7 @@ import ImageContainer from '_stdio/shared/components/image-container/image-conta
 import { Link } from 'preact-router/match';
 import { GetParameterValue } from '_stdio/shared/utils/params.util';
 import classNamesBind from 'classnames/bind';
+import { buildRouterPath } from '_stdio/core/router/router-utils';
 
 const PostItemsListWidget: FunctionalComponent<PostItemsListWidgetArgs> = ({
   theme,
@@ -30,6 +31,7 @@ const PostItemsListWidget: FunctionalComponent<PostItemsListWidgetArgs> = ({
     <div class={cx('post_items_list', size(items) ? 'visible' : null)}>
       <TemplateGrid
         list={map(items, (item) => {
+          const routerPath = buildRouterPath(item.Router.Path, item);
           return {
             template: (templateGridArgs: TemplateGridArgs) => {
               const { scrollPosition, mGrid, gridItemRef } = templateGridArgs;
@@ -46,7 +48,7 @@ const PostItemsListWidget: FunctionalComponent<PostItemsListWidgetArgs> = ({
                   />
                   <div class={cx('content_container')}>
                     {item.Title ? (
-                      <Link href={`/${item.Slug}`} class={cx('title')}>
+                      <Link href={routerPath} class={cx('title')}>
                         <span>{item.Title}</span>
                       </Link>
                     ) : null}

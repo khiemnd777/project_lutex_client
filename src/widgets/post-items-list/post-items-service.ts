@@ -10,6 +10,10 @@ const postItemProps = `
   PostOn
   PostOff
   createdAt
+  Router {
+    id
+    Path
+  }
   Catalog{
     id
     DisplayName
