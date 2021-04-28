@@ -19,3 +19,4 @@ import './widgets/copyright/config';
 import './widgets/post-item/config';
 import './widgets/post-action/config';
 import './widgets/related-post-items-list/config';
+import './widgets/facebook-comment/config';
