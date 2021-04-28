@@ -90,6 +90,11 @@ const PostItemWidget: FunctionalComponent<PostItemWidgetArgs> = ({ theme, visito
               widgets={widgets}
               internalParams={{
                 CatalogId: data?.Catalog.id,
+                postItem: {
+                  id: data?.id,
+                  Slug: data?.Slug,
+                  Router: data?.Router,
+                },
               }}
             />
           </div>
