@@ -24,12 +24,27 @@
         font-size: $titleFontSize;
         color: $primaryHeaderColor;
       }
-      .catalog,
-      .created_at {
-        font-size: $smallFontSizeDefault;
-      }
-      .catalog {
+      .activity_container {
+        display: flex;
         margin-top: 10px;
+
+        .catalog,
+        .created_at {
+          display: inline-block;
+          font-size: $smallFontSizeDefault;
+        }
+        .seperate {
+          &::before {
+            display: flex;
+            content: ".";
+            align-items: center;
+            justify-content: center;
+            align-content: center;
+            height: 50%;
+            width: 25px;
+            font-weight: $boldWeight;
+          }
+        }
       }
       .short {
         margin-top: 10px;
