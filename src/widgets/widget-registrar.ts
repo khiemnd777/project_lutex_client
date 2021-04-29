@@ -47,3 +47,8 @@ import './related-post-items-list/related-post-items-list.widget';
 import './related-post-items-list/related-post-items-list.config';
 
 import './facebook-comment/facebook-comment.widget';
+
+import './input-fields/input-fields.widget';
+import './input-fields/input-fields.config';
+
+import './container/container.widget';

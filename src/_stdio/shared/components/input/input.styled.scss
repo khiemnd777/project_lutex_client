@@ -1,9 +1,28 @@
-@import "../../../theme/default/theme.scss";
+$regularWeight: 400;
+$errorColor: #f00;
+$errorBackgroundColor: #ffd8d8;
+
+@mixin textSpacingDefault {
+  letter-spacing: 0.05rem;
+  word-spacing: 0.1rem;
+  line-height: 1.5rem;
+}
+
+@mixin fontStyleDefault {
+  font-size: 14px;
+  @include textSpacingDefault;
+  font-weight: $regularWeight;
+}
 
 .form_field {
-  @include flexColumn;
+  display: flex;
+  flex-direction: column;
   width: 100%;
   align-items: flex-start;
+  padding-top: 1rem;
+  &:first-child {
+    padding-top: 0;
+  }
   .title {
     margin-bottom: 0.3rem;
     @include fontStyleDefault;
@@ -22,7 +41,7 @@
       @include fontStyleDefault;
       height: 2.4rem;
       padding: 0 0.5rem;
-      border: 0.13rem solid $primaryDark;
+      border: 0.13rem solid #0d0c1d;
       transition: all ease 0.5s;
       &.error {
         border-color: $errorColor;
