@@ -1,6 +1,4 @@
-import { some } from 'lodash-es';
-import find from 'lodash-es/find';
-import isEmpty from 'lodash-es/isEmpty';
+import { some, find, isEmpty } from 'lodash-es';
 import { FontFaceRegisteredType } from './font-face-types';
 
 const FONTFACES = 'fontFaces';
@@ -19,7 +17,7 @@ const getCachedFontFaces = (fontFace: string): FontFaceRegisteredType => {
   return cachedFontFaces[prepareCachedKey(fontFace)] as FontFaceRegisteredType;
 };
 
-const setCachedThemes = (fontFace: string, style: FontFaceRegisteredType) => {
+const setCachedFontFaces = (fontFace: string, style: FontFaceRegisteredType) => {
   const cachedThemes = window[CACHED_FONT_FACES] || (window[CACHED_FONT_FACES] = {});
   cachedThemes[prepareCachedKey(fontFace)] = style;
 };
@@ -43,7 +41,7 @@ export class FontFaceFactory {
     const fontFaces = getFontFaces();
     const fontFaceMatched = find(fontFaces, (x: FontFaceRegisteredType) => x.fontFace === fontFace);
     if (fontFaceMatched) {
-      setCachedThemes(fontFace, fontFaceMatched);
+      setCachedFontFaces(fontFace, fontFaceMatched);
       return isEmpty(fontFaceMatched.style) ? {} : fontFaceMatched.style;
     }
     return {};

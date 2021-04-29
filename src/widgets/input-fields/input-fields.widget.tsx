@@ -40,6 +40,9 @@ const SendContactViaInputs = () => {
 
 const InputFieldsWidget: FunctionalComponent<InputFieldWidgetArgs> = ({ theme, data, parameters }) => {
   const cx = BuildClassNameBind(theme.Name, 'input_fields');
+  // consume macro.
+  // const macro = GetParameterValue('macro', parameters);
+  // const macroFn = MacroFactory.Get<Promise<boolean>>(macro);
   const [isSubmit, setIsSubmit] = useState(false);
   const [sending, setSending] = useState(false);
   const [sent, setSent] = useState(false);
