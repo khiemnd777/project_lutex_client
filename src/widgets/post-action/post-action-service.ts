@@ -32,7 +32,7 @@ export const DeleteLike = () => {
 export const GraphPostItemLikeCount = (postId: string) => {
   return useQuery<PostItemLikeGraphResult>(
     gql`
-      query($postId: String) {
+      query _noCache($postId: String) {
         postItemLikesConnection(where: { Post: { id: $postId } }) {
           aggregate {
             count
@@ -52,7 +52,7 @@ export const GraphPostItemLikeCount = (postId: string) => {
 export const GraphPostItemLikeExist = (postId: string, key: string) => {
   return useQuery<PostItemLikeGraphResult>(
     gql`
-      query($postId: String, $key: String) {
+      query _noCache($postId: String, $key: String) {
         postItemLikesConnection(where: { Post: { id: $postId }, Key: $key }) {
           aggregate {
             count
