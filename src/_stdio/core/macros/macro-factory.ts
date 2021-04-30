@@ -1,10 +1,12 @@
 import { some, find, isFunction } from 'lodash-es';
+import { FunctionComponent } from 'preact';
+import { MacroArgs } from './macro-interfaces';
 import { MacroRegisteredType } from './macro-types';
 
 const MACROS = 'macros';
 const CACHED_MACROS = 'cached_macros';
 
-const getMacros = (): MacroRegisteredType[] => {
+const getMacros = <TArgs extends MacroArgs>(): MacroRegisteredType<TArgs>[] => {
   return window[MACROS] || (window[MACROS] = []);
 };
 
@@ -12,37 +14,37 @@ const prepareCachedKey = (name: string) => {
   return `::${name}::`;
 };
 
-const getCachedMacros = (name: string): MacroRegisteredType => {
+const getCachedMacros = <TArgs extends MacroArgs>(name: string): MacroRegisteredType<TArgs> => {
   const cachedMacros = window[CACHED_MACROS] || (window[CACHED_MACROS] = {});
-  return cachedMacros[prepareCachedKey(name)] as MacroRegisteredType;
+  return cachedMacros[prepareCachedKey(name)] as MacroRegisteredType<TArgs>;
 };
 
-const setCachedMacros = (name: string, macroType: MacroRegisteredType) => {
+const setCachedMacros = <TArgs extends MacroArgs>(name: string, macroType: MacroRegisteredType<TArgs>) => {
   const cachedThemes = window[CACHED_MACROS] || (window[CACHED_MACROS] = {});
   cachedThemes[prepareCachedKey(name)] = macroType;
 };
 
 export class MacroFactory {
-  static Register<TResult = any>(name: string, macroFn: (parameter: Record<string, string>) => TResult) {
-    const macros = getMacros();
+  static Register<TArgs extends MacroArgs>(name: string, macro: FunctionComponent<TArgs>) {
+    const macros = getMacros<TArgs>();
     if (!some(macros, (x) => x.name === name)) {
       macros.push({
         name,
-        macroFn,
+        macro,
       });
     }
   }
 
-  static Get<TResult = any>(name: string): ((parameters: Record<string, string>) => TResult) | undefined {
-    const macroCachedMatched = getCachedMacros(name);
+  static Get<TArgs extends MacroArgs>(name: string): FunctionComponent<TArgs> | undefined {
+    const macroCachedMatched = getCachedMacros<TArgs>(name);
     if (isFunction(macroCachedMatched)) {
-      return macroCachedMatched.macroFn;
+      return macroCachedMatched.macro;
     }
-    const macros = getMacros();
-    const macroMatched = find(macros, (x: MacroRegisteredType) => x.name === name);
+    const macros = getMacros<TArgs>();
+    const macroMatched = find(macros, (x: MacroRegisteredType<TArgs>) => x.name === name);
     if (macroMatched) {
-      setCachedMacros(name, macroMatched);
-      return isFunction(macroMatched.macroFn) ? macroMatched.macroFn : undefined;
+      setCachedMacros<TArgs>(name, macroMatched);
+      return macroMatched?.macro;
     }
     return undefined;
   }

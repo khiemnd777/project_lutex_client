@@ -1,8 +1,4 @@
-import filter from 'lodash-es/filter';
-import find from 'lodash-es/find';
-import first from 'lodash-es/first';
-import map from 'lodash-es/map';
-import size from 'lodash-es/size';
+import { filter, find, first, map, size } from 'lodash-es';
 import { ParameterConsumedType } from '_stdio/shared/types/parameter-types';
 import { JsonParse, JsonStringify } from '_stdio/shared/utils/object.utils';
 import { GraphWidgetByRouter, GraphWidgetByTemplate } from './widget-service';

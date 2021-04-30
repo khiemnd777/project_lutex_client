@@ -1,4 +1,7 @@
-export type MacroRegisteredType<TResult = any> = {
+import { FunctionComponent } from 'preact';
+import { MacroArgs } from './macro-interfaces';
+
+export type MacroRegisteredType<TArgs extends MacroArgs> = {
   name: string;
-  macroFn: (parameters: Record<string, any>) => TResult;
+  macro: FunctionComponent<TArgs>;
 };
