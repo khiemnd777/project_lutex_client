@@ -6,14 +6,23 @@ import {
   UnsubscriptionGraphResult,
 } from './subscription-types';
 
+const subscriberProps = `
+  id
+  Email
+  published_at
+`;
+
+const subscriberObj = `
+  subscriber {
+    ${subscriberProps}
+  }
+`;
+
 export const RegisterNewSubscription = () =>
   useMutation<RegisterNewSubscriptionGraphResult>(gql`
     mutation registerNewSubscriber($email: String!) {
       createSubscriber(input: { data: { Email: $email } }) {
-        subscriber {
-          id
-          Email
-        }
+        ${subscriberObj}
       }
     }
   `);
@@ -22,22 +31,16 @@ export const Unsubscription = () =>
   useMutation<UnsubscriptionGraphResult>(gql`
     mutation unsubcription($id: ID!) {
       updateSubscriber(input: { where: { id: $id }, data: { published_at: null } }) {
-        subscriber {
-          id
-          Email
-        }
+        ${subscriberObj}
       }
     }
   `);
 
 export const Resubscription = () =>
   useMutation<ResubscriptionGraphResult>(gql`
-    mutation unsubcription($id: ID!, $publishedAt: DateTime) {
+    mutation resubcription($id: ID!, $publishedAt: DateTime) {
       updateSubscriber(input: { where: { id: $id }, data: { published_at: $publishedAt } }) {
-        subscriber {
-          id
-          Email
-        }
+        ${subscriberObj}
       }
     }
   `);
@@ -45,10 +48,9 @@ export const Resubscription = () =>
 export const GraphSubscription = (email: string) =>
   useQuery<SubscriptionGraphResult>(
     gql`
-      query getSubscription($email: String) {
+      query getSubscription_noCache($email: String) {
         subscribers(where: { Email: $email, _publicationState: "preview" }) {
-          id
-          Email
+          ${subscriberProps}
         }
       }
     `,
@@ -56,5 +58,6 @@ export const GraphSubscription = (email: string) =>
       variables: {
         email,
       },
+      fetchPolicy: 'no-cache',
     }
   );

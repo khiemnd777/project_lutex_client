@@ -8,4 +8,5 @@ export enum ExecutedState {
   executed,
   sendResponse,
   completed,
+  error,
 }
