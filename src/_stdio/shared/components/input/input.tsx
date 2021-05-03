@@ -33,9 +33,9 @@ const onTextAreaInput = (
   setVal(value);
 };
 
-const Input: FunctionComponent<InputArgs> = ({ data, ...props }) => {
+const Input: FunctionComponent<InputArgs> = ({ data }) => {
   const [val, setVal] = useState(data.val);
-  let { type, name, title, required, valid } = data;
+  let { type, name, title, required, valid, visibleTitle } = data;
   type = !type ? 'text' : type;
   name = !name
     ? slugify(title, {
@@ -52,10 +52,13 @@ const Input: FunctionComponent<InputArgs> = ({ data, ...props }) => {
   }
   return (
     <div class={cx('form_field')}>
-      <label class={cx('title')}>
-        {title}
-        {!!required ? <span class={cx('required')}>*</span> : null}
-      </label>
+      {visibleTitle ? (
+        <label class={cx('title')}>
+          {title}
+          {!!required ? <span class={cx('required')}>*</span> : null}
+        </label>
+      ) : null}
+
       <div class={cx('field')}>
         {type === 'longtext' ? (
           <textarea

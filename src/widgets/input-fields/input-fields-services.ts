@@ -16,6 +16,7 @@ export const GraphInputFieldsByName = (name: string) =>
             Placeholder
             Required
             DefaultValue
+            VisibleTitle
           }
         }
       }

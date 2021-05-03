@@ -7,10 +7,11 @@ import { GetParameterValue } from '_stdio/shared/utils/params.util';
 
 const TitleWidget: FunctionalComponent<WidgetArgs> = ({ theme, parameters }) => {
   const cx = BuildClassNameBind(theme.Name, 'title');
+  const className = GetParameterValue('className', parameters) || 'title';
   const title = GetParameterValue('title', parameters);
   const fontSize = GetParameterValue('fontSize', parameters);
   return (
-    <div class={cx('title')}>
+    <div class={cx(className)}>
       <h1>
         <span style={{ 'font-size': fontSize ?? 'initial' }}>{title}</span>
       </h1>

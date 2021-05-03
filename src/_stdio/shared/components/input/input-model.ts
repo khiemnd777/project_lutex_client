@@ -6,6 +6,7 @@ type InputModel = {
   val?: string;
   valid?: boolean;
   placeholder?: string;
+  visibleTitle: boolean;
 };
 
 export default InputModel;

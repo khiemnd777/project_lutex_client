@@ -27,6 +27,9 @@ const InputFieldsWidget: FunctionalComponent<InputFieldWidgetArgs> = ({ theme, d
   const cx = BuildClassNameBind(theme.Name, 'input_fields');
   // consume macro.
   const macroName = GetParameterValue('macro', parameters);
+  const actionLayout = GetParameterValue('actionLayout', parameters) || 'top-bottom';
+  const submitText = GetParameterValue('submitText', parameters) || 'Submit';
+  const submitClassName = GetParameterValue('submitClassName', parameters) || 'submit';
   const macroComponent = MacroFactory.Get(macroName);
   const [executedState, setExecutedState] = useState(() => ExecutedState.initial);
   const inputModelsParsed = map(data, (inputField) => {
@@ -36,6 +39,7 @@ const InputFieldsWidget: FunctionalComponent<InputFieldWidgetArgs> = ({ theme, d
       required: inputField.Required,
       type: inputField.Type,
       val: inputField.DefaultValue,
+      visibleTitle: inputField.VisibleTitle,
     } as InputModel;
   });
   const [inputModels, setInputModels] = useState<InputModel[]>(() => inputModelsParsed);
@@ -50,14 +54,20 @@ const InputFieldsWidget: FunctionalComponent<InputFieldWidgetArgs> = ({ theme, d
   );
   return (
     <Fragment>
-      <div class={cx('input_fields', size(data) ? 'visible' : null)}>
+      <div
+        class={cx(
+          'input_fields',
+          actionLayout === 'top-bottom' ? 'top_bottom' : 'left_right',
+          size(data) ? 'visible' : null
+        )}
+      >
         <div class={cx('fields', shownDisable ? 'disabled' : null)}>
           {!!size(inputModels) && map(inputModels, (model) => <Input data={model} />)}
         </div>
         <div class={cx('actions')}>
           <Button
-            value="Submit"
-            classed={cx('submit', shownDisable ? 'disabled' : null)}
+            value={submitText}
+            classed={cx(submitClassName, shownDisable ? 'disabled' : null)}
             onClick={() => onSubmit(inputModels, setExecutedState)}
           />
         </div>

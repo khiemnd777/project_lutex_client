@@ -12,5 +12,6 @@ export type InputFieldType = {
   Type: string;
   Placeholder: string;
   Required: boolean;
+  VisibleTitle: boolean;
   DefaultValue: string;
 };
