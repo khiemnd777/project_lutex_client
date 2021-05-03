@@ -5,7 +5,7 @@ import { useEffect, useState } from 'preact/hooks';
 import { WidgetFactory } from '_stdio/core/widget/widget-factory';
 import { WidgetConfigArgs } from '_stdio/core/widget/widget-interfaces';
 import { GetDatetimeServer } from '_stdio/shared/utils/datetime-server/datetime-server';
-import { GetInternalParameterValue, GetParameterValue } from '_stdio/shared/utils/params.util';
+import { GetParameterValueWithGeneric, GetParameterValue } from '_stdio/shared/utils/params.util';
 import { tryParseInt } from '_stdio/shared/utils/string.utils';
 import { AvailablePostItemsGraphResult } from './post-item-types';
 import PostItemsListByCatalogUtils from './post-items-list-by-catalog-utils';
@@ -27,7 +27,7 @@ export const PostItemsListByPostCatalogWidgetConfig: FunctionalComponent<WidgetC
   }, []);
   let result = {} as QueryResult<AvailablePostItemsGraphResult, Record<string, any>>;
   const limit = tryParseInt(GetParameterValue('limit', parameters)) || 10;
-  const catalogId = GetInternalParameterValue('CatalogId', internalParams);
+  const catalogId = GetParameterValueWithGeneric('CatalogId', internalParams);
   if (!isEmpty(datetimeServer) && catalogId) {
     result = GraphPostItemInCatalogId(catalogId, datetimeServer, 0, limit);
   }

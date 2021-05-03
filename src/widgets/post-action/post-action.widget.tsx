@@ -2,7 +2,7 @@ import { Fragment, FunctionalComponent, h } from 'preact';
 import { WidgetFactory } from '_stdio/core/widget/widget-factory';
 import { WidgetArgs } from '_stdio/core/widget/widget-interfaces';
 import { BuildClassNameBind } from '_stdio/core/theme/theme-utils';
-import { GetInternalParameterValue, GetParameterValue } from '_stdio/shared/utils/params.util';
+import { GetParameterValueWithGeneric, GetParameterValue } from '_stdio/shared/utils/params.util';
 import StickyAnchor from '_stdio/shared/components/sticky/sticky-anchor';
 import { PropRef, useRef, useState } from 'preact/hooks';
 import PostActionLike from './post-action-like';
@@ -13,9 +13,9 @@ import { parseBool } from '_stdio/shared/utils/string.utils';
 
 const PostActionWidget: FunctionalComponent<WidgetArgs> = ({ theme, visitorId, internalParams, parameters }) => {
   const cx = BuildClassNameBind(theme.Name, 'post_action');
-  const postItemId = GetInternalParameterValue<string>('postItemId', internalParams);
-  const containerRef = GetInternalParameterValue<PropRef<HTMLDivElement>>('containerRef', internalParams);
-  const postItem = GetInternalParameterValue<PostItemType>('postItem', internalParams);
+  const postItemId = GetParameterValueWithGeneric<string>('postItemId', internalParams);
+  const containerRef = GetParameterValueWithGeneric<PropRef<HTMLDivElement>>('containerRef', internalParams);
+  const postItem = GetParameterValueWithGeneric<PostItemType>('postItem', internalParams);
   const allowLike = parseBool(GetParameterValue('allowLike', parameters));
   const allowFacebook = parseBool(GetParameterValue('allowFacebook', parameters));
   const allowSharedLink = parseBool(GetParameterValue('allowSharedLink', parameters));

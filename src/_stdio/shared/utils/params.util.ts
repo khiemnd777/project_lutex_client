@@ -17,6 +17,6 @@ export const GetParameterOrDataValue = <T = any>(
   return paramValue || dataValue;
 };
 
-export const GetInternalParameterValue = <T = any>(name: string, params?: Record<string, any>) => {
+export const GetParameterValueWithGeneric = <T = any>(name: string, params?: Record<string, any>) => {
   return params ? (params?.[name] as T) : undefined;
 };

@@ -1,6 +1,7 @@
 import 'templates/template-registrar';
 import 'themes/theme-registrar';
 import 'widgets/widget-registrar';
+import 'macros/macro-registrar';
 import { h } from 'preact';
 import { useState, useEffect } from 'preact/hooks';
 import { connect } from 'redux-zero/preact';

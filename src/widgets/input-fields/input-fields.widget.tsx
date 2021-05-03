@@ -1,6 +1,6 @@
 import { map, size } from 'lodash-es';
 import { createElement, Fragment, FunctionalComponent, h } from 'preact';
-import { StateUpdater, useEffect, useState } from 'preact/hooks';
+import { StateUpdater, useState } from 'preact/hooks';
 import { MacroFactory } from '_stdio/core/macros/macro-factory';
 import { BuildClassNameBind } from '_stdio/core/theme/theme-utils';
 import { WidgetFactory } from '_stdio/core/widget/widget-factory';
@@ -8,38 +8,19 @@ import Button from '_stdio/shared/components/button/button';
 import Input from '_stdio/shared/components/input/input';
 import { ValidateInputs } from '_stdio/shared/components/input/input-factory';
 import InputModel from '_stdio/shared/components/input/input-model';
+import { ExecutedState } from '_stdio/shared/enums/state-enums';
 import { GetParameterValue } from '_stdio/shared/utils/params.util';
+import { AreNotBeingInStates } from '_stdio/shared/utils/state-utils';
 import { InputFieldWidgetArgs } from './input-fields-interfaces';
 
-const onSubmit = (
-  data: InputModel[],
-  setIsSubmit: StateUpdater<boolean>,
-  setSending: StateUpdater<boolean>,
-  setSent: StateUpdater<boolean>
-) => {
-  setIsSubmit(true);
-  setSent(false);
+const onSubmit = (data: InputModel[], setExecutedState: StateUpdater<ExecutedState>) => {
+  setExecutedState(ExecutedState.validating);
   if (ValidateInputs(data)) {
-    setSending(true);
-    console.log('inputs have been valid');
-    // Move to the macro
-    SendContactViaInputs()
-      .then(() => {
-        setSending(false);
-        setSent(true);
-      })
-      .catch((error) => console.log(error));
+    setExecutedState(ExecutedState.validated);
+    setExecutedState(ExecutedState.sendRequest);
     return;
   }
-};
-
-// Move to the macro
-const SendContactViaInputs = () => {
-  return new Promise<void>((resolve) => {
-    setTimeout(() => {
-      resolve();
-    }, 3000);
-  });
+  setExecutedState(ExecutedState.failedValidating);
 };
 
 const InputFieldsWidget: FunctionalComponent<InputFieldWidgetArgs> = ({ theme, data, parameters }) => {
@@ -47,9 +28,7 @@ const InputFieldsWidget: FunctionalComponent<InputFieldWidgetArgs> = ({ theme, d
   // consume macro.
   const macroName = GetParameterValue('macro', parameters);
   const macroComponent = MacroFactory.Get(macroName);
-  const [isSubmit, setIsSubmit] = useState(false);
-  const [sending, setSending] = useState(false);
-  const [sent, setSent] = useState(false);
+  const [executedState, setExecutedState] = useState(() => ExecutedState.initial);
   const inputModelsParsed = map(data, (inputField) => {
     return {
       title: inputField.Title,
@@ -63,35 +42,32 @@ const InputFieldsWidget: FunctionalComponent<InputFieldWidgetArgs> = ({ theme, d
   if (!size(inputModels) && size(data)) {
     setInputModels(inputModelsParsed);
   }
-  useEffect(() => {
-    if (isSubmit) {
-      setIsSubmit(false);
-    }
-  }, [isSubmit]);
+  const shownDisable = AreNotBeingInStates(
+    executedState,
+    ExecutedState.initial,
+    ExecutedState.completed,
+    ExecutedState.failedValidating
+  );
   return (
     <Fragment>
       <div class={cx('input_fields', size(data) ? 'visible' : null)}>
-        <div class={cx('fields', sending ? 'disabled' : null)}>
-          {(!!isSubmit || !!size(inputModels)) && map(inputModels, (model) => <Input data={model} />)}
+        <div class={cx('fields', shownDisable ? 'disabled' : null)}>
+          {!!size(inputModels) && map(inputModels, (model) => <Input data={model} />)}
         </div>
         <div class={cx('actions')}>
           <Button
             value="Submit"
-            classed={cx('submit', sending ? 'disabled' : null)}
-            onClick={() => onSubmit(inputModels, setIsSubmit, setSending, setSent)}
+            classed={cx('submit', shownDisable ? 'disabled' : null)}
+            onClick={() => onSubmit(inputModels, setExecutedState)}
           />
         </div>
       </div>
       {macroComponent
         ? createElement(macroComponent, {
             theme,
-            parameters: { data: inputModels, submitted: isSubmit, setSending, setSent },
+            parameters: { data: inputModels, setExecutedState, executedState },
           })
         : null}
-      <div class={cx('message_info', sent ? 'visible' : null)} onClick={() => setSent(false)}>
-        <div class={cx('overlay')}></div>
-        <span>Your enquiry was sent!</span>
-      </div>
     </Fragment>
   );
 };

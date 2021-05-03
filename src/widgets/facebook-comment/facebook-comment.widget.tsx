@@ -4,13 +4,13 @@ import { BuildClassNameBind } from '_stdio/core/theme/theme-utils';
 import { WidgetFactory } from '_stdio/core/widget/widget-factory';
 import { WidgetArgs } from '_stdio/core/widget/widget-interfaces';
 import { CLIENT_HOST } from '_stdio/environment';
-import { GetInternalParameterValue, GetParameterValue } from '_stdio/shared/utils/params.util';
+import { GetParameterValueWithGeneric, GetParameterValue } from '_stdio/shared/utils/params.util';
 import { removeFirstSlashPath, tryParseInt } from '_stdio/shared/utils/string.utils';
 import { PostItemType } from './facebook-comment-types';
 
 const FacebookCommentWidget: FunctionalComponent<WidgetArgs> = ({ theme, internalParams, parameters }) => {
   const cx = BuildClassNameBind(theme.Name, 'facebook_comment');
-  const postItem = GetInternalParameterValue<PostItemType>('postItem', internalParams);
+  const postItem = GetParameterValueWithGeneric<PostItemType>('postItem', internalParams);
   const postItemRouterPath = buildRouterPath(postItem?.Router?.Path ?? '', postItem);
   const realPostItemRouterPath = removeFirstSlashPath(postItemRouterPath);
   const linkHref = `${CLIENT_HOST}${realPostItemRouterPath}`;
