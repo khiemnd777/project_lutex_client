@@ -1,9 +1,16 @@
-import find from 'lodash-es/find';
+import { find, isEmpty } from 'lodash-es';
 import { ParameterConsumedType } from '../types/parameter-types';
 
-export const GetParameterValue = (name: string, params?: ParameterConsumedType[]) => {
+export const GetParameterValue = (
+  name: string,
+  params?: ParameterConsumedType[],
+  defaultParams?: Record<string, string>
+) => {
   const matched = find(params, (p) => p.name === name);
-  return matched?.value as string;
+  if (!isEmpty(matched) && matched?.value) {
+    return matched?.value as string;
+  }
+  return defaultParams?.[name] as string;
 };
 
 export const GetParameterOrDataValue = <T = any>(
