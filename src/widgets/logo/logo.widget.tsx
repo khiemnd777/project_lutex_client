@@ -7,7 +7,7 @@ import { GetSingleMedia } from '_stdio/shared/utils/media.utils';
 import { MediaFormatEnums } from '_stdio/shared/enums/image-enums';
 import isEmpty from 'lodash-es/isEmpty';
 
-const LogoWidget: FunctionalComponent<LogoWidgetArgs> = ({ logo, theme, loading }) => {
+const LogoWidget: FunctionalComponent<LogoWidgetArgs> = ({ logo, theme }) => {
   const cx = BuildClassNameBind(theme.Name, 'logo');
   const imgProps = GetSingleMedia(logo, MediaFormatEnums.thumbnail);
   return (
