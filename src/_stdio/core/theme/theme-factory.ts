@@ -1,5 +1,4 @@
-import find from 'lodash-es/find';
-import isEmpty from 'lodash-es/isEmpty';
+import { find, isEmpty, size } from 'lodash-es';
 import { ThemeRegisteredType } from './theme-types';
 
 const THEMES = 'themes';
@@ -41,8 +40,12 @@ export class ThemeFactory {
       return cachedTheme.style;
     }
     const themes = getThemes();
-    const themedWidgets = themes[themeName] as ThemeRegisteredType[];
-    const themedWidget = find(themedWidgets, (themedWidget: ThemeRegisteredType) => themedWidget.widgetName === widgetName);
+    let themedWidgets = themes[themeName] as ThemeRegisteredType[];
+    themedWidgets = !size(themedWidgets) ? themes['default'] : themedWidgets;
+    const themedWidget = find(
+      themedWidgets,
+      (themedWidget: ThemeRegisteredType) => themedWidget.widgetName === widgetName
+    );
     if (themedWidget) {
       setCachedThemes(themeName, widgetName, themedWidget);
       return isEmpty(themedWidget.style) ? {} : themedWidget.style;

@@ -22,5 +22,6 @@ import './widgets/related-post-items-list/config';
 import './widgets/facebook-comment/config';
 import './widgets/input-fields/config';
 import './widgets/container/config';
+import './widgets/text-field/config';
 import './macros/contact-send/config';
 import './macros/register-subscription/config';
