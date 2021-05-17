@@ -10,12 +10,15 @@ import { ContactInformationWidgetArgs } from './contact-information-interfaces';
 const ContactInformationWidget: FunctionalComponent<ContactInformationWidgetArgs> = ({ data, theme, parameters }) => {
   if (!data) return null;
   const cx = BuildClassNameBind(theme.Name, 'contact_information');
+  // obsoleted param
   const title = GetParameterValue('title', parameters);
   return (
     <div class={cx('contact_information', !isEmpty(data) ? 'visible' : null)}>
-      <div class={cx('title')}>
-        <span>{title}</span>
-      </div>
+      {title ? (
+        <div class={cx('title')}>
+          <span>{title}</span>
+        </div>
+      ) : null}
       {size(data.Parameters) ? (
         <div class={cx('children_container')}>
           <ul>
