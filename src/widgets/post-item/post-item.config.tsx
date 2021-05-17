@@ -7,6 +7,7 @@ import { ParameterConsumedType } from '_stdio/shared/types/parameter-types';
 import { useDelay, useOnceAction } from '_stdio/shared/utils/hooks';
 import { GetParameterValue } from '_stdio/shared/utils/params.util';
 import { parseBool, tryParseInt } from '_stdio/shared/utils/string.utils';
+import { DefaultParams } from './post-item-constants';
 import { PostItemWidgetArgs } from './post-item-interface';
 import { CreateViewCount, GraphPostItemBySlug } from './post-item-service';
 import { PostItemType } from './post-item-type';
@@ -19,7 +20,7 @@ const PostItemWidgetConfig: FunctionComponent<WidgetConfigArgs<PostItemWidgetArg
   widgets,
   visitorId,
 }) => {
-  const defaultSlug = GetParameterValue('slug', parameters);
+  const defaultSlug = GetParameterValue('slug', parameters, DefaultParams);
   const slug = defaultSlug ?? routerParams?.['slug'] ?? '';
   const { data, loading, error } = GraphPostItemBySlug(slug);
   const list = data && !loading && !error ? data?.postItems : ([] as PostItemType[]);
@@ -41,8 +42,9 @@ const PostItemWidgetConfig: FunctionComponent<WidgetConfigArgs<PostItemWidgetArg
 };
 
 const useUpdateViewCount = (result?: PostItemType, visitorId?: string, parameters?: ParameterConsumedType[]) => {
-  const updateViewCountDelay = tryParseInt(GetParameterValue('updateViewCountDelay', parameters)) || 5000;
-  const allowViewCount = parseBool(GetParameterValue('allowViewCount', parameters));
+  const updateViewCountDelay =
+    tryParseInt(GetParameterValue('updateViewCountDelay', parameters, DefaultParams)) || 5000;
+  const allowViewCount = parseBool(GetParameterValue('allowViewCount', parameters, DefaultParams));
   const [viewCountDelay, setViewCountDelay] = useState(false);
   useDelay(setViewCountDelay, updateViewCountDelay);
   useOnceAction(CreateViewCount, (func) => {
