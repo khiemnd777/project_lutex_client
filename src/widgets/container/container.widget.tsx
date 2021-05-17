@@ -4,6 +4,7 @@ import { BuildClassNameBind } from '_stdio/core/theme/theme-utils';
 import { WidgetFactory } from '_stdio/core/widget/widget-factory';
 import { WidgetArgs } from '_stdio/core/widget/widget-interfaces';
 import { GetParameterValue } from '_stdio/shared/utils/params.util';
+import { DefaultParams } from './container-constants';
 
 const ContainerWidget: FunctionalComponent<WidgetArgs> = ({
   theme,
@@ -13,8 +14,8 @@ const ContainerWidget: FunctionalComponent<WidgetArgs> = ({
   widgets,
   internalParams,
 }) => {
-  const placeholderName = GetParameterValue('placeholder', parameters) || 'container';
-  const className = GetParameterValue('className', parameters) || 'container';
+  const placeholderName = GetParameterValue('placeholder', parameters, DefaultParams) || 'container';
+  const className = GetParameterValue('className', parameters, DefaultParams) || 'container';
   const cx = BuildClassNameBind(theme.Name, 'container');
   return (
     <div class={cx(className)}>
