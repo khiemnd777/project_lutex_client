@@ -12,6 +12,8 @@ import { Link } from 'preact-router/match';
 import { GetParameterValue } from '_stdio/shared/utils/params.util';
 import classNamesBind from 'classnames/bind';
 import { buildRouterPath } from '_stdio/core/router/router-utils';
+import marked from 'marked';
+import { DefaultParams } from './post-items-list-constants';
 
 const PostItemsListWidget: FunctionalComponent<PostItemsListWidgetArgs> = ({
   theme,
@@ -23,8 +25,10 @@ const PostItemsListWidget: FunctionalComponent<PostItemsListWidgetArgs> = ({
 }) => {
   const cxVals = GetClassNameValues(theme.Name, 'post_items_list');
   const cx = classNamesBind.bind(cxVals);
-  const shortWordSize = tryParseInt(GetParameterValue('shortWordSize', parameters)) || 20;
-  const useTimeSince = parseBool(GetParameterValue('useTimeSince', parameters));
+  const shortWordSize = tryParseInt(GetParameterValue('shortWordSize', parameters, DefaultParams)) || 20;
+  const useTimeSince = parseBool(GetParameterValue('useTimeSince', parameters, DefaultParams));
+  const useMarked = parseBool(GetParameterValue('useMarked', parameters, DefaultParams));
+  const useThreeDot = parseBool(GetParameterValue('useThreeDot', parameters, DefaultParams));
   return (
     <div class={cx('post_items_list', size(items) ? 'visible' : null)}>
       <TemplateGrid
@@ -35,15 +39,17 @@ const PostItemsListWidget: FunctionalComponent<PostItemsListWidgetArgs> = ({
               const { scrollPosition, mGrid, gridItemRef } = templateGridArgs;
               return (
                 <div class={cx('container')}>
-                  <ImageContainer
-                    className={cx('image_container')}
-                    imageClassName={cx('image')}
-                    src={first(item.Cover)?.Media?.formats?.thumbnail?.url}
-                    alt={item.Title}
-                    gridItemRef={gridItemRef}
-                    scrollPosition={scrollPosition}
-                    mGrid={mGrid}
-                  />
+                  {size(item.Cover) ? (
+                    <ImageContainer
+                      className={cx('image_container')}
+                      imageClassName={cx('image')}
+                      src={first(item.Cover)?.Media?.formats?.thumbnail?.url}
+                      alt={item.Title}
+                      gridItemRef={gridItemRef}
+                      scrollPosition={scrollPosition}
+                      mGrid={mGrid}
+                    />
+                  ) : null}
                   <div class={cx('content_container')}>
                     {item.Title ? (
                       <Link href={routerPath} class={cx('title')}>
@@ -64,7 +70,15 @@ const PostItemsListWidget: FunctionalComponent<PostItemsListWidgetArgs> = ({
                         </div>
                       ) : null}
                     </div>
-                    {item.Short ? <div class={cx('short')}>{threeDotsAt(item.Short, shortWordSize)}</div> : null}
+                    {item.Short ? (
+                      useMarked ? (
+                        <div class={cx('short')} dangerouslySetInnerHTML={{ __html: marked(item.Short) }}></div>
+                      ) : (
+                        <div class={cx('short')}>
+                          {useThreeDot ? threeDotsAt(item.Short, shortWordSize) : item.Short}
+                        </div>
+                      )
+                    ) : null}
                   </div>
                 </div>
               );
