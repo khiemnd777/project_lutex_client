@@ -23,5 +23,6 @@ import './widgets/facebook-comment/config';
 import './widgets/input-fields/config';
 import './widgets/container/config';
 import './widgets/text-field/config';
+import './widgets/title/config';
 import './macros/contact-send/config';
 import './macros/register-subscription/config';
