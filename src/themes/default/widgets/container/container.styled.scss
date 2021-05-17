@@ -2,4 +2,9 @@
 .container {
   @include primaryLayout;
   padding-top: 2rem;
+  @media (max-width: $mobile) {
+    display: flex !important;
+    flex-direction: column;
+    flex: 1 !important;
+  }
 }
