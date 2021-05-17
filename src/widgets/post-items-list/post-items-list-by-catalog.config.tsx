@@ -9,6 +9,7 @@ import { GetParameterValue } from '_stdio/shared/utils/params.util';
 import { tryParseInt } from '_stdio/shared/utils/string.utils';
 import { AvailablePostItemsGraphResult } from './post-item-types';
 import PostItemsListByCatalogUtils from './post-items-list-by-catalog-utils';
+import { DefaultParams } from './post-items-list-constants';
 import { PostItemsListWidgetArgs } from './post-items-list-interfaces';
 import { GraphPostItemInCatalog } from './post-items-service';
 
@@ -26,7 +27,7 @@ export const PostItemsListByCatalogWidgetConfig: FunctionalComponent<WidgetConfi
     });
   }, []);
   let result = {} as QueryResult<AvailablePostItemsGraphResult, Record<string, any>>;
-  const limit = tryParseInt(GetParameterValue('limit', parameters)) || 10;
+  const limit = tryParseInt(GetParameterValue('limit', parameters, DefaultParams)) || 10;
   const slug = routerParams?.slug || '';
   if (!isEmpty(datetimeServer)) {
     result = GraphPostItemInCatalog(slug, datetimeServer, 0, limit);
