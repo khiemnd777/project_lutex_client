@@ -52,3 +52,6 @@ import './input-fields/input-fields.widget';
 import './input-fields/input-fields.config';
 
 import './container/container.widget';
+
+import './text-field/text-field.widget';
+import './text-field/text-field.config';

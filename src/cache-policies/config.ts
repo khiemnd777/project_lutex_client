@@ -3,3 +3,4 @@ import { startLimitPagination } from '_stdio/core/cache-policy/cache-policy.util
 
 CachePolicy.RegisterFieldPolicy('postCatalogs', startLimitPagination());
 CachePolicy.RegisterFieldPolicy('postItems', startLimitPagination(['where', ['Catalog', ['id', 'Slug']]]));
+CachePolicy.RegisterFieldPolicy('textFields', startLimitPagination(['where', 'Name']));
