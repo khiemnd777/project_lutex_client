@@ -9,6 +9,7 @@ import { GetParameterValueWithGeneric, GetParameterValue } from '_stdio/shared/u
 import { tryParseInt } from '_stdio/shared/utils/string.utils';
 import { AvailablePostItemsGraphResult } from './post-item-types';
 import PostItemsListByCatalogUtils from './post-items-list-by-catalog-utils';
+import { DefaultParams } from './post-items-list-constants';
 import { PostItemsListWidgetArgs } from './post-items-list-interfaces';
 import { GraphPostItemInCatalogId } from './post-items-service';
 
@@ -26,7 +27,7 @@ export const PostItemsListByPostCatalogWidgetConfig: FunctionalComponent<WidgetC
     });
   }, []);
   let result = {} as QueryResult<AvailablePostItemsGraphResult, Record<string, any>>;
-  const limit = tryParseInt(GetParameterValue('limit', parameters)) || 10;
+  const limit = tryParseInt(GetParameterValue('limit', parameters, DefaultParams)) || 10;
   const catalogId = GetParameterValueWithGeneric('CatalogId', internalParams);
   if (!isEmpty(datetimeServer) && catalogId) {
     result = GraphPostItemInCatalogId(catalogId, datetimeServer, 0, limit);
