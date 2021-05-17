@@ -10,7 +10,7 @@ export const GetParameterValue = (
   if (!isEmpty(matched) && matched?.value) {
     return matched?.value as string;
   }
-  return defaultParams?.[name] as string;
+  return defaultParams?.[name] ? String(defaultParams?.[name]) : '';
 };
 
 export const GetParameterOrDataValue = <T = any>(
