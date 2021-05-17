@@ -14,11 +14,23 @@ const ContainerWidget: FunctionalComponent<WidgetArgs> = ({
   widgets,
   internalParams,
 }) => {
-  const placeholderName = GetParameterValue('placeholder', parameters, DefaultParams) || 'container';
-  const className = GetParameterValue('className', parameters, DefaultParams) || 'container';
+  const placeholderName = GetParameterValue('placeholder', parameters, DefaultParams) || DefaultParams.placeholer;
+  const width = GetParameterValue('width', parameters, DefaultParams);
+  const flex = GetParameterValue('flex', parameters, DefaultParams);
+  const display = GetParameterValue('display', parameters, DefaultParams);
   const cx = BuildClassNameBind(theme.Name, 'container');
+  const style = {};
+  if (display) {
+    style['display'] = display;
+  }
+  if (width) {
+    style['width'] = width;
+  }
+  if (flex) {
+    style['flex'] = flex;
+  }
   return (
-    <div class={cx(className)}>
+    <div style={style} class={cx('container')}>
       <Placeholder
         name={placeholderName}
         theme={theme}
