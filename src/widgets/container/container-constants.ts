@@ -1,4 +1,6 @@
 export const DefaultParams = {
   placeholder: 'container',
-  className: 'container',
+  width: '',
+  flex: '',
+  display: 'block',
 } as Record<string, string>;
