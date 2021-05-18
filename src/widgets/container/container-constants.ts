@@ -3,4 +3,6 @@ export const DefaultParams = {
   width: '',
   flex: '',
   display: 'block',
+  paddingTop: '',
+  paddingBottom: '',
 } as Record<string, string>;
