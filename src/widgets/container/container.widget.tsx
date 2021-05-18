@@ -18,12 +18,18 @@ const ContainerWidget: FunctionalComponent<WidgetArgs> = ({
   const width = GetParameterValue('width', parameters, DefaultParams);
   const flex = GetParameterValue('flex', parameters, DefaultParams);
   const display = GetParameterValue('display', parameters, DefaultParams);
+  const flexDirection = GetParameterValue('flexDirection', parameters, DefaultParams);
   const paddingTop = GetParameterValue('paddingTop', parameters, DefaultParams);
   const paddingBottom = GetParameterValue('paddingBottom', parameters, DefaultParams);
+  const paddingLeft = GetParameterValue('paddingLeft', parameters, DefaultParams);
+  const paddingRight = GetParameterValue('paddingRight', parameters, DefaultParams);
   const cx = BuildClassNameBind(theme.Name, 'container');
   const style = {};
   if (display) {
     style['display'] = display;
+  }
+  if (flexDirection) {
+    style['flex-direction'] = flexDirection;
   }
   if (width) {
     style['width'] = width;
@@ -36,6 +42,12 @@ const ContainerWidget: FunctionalComponent<WidgetArgs> = ({
   }
   if (paddingBottom) {
     style['padding-bottom'] = paddingBottom;
+  }
+  if (paddingLeft) {
+    style['padding-left'] = paddingLeft;
+  }
+  if (paddingRight) {
+    style['padding-right'] = paddingRight;
   }
   return (
     <div style={style} class={cx('container')}>

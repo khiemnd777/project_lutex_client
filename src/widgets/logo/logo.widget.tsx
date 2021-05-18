@@ -6,12 +6,23 @@ import { Link } from 'preact-router/match';
 import { GetSingleMedia } from '_stdio/shared/utils/media.utils';
 import { MediaFormatEnums } from '_stdio/shared/enums/image-enums';
 import isEmpty from 'lodash-es/isEmpty';
+import { GetParameterValue } from '_stdio/shared/utils/params.util';
+import { DefaultParams } from './logo-constants';
 
-const LogoWidget: FunctionalComponent<LogoWidgetArgs> = ({ logo, theme }) => {
+const LogoWidget: FunctionalComponent<LogoWidgetArgs> = ({ logo, theme, parameters }) => {
   const cx = BuildClassNameBind(theme.Name, 'logo');
+  const width = GetParameterValue('width', parameters, DefaultParams);
+  const height = GetParameterValue('height', parameters, DefaultParams);
   const imgProps = GetSingleMedia(logo, MediaFormatEnums.thumbnail);
+  const style = {};
+  if (width) {
+    style['width'] = width;
+  }
+  if (height) {
+    style['height'] = height;
+  }
   return (
-    <div class={cx('logo', !isEmpty(logo) ? 'visible' : null)}>
+    <div style={style} class={cx('logo', !isEmpty(logo) ? 'visible' : null)}>
       <Link href="/">
         <img src={imgProps.url} alt={logo.Caption} />
       </Link>
