@@ -18,6 +18,8 @@ const ContainerWidget: FunctionalComponent<WidgetArgs> = ({
   const width = GetParameterValue('width', parameters, DefaultParams);
   const flex = GetParameterValue('flex', parameters, DefaultParams);
   const display = GetParameterValue('display', parameters, DefaultParams);
+  const paddingTop = GetParameterValue('paddingTop', parameters, DefaultParams);
+  const paddingBottom = GetParameterValue('paddingBottom', parameters, DefaultParams);
   const cx = BuildClassNameBind(theme.Name, 'container');
   const style = {};
   if (display) {
@@ -28,6 +30,12 @@ const ContainerWidget: FunctionalComponent<WidgetArgs> = ({
   }
   if (flex) {
     style['flex'] = flex;
+  }
+  if (paddingTop) {
+    style['padding-top'] = paddingTop;
+  }
+  if (paddingBottom) {
+    style['padding-bottom'] = paddingBottom;
   }
   return (
     <div style={style} class={cx('container')}>
