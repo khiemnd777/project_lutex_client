@@ -1,0 +1,10 @@
+@import '../../theme';
+.container {
+  @include noPadding;
+  padding-top: 2rem;
+  @media (max-width: $mobile) {
+    display: flex !important;
+    flex-direction: column;
+    width: 100%!important;
+  }
+}
