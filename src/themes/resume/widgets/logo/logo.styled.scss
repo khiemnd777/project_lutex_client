@@ -1,0 +1,11 @@
+.logo {
+  opacity: 0;
+  transition: opacity ease 0.5s;
+  flex: 1;
+  &.visible {
+    opacity: 1;
+  }
+  img {
+    width: 100%;
+  }
+}

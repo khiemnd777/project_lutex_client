@@ -1,0 +1,108 @@
+@import '../../_stdio/shared/scss/common';
+@import '../../_stdio/shared/scss/responsive';
+
+$fontFamily: 'Roboto', sans-serif;
+$fontLinkFamily: 'Roboto Condensed', sans-serif;
+$alterFontFamily: 'Roboto Condensed', sans-serif;
+
+$ipadProLWidth: 85%;
+$ipadLWidth: 94%;
+$ipadWidth: 95%;
+$mobileLayoutWidth: 85%;
+$macLayoutWidth: 81%;
+
+$primaryLayoutWidth: 65%;
+$secondaryLayoutWidth: 90%;
+$secondaryMobileLayoutWidth: 100%;
+
+$commonColor: #c9d1d9;
+$headerColor: #c9d1d9;
+$linkColor: #58a6ff;
+$linkHoverColor: #4d93e2;
+$backgroundColor: #0d1117;
+
+$bolderWeight: 700;
+$boldWeight: 600;
+$thinWeight: 100;
+$lightWeight: 300;
+$regularWeight: 400;
+$lightBoldWeight: 500;
+
+$fontSizeDefault: 14px;
+$smallFontSizeDefault: 12px;
+$navFontSize: 16px;
+$headerListFontSize: 18px;
+$headerFooterFontSize: 18px;
+$headerShortFontSize: 18px;
+$titleFontSize: 18px;
+$headerMobileFontSize: 34px;
+$headerFontSize: 44px;
+
+$moduleMarginTop: 5rem;
+$footerHeaderMarginTop: 1rem;
+
+@mixin disabled {
+  opacity: 0.25;
+  pointer-events: none;
+}
+@mixin button {
+  & {
+    display: inline-block;
+    padding: 7px 30px;
+    font-family: $fontFamily;
+    background-color: $primaryButtonColor;
+    border-radius: 50px;
+    color: $primaryButtonTextColor;
+    text-transform: uppercase;
+    &:hover {
+      background: $primaryHoverColor;
+      color: $primaryFontColor;
+    }
+  }
+}
+
+@mixin button2 {
+  & {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+    padding: 0 10px;
+    font-family: $fontFamily;
+    background-color: $primaryButtonColor;
+    color: $primaryButtonTextColor;
+    text-transform: uppercase;
+    text-align: center;
+    height: 100%;
+    &:hover {
+      background: $primaryHoverColor;
+      color: $primaryFontColor;
+    }
+    span {
+      display: inline-block;
+    }
+  }
+}
+
+@mixin primaryLayout {
+  @include noPadding;
+  width: $primaryLayoutWidth;
+  @media (max-width: $macbook) {
+    width: $macLayoutWidth;
+  }
+  @media (max-width: $ipadProL) {
+    width: $ipadProLWidth;
+  }
+  @media (max-width: $ipadPro) {
+    width: $ipadLWidth;
+  }
+  @media (max-width: $ipadL) {
+    width: $ipadLWidth;
+  }
+  @media (max-width: $ipad) {
+    width: $ipadWidth;
+  }
+  @media (max-width: $mobile) {
+    width: $mobileLayoutWidth;
+  }
+}

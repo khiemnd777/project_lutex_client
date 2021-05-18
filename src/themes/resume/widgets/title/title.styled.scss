@@ -1,0 +1,17 @@
+@import '../../theme';
+
+.title {
+  margin-bottom: 1.5rem;
+  h1 {
+    display: block;
+    border-left: 5px solid $headerColor;
+    padding-left: 1rem;
+    span {
+      display: block;
+      font-size: 30px;
+      color: $headerColor;
+      text-transform: uppercase;
+      font-weight: $regularWeight;
+    }
+  }
+}
