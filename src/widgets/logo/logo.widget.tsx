@@ -13,7 +13,7 @@ const LogoWidget: FunctionalComponent<LogoWidgetArgs> = ({ logo, theme, paramete
   const cx = BuildClassNameBind(theme.Name, 'logo');
   const width = GetParameterValue('width', parameters, DefaultParams);
   const height = GetParameterValue('height', parameters, DefaultParams);
-  const imgProps = GetSingleMedia(logo, MediaFormatEnums.thumbnail);
+  const imgProps = GetSingleMedia(logo, MediaFormatEnums.ordinary);
   const style = {};
   if (width) {
     style['width'] = width;

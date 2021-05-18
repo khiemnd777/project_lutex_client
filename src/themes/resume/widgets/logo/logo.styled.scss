@@ -5,7 +5,13 @@
   &.visible {
     opacity: 1;
   }
-  img {
+  a {
+    display: block;
     width: 100%;
+    img {
+      width: 100%;
+      background-color: #fff;
+      border-radius: 50%;
+    }
   }
 }
