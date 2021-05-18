@@ -1,6 +1,7 @@
 import './font.scss';
 import '../../font-faces/config';
 import './style.scss';
+import './templates/template-default/config';
 import './templates/template-one-column/config';
 import './templates/template-two-column/config';
 import './widgets/post-items-list/config';
