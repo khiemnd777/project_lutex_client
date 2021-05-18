@@ -3,6 +3,9 @@ export const DefaultParams = {
   width: '',
   flex: '',
   display: 'block',
+  flexDirection: '',
   paddingTop: '',
   paddingBottom: '',
+  paddingLeft: '',
+  paddingRight: '',
 } as Record<string, string>;
