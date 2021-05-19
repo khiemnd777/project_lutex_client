@@ -42,14 +42,21 @@ export class ThemeFactory {
     const themes = getThemes();
     let themedWidgets = themes[themeName] as ThemeRegisteredType[];
     themedWidgets = !size(themedWidgets) ? themes['default'] : themedWidgets;
-    const themedWidget = find(
+    let themedWidget = find(
       themedWidgets,
       (themedWidget: ThemeRegisteredType) => themedWidget.widgetName === widgetName
     );
+    if (!themedWidget) {
+      themedWidget = find(
+        themes['default'],
+        (themedWidget: ThemeRegisteredType) => themedWidget.widgetName === widgetName
+      );
+    }
     if (themedWidget) {
       setCachedThemes(themeName, widgetName, themedWidget);
       return isEmpty(themedWidget.style) ? {} : themedWidget.style;
     }
+
     return {};
   }
 }
