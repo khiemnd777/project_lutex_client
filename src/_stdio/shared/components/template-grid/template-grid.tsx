@@ -8,6 +8,7 @@ import Masonry from 'masonry-layout';
 import { trackWindowScroll, ScrollPosition } from 'react-lazy-load-image-component';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { route } from 'preact-router';
+import { ClassNamesFn } from 'classnames/types';
 
 interface GridArgs {
   list: TemplateGridItem[];
@@ -59,31 +60,86 @@ const TemplateGrid: FunctionalComponent<GridArgs> = ({
         <div ref={gridElmRef} class={cb('grid')}>
           <InfiniteScroll dataLength={dataLength} scrollThreshold={0.9} next={nextFunc} hasMore={true} loader={null}>
             {map(list, (model) => {
-              const gridItemRef = useRef<HTMLDivElement>(null);
               return (
-                <div
-                  ref={gridItemRef}
-                  class={cb('grid_item', classGridItem)}
-                  onClick={() => {
-                    onSelect?.call(null, model);
-                    !!model.url && route(model.url);
-                  }}
-                >
-                  <div class={cb(classGridItemContainer, 'grid_item_container')}>
-                    {model.template({
-                      scrollPosition: scrollPosition,
-                      gridItemRef: gridItemRef,
-                      mGrid: getGrid,
-                    } as TemplateGridArgs)}
-                  </div>
-                </div>
+                <AssembliedTemplateGridItem
+                  cb={cb}
+                  getGrid={getGrid}
+                  model={model}
+                  scrollPosition={scrollPosition}
+                  classGridItem={classGridItem}
+                  classGridItemContainer={classGridItemContainer}
+                  onSelect={onSelect}
+                />
               );
+              // return (
+              //   <div
+              //     ref={gridItemRef}
+              //     class={cb('grid_item', classGridItem)}
+              //     onClick={() => {
+              //       onSelect?.call(null, model);
+              //       !!model.url && route(model.url);
+              //     }}
+              //   >
+              //     <div class={cb(classGridItemContainer, 'grid_item_container')}>
+              //       {model.template({
+              //         scrollPosition: scrollPosition,
+              //         gridItemRef: gridItemRef,
+              //         mGrid: getGrid,
+              //       } as TemplateGridArgs)}
+              //     </div>
+              //   </div>
+              // );
             })}
           </InfiniteScroll>
           {children}
         </div>
       ) : null}
     </Fragment>
+  );
+};
+
+interface AssembliedTemplateGridItemArgs {
+  classGridItem?: string;
+  classGridItemContainer?: string;
+  model: TemplateGridItem;
+  onSelect?: (model: TemplateGridItem) => void;
+  cb: ClassNamesFn;
+  scrollPosition: ScrollPosition;
+  getGrid: () => Masonry;
+}
+
+const AssembliedTemplateGridItem: FunctionalComponent<AssembliedTemplateGridItemArgs> = ({
+  classGridItem,
+  classGridItemContainer,
+  model,
+  onSelect,
+  cb,
+  scrollPosition,
+  getGrid,
+}) => {
+  const gridItemRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    if (!!gridItemRef.current) {
+      model.onAfterLoaded?.call(null, model, gridItemRef);
+    }
+  }, [gridItemRef]);
+  return (
+    <div
+      ref={gridItemRef}
+      class={cb('grid_item', classGridItem)}
+      onClick={() => {
+        onSelect?.call(null, model);
+        !!model.url && route(model.url);
+      }}
+    >
+      <div class={cb(classGridItemContainer, 'grid_item_container')}>
+        {model.template({
+          scrollPosition: scrollPosition,
+          gridItemRef: gridItemRef,
+          mGrid: getGrid,
+        } as TemplateGridArgs)}
+      </div>
+    </div>
   );
 };
 

@@ -2,7 +2,7 @@ import { FunctionalComponent, h } from 'preact';
 import { PostItemsListWidgetArgs } from './post-items-list-interfaces';
 import { size, map, isEmpty, first } from 'lodash-es';
 import { WidgetFactory } from '_stdio/core/widget/widget-factory';
-import TemplateGrid from '_stdio/shared/components/template-grid/template-grid';
+import TemplateGrid, { showTemplateGridItem } from '_stdio/shared/components/template-grid/template-grid';
 import TemplateGridItem, { TemplateGridArgs } from '_stdio/shared/components/template-grid/template-grid-item';
 import { parseBool, threeDotsAt, tryParseInt } from '_stdio/shared/utils/string.utils';
 import { convertDateFormat, DATE_FORMAT, timeSince } from '_stdio/shared/utils/date.utils';
@@ -14,6 +14,7 @@ import classNamesBind from 'classnames/bind';
 import { buildRouterPath } from '_stdio/core/router/router-utils';
 import marked from 'marked';
 import { DefaultParams } from './post-items-list-constants';
+import { Ref } from 'preact/hooks';
 
 const PostItemsListWidget: FunctionalComponent<PostItemsListWidgetArgs> = ({
   theme,
@@ -33,8 +34,14 @@ const PostItemsListWidget: FunctionalComponent<PostItemsListWidgetArgs> = ({
     <div class={cx('post_items_list', size(items) ? 'visible' : null)}>
       <TemplateGrid
         list={map(items, (item) => {
-          const routerPath = buildRouterPath(item.Router.Path, item);
+          const routerPath = !isEmpty(item.Router) ? buildRouterPath(item.Router.Path, item) : '';
           return {
+            onAfterLoaded: (model, gridItemRef) => {
+              console.log(item);
+              if (!size(item.Cover)) {
+                showTemplateGridItem(gridItemRef);
+              }
+            },
             template: (templateGridArgs: TemplateGridArgs) => {
               const { scrollPosition, mGrid, gridItemRef } = templateGridArgs;
               return (
@@ -52,9 +59,13 @@ const PostItemsListWidget: FunctionalComponent<PostItemsListWidgetArgs> = ({
                   ) : null}
                   <div class={cx('content_container')}>
                     {item.Title ? (
-                      <Link href={routerPath} class={cx('title')}>
+                      routerPath ? (
+                        <Link href={routerPath} class={cx('title')}>
+                          <span>{item.Title}</span>
+                        </Link>
+                      ) : (
                         <span>{item.Title}</span>
-                      </Link>
+                      )
                     ) : null}
                     <div class={cx('activity_container')}>
                       {!isEmpty(item.Catalog) ? <div class={cx('catalog')}>{item.Catalog?.DisplayName}</div> : null}
