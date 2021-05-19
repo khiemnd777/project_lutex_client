@@ -6,3 +6,4 @@ import './widgets/container/config';
 import './widgets/logo/config';
 import './widgets/text-field/config';
 import './widgets/title/config';
+import './widgets/copyright/config';
