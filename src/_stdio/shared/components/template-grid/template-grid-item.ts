@@ -5,6 +5,7 @@ import { ScrollPosition } from 'react-lazy-load-image-component';
 
 type TemplateGridItem = {
   template: (args: TemplateGridArgs) => ComponentChildren;
+  onAfterLoaded?: (model: TemplateGridItem, gridItemRef: Ref<HTMLDivElement>) => void;
   url?: string;
 };
 

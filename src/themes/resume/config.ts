@@ -7,3 +7,4 @@ import './widgets/logo/config';
 import './widgets/text-field/config';
 import './widgets/title/config';
 import './widgets/copyright/config';
+import './widgets/post-items-list/config';
