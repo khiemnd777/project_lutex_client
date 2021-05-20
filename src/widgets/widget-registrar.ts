@@ -55,3 +55,6 @@ import './container/container.widget';
 
 import './text-field/text-field.widget';
 import './text-field/text-field.config';
+
+import './post-item-body-button/post-item-body-button.config';
+import './post-item-body-button/post-item-body-button.widget';
