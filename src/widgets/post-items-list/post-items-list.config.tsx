@@ -19,6 +19,7 @@ export const PostItemsListWidgetConfig: FunctionalComponent<WidgetConfigArgs<Pos
   parameters,
   routerParams,
   internalParams,
+  widgets,
 }) => {
   const [datetimeServer, setDatetimeServer] = useState<Date>({} as Date);
   useEffect(() => {
@@ -41,6 +42,7 @@ export const PostItemsListWidgetConfig: FunctionalComponent<WidgetConfigArgs<Pos
       routerParams={routerParams}
       internalParams={internalParams}
       limit={limit}
+      widgets={widgets}
     />
   );
 };
