@@ -1,4 +1,4 @@
-import { FunctionalComponent, h } from 'preact';
+import { Fragment, FunctionalComponent, h } from 'preact';
 import { PostItemsListWidgetArgs } from './post-items-list-interfaces';
 import { size, map, isEmpty, first } from 'lodash-es';
 import { WidgetFactory } from '_stdio/core/widget/widget-factory';
@@ -14,7 +14,7 @@ import classNamesBind from 'classnames/bind';
 import { buildRouterPath } from '_stdio/core/router/router-utils';
 import marked from 'marked';
 import { DefaultParams } from './post-items-list-constants';
-import { Ref } from 'preact/hooks';
+import Placeholder from '_stdio/core/placeholder/placeholder';
 
 const PostItemsListWidget: FunctionalComponent<PostItemsListWidgetArgs> = ({
   theme,
@@ -22,12 +22,16 @@ const PostItemsListWidget: FunctionalComponent<PostItemsListWidgetArgs> = ({
   totalCount,
   datetimeServer,
   parameters,
+  routerParams,
+  visitorId,
+  widgets,
   onFetchMore,
 }) => {
   const cxVals = GetClassNameValues(theme.Name, 'post_items_list');
   const cx = classNamesBind.bind(cxVals);
   const shortWordSize = tryParseInt(GetParameterValue('shortWordSize', parameters, DefaultParams)) || 20;
   const useTimeSince = parseBool(GetParameterValue('useTimeSince', parameters, DefaultParams));
+  const enableCreatedDate = parseBool(GetParameterValue('enableCreatedDate', parameters, DefaultParams));
   const useMarked = parseBool(GetParameterValue('useMarked', parameters, DefaultParams));
   const useThreeDot = parseBool(GetParameterValue('useThreeDot', parameters, DefaultParams));
   return (
@@ -37,7 +41,6 @@ const PostItemsListWidget: FunctionalComponent<PostItemsListWidgetArgs> = ({
           const routerPath = !isEmpty(item.Router) ? buildRouterPath(item.Router.Path, item) : '';
           return {
             onAfterLoaded: (model, gridItemRef) => {
-              console.log(item);
               if (!size(item.Cover)) {
                 showTemplateGridItem(gridItemRef);
               }
@@ -45,53 +48,73 @@ const PostItemsListWidget: FunctionalComponent<PostItemsListWidgetArgs> = ({
             template: (templateGridArgs: TemplateGridArgs) => {
               const { scrollPosition, mGrid, gridItemRef } = templateGridArgs;
               return (
-                <div class={cx('container')}>
-                  {size(item.Cover) ? (
-                    <ImageContainer
-                      className={cx('image_container')}
-                      imageClassName={cx('image')}
-                      src={first(item.Cover)?.Media?.formats?.thumbnail?.url}
-                      alt={item.Title}
-                      gridItemRef={gridItemRef}
-                      scrollPosition={scrollPosition}
-                      mGrid={mGrid}
-                    />
-                  ) : null}
-                  <div class={cx('content_container')}>
-                    {item.Title ? (
-                      routerPath ? (
-                        <Link href={routerPath} class={cx('title')}>
-                          <span>{item.Title}</span>
-                        </Link>
-                      ) : (
-                        <span>{item.Title}</span>
-                      )
+                <Fragment>
+                  <div class={cx('container')}>
+                    {size(item.Cover) ? (
+                      <ImageContainer
+                        className={cx('image_container')}
+                        imageClassName={cx('image')}
+                        src={first(item.Cover)?.Media?.formats?.thumbnail?.url}
+                        alt={item.Title}
+                        gridItemRef={gridItemRef}
+                        scrollPosition={scrollPosition}
+                        mGrid={mGrid}
+                      />
                     ) : null}
-                    <div class={cx('activity_container')}>
-                      {!isEmpty(item.Catalog) ? <div class={cx('catalog')}>{item.Catalog?.DisplayName}</div> : null}
-                      {!isEmpty(item.Catalog) && !isEmpty(item.createdAt) ? <div class={cx('seperate')}></div> : null}
-                      {!isEmpty(item.createdAt) ? (
-                        <div class={cx('created_at')}>
-                          {useTimeSince
-                            ? timeSince(
-                                new Date(!datetimeServer ? new Date() : datetimeServer),
-                                new Date(item?.createdAt)
-                              )
-                            : convertDateFormat(item?.createdAt, DATE_FORMAT)}
-                        </div>
+                    <div class={cx('content_container')}>
+                      {item.Title ? (
+                        routerPath ? (
+                          <Link href={routerPath} class={cx('title')}>
+                            <span>{item.Title}</span>
+                          </Link>
+                        ) : (
+                          <span>{item.Title}</span>
+                        )
+                      ) : null}
+                      <div class={cx('activity_container')}>
+                        {!isEmpty(item.Catalog) ? <div class={cx('catalog')}>{item.Catalog?.DisplayName}</div> : null}
+                        {enableCreatedDate && !isEmpty(item.Catalog) && !isEmpty(item.createdAt) ? (
+                          <div class={cx('seperate')}></div>
+                        ) : null}
+                        {enableCreatedDate ? (
+                          !isEmpty(item.createdAt) ? (
+                            <div class={cx('created_at')}>
+                              {useTimeSince
+                                ? timeSince(
+                                    new Date(!datetimeServer ? new Date() : datetimeServer),
+                                    new Date(item?.createdAt)
+                                  )
+                                : convertDateFormat(item?.createdAt, DATE_FORMAT)}
+                            </div>
+                          ) : null
+                        ) : null}
+                      </div>
+                      {item.Short ? (
+                        useMarked ? (
+                          <div class={cx('short')} dangerouslySetInnerHTML={{ __html: marked(item.Short) }}></div>
+                        ) : (
+                          <div class={cx('short')}>
+                            {useThreeDot ? threeDotsAt(item.Short, shortWordSize) : item.Short}
+                          </div>
+                        )
                       ) : null}
                     </div>
-                    {item.Short ? (
-                      useMarked ? (
-                        <div class={cx('short')} dangerouslySetInnerHTML={{ __html: marked(item.Short) }}></div>
-                      ) : (
-                        <div class={cx('short')}>
-                          {useThreeDot ? threeDotsAt(item.Short, shortWordSize) : item.Short}
-                        </div>
-                      )
-                    ) : null}
                   </div>
-                </div>
+                  <Placeholder
+                    name={'post_item_bottom'}
+                    routerParams={routerParams}
+                    theme={theme}
+                    internalParams={{
+                      id: item.id,
+                      Slug: item.Slug,
+                      ReloadGrid: () => {
+                        mGrid?.()?.layout?.();
+                      },
+                    }}
+                    visitorId={visitorId}
+                    widgets={widgets}
+                  />
+                </Fragment>
               );
             },
           } as TemplateGridItem;
