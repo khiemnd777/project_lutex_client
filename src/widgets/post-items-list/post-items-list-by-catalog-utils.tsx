@@ -19,6 +19,7 @@ const PostItemsListByCatalogUtils: FunctionalComponent<PostItemsListByCatalogUti
   theme,
   parameters,
   routerParams,
+  widgets,
 }) => {
   const { data, loading, error, fetchMore } = result;
   const totalCount = !loading && !error ? data?.postItemsConnection.aggregate.totalCount : 0;
@@ -34,6 +35,7 @@ const PostItemsListByCatalogUtils: FunctionalComponent<PostItemsListByCatalogUti
         loading,
         error,
         routerParams,
+        widgets,
         onFetchMore: async () => {
           if (totalCount && size(items) < totalCount) {
             await fetchMore({

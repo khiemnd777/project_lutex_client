@@ -6,7 +6,7 @@ export const GetParameterValue = (
   params?: ParameterConsumedType[],
   defaultParams?: Record<string, string>
 ) => {
-  const matched = find(params, (p) => p.name === name);
+  const matched = find(params, (p) => String(p.name).trim() === name);
   if (!isEmpty(matched) && matched?.value) {
     return matched?.value as string;
   }
