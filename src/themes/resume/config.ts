@@ -8,3 +8,4 @@ import './widgets/text-field/config';
 import './widgets/title/config';
 import './widgets/copyright/config';
 import './widgets/post-items-list/config';
+import './widgets/post-item-body-button/config';

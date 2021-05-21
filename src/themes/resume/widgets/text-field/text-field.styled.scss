@@ -4,4 +4,9 @@
   &.visible {
     opacity: 1;
   }
+  .content {
+    letter-spacing: 0.1px;
+    word-spacing: 1.25px;
+    line-height: 19px;
+  }
 }

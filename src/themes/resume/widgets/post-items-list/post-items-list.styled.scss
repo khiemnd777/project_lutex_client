@@ -1,4 +1,4 @@
-@import '../../theme';
+@import "../../theme";
 
 .post_items_list {
   opacity: 0;
@@ -17,6 +17,7 @@
         text-decoration: none;
         font-size: $titleFontSize;
         color: $headerColor;
+        font-weight: $boldWeight;
       }
       .activity_container {
         display: flex;
@@ -30,7 +31,7 @@
         .seperate {
           &::before {
             display: flex;
-            content: '.';
+            content: ".";
             align-items: center;
             justify-content: center;
             align-content: center;
@@ -46,6 +47,9 @@
           padding-left: 17px;
           li {
             list-style: disc;
+            margin-bottom: 7px;
+            word-spacing: 1.2px;
+            line-height: 18px;
           }
         }
       }

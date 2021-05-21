@@ -34,6 +34,7 @@ const PostItemsListWidget: FunctionalComponent<PostItemsListWidgetArgs> = ({
   const enableCreatedDate = parseBool(GetParameterValue('enableCreatedDate', parameters, DefaultParams));
   const useMarked = parseBool(GetParameterValue('useMarked', parameters, DefaultParams));
   const useThreeDot = parseBool(GetParameterValue('useThreeDot', parameters, DefaultParams));
+  const enableCatalog = parseBool(GetParameterValue('enableCatalog', parameters, DefaultParams));
   return (
     <div class={cx('post_items_list', size(items) ? 'visible' : null)}>
       <TemplateGrid
@@ -68,27 +69,31 @@ const PostItemsListWidget: FunctionalComponent<PostItemsListWidgetArgs> = ({
                             <span>{item.Title}</span>
                           </Link>
                         ) : (
-                          <span>{item.Title}</span>
+                          <span class={cx('title')}>{item.Title}</span>
                         )
                       ) : null}
-                      <div class={cx('activity_container')}>
-                        {!isEmpty(item.Catalog) ? <div class={cx('catalog')}>{item.Catalog?.DisplayName}</div> : null}
-                        {enableCreatedDate && !isEmpty(item.Catalog) && !isEmpty(item.createdAt) ? (
-                          <div class={cx('seperate')}></div>
-                        ) : null}
-                        {enableCreatedDate ? (
-                          !isEmpty(item.createdAt) ? (
-                            <div class={cx('created_at')}>
-                              {useTimeSince
-                                ? timeSince(
-                                    new Date(!datetimeServer ? new Date() : datetimeServer),
-                                    new Date(item?.createdAt)
-                                  )
-                                : convertDateFormat(item?.createdAt, DATE_FORMAT)}
-                            </div>
-                          ) : null
-                        ) : null}
-                      </div>
+                      {enableCatalog && enableCreatedDate ? (
+                        <div class={cx('activity_container')}>
+                          {enableCatalog && !isEmpty(item.Catalog) ? (
+                            <div class={cx('catalog')}>{item.Catalog?.DisplayName}</div>
+                          ) : null}
+                          {enableCatalog && enableCreatedDate && !isEmpty(item.Catalog) && !isEmpty(item.createdAt) ? (
+                            <div class={cx('seperate')}></div>
+                          ) : null}
+                          {enableCreatedDate ? (
+                            !isEmpty(item.createdAt) ? (
+                              <div class={cx('created_at')}>
+                                {useTimeSince
+                                  ? timeSince(
+                                      new Date(!datetimeServer ? new Date() : datetimeServer),
+                                      new Date(item?.createdAt)
+                                    )
+                                  : convertDateFormat(item?.createdAt, DATE_FORMAT)}
+                              </div>
+                            ) : null
+                          ) : null}
+                        </div>
+                      ) : null}
                       {item.Short ? (
                         useMarked ? (
                           <div class={cx('short')} dangerouslySetInnerHTML={{ __html: marked(item.Short) }}></div>

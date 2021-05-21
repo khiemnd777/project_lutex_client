@@ -1,0 +1,42 @@
+@import "../../theme";
+
+.post_item_body_button {
+  padding-bottom: 2.5rem;
+  .buttons {
+    display: flex;
+    justify-content: center;
+    .explore,
+    .collapse {
+      display: inline-block;
+      color: #fff;
+      cursor: pointer;
+      padding: 0.5rem;
+      transition: all ease 0.5s;
+      font-weight: $boldWeight;
+      border: 1px solid;
+      border-radius: 5px;
+    }
+    .explore {
+      background-color: #238636;
+      border-color: #2ea043;
+      &:hover {
+        background-color: #30b44b;
+      }
+    }
+    .collapse {
+      background-color: #21262d;
+      border-color: #30363d;
+      &:hover {
+        background-color: #3b4450;
+        border-color: #e7e8e9;
+      }
+    }
+  }
+  .content {
+    p {
+      letter-spacing: 0.1px;
+      word-spacing: 1.25px;
+      line-height: 19px;
+    }
+  }
+}
