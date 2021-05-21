@@ -1,9 +1,12 @@
-import { FunctionalComponent, h } from 'preact';
+import { Fragment, FunctionalComponent, h } from 'preact';
+import { useRef, useState } from 'preact/hooks';
 import Placeholder from '_stdio/core/placeholder/placeholder';
 import { BuildClassNameBind } from '_stdio/core/theme/theme-utils';
 import { WidgetFactory } from '_stdio/core/widget/widget-factory';
 import { WidgetArgs } from '_stdio/core/widget/widget-interfaces';
+import StickyAnchor from '_stdio/shared/components/sticky/sticky-anchor';
 import { GetParameterValue } from '_stdio/shared/utils/params.util';
+import { parseBool } from '_stdio/shared/utils/string.utils';
 import { DefaultParams } from './container-constants';
 
 const ContainerWidget: FunctionalComponent<WidgetArgs> = ({
@@ -23,7 +26,10 @@ const ContainerWidget: FunctionalComponent<WidgetArgs> = ({
   const paddingBottom = GetParameterValue('paddingBottom', parameters, DefaultParams);
   const paddingLeft = GetParameterValue('paddingLeft', parameters, DefaultParams);
   const paddingRight = GetParameterValue('paddingRight', parameters, DefaultParams);
+  const useSticky = parseBool(GetParameterValue('useSticky', parameters, DefaultParams));
   const cx = BuildClassNameBind(theme.Name, 'container');
+  const [addedSticky, setAddedSticky] = useState(false);
+  const refEl = useRef<HTMLDivElement>(null);
   const style = {};
   if (display) {
     style['display'] = display;
@@ -50,16 +56,19 @@ const ContainerWidget: FunctionalComponent<WidgetArgs> = ({
     style['padding-right'] = paddingRight;
   }
   return (
-    <div style={style} class={cx('container')}>
-      <Placeholder
-        name={placeholderName}
-        theme={theme}
-        routerParams={routerParams}
-        visitorId={visitorId}
-        widgets={widgets}
-        internalParams={internalParams}
-      />
-    </div>
+    <Fragment>
+      <StickyAnchor stickyRef={refEl} handler={setAddedSticky} />
+      <div style={style} class={cx('container', useSticky && addedSticky ? 'sticky' : null)}>
+        <Placeholder
+          name={placeholderName}
+          theme={theme}
+          routerParams={routerParams}
+          visitorId={visitorId}
+          widgets={widgets}
+          internalParams={internalParams}
+        />
+      </div>
+    </Fragment>
   );
 };
 

@@ -8,4 +8,5 @@ export const DefaultParams = {
   paddingBottom: '',
   paddingLeft: '',
   paddingRight: '',
-} as Record<string, string>;
+  useSticky: false,
+} as Record<string, any>;
