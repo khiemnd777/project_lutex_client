@@ -25,5 +25,6 @@ import './widgets/input-fields/config';
 import './widgets/container/config';
 import './widgets/text-field/config';
 import './widgets/title/config';
+import './widgets/post-item-body-button/config';
 import './macros/contact-send/config';
 import './macros/register-subscription/config';
