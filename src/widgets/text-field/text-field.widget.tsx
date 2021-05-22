@@ -16,8 +16,9 @@ export const TextFieldWidget: FunctionalComponent<TextFieldWidgetArgs> = ({
   widgets,
   parameters,
 }) => {
-  const cx = BuildClassNameBind(theme.Name, 'text_field');
   const fontSize = GetParameterValue('fontSize', parameters, DefaultParams) ?? '';
+  const styleName = GetParameterValue('styleName', parameters, DefaultParams) || 'text_field';
+  const cx = BuildClassNameBind(theme.Name, styleName);
   return (
     <div
       style={{

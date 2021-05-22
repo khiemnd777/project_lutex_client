@@ -1,5 +1,6 @@
 export const DefaultParams = {
   placeholder: 'container',
+  styleName: 'container',
   width: '',
   flex: '',
   display: 'block',
