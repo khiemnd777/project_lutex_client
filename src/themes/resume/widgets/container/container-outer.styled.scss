@@ -1,0 +1,15 @@
+@import "../../theme";
+.container {
+  @include noPadding;
+  &.sticky {
+    position: fixed;
+  }
+  @media (max-width: $mobile) {
+    display: flex !important;
+    flex-direction: column;
+    width: 88% !important;
+    &.sticky {
+      position: static;
+    }
+  }
+}
