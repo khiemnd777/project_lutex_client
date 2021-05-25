@@ -16,6 +16,7 @@ $ yarn build
 $ yarn build --secure=false --api-host=localhost --api-port=1337
 $ yarn build:ssr
 $ yarn build:ssr --secure=false --api-host=localhost --api-port=1337 --port=7777
+$ pm2 start ecosystem.config.js --env=development
 ```
 ## Development
 ```sh
@@ -23,4 +24,5 @@ $ yarn build:dev
 $ yarn build:dev --secure=false --api-host=localhost --api-port=1337
 $ yarn build:ssr:dev
 $ yarn build:ssr:dev --secure=false --api-host=localhost --api-port=1337 --port=7777
+$ pm2 start ecosystem.config.js --env=production
 ```
