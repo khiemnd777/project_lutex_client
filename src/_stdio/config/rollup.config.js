@@ -11,26 +11,25 @@ import graphql from '@rollup/plugin-graphql';
 import { terser } from 'rollup-plugin-terser';
 import htmlCustom from './rollup.html.custom';
 import preact from 'rollup-plugin-preact';
-const yargs = require('yargs/yargs');
-const { hideBin } = require('yargs/helpers');
-
-const buildConfig = require('./build.config.json');
-const env = process.env.NODE_ENV;
-const isDevelopmentEnv = env === 'development';
+// const yargs = require('yargs/yargs');
+// const { hideBin } = require('yargs/helpers');
+const env = require('./env.config');
+const node_env = process.env.NODE_ENV;
+const isDevelopmentEnv = node_env === 'development';
 const isBeta = process.env.SITE === 'beta';
 const isStaging = process.env.SITE === 'staging';
-const argv = yargs(hideBin(process.argv)).argv;
+// const argv = yargs(hideBin(process.argv)).argv;
 
-console.log('Environment', env);
+console.log('Environment', node_env);
 
 // API HOST
-const secureProtocol = !!argv.secure && argv.secure === 'true' ? 'https' : 'http';
-const apiPort = argv.apiPort || 1337;
-const apiHostName = argv.apiHost || (env === 'development' ? 'localhost' : 'lutex.io');
+const secureProtocol = !!env('API_SECURE') ? 'https' : 'http'; // !!argv.secure && argv.secure === 'true' ? 'https' : 'http';
+const apiHostName = env('API_HOST') || (node_env === 'development' ? 'localhost' : 'lutex.io');
+const apiPort = env('API_PORT') || 1337;
 const apiHost = `${secureProtocol}://${apiHostName}:${apiPort}/`;
-const clientSecureProtocal = !!argv.clientSecure && argv.clientSecure === 'true' ? 'https' : 'http';
-const clientHostName = argv.clientHost || (env === 'development' ? 'localhost' : 'lutex.io');
-const clientPort = argv.clientPort || (env === 'development' ? '7777' : '');
+const clientSecureProtocal = !!env('CLIENT_SECURE') ? 'https' : 'http'; //!!argv.clientSecure && argv.clientSecure === 'true' ? 'https' : 'http';
+const clientHostName = env('CLIENT_HOST') || (node_env === 'development' ? 'localhost' : 'lutex.io'); // argv.clientHost || (node_env === 'development' ? 'localhost' : 'lutex.io');
+const clientPort = env('CLIENT_PORT') || (node_env === 'development' ? '7777' : ''); // argv.clientPort || (node_env === 'development' ? '7777' : '');
 const clientHost = `${clientSecureProtocal}://${clientHostName}${!!clientPort ? `:${clientPort}` : ''}/`;
 
 const plugins = [
@@ -47,7 +46,7 @@ const plugins = [
   }),
   rollupReplace({
     preventAssignment: true,
-    'process.env.NODE_ENV': JSON.stringify(env || 'development'),
+    'process.env.NODE_ENV': JSON.stringify(node_env || 'development'),
   }),
   rollupReplace({
     preventAssignment: true,
@@ -111,7 +110,7 @@ export default [
     external: external,
     output: {
       sourcemap: isDevelopmentEnv,
-      dir: resolve(buildConfig.dist),
+      dir: resolve('wwwroot/'),
       format: 'iife',
       globals: globals,
     },
