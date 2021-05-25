@@ -8,7 +8,6 @@ import Masonry from 'masonry-layout';
 import { trackWindowScroll, ScrollPosition } from 'react-lazy-load-image-component';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { route } from 'preact-router';
-import { ClassNamesFn } from 'classnames/types';
 
 interface GridArgs {
   list: TemplateGridItem[];
@@ -103,7 +102,7 @@ interface AssembliedTemplateGridItemArgs {
   classGridItemContainer?: string;
   model: TemplateGridItem;
   onSelect?: (model: TemplateGridItem) => void;
-  cb: ClassNamesFn;
+  cb: (...args: (string | null | undefined)[]) => string;
   scrollPosition: ScrollPosition;
   getGrid: () => Masonry;
 }

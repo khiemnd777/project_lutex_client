@@ -1,8 +1,10 @@
 import classNamesBind from 'classnames/bind';
-import { ClassNamesFn } from 'classnames/types';
 import { FontFaceFactory } from './Font-face-factory';
 
-export const BindFontFaceClassNames = (fontFace: string, styles?: Record<string, string>): ClassNamesFn => {
+export const BindFontFaceClassNames = (
+  fontFace: string,
+  styles?: Record<string, string>
+): ((...args: (string | null | undefined)[]) => string) => {
   const values = { ...GetFontFaceValues(fontFace), ...styles } as Record<string, string>;
   return classNamesBind.bind(values);
 };
