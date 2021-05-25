@@ -1,5 +1,4 @@
 import classNamesBind from 'classnames/bind';
-import { ClassNamesFn } from 'classnames/types';
 import { ThemeFactory } from './theme-factory';
 import { ThemeType } from './theme-types';
 
@@ -16,7 +15,7 @@ export const BuildClassNameBind = (
   themeName: string,
   widgetName: string,
   styles?: Record<string, string>
-): ClassNamesFn => {
+): ((...args: (string | null | undefined)[]) => string) => {
   const values = { ...GetClassNameValues(themeName, widgetName), ...styles } as Record<string, string>;
   return classNamesBind.bind(values);
 };
