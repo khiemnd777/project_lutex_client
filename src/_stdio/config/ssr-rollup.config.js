@@ -5,24 +5,23 @@ import rollupJson from '@rollup/plugin-json';
 import rollupFilesize from 'rollup-plugin-filesize';
 import rollupReplace from '@rollup/plugin-replace';
 import { terser } from 'rollup-plugin-terser';
-const yargs = require('yargs/yargs');
-const { hideBin } = require('yargs/helpers');
+// const yargs = require('yargs/yargs');
+// const { hideBin } = require('yargs/helpers');
+const env = require('./env.config');
+const node_env = process.env.NODE_ENV;
+const isDevelopmentEnv = node_env === 'development';
+// const argv = yargs(hideBin(process.argv)).argv;
 
-const env = process.env.NODE_ENV;
-const buildConfig = require('./build.config.json');
-const isDevelopmentEnv = env === 'development';
-const argv = yargs(hideBin(process.argv)).argv;
-
-console.log('Environment', env);
+console.log('Environment', node_env);
 
 // API HOST
-const port = argv.port || 7777;
-const secureProtocol = argv.secure || 'false';
-const apiPort = argv.apiPort || 1337;
-const apiHostName = argv.apiHost || (env === 'development' ? 'localhost' : 'lutex.io');
-const clientSecureProtocal = !!argv.clientSecure && argv.clientSecure === 'true' ? 'https' : 'http';
-const clientHostName = argv.clientHost || (env === 'development' ? 'localhost' : 'lutex.io');
-const distPath = argv.dist || (env === 'development' ? './wwwroot' : '');
+const port = env('CLIENT_PORT') || 7777;
+const secureProtocol = !!env('API_SECURE') || false;
+const apiPort = env('API_PORT') || 1337;
+const apiHostName = env('API_HOST') || (node_env === 'development' ? 'localhost' : 'lutex.io'); // argv.apiHost || (node_env === 'development' ? 'localhost' : 'lutex.io');
+const clientSecureProtocal = !!env('CLIENT_SECURE') ? 'https' : 'http'; //!!argv.clientSecure && argv.clientSecure === 'true' ? 'https' : 'http';
+const clientHostName = env('CLIENT_HOST') || (node_env === 'development' ? 'localhost' : 'lutex.io'); // argv.clientHost || (node_env === 'development' ? 'localhost' : 'lutex.io');
+const distPath = env('DIST') || (node_env === 'development' ? './wwwroot' : ''); //argv.dist || (node_env === 'development' ? './wwwroot' : '');
 
 const plugins = [
   rollupResolve({
@@ -35,7 +34,7 @@ const plugins = [
   }),
   rollupReplace({
     preventAssignment: true,
-    'process.env.NODE_ENV': JSON.stringify(env || 'development'),
+    'process.env.NODE_ENV': JSON.stringify(node_env || 'development'),
   }),
   rollupReplace({
     preventAssignment: true,
@@ -69,7 +68,7 @@ export default [
     external: external,
     output: {
       sourcemap: isDevelopmentEnv,
-      dir: resolve(buildConfig.dist),
+      dir: resolve('wwwroot/'),
       format: 'iife',
       globals: globals,
     },
