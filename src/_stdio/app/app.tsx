@@ -32,20 +32,21 @@ const StdApp = () => {
   if (localState.loading) {
     return null;
   }
-  const { data, loading, error } = GraphTheme();
-  if (loading) {
-    return null;
-  }
-  if (error) {
-    return (
-      <div>
-        <span>Fetching theme errors.</span>
-      </div>
-    );
-  }
+  // const { data, loading, error } = GraphTheme();
+  // if (loading) {
+  //   return null;
+  // }
+  // if (error) {
+  //   return (
+  //     <div>
+  //       <span>Fetching theme errors.</span>
+  //     </div>
+  //   );
+  // }
 
   // init theming to the app at the html element.
-  const fetchedTheme = GetTheme(data?.environment.Theme.Theme);
+  // const fetchedTheme = GetTheme(data?.environment.Theme.Theme);
+  const fetchedTheme = GetTheme();
   document.documentElement.classList.add(fetchedTheme.Name);
   return (
     <div class={app}>

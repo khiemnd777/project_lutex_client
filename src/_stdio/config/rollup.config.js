@@ -53,6 +53,8 @@ const plugins = [
     exclude: 'node_modules/**',
     API_HOST: `${apiHost}`,
     CLIENT_HOST: `${clientHost}`,
+    THEME: `${env('THEME') || 'default'}`,
+    THEME_DISPLAY_NAME: `${env('THEME_DISPLAY_NAME') || 'Default'}`,
     delimiters: ['{{', '}}'],
   }),
   rollupBabel({
