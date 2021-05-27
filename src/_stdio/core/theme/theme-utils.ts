@@ -6,8 +6,8 @@ export const GetTheme = (theme?: ThemeType) => {
   return theme
     ? theme
     : ({
-        Name: 'default',
-        DisplayName: 'Default',
+        Name: `{{THEME}}`,
+        DisplayName: `{{THEME_DISPLAY_NAME}}`,
       } as ThemeType);
 };
 
