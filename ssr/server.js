@@ -29,7 +29,7 @@ const genrateHtml = (req, res, seoData) => {
   fs.readFile(path.resolve(domFile), 'utf-8', async (err, data) => {
     if (err) {
       console.log(err);
-      return res.status(500).send('Some error happened');
+      return res.status(500).send('Some errors happened');
     }
     if (!!seoData) {
       const seoMetaTags = generateSeoMetaTags(seoData);
@@ -59,11 +59,11 @@ const generateSeoMetaTags = (seoData) => {
   `;
 };
 
-app.use(/^\/*((?!\.).)*$/, async (req, res, next) => {
+async function fetchSeo(req) {
   let seo = null;
   try {
     const seoUrl = `${apiHost}seo${req.baseUrl}`;
-    const seoData = await axios.get(`${seoUrl}`);
+    const seoData = await axios.get(seoUrl);
     seo = seoData ? seoData.data : null;
     if (seo && seo.Facebook) {
       // Attach facebook's og:url
@@ -71,6 +71,27 @@ app.use(/^\/*((?!\.).)*$/, async (req, res, next) => {
       !seo.Facebook.Url && (seo.Facebook.Url = `${clientHost}${realBaseUrl}`);
     }
   } catch {}
+  return seo;
+}
+
+async function fetchPtk(req) {
+  const ptk = req.query.ptk;
+  const ptkUrl = `${apiHost}environment/pairptk/${ptk}`;
+  const pairPtkData = await axios.get(ptkUrl);
+  return pairPtkData.data;
+}
+
+app.use(/^\/*((?!\.).)*$/, async (req, res, next) => {
+  let seo = null;
+  try {
+    const result = await Promise.all([fetchPtk(req), fetchSeo(req)]);
+    const pairedPtk = result[0];
+    if(!pairedPtk) {
+      res.send(`This is a private page.`);
+      return;
+    }
+    seo = result[1];
+  } catch (exc) {}
   genrateHtml(req, res, seo);
 });
 
