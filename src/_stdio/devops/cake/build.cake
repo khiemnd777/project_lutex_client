@@ -5,6 +5,7 @@
 #load "task-fs.cake"
 #load "task-git.cake"
 #load "task-yarn.cake"
+#load "task-pm2.cake"
 
 var target = Argument("target", "Default");
 var config = TaskConfiguration.GetConfig(Context);
@@ -37,18 +38,22 @@ var rollbackTask = Task("Rollback");
 if(config.Environment == "development") {
   rollbackTask
     .IsDependentOn("Clean")
+    .IsDependentOn ("Clean-Www")
     .Does(() => {
 
     });
-} else {
-  Task("Rollback")
-  .IsDependentOn("PM2-Init")
-  .IsDependentOn("PM2-Stop")
-  .IsDependentOn("PM2-Delete")
-  .IsDependentOn("Clean")
-  .Does(() => {
+} 
+else 
+{
+  rollbackTask
+    .IsDependentOn("PM2-Init")
+    .IsDependentOn("PM2-Stop")
+    .IsDependentOn("PM2-Delete")
+    .IsDependentOn("Clean")
+    .IsDependentOn ("Clean-Www")
+    .Does(() => {
 
-  });
+    });
 }
 
 // Default task.
@@ -57,6 +62,7 @@ if(config.Environment == "development")
 {
   defaultTask
     .IsDependentOn ("Clean")
+    .IsDependentOn ("Clean-Www")
     .IsDependentOn ("Copy-FS")
     .IsDependentOn ("Yarn-Install")
     .IsDependentOn ("Git-Checkout")
@@ -71,6 +77,7 @@ else
 {
   defaultTask
     .IsDependentOn ("Clean")
+    .IsDependentOn ("Clean-Www")
     .IsDependentOn ("Copy-FS")
     .IsDependentOn ("Yarn-Install")
     .IsDependentOn ("PM2-Init")

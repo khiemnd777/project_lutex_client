@@ -39,4 +39,13 @@ public class Utility {
         .Save(distPath);
     }
   }
+
+  // Forst delete file
+  public static void ForceDeleteFile(ICakeContext context, string path)
+  {
+    if (context.FileExists (path))
+    {
+      context.DeleteFile(path);
+    }
+  }
 }
