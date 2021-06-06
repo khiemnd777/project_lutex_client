@@ -1,0 +1,14 @@
+module.exports = {
+  apps: [
+    {
+      name: "{{PM2_NAME}}",
+      script: "{{PM2_SCRIPT}}",
+      env: {
+        NODE_ENV: "development",
+	  },
+	  env_production: {
+		NODE_ENV: "production",
+	  },
+	},
+  ],
+};

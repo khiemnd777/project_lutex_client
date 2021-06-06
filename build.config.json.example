@@ -1,0 +1,23 @@
+{
+  "CONFIGURATION": "debug|release",
+  "ENVIRONMENT": "development|production",
+  "PM2_NAME": null,
+  "PM2_SCRIPT": null,
+  "API_SECURE": false,
+  "API_HOST": "localhost",
+  "API_PORT": 1337,
+  "CLIENT_SECURE": false,
+  "CLIENT_HOST": "localhost",
+  "CLIENT_PORT": 7777,
+  "DIST": "./wwwroot",
+  "THEME": null,
+  "THEME_DISPLAY_NAME": null,
+  "GIT_PROVIDER": null,
+  "GIT_SOURCE": null,
+  "GIT_BRANCH": null,
+  "GIT_MERGER_NAME": null,
+  "GIT_MERGER_EMAIL": null,
+  "GIT_USERNAME": null,
+  "GIT_PASSWORD": null,
+  "GIT_REMOTE": null
+}

@@ -122,3 +122,7 @@ wwwroot/*.map
 wwwroot/index.css
 wwwroot/index.js
 wwwroot/server.js
+wwwroot/yarn.lock
+build.config.json
+pm2.config.js
+src/_stdio/devops/cake/.cake/Addins
