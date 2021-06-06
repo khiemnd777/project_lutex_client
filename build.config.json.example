@@ -10,6 +10,14 @@
   "CLIENT_HOST": "localhost",
   "CLIENT_PORT": 7777,
   "DIST": "./wwwroot",
-  "THEME": "resume",
-  "THEME_DISPLAY_NAME": "Resume"
+  "THEME": null,
+  "THEME_DISPLAY_NAME": null,
+  "GIT_PROVIDER": null,
+  "GIT_SOURCE": null,
+  "GIT_BRANCH": null,
+  "GIT_MERGER_NAME": null,
+  "GIT_MERGER_EMAIL": null,
+  "GIT_USERNAME": null,
+  "GIT_PASSWORD": null,
+  "GIT_REMOTE": null
 }
