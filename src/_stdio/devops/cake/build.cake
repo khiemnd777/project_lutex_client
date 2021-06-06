@@ -4,6 +4,7 @@
 #load "task-config.cake"
 #load "task-fs.cake"
 #load "task-git.cake"
+#load "task-yarn.cake"
 
 var target = Argument("target", "Default");
 var config = TaskConfiguration.GetConfig(Context);
@@ -33,7 +34,7 @@ Task ("Build-Ssr")
 
 // Rollback
 var rollbackTask = Task("Rollback");
-if(envMode == "development") {
+if(config.Environment == "development") {
   rollbackTask
     .IsDependentOn("Clean")
     .Does(() => {
@@ -84,7 +85,7 @@ else
     });
 }
 defaultTask.OnError(exception => {
-  RunTask("Rollback");
+  RunTarget("Rollback");
 });
 
 RunTarget(target);
