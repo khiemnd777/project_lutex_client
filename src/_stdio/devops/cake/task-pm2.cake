@@ -1,3 +1,4 @@
+#load "task-config.cake"
 
 Task("PM2-Init")
   .Does(() => {
@@ -16,5 +17,6 @@ Task ("PM2-Stop")
 
 Task ("PM2-Start")
   .Does(() => {
-    Yarn.RunScript (mode == "debug" ? "start:pm2" : "start:pm2:prod");
+    var config = TaskConfiguration.GetConfig(Context);
+    Yarn.RunScript (config.Configuration == "debug" ? "start:pm2" : "start:pm2:prod");
   });

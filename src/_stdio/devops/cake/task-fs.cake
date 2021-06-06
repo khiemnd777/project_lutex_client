@@ -1,4 +1,5 @@
 #load "utilities.cake"
+#load "constants.cake"
 #load "task-fs.cake"
 
 // Clean
@@ -19,6 +20,18 @@ Task ("Clean")
     {
       DeleteFile(envPath.Path);
     }
+  });
+
+Task ("Clean-Www")
+  .Does(() => {
+    var wwwroot = $"{Constants.ROOT}wwwroot/";
+    Utility.ForceDeleteFile(Context, $"{wwwroot}index.css");
+    Utility.ForceDeleteFile(Context, $"{wwwroot}index.css.map");
+    Utility.ForceDeleteFile(Context, $"{wwwroot}index.html");
+    Utility.ForceDeleteFile(Context, $"{wwwroot}index.js");
+    Utility.ForceDeleteFile(Context, $"{wwwroot}index.js.map");
+    Utility.ForceDeleteFile(Context, $"{wwwroot}server.js");
+    Utility.ForceDeleteFile(Context, $"{wwwroot}server.js.map");
   });
 
 // Copy File System.
