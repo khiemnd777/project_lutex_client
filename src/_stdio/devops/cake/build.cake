@@ -1,71 +1,90 @@
-#addin nuget:?package=Cake.FileHelpers&version=4.0.1
-#addin nuget:?package=Cake.Yarn&version=0.4.8
-#addin nuget:?package=Cake.Npm&version=1.0.0
-#addin nuget:?package=Cake.Json&version=6.0.1
-#addin nuget:?package=Cake.Git&version=1.0.1
-#addin nuget:?package=Newtonsoft.Json&version=11.0.2
-
+#load "inject.cake"
 #load "file-path.cake"
 #load "utilities.cake"
+#load "task-config.cake"
+#load "task-fs.cake"
+#load "task-git.cake"
 
 var target = Argument("target", "Default");
+var config = TaskConfiguration.GetConfig(Context);
 
-var pm2Path = new FilePath("pm2.config.js");
-var envPath = new FilePath(".env");
-var configBuildPath = new FilePath("build.config.json");
+Setup(context =>
+{
+  Information("Building with {0} environment and {1} mode.", config.Environment, config.Configuration);      
+});
 
-// Configuration
-var config = ParseJsonFromFile(configBuildPath.Path);
-var mode = config["CONFIGURATION"].ToString();
-var envMode = config["ENVIRONMENT"].ToString();
+Teardown(context => {
+  var config = TaskConfiguration.GetConfig(Context);
+  Information("Built with {0} environment and {1} mode.", config.Environment, config.Configuration);
+});
 
-Information(mode);
-Information(envMode);
-
-// Clean
-Task ("Clean")
+// Build
+Task ("Build")
   .Does (() =>
   {
-    // Delete pm2 configuration file.
-    if (FileExists (pm2Path.Path))
-    {
-      Console.WriteLine ("Delete pm2 configuration file.");
-      DeleteFile (pm2Path.Path);
-    }
-    // Delete .env
-    if(FileExists(envPath.Path))
-    {
-      Console.WriteLine ("Delete .env file.");
-      DeleteFile(envPath.Path);
-    }
+    Yarn.RunScript (config.Configuration == "debug" ? "build:dev" : "build");
   });
 
-Task ("Copy-FS")
+Task ("Build-Ssr")
   .Does (() =>
   {
-    // Copy pm2 configuration file.
-    if (FileExists (pm2Path.TemplatePath))
-    {
-      Console.WriteLine ("Copy pm2 configuration file.");
-      var pm2TemplateRead = FileReadText (pm2Path.TemplatePath);
-      // Replace tokens
-      Utility.BindTokenText (Context, pm2TemplateRead, config)
-        .Save(pm2Path.Path);
-    }
-    // Copy .env file.
-    if(FileExists(envPath.TemplatePath))
-    {
-      Console.WriteLine ("Copy .env file.");
-      var envTemplateRead = FileReadText (envPath.TemplatePath);
-      // Replace tokens
-      Utility.BindTokenText (Context, envTemplateRead, config)
-        .Save(envPath.Path);
-    }
+    Yarn.RunScript (config.Configuration == "debug" ? "build:ssr:dev" : "build:ssr");
   });
 
-Task("Default")
+// Rollback
+var rollbackTask = Task("Rollback");
+if(envMode == "development") {
+  rollbackTask
+    .IsDependentOn("Clean")
+    .Does(() => {
+
+    });
+} else {
+  Task("Rollback")
+  .IsDependentOn("PM2-Init")
+  .IsDependentOn("PM2-Stop")
+  .IsDependentOn("PM2-Delete")
+  .IsDependentOn("Clean")
   .Does(() => {
-    
+
   });
+}
+
+// Default task.
+var defaultTask = Task("Default");
+if(config.Environment == "development")
+{
+  defaultTask
+    .IsDependentOn ("Clean")
+    .IsDependentOn ("Copy-FS")
+    .IsDependentOn ("Yarn-Install")
+    .IsDependentOn ("Git-Checkout")
+    .IsDependentOn ("Git-Pull")
+    .IsDependentOn ("Build")
+    .IsDependentOn ("Build-Ssr")
+    .Does(() => {
+
+    });
+} 
+else 
+{
+  defaultTask
+    .IsDependentOn ("Clean")
+    .IsDependentOn ("Copy-FS")
+    .IsDependentOn ("Yarn-Install")
+    .IsDependentOn ("PM2-Init")
+    .IsDependentOn ("PM2-Stop")
+    .IsDependentOn ("Git-Checkout")
+    .IsDependentOn ("Git-Pull")
+    .IsDependentOn ("Build")
+    .IsDependentOn ("Build-Ssr")
+    .IsDependentOn ("PM2-Start")
+    .Does(() => {
+
+    });
+}
+defaultTask.OnError(exception => {
+  RunTask("Rollback");
+});
 
 RunTarget(target);

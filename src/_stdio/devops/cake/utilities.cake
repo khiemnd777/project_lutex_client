@@ -27,4 +27,16 @@ public class Utility {
     }
     return textTransform;
   }
+
+  // Save file with tokens
+  public static void SaveFileWithTokens(ICakeContext context, string templatePath, string distPath, JObject tokens)
+  {
+    if(context.FileExists(templatePath))
+    {
+      var templateRead = context.FileReadText (templatePath);
+      // Replace tokens
+      Utility.BindTokenText (context, templateRead, tokens)
+        .Save(distPath);
+    }
+  }
 }
