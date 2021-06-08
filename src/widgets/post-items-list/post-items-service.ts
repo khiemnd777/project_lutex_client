@@ -56,16 +56,16 @@ const availablePostItemCondition = (datetimeNow: Date) => `
   ]
 `;
 
-export const GraphAvailablePostItems = (datetimeNow: Date, start: number, limit: number) => {
+export const GraphAvailablePostItems = (datetimeNow: Date, start: number, limit: number, sort = 'createdAt:desc') => {
   return useQuery<AvailablePostItemsGraphResult>(
     gql`
-    query ($start:Int, $limit:Int) {
+    query ($start:Int, $limit:Int, $sort: String) {
       ${postItemsConnection}
       postItems (
         where: {
           ${availablePostItemCondition(datetimeNow)}
         }
-        sort:"createdAt:desc"
+        sort: $sort
         start: $start
         limit: $limit
       ) {
@@ -77,6 +77,7 @@ export const GraphAvailablePostItems = (datetimeNow: Date, start: number, limit:
       variables: {
         start,
         limit,
+        sort,
       },
     }
   );
