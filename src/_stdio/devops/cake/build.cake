@@ -7,11 +7,9 @@
 #load "task-yarn.cake"
 #load "task-pm2.cake"
 
-var target = Argument("target", "Default");
-var config = TaskConfiguration.GetConfig(Context);
-
 Setup(context =>
 {
+  var config = TaskConfiguration.GetConfig(Context);
   Information("Building with {0} environment and {1} mode.", config.Environment, config.Configuration);      
 });
 
@@ -24,14 +22,19 @@ Teardown(context => {
 Task ("Build")
   .Does (() =>
   {
+    var config = TaskConfiguration.GetConfig(Context);
     Yarn.RunScript (config.Configuration == "debug" ? "build:dev" : "build");
   });
 
 Task ("Build-Ssr")
   .Does (() =>
   {
+    var config = TaskConfiguration.GetConfig(Context);
     Yarn.RunScript (config.Configuration == "debug" ? "build:ssr:dev" : "build:ssr");
   });
+
+var target = Argument("target", "Default");
+var config = TaskConfiguration.GetConfig(Context);
 
 // Rollback
 var rollbackTask = Task("Rollback");
