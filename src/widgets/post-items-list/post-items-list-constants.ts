@@ -7,5 +7,6 @@ export const DefaultParams = {
   useTimeSince: false,
   useMarked: false,
   useThreeDot: true,
+  useDisplayOrder: false,
   enableCatalog: true,
 } as Record<string, any>;
