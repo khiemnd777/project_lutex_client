@@ -5,7 +5,7 @@ import size from 'lodash-es/size';
 import { FunctionalComponent } from 'preact';
 import { SingleMediaType } from '_stdio/shared/types/image-types';
 import { ParameterConsumedType } from '_stdio/shared/types/parameter-types';
-import { WidgetArgs, WidgetConfigArgs } from './widget-interfaces';
+import { IWidgetInstaller, WidgetArgs, WidgetConfigArgs } from './widget-interfaces';
 import { ConsumedWidgetType, IndicatedWidgetType, WidgetConfigType, WidgetFactoryType } from './widget-types';
 
 const WIDGETS = 'widgets';
@@ -26,7 +26,8 @@ export class WidgetFactory {
   static Register<Widget extends WidgetArgs, Config = WidgetConfigArgs<Widget>>(
     name: string,
     friendlyName: string,
-    component: FunctionalComponent<Widget>
+    component: FunctionalComponent<Widget>,
+    installer?: IWidgetInstaller
   ) {
     const widgets: WidgetFactoryType<Widget> = getWidgets();
     if (!widgets[name]) {
@@ -35,6 +36,7 @@ export class WidgetFactory {
         configName: name,
         friendlyName: friendlyName,
         component: component,
+        installer: installer,
       };
       return this;
     }

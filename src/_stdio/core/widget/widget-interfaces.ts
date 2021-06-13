@@ -26,3 +26,10 @@ export interface WidgetArgs extends WidgetAbstractArgs {
 export interface WidgetConfigArgs<T extends WidgetArgs> extends WidgetAbstractArgs {
   component: FunctionalComponent<T>;
 }
+
+export interface IWidgetInstaller {
+  Setup: (name: string) => Promise<void>;
+  Upgrade: (name: string) => Promise<void>;
+  Uninstall: (name: string) => Promise<void>;
+  IsSetup: (name: string) => Promise<boolean>;
+}
