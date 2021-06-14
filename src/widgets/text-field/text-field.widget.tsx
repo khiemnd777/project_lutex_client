@@ -4,6 +4,8 @@ import { FunctionalComponent, h } from 'preact';
 import Placeholder from '_stdio/core/placeholder/placeholder';
 import { BuildClassNameBind } from '_stdio/core/theme/theme-utils';
 import { WidgetFactory } from '_stdio/core/widget/widget-factory';
+import { WidgetInstaller } from '_stdio/core/widget/widget-installer';
+import { PackDefaultParams } from '_stdio/core/widget/widget-utils';
 import { GetParameterValue } from '_stdio/shared/utils/params.util';
 import { DefaultParams } from './text-field-constants';
 import { TextFieldWidgetArgs } from './text-field-interfaces';
@@ -49,4 +51,9 @@ export const TextFieldWidget: FunctionalComponent<TextFieldWidgetArgs> = ({
   );
 };
 
-export default WidgetFactory.Register('text_field', 'Text field', TextFieldWidget);
+export default WidgetFactory.Register(
+  'text_field',
+  'Text field',
+  TextFieldWidget,
+  new WidgetInstaller(PackDefaultParams(DefaultParams))
+);

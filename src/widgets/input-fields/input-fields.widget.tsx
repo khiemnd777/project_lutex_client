@@ -4,6 +4,8 @@ import { StateUpdater, useState } from 'preact/hooks';
 import { MacroFactory } from '_stdio/core/macros/macro-factory';
 import { BuildClassNameBind } from '_stdio/core/theme/theme-utils';
 import { WidgetFactory } from '_stdio/core/widget/widget-factory';
+import { WidgetInstaller } from '_stdio/core/widget/widget-installer';
+import { PackDefaultParams } from '_stdio/core/widget/widget-utils';
 import Button from '_stdio/shared/components/button/button';
 import Input from '_stdio/shared/components/input/input';
 import { ValidateInputs } from '_stdio/shared/components/input/input-factory';
@@ -11,6 +13,7 @@ import InputModel from '_stdio/shared/components/input/input-model';
 import { ExecutedState } from '_stdio/shared/enums/state-enums';
 import { GetParameterValue } from '_stdio/shared/utils/params.util';
 import { AreNotBeingInStates } from '_stdio/shared/utils/state-utils';
+import { DefaultParams } from './input-fields-constants';
 import { InputFieldWidgetArgs } from './input-fields-interfaces';
 
 const onSubmit = (data: InputModel[], setExecutedState: StateUpdater<ExecutedState>) => {
@@ -26,10 +29,10 @@ const onSubmit = (data: InputModel[], setExecutedState: StateUpdater<ExecutedSta
 const InputFieldsWidget: FunctionalComponent<InputFieldWidgetArgs> = ({ theme, data, parameters }) => {
   const cx = BuildClassNameBind(theme.Name, 'input_fields');
   // consume macro.
-  const macroName = GetParameterValue('macro', parameters);
-  const actionLayout = GetParameterValue('actionLayout', parameters) || 'top-bottom';
-  const submitText = GetParameterValue('submitText', parameters) || 'Submit';
-  const submitClassName = GetParameterValue('submitClassName', parameters) || 'submit';
+  const macroName = GetParameterValue('macro', parameters, DefaultParams);
+  const actionLayout = GetParameterValue('actionLayout', parameters, DefaultParams) || 'top-bottom';
+  const submitText = GetParameterValue('submitText', parameters, DefaultParams) || 'Submit';
+  const submitClassName = GetParameterValue('submitClassName', parameters, DefaultParams) || 'submit';
   const macroComponent = MacroFactory.Get(macroName);
   const [executedState, setExecutedState] = useState(() => ExecutedState.initial);
   const inputModelsParsed = map(data, (inputField) => {
@@ -82,4 +85,9 @@ const InputFieldsWidget: FunctionalComponent<InputFieldWidgetArgs> = ({ theme, d
   );
 };
 
-export default WidgetFactory.Register('input_fields', 'Input fields', InputFieldsWidget);
+export default WidgetFactory.Register(
+  'input_fields',
+  'Input fields',
+  InputFieldsWidget,
+  new WidgetInstaller(PackDefaultParams(DefaultParams))
+);

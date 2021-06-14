@@ -15,6 +15,8 @@ import { buildRouterPath } from '_stdio/core/router/router-utils';
 import marked from 'marked';
 import { DefaultParams } from './post-items-list-constants';
 import Placeholder from '_stdio/core/placeholder/placeholder';
+import { PackDefaultParams } from '_stdio/core/widget/widget-utils';
+import { WidgetInstaller } from '_stdio/core/widget/widget-installer';
 
 const PostItemsListWidget: FunctionalComponent<PostItemsListWidgetArgs> = ({
   theme,
@@ -131,4 +133,9 @@ const PostItemsListWidget: FunctionalComponent<PostItemsListWidgetArgs> = ({
   );
 };
 
-WidgetFactory.Register('post_items_list', 'Post items list', PostItemsListWidget);
+WidgetFactory.Register(
+  'post_items_list',
+  'Post items list',
+  PostItemsListWidget,
+  new WidgetInstaller(PackDefaultParams(DefaultParams))
+);

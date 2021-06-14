@@ -31,6 +31,11 @@ export class WidgetFactory {
   ) {
     const widgets: WidgetFactoryType<Widget> = getWidgets();
     if (!widgets[name]) {
+      // Set default value of properties for installer.
+      if (installer) {
+        installer.name = name;
+        installer.friendlyName = friendlyName;
+      }
       widgets[name] = {
         name: name,
         configName: name,

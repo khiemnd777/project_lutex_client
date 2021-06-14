@@ -5,6 +5,8 @@ import { Link } from 'preact-router/match';
 import { BindFontFaceClassNames } from '_stdio/core/font-faces/font-face-utils';
 import { BuildClassNameBind } from '_stdio/core/theme/theme-utils';
 import { WidgetFactory } from '_stdio/core/widget/widget-factory';
+import { WidgetInstaller } from '_stdio/core/widget/widget-installer';
+import { PackDefaultParams } from '_stdio/core/widget/widget-utils';
 import { GetParameterValue } from '_stdio/shared/utils/params.util';
 import { parseBool } from '_stdio/shared/utils/string.utils';
 import { DefaultParams } from './contact-information-constants';
@@ -55,4 +57,9 @@ const ContactInformationWidget: FunctionalComponent<ContactInformationWidgetArgs
   );
 };
 
-WidgetFactory.Register('contact_information', 'Contact information', ContactInformationWidget);
+WidgetFactory.Register(
+  'contact_information',
+  'Contact information',
+  ContactInformationWidget,
+  new WidgetInstaller(PackDefaultParams(DefaultParams))
+);

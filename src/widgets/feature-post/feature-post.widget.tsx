@@ -21,6 +21,9 @@ import classNamesBind from 'classnames/bind';
 import { buildRouterPath } from '_stdio/core/router/router-utils';
 import { useEffect, useState } from 'preact/hooks';
 import { GetDatetimeServer } from '_stdio/shared/utils/datetime-server/datetime-server';
+import { WidgetInstaller } from '_stdio/core/widget/widget-installer';
+import { PackDefaultParams } from '_stdio/core/widget/widget-utils';
+import { DefaultParams } from './feature-post-constants';
 
 const FeaturePostWidget: FunctionalComponent<FeaturePostWidgetArgs> = ({
   theme,
@@ -156,4 +159,9 @@ const PostItemsBuilder: FunctionalComponent<PostBuilderArgs> = ({
   );
 };
 
-WidgetFactory.Register('feature_post', 'Feature post', FeaturePostWidget);
+WidgetFactory.Register(
+  'feature_post',
+  'Feature post',
+  FeaturePostWidget,
+  new WidgetInstaller(PackDefaultParams(DefaultParams))
+);

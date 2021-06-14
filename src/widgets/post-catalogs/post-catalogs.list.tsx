@@ -8,6 +8,7 @@ import { GetParameterValue } from '_stdio/shared/utils/params.util';
 import PostCatalogBurger from './post-catalog-burger';
 import { PostCatalogsListArgs } from './post-catalog-interfaces';
 import { buildRouterPath } from '_stdio/core/router/router-utils';
+import { DefaultParams } from './post-catalog-constants';
 
 const PostCatalogsList: FunctionalComponent<PostCatalogsListArgs> = ({
   theme,
@@ -23,8 +24,8 @@ const PostCatalogsList: FunctionalComponent<PostCatalogsListArgs> = ({
 }) => {
   const cx = BuildClassNameBind(theme.Name, 'post_catalogs');
   const slug = routerParams?.slug || '';
-  const title = GetParameterValue('title', parameters) || `Post's catalogs`;
-  const threeDotAtParam = tryParseInt(GetParameterValue('threeDotAt', parameters)) || 9;
+  const title = GetParameterValue('title', parameters, DefaultParams) || `Post's catalogs`;
+  const threeDotAtParam = tryParseInt(GetParameterValue('threeDotAt', parameters, DefaultParams)) || 9;
   return (
     <div
       class={cx('post_catalogs', responsiveFor ?? 'desktop', sticky ? 'sticky' : null, size(items) ? 'visible' : null)}

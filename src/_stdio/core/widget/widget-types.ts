@@ -74,3 +74,13 @@ export type TemplateWidgetResponseType = {
     Widgets: WidgetType[];
   }[];
 };
+
+export type WidgetInstallerType = {
+  Name: string;
+  FriendlyName: string;
+  ConfigurationName: string;
+  Parameters: {
+    Name: string;
+    Value: string;
+  }[];
+};

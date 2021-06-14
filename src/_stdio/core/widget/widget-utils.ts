@@ -51,3 +51,12 @@ export const PrepareIndicatedWidgetByTemplate = (templateId: string) => {
   const widgets = (template && prepareIndicatedWidgets(template.Widgets)) || [];
   return widgets;
 };
+
+export const PackDefaultParams = (defaultParams: Record<string, any>) => {
+  return map(defaultParams, (value, name) => {
+    return {
+      Name: name,
+      Value: value,
+    };
+  });
+};
