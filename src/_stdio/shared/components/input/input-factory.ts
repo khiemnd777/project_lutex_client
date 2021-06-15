@@ -1,5 +1,5 @@
 import { each, every, filter, size } from 'lodash-es';
-import { isStringEmpty, stringRepeat } from '_stdio/shared/utils/string.utils';
+import { isStringEmpty } from '_stdio/shared/utils/string.utils';
 import InputModel from './input-model';
 
 export const ValidateInputs = (inputs: InputModel[]) => {

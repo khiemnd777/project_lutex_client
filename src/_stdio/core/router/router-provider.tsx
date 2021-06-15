@@ -6,6 +6,7 @@ import { ErrorPage } from '_stdio/shared/pages/error-page/error-page';
 import { GraphRouters } from './router-service';
 import RouterPage from './router-page';
 import { ThemeType } from '../theme/theme-types';
+import LoginPage from '../auth/pages/login-page';
 
 interface RouterProviderArgs {
   theme: ThemeType;
@@ -32,10 +33,16 @@ const RouterProvider: FunctionalComponent<RouterProviderArgs> = ({ theme, visito
           );
         })}
         <ErrorPage type="404" default />
+        <LoginPage path="/auth/login" />
       </Router>
     );
   }
-  return <div></div>;
+  return (
+    <Router>
+      <ErrorPage type="404" default />
+      <LoginPage path="/auth/login" />
+    </Router>
+  );
 };
 
 export default RouterProvider;
