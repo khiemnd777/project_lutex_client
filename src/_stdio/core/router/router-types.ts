@@ -21,7 +21,7 @@ export type RouterType = {
   Path: string;
   template: RouterTempalteType;
   Enabled: boolean;
-  isAuth: boolean;
+  IsAuth: boolean;
 };
 
 export type SimpleRouterType = {

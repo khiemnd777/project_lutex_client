@@ -33,7 +33,7 @@ const handleRoute = async (routing: RouterOnChangeArgs, routers: RouterType[]) =
       if (size(routers)) {
         const matchedRoute = find(routers, (r) => r.Path === routing.url);
         if (matchedRoute) {
-          if (matchedRoute.isAuth) {
+          if (matchedRoute.IsAuth) {
             const isAuthed = await AuthGuard();
             if (!isAuthed) {
               route(`/auth/login?redirect=${routing.url}`, true);
