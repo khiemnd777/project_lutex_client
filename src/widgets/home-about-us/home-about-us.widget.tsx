@@ -7,6 +7,7 @@ import { Link } from 'preact-router/match';
 import { ThemeType } from '_stdio/core/theme/theme-types';
 import { BuildClassNameBind } from '_stdio/core/theme/theme-utils';
 import { WidgetFactory } from '_stdio/core/widget/widget-factory';
+import { WidgetInstaller } from '_stdio/core/widget/widget-installer';
 import { EnumerationType } from '_stdio/shared/types/enumeration-types';
 import { GetSingleMedia } from '_stdio/shared/utils/media.utils';
 import { HomeAboutUsWidgetArgs } from './home-about-us-interfaces';
@@ -67,4 +68,4 @@ const EnumerationBuilder: FunctionalComponent<EnumerationBuilderArgs> = ({ theme
   );
 };
 
-WidgetFactory.Register('home_about_us', 'Home about us', HomeAboutUsWidget);
+WidgetFactory.Register('home_about_us', 'Home about us', HomeAboutUsWidget, new WidgetInstaller());

@@ -23,6 +23,10 @@ const getWidgetConfigs = <Widget extends WidgetArgs, Config = WidgetConfigArgs<W
 };
 
 export class WidgetFactory {
+  static GetWidgets() {
+    return getWidgets();
+  }
+
   static Register<Widget extends WidgetArgs, Config = WidgetConfigArgs<Widget>>(
     name: string,
     friendlyName: string,

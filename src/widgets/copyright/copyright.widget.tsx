@@ -2,6 +2,7 @@ import { isEmpty } from 'lodash-es';
 import { Fragment, FunctionalComponent, h } from 'preact';
 import { BuildClassNameBind } from '_stdio/core/theme/theme-utils';
 import { WidgetFactory } from '_stdio/core/widget/widget-factory';
+import { WidgetInstaller } from '_stdio/core/widget/widget-installer';
 import { CopyrightWidgetArgs } from './copyright-interfaces';
 
 const CopyrightWidget: FunctionalComponent<CopyrightWidgetArgs> = ({ data, theme }) => {
@@ -28,4 +29,4 @@ const CopyrightWidget: FunctionalComponent<CopyrightWidgetArgs> = ({ data, theme
   );
 };
 
-WidgetFactory.Register('copyright', 'Copyright', CopyrightWidget);
+WidgetFactory.Register('copyright', 'Copyright', CopyrightWidget, new WidgetInstaller());

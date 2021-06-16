@@ -10,6 +10,7 @@ import LoginPage from '../auth/pages/login-page';
 import { AuthGuard } from '../auth/auth-guard';
 import { RouterType } from './router-types';
 import { find } from 'lodash-es';
+import WidgetConfig from 'admin/modules/widget/widget-config';
 
 const handleRoute = async (routing: RouterOnChangeArgs, routers: RouterType[]) => {
   switch (routing.url) {
@@ -17,6 +18,15 @@ const handleRoute = async (routing: RouterOnChangeArgs, routers: RouterType[]) =
       {
         const isAuthed = await AuthGuard();
         if (isAuthed) route('/', true);
+      }
+      break;
+    case '/admin/widget':
+      {
+        const isAuthed = await AuthGuard();
+        if (!isAuthed) {
+          route(`/auth/login?redirect=${routing.url}`, true);
+          return;
+        }
       }
       break;
     default: {
@@ -62,6 +72,7 @@ const RouterProvider: FunctionalComponent<RouterProviderArgs> = ({ theme, visito
         : null}
       <ErrorPage type="404" default />
       <LoginPage path="/auth/login" />
+      <WidgetConfig path="/admin/widget" />
     </Router>
   );
 };

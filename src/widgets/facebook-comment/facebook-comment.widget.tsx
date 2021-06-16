@@ -2,6 +2,7 @@ import { Fragment, FunctionalComponent, h } from 'preact';
 import { buildRouterPath } from '_stdio/core/router/router-utils';
 import { BuildClassNameBind } from '_stdio/core/theme/theme-utils';
 import { WidgetFactory } from '_stdio/core/widget/widget-factory';
+import { WidgetInstaller } from '_stdio/core/widget/widget-installer';
 import { WidgetArgs } from '_stdio/core/widget/widget-interfaces';
 import { CLIENT_HOST } from '_stdio/environment';
 import { GetParameterValueWithGeneric, GetParameterValue } from '_stdio/shared/utils/params.util';
@@ -37,4 +38,9 @@ const FacebookCommentWidget: FunctionalComponent<WidgetArgs> = ({ theme, interna
   );
 };
 
-export default WidgetFactory.Register('facebook_comment', 'Facebook comment', FacebookCommentWidget);
+export default WidgetFactory.Register(
+  'facebook_comment',
+  'Facebook comment',
+  FacebookCommentWidget,
+  new WidgetInstaller()
+);

@@ -56,7 +56,7 @@ export const PackDefaultParams = (defaultParams: Record<string, any>) => {
   return map(defaultParams, (value, name) => {
     return {
       Name: name,
-      Value: value,
+      Value: String(value),
     };
   });
 };

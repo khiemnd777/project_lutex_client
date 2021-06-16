@@ -4,6 +4,7 @@ import { FunctionalComponent, h } from 'preact';
 import { useEffect } from 'preact/hooks';
 import { BuildClassNameBind } from '_stdio/core/theme/theme-utils';
 import { WidgetFactory } from '_stdio/core/widget/widget-factory';
+import { WidgetInstaller } from '_stdio/core/widget/widget-installer';
 import { GetParameterValueWithGeneric } from '_stdio/shared/utils/params.util';
 import { PostItemBodyButtonWidgetArgs } from './post-item-body-button-interfaces';
 
@@ -42,4 +43,9 @@ const PostItemBodyButtonWidget: FunctionalComponent<PostItemBodyButtonWidgetArgs
   );
 };
 
-WidgetFactory.Register('post_item_body_button', 'Post item body button', PostItemBodyButtonWidget);
+WidgetFactory.Register(
+  'post_item_body_button',
+  'Post item body button',
+  PostItemBodyButtonWidget,
+  new WidgetInstaller()
+);

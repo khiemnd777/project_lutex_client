@@ -9,6 +9,7 @@ import { Link } from 'preact-router/match';
 import { GetParameterValueWithGeneric } from '_stdio/shared/utils/params.util';
 import { PropRef, useRef, useState } from 'preact/hooks';
 import StickyAnchor from '_stdio/shared/components/sticky/sticky-anchor';
+import { WidgetInstaller } from '_stdio/core/widget/widget-installer';
 
 const RelatedPostItemsListWidget: FunctionalComponent<RelatedPostItemsListWidgetArgs> = ({
   theme,
@@ -69,4 +70,9 @@ const RelatedPostItemsListWidget: FunctionalComponent<RelatedPostItemsListWidget
   );
 };
 
-export default WidgetFactory.Register('related_posts', 'Related posts', RelatedPostItemsListWidget);
+export default WidgetFactory.Register(
+  'related_posts',
+  'Related posts',
+  RelatedPostItemsListWidget,
+  new WidgetInstaller()
+);
