@@ -2,12 +2,13 @@ import axios from 'axios';
 import createAuthRefreshInterceptor from 'axios-auth-refresh';
 import { AUTH_TOKEN } from '_stdio/core/auth/auth-constants';
 import { API_HOST } from '_stdio/environment';
+import { Axios_SetAuthToken } from '_stdio/shared/utils/axios/axios-utils';
 import graphqlClient from '_stdio/shared/utils/graphql/graphql-client';
 
 axios.defaults.baseURL = `${API_HOST}`;
 const authToken = localStorage.getItem(AUTH_TOKEN);
 if (authToken) {
-  axios.defaults.headers.common['Authorization'] = `Bearer ${authToken}`;
+  Axios_SetAuthToken(authToken);
 }
 
 const refreshAuthLogic = async (failedRequest: any) => {
@@ -22,9 +23,3 @@ const refreshAuthLogic = async (failedRequest: any) => {
 };
 
 createAuthRefreshInterceptor(axios, refreshAuthLogic);
-
-// Important: If axios is used with multiple domains, the AUTH_TOKEN will be sent to all of them.
-// See below for an example using Custom instance defaults instead.
-export const Axios_SetAuthToken = (authToken) => {
-  axios.defaults.headers.common['Authorization'] = `Bearer ${authToken}`;
-};

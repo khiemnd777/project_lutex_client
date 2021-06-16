@@ -22,7 +22,6 @@ const onSubmit = async (data: InputModel[], setExecutedState: StateUpdater<Execu
     const password = find(data, (field) => field.name === 'password');
     if (identifier?.val && password?.val) {
       const authInfo = await AuthLogin(identifier.val, password.val);
-      console.log(authInfo);
       await AuthTeardown(authInfo);
       setExecutedState(ExecutedState.completed);
     }
@@ -31,7 +30,9 @@ const onSubmit = async (data: InputModel[], setExecutedState: StateUpdater<Execu
   setExecutedState(ExecutedState.failedValidating);
 };
 
-interface LoginPageArgs {}
+interface LoginPageArgs {
+  redirect?: string;
+}
 
 const LoginPage: FunctionalComponent<LoginPageArgs> = () => {
   const [executedState, setExecutedState] = useState(() => ExecutedState.initial);

@@ -15,12 +15,13 @@ type RouterTempalteType = {
   Name: string;
 };
 
-type RouterType = {
+export type RouterType = {
   id: string;
   Name: string;
   Path: string;
   template: RouterTempalteType;
   Enabled: boolean;
+  isAuth: boolean;
 };
 
 export type SimpleRouterType = {
