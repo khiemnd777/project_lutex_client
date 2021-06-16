@@ -7,7 +7,10 @@ import Placeholder from '_stdio/core/placeholder/placeholder';
 import { buildRouterPath } from '_stdio/core/router/router-utils';
 import { BuildClassNameBind } from '_stdio/core/theme/theme-utils';
 import { WidgetFactory } from '_stdio/core/widget/widget-factory';
+import { WidgetInstaller } from '_stdio/core/widget/widget-installer';
+import { PackDefaultParams } from '_stdio/core/widget/widget-utils';
 import { convertDateFormat, DATE_FORMAT } from '_stdio/shared/utils/date.utils';
+import { DefaultParams } from './post-item-constants';
 import { PostItemWidgetArgs } from './post-item-interface';
 
 const PostItemWidget: FunctionalComponent<PostItemWidgetArgs> = ({ theme, visitorId, data, widgets, routerParams }) => {
@@ -104,4 +107,4 @@ const PostItemWidget: FunctionalComponent<PostItemWidgetArgs> = ({ theme, visito
   );
 };
 
-WidgetFactory.Register('post_item', 'Post item', PostItemWidget);
+WidgetFactory.Register('post_item', 'Post item', PostItemWidget, new WidgetInstaller(PackDefaultParams(DefaultParams)));

@@ -3,6 +3,7 @@ import size from 'lodash-es/size';
 import { FunctionalComponent, h } from 'preact';
 import { BuildClassNameBind } from '_stdio/core/theme/theme-utils';
 import { WidgetFactory } from '_stdio/core/widget/widget-factory';
+import { WidgetInstaller } from '_stdio/core/widget/widget-installer';
 import { BackgroundImageParallax } from '_stdio/shared/components/background-image-parallax/background-image-parallax';
 import SimpleSlider from '_stdio/shared/components/simple-slider/simple-slider';
 import { SimpleSliderModel } from '_stdio/shared/components/simple-slider/simple-slider-model';
@@ -31,4 +32,4 @@ const CarouselWidget: FunctionalComponent<CarouselWidgetArgs> = ({ items, theme,
   );
 };
 
-WidgetFactory.Register('carousel', 'Carousel', CarouselWidget);
+WidgetFactory.Register('carousel', 'Carousel', CarouselWidget, new WidgetInstaller());

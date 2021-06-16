@@ -1,6 +1,7 @@
 import { FunctionalComponent, h } from 'preact';
 import { BuildClassNameBind } from '_stdio/core/theme/theme-utils';
 import { WidgetFactory } from '_stdio/core/widget/widget-factory';
+import { WidgetInstaller } from '_stdio/core/widget/widget-installer';
 import { GetParameterValue } from '_stdio/shared/utils/params.util';
 import { FacebookFanpageWidgetArgs } from './facebook-fanpage-interfaces';
 
@@ -30,4 +31,4 @@ const FacebookFanpageWidget: FunctionalComponent<FacebookFanpageWidgetArgs> = ({
   );
 };
 
-WidgetFactory.Register('facebook_fanpage', 'Facebook fanpage', FacebookFanpageWidget);
+WidgetFactory.Register('facebook_fanpage', 'Facebook fanpage', FacebookFanpageWidget, new WidgetInstaller());

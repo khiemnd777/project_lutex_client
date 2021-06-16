@@ -21,7 +21,7 @@
   *,
   *:before,
   *:after {
-    box-sizing: inherit;
+    box-sizing: border-box;
   }
   blockquote {
     margin: 0;

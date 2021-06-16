@@ -70,6 +70,16 @@ const Input: FunctionComponent<InputArgs> = ({ data }) => {
           >
             {val}
           </textarea>
+        ) : type === 'password' ? (
+          <input
+            name={name}
+            type="password"
+            id={name}
+            class={cx('text', !isNullOrUndefined(valid) && !valid ? 'error' : null)}
+            value={val}
+            placeholder={!isNullOrUndefined(valid) && !valid ? `Please input the ${title} field.` : ''}
+            onInput={(e) => onInput(e, data, setVal)}
+          />
         ) : (
           <input
             name={name}

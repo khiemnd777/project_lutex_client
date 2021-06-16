@@ -3,7 +3,9 @@ import { useRef, useState } from 'preact/hooks';
 import Placeholder from '_stdio/core/placeholder/placeholder';
 import { BuildClassNameBind } from '_stdio/core/theme/theme-utils';
 import { WidgetFactory } from '_stdio/core/widget/widget-factory';
+import { WidgetInstaller } from '_stdio/core/widget/widget-installer';
 import { WidgetArgs } from '_stdio/core/widget/widget-interfaces';
+import { PackDefaultParams } from '_stdio/core/widget/widget-utils';
 import StickyAnchor from '_stdio/shared/components/sticky/sticky-anchor';
 import { GetParameterValue } from '_stdio/shared/utils/params.util';
 import { parseBool } from '_stdio/shared/utils/string.utils';
@@ -73,4 +75,9 @@ const ContainerWidget: FunctionalComponent<WidgetArgs> = ({
   );
 };
 
-export default WidgetFactory.Register('container', 'Container', ContainerWidget);
+export default WidgetFactory.Register(
+  'container',
+  'Container',
+  ContainerWidget,
+  new WidgetInstaller(PackDefaultParams(DefaultParams))
+);

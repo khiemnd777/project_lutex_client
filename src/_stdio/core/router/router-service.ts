@@ -13,6 +13,7 @@ export const GraphRouters = () => {
           Name
         }
         Enabled
+        IsAuth
       }
     }
   `);

@@ -8,6 +8,8 @@ import { MediaFormatEnums } from '_stdio/shared/enums/image-enums';
 import isEmpty from 'lodash-es/isEmpty';
 import { GetParameterValue } from '_stdio/shared/utils/params.util';
 import { DefaultParams } from './logo-constants';
+import { WidgetInstaller } from '_stdio/core/widget/widget-installer';
+import { PackDefaultParams } from '_stdio/core/widget/widget-utils';
 
 const LogoWidget: FunctionalComponent<LogoWidgetArgs> = ({ logo, theme, parameters }) => {
   const cx = BuildClassNameBind(theme.Name, 'logo');
@@ -30,4 +32,4 @@ const LogoWidget: FunctionalComponent<LogoWidgetArgs> = ({ logo, theme, paramete
   );
 };
 
-WidgetFactory.Register('logo', 'Logo', LogoWidget);
+WidgetFactory.Register('logo', 'Logo', LogoWidget, new WidgetInstaller(PackDefaultParams(DefaultParams)));

@@ -1,0 +1,44 @@
+@mixin disabled {
+  pointer-events: none;
+  opacity: 0.25;
+}
+
+.login {
+  width: 85%;
+  padding: 20px;
+  margin: 0 auto;
+}
+.container {
+  display: flex;
+  flex: 1;
+  .fields {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    &.disabled {
+      @include disabled;
+    }
+  }
+}
+.actions {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding-top: 30px;
+  &.disabled {
+    @include disabled;
+  }
+  .button {
+    display: flex;
+    height: 30px;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid #000;
+    color: #fff;
+    background-color: rgb(19, 17, 17);
+    cursor: pointer;
+    span {
+      text-transform: uppercase;
+    }
+  }
+}

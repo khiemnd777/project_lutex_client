@@ -6,6 +6,7 @@ import { Link } from 'preact-router/match';
 import { buildRouterPath } from '_stdio/core/router/router-utils';
 import { BuildClassNameBind } from '_stdio/core/theme/theme-utils';
 import { WidgetFactory } from '_stdio/core/widget/widget-factory';
+import { WidgetInstaller } from '_stdio/core/widget/widget-installer';
 import { ChildrenNavigationEnum } from './picked-navigation-enums';
 import { PickedNavigationWidgetArgs } from './picked-navigation-interfaces';
 import { OtherNavItemType, PostCatalogNavItemType } from './picked-navigation-types';
@@ -108,4 +109,4 @@ const BuildOthersNavItems: FunctionalComponent<BuildOtherNavItemArgs> = ({ items
   );
 };
 
-WidgetFactory.Register('picked_navigation', 'Picked navigation', PickedNavigationWidget);
+WidgetFactory.Register('picked_navigation', 'Picked navigation', PickedNavigationWidget, new WidgetInstaller());

@@ -3,7 +3,7 @@ import { FunctionalComponent } from 'preact';
 import { SingleMediaType } from '_stdio/shared/types/image-types';
 import { ParameterConsumedType } from '_stdio/shared/types/parameter-types';
 import { ThemeType } from '../theme/theme-types';
-import { IndicatedWidgetType } from './widget-types';
+import { IndicatedWidgetType, WidgetInstallerType } from './widget-types';
 
 interface WidgetAbstractArgs {
   theme: ThemeType;
@@ -25,4 +25,15 @@ export interface WidgetArgs extends WidgetAbstractArgs {
 
 export interface WidgetConfigArgs<T extends WidgetArgs> extends WidgetAbstractArgs {
   component: FunctionalComponent<T>;
+}
+
+export interface IWidgetInstaller {
+  name?: string;
+  friendlyName?: string;
+  defaultParameters?: Record<string, any>;
+  PrepareData(): WidgetInstallerType;
+  Setup(data: WidgetInstallerType): Promise<any>;
+  Upgrade(data: WidgetInstallerType): Promise<any>;
+  Uninstall(name: string): Promise<any>;
+  IsSetup(name: string): Promise<boolean>;
 }

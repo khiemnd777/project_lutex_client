@@ -19,6 +19,9 @@ import { Link } from 'preact-router/match';
 import { BackgroundImageParallax } from '_stdio/shared/components/background-image-parallax/background-image-parallax';
 import classNamesBind from 'classnames/bind';
 import { buildRouterPath } from '_stdio/core/router/router-utils';
+import { DefaultParams } from './feature-catalog-constants';
+import { WidgetInstaller } from '_stdio/core/widget/widget-installer';
+import { PackDefaultParams } from '_stdio/core/widget/widget-utils';
 
 const FeatureCatalogWidget: FunctionalComponent<FeatureCatalogWidgetArgs> = ({
   data,
@@ -30,8 +33,8 @@ const FeatureCatalogWidget: FunctionalComponent<FeatureCatalogWidgetArgs> = ({
   if (!data) return null;
   const cx = BuildClassNameBind(theme.Name, 'feature_catalog');
   const title = GetParameterOrDataValue('title', 'DisplayName', parameters, data);
-  const titleColor = GetParameterValue('titleColor', parameters);
-  const short = GetParameterValue('short', parameters);
+  const titleColor = GetParameterValue('titleColor', parameters, DefaultParams);
+  const short = GetParameterValue('short', parameters, DefaultParams);
   const backgroundImageValue = GetSingleMedia(backgroundImage, MediaFormatEnums.ordinary);
   const catalogs = map(data.FeatureCatalogs, (fcat) => {
     const cat = fcat.Catalog;
@@ -132,4 +135,9 @@ const CatalogBuilder: FunctionalComponent<CatalogBuilderArgs> = ({ theme, catalo
   );
 };
 
-WidgetFactory.Register('feature_catalog', 'Feature catalog', FeatureCatalogWidget);
+WidgetFactory.Register(
+  'feature_catalog',
+  'Feature catalog',
+  FeatureCatalogWidget,
+  new WidgetInstaller(PackDefaultParams(DefaultParams))
+);

@@ -1,7 +1,7 @@
 import { FunctionalComponent } from 'preact';
 import { SingleMediaType } from '_stdio/shared/types/image-types';
 import { ParameterConsumedType, ParameterResultType } from '_stdio/shared/types/parameter-types';
-import { WidgetArgs, WidgetConfigArgs } from './widget-interfaces';
+import { IWidgetInstaller, WidgetArgs, WidgetConfigArgs } from './widget-interfaces';
 
 export type AssembliedWidgetConfigType<Widget extends WidgetArgs, Config = WidgetConfigArgs<Widget>> = {
   name: string;
@@ -13,6 +13,7 @@ export type AssembliedWidgetType<Widget extends WidgetArgs> = {
   name: string;
   configName?: string;
   friendlyName?: string;
+  installer?: IWidgetInstaller;
   component: FunctionalComponent<Widget>;
 };
 
@@ -71,5 +72,15 @@ export type RouterWidgetResponseType = {
 export type TemplateWidgetResponseType = {
   templates: {
     Widgets: WidgetType[];
+  }[];
+};
+
+export type WidgetInstallerType = {
+  Name: string;
+  FriendlyName: string;
+  ConfigurationName: string;
+  Parameters: {
+    Name: string;
+    Value: string;
   }[];
 };

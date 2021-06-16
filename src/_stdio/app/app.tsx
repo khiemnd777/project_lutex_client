@@ -1,3 +1,4 @@
+import '_stdio/config/axios.config';
 import 'templates/template-registrar';
 import 'themes/theme-registrar';
 import 'widgets/widget-registrar';
@@ -10,7 +11,6 @@ import { ApolloProvider } from '@apollo/client';
 import 'cache-policies/config';
 import graphqlClient from '_stdio/shared/utils/graphql/graphql-client';
 import RouterProvider from '_stdio/core/router/router-provider';
-import { GraphTheme } from '_stdio/core/theme/theme-service';
 import { GetTheme } from '_stdio/core/theme/theme-utils';
 import { useVisitorId } from '_stdio/shared/utils/hooks';
 

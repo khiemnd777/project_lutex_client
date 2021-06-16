@@ -1,6 +1,7 @@
 import { Fragment, FunctionalComponent, h } from 'preact';
 import { useState } from 'preact/hooks';
 import { WidgetFactory } from '_stdio/core/widget/widget-factory';
+import { WidgetInstaller } from '_stdio/core/widget/widget-installer';
 import { NavigationWidgetArgs } from './navigation-interfaces';
 import { NavigationBurger } from './navigation.burger';
 import { NavigationDesktop } from './navigation.desktop';
@@ -17,4 +18,4 @@ const NavigationWidget: FunctionalComponent<NavigationWidgetArgs> = ({ data, the
   );
 };
 
-export default WidgetFactory.Register('navigation', 'Navigation', NavigationWidget);
+export default WidgetFactory.Register('navigation', 'Navigation', NavigationWidget, new WidgetInstaller());
