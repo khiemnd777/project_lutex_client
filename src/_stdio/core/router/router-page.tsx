@@ -10,6 +10,7 @@ interface RouterPageArgs {
   theme: ThemeType;
   name?: string;
   templateId: string;
+  templateStyleName?: string;
   templateName?: string;
   visitorId: string;
   matches?: Record<string, string>;
@@ -18,6 +19,7 @@ const RouterPage: FunctionalComponent<RouterPageArgs> = ({
   routerId,
   templateId,
   templateName,
+  templateStyleName,
   theme,
   visitorId,
   matches: routerParams,
@@ -35,6 +37,7 @@ const RouterPage: FunctionalComponent<RouterPageArgs> = ({
     <TemplateProvider
       theme={theme}
       name={templateName}
+      styleName={templateStyleName}
       widgets={widgets}
       routerParams={routerParams}
       visitorId={visitorId}

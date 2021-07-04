@@ -5,6 +5,7 @@ import { TemplateFactory } from './template-factory';
 
 interface TemplateProviderArgs {
   theme: ThemeType;
+  styleName?: string;
   name?: string;
   widgets?: IndicatedWidgetType[];
   visitorId: string;
@@ -13,6 +14,7 @@ interface TemplateProviderArgs {
 
 const TemplateProvider: FunctionalComponent<TemplateProviderArgs> = ({
   theme,
+  styleName,
   name,
   widgets,
   routerParams,
@@ -23,7 +25,13 @@ const TemplateProvider: FunctionalComponent<TemplateProviderArgs> = ({
   return (
     <Fragment>
       {matchedTemplate
-        ? createElement(matchedTemplate, { theme: theme, widgets: widgets, routerParams: routerParams, visitorId })
+        ? createElement(matchedTemplate, {
+            theme,
+            styleName,
+            widgets,
+            routerParams,
+            visitorId,
+          })
         : null}
     </Fragment>
   );
