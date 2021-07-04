@@ -39,7 +39,13 @@ const ContactInformationWidget: FunctionalComponent<ContactInformationWidgetArgs
                       <i class={icons('icon', p.Icon)}></i>
                     </span>
                   ) : null}
-                  {!useIconOnly ? <span class={cx('key')}>{p.Key}: </span> : null}
+                  {!useIconOnly ? (
+                    p.Label ? (
+                      <span class={cx('label')}>{p.Label}: </span>
+                    ) : (
+                      <span class={cx('key')}>{p.Key}: </span>
+                    )
+                  ) : null}
                   {p.Link ? (
                     <Link href={p.Link}>
                       <span class={cx('value')}>{p.Value}</span>
