@@ -63,6 +63,7 @@ const RouterProvider: FunctionalComponent<RouterProviderArgs> = ({ theme, visito
                 path={router.Path}
                 templateId={router.template.id}
                 templateName={router.template.Name}
+                templateStyleName={router.template.StyleName}
                 name={router.Name}
                 theme={theme}
                 visitorId={visitorId}

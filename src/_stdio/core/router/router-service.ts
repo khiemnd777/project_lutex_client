@@ -11,6 +11,7 @@ export const GraphRouters = () => {
         template {
           id
           Name
+          StyleName
         }
         Enabled
         IsAuth
