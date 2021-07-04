@@ -13,6 +13,7 @@ export type RouterWidgetType = {
 type RouterTempalteType = {
   id: string;
   Name: string;
+  StyleName: string;
 };
 
 export type RouterType = {

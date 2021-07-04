@@ -58,3 +58,6 @@ import './text-field/text-field.config';
 
 import './post-item-body-button/post-item-body-button.config';
 import './post-item-body-button/post-item-body-button.widget';
+
+import './specific-contact-information/specific-contact-information.config';
+import './specific-contact-information/specific-contact-information.widget';
