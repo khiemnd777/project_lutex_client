@@ -9,5 +9,6 @@ export type ContactInformationType = {
     Value: string;
     Link: string;
     Icon: string;
+    Label: string;
   }[];
 };
