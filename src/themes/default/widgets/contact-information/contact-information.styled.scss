@@ -1,4 +1,4 @@
-@import "../../theme";
+@import '../../theme';
 
 .contact_information {
   flex: 1.25 !important;
@@ -29,6 +29,7 @@
         span {
           font-family: $fontFamily;
           font-size: 14px;
+          &.label,
           &.key {
             font-weight: $lightBoldWeight;
           }

@@ -11,6 +11,7 @@ export const GraphContactInformation = () => {
           Value
           Link
           Icon
+          Label
         }
       }
     }
