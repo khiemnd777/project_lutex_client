@@ -1,0 +1,10 @@
+@import "../../theme";
+.container {
+  @include noPadding;
+  width: 100% !important;
+  background-color: $darkerColor;
+  @media (max-width: $mobile) {
+    display: flex !important;
+    flex-direction: column;
+  }
+}
