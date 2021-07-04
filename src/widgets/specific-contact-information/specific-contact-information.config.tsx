@@ -11,12 +11,13 @@ const SpecificContactInformationWidgetConfig: FunctionalComponent<
   WidgetConfigArgs<SpecificContactInformationWidgetArgs>
 > = ({ component, parameters, theme, routerParams, widgets, visitorId }) => {
   const key = GetParameterValue('key', parameters, DefaultParams);
-  const { data, loading, error } = Fetchanic(FetchContactInformationByKey(key));
+  const { data, loading, error } = Fetchanic(() => FetchContactInformationByKey(key));
   return createElement(component, {
     data,
     loading,
     error,
     theme,
+    parameters,
     routerParams,
     widgets,
     visitorId,
