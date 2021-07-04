@@ -1,0 +1,7 @@
+@import "../../theme";
+.container {
+  @include primaryLayout;
+  @media (max-width: $mobile) {
+    flex-direction: column-reverse!important;
+  }
+}

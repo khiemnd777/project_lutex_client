@@ -1,9 +1,10 @@
-@import '../../_stdio/shared/scss/common';
-@import '../../_stdio/shared/scss/responsive';
+@import "../../_stdio/shared/scss/variable";
+@import "../../_stdio/shared/scss/common";
+@import "../../_stdio/shared/scss/responsive";
 
-$fontFamily: 'Roboto', sans-serif;
-$fontLinkFamily: 'Roboto Condensed', sans-serif;
-$alterFontFamily: 'Roboto Condensed', sans-serif;
+$fontFamily: "Roboto", sans-serif;
+$fontLinkFamily: "Roboto Condensed", sans-serif;
+$alterFontFamily: "Roboto Condensed", sans-serif;
 
 $ipadProLWidth: 85%;
 $ipadLWidth: 94%;
@@ -25,6 +26,7 @@ $primaryColor: #83a46a;
 $highlightColor: #83a46a;
 $primaryHoverColor: #83a46a;
 $footerBackgroundColor: #eeefe9;
+$darkerColor: #688b61;
 
 $bolderWeight: 700;
 $boldWeight: 600;
