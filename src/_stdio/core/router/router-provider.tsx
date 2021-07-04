@@ -53,25 +53,31 @@ interface RouterProviderArgs {
 const RouterProvider: FunctionalComponent<RouterProviderArgs> = ({ theme, visitorId }) => {
   const { data, loading, error } = GraphRouters();
   const routers = (!loading && !error && data?.routers) || [];
+  if (size(routers)) {
+    return (
+      <Router onChange={(args) => handleRoute(args, routers)}>
+        {map(routers, (router) => {
+          return (
+            <RouterPage
+              routerId={router.id}
+              path={router.Path}
+              templateId={router.template.id}
+              templateName={router.template.Name}
+              templateStyleName={router.template.StyleName}
+              name={router.Name}
+              theme={theme}
+              visitorId={visitorId}
+            />
+          );
+        })}
+        <ErrorPage type="404" default />
+        <LoginPage path="/auth/login" />
+        <WidgetConfig path="/admin/widget" />
+      </Router>
+    );
+  }
   return (
     <Router onChange={(args) => handleRoute(args, routers)}>
-      {size(routers)
-        ? map(routers, (router) => {
-            return (
-              <RouterPage
-                routerId={router.id}
-                path={router.Path}
-                templateId={router.template.id}
-                templateName={router.template.Name}
-                templateStyleName={router.template.StyleName}
-                name={router.Name}
-                theme={theme}
-                visitorId={visitorId}
-              />
-            );
-          })
-        : null}
-      <ErrorPage type="404" default />
       <LoginPage path="/auth/login" />
       <WidgetConfig path="/admin/widget" />
     </Router>
