@@ -40,9 +40,9 @@
         display: block;
         font-size: $navFontSize;
         text-decoration: none;
-        color: $primaryFontColor;
+        color: $color-white;
         text-transform: uppercase;
-        padding: 0 20px;
+        padding: 0 45px;
         text-align: center;
         @media (max-width: $ipadL) {
           font-size: 15px;
@@ -63,11 +63,6 @@
           padding-right: 0;
         }
       }
-      // ul {
-      //   li {
-      //     margin-left: 1rem;
-      //   }
-      // }
     }
   }
 }
