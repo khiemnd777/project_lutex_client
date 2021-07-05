@@ -3,6 +3,7 @@ import { createElement, FunctionalComponent } from 'preact';
 import { WidgetFactory } from '_stdio/core/widget/widget-factory';
 import { WidgetConfigArgs } from '_stdio/core/widget/widget-interfaces';
 import { GetParameterValue } from '_stdio/shared/utils/params.util';
+import { DefaultParams } from './picked-navigation-constants';
 import { PickedNavigationWidgetArgs } from './picked-navigation-interfaces';
 import { GraphPickedNavigation } from './picked-navigation-service';
 import { PickedNavigationType } from './picked-navigation-types';
@@ -15,7 +16,7 @@ const PickedNavigationWidgetConfig: FunctionalComponent<WidgetConfigArgs<PickedN
   parameters,
   routerParams,
 }) => {
-  const name = GetParameterValue('name', parameters);
+  const name = GetParameterValue('name', parameters, DefaultParams);
   const { data, loading, error } = GraphPickedNavigation(name);
   const result = data && !loading && !error ? data?.navigations : [];
   const matchedData = first(result) || ({} as PickedNavigationType);

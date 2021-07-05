@@ -7,13 +7,17 @@ import { buildRouterPath } from '_stdio/core/router/router-utils';
 import { BuildClassNameBind } from '_stdio/core/theme/theme-utils';
 import { WidgetFactory } from '_stdio/core/widget/widget-factory';
 import { WidgetInstaller } from '_stdio/core/widget/widget-installer';
+import { PackDefaultParams } from '_stdio/core/widget/widget-utils';
+import { GetParameterValue } from '_stdio/shared/utils/params.util';
+import { DefaultParams } from './picked-navigation-constants';
 import { ChildrenNavigationEnum } from './picked-navigation-enums';
 import { PickedNavigationWidgetArgs } from './picked-navigation-interfaces';
 import { OtherNavItemType, PostCatalogNavItemType } from './picked-navigation-types';
 
-const PickedNavigationWidget: FunctionalComponent<PickedNavigationWidgetArgs> = ({ data, theme }) => {
+const PickedNavigationWidget: FunctionalComponent<PickedNavigationWidgetArgs> = ({ data, theme, parameters }) => {
   if (!data) return null;
-  const cx = BuildClassNameBind(theme.Name, 'picked_navigation');
+  const styleName = GetParameterValue('styleName', parameters, DefaultParams) || 'picked_navigation';
+  const cx = BuildClassNameBind(theme.Name, styleName);
   return (
     <div class={cx('picked_navigation', !isEmpty(data) ? 'visible' : null)}>
       <div class={cx('title')}>
@@ -109,4 +113,9 @@ const BuildOthersNavItems: FunctionalComponent<BuildOtherNavItemArgs> = ({ items
   );
 };
 
-WidgetFactory.Register('picked_navigation', 'Picked navigation', PickedNavigationWidget, new WidgetInstaller());
+WidgetFactory.Register(
+  'picked_navigation',
+  'Picked navigation',
+  PickedNavigationWidget,
+  new WidgetInstaller(PackDefaultParams(DefaultParams))
+);
