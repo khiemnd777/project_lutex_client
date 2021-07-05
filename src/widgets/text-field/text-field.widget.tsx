@@ -18,16 +18,10 @@ export const TextFieldWidget: FunctionalComponent<TextFieldWidgetArgs> = ({
   widgets,
   parameters,
 }) => {
-  const fontSize = GetParameterValue('fontSize', parameters, DefaultParams) ?? '';
   const styleName = GetParameterValue('styleName', parameters, DefaultParams) || 'text_field';
   const cx = BuildClassNameBind(theme.Name, styleName);
   return (
-    <div
-      style={{
-        'font-size': fontSize ? fontSize : 'inherit',
-      }}
-      class={cx('text_field', !isEmpty(data) ? 'visible' : null)}
-    >
+    <div class={cx('text_field', !isEmpty(data) ? 'visible' : null)}>
       <Placeholder
         name="text_field_content_top"
         widgets={widgets}

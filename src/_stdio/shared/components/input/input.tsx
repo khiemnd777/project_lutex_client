@@ -2,14 +2,16 @@ import classNamesBind from 'classnames/bind';
 import { FunctionComponent, h } from 'preact';
 import { StateUpdater, useState } from 'preact/hooks';
 import slugify from 'slugify';
+import { ThemeType } from '_stdio/core/theme/theme-types';
+import { BuildClassNameBind } from '_stdio/core/theme/theme-utils';
 import { isNullOrUndefined } from '_stdio/shared/utils/object.utils';
 import InputModel from './input-model';
 import styles from './input.styled.scss';
 
-const cx = classNamesBind.bind(styles);
-
 interface InputArgs {
   data: InputModel;
+  theme?: ThemeType;
+  styleName?: string;
   onInput?: h.JSX.TargetedEvent<HTMLInputElement, Event>;
 }
 
@@ -33,7 +35,8 @@ const onTextAreaInput = (
   setVal(value);
 };
 
-const Input: FunctionComponent<InputArgs> = ({ data }) => {
+const Input: FunctionComponent<InputArgs> = ({ theme, data, styleName }) => {
+  const cx = theme && styleName ? BuildClassNameBind(theme.Name, styleName) : classNamesBind.bind(styles);
   const [val, setVal] = useState(data.val);
   let { type, name, title, required, valid, visibleTitle } = data;
   type = !type ? 'text' : type;
