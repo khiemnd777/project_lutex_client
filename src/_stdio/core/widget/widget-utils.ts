@@ -5,7 +5,7 @@ import { GraphWidgetByRouter, GraphWidgetByTemplate } from './widget-service';
 import { IndicatedWidgetType, WidgetType } from './widget-types';
 
 const prepareIndicatedWidgets = (widgets: WidgetType[]) => {
-  const indicatedWidgets = filter(widgets, (widget) => widget.Enabled).map((widget) => {
+  const indicatedWidgets = filter(widgets, (widget) => widget.Enabled && !!widget.widget).map((widget) => {
     const rawParameters = JsonParse(JsonStringify(widget.widget.Parameters));
     const expectedParameters = JsonParse(JsonStringify(widget.Parameters));
     for (let inx = 0; inx < size(rawParameters); inx++) {

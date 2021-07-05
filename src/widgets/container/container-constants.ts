@@ -3,7 +3,7 @@ export const DefaultParams = {
   styleName: 'container',
   width: '',
   flex: '',
-  display: 'block',
+  display: '',
   flexDirection: '',
   paddingTop: '',
   paddingBottom: '',
