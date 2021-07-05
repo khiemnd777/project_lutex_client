@@ -1,5 +1,8 @@
 @import "../../theme";
 .container {
   min-width: 163px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
   @include noPadding;
 }

@@ -33,6 +33,9 @@
       &.key {
         font-weight: $lightBoldWeight;
       }
+      &:hover{
+        color: $highlightColor;
+      }
     }
   }
 }
