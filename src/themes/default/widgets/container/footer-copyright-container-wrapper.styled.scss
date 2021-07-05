@@ -1,0 +1,8 @@
+@import "../../theme";
+.container {
+  @include noPadding;
+  width: 100%;
+  min-height: 50px;
+  background-color: $lighterColor;
+  border-top: 1px solid $lighter2Color;
+}
