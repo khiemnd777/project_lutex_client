@@ -1,0 +1,5 @@
+@import "../../theme";
+.container {
+  min-width: 163px;
+  @include noPadding;
+}
