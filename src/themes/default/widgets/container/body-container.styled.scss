@@ -2,5 +2,8 @@
 .container {
   @include noPadding;
   width: 100%;
-  min-height: calc(100% - (35px + 105px + 242px + 50px));
+  min-height: calc(100% - (35px + 105px + 252px + 50px));
+  @media (max-width: $mobile) {
+    flex-direction: column;
+  }
 }

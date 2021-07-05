@@ -26,6 +26,7 @@ $primaryColor: #83a46a;
 $highlightColor: #83a46a;
 $primaryHoverColor: #83a46a;
 $footerBackgroundColor: #eeefe9;
+$darker2Color: #1d3a18;
 $darkerColor: #688b61;
 $mainColor: #b8c99b;
 $lighterColor: #a5b588;
@@ -57,11 +58,15 @@ $footerHeaderMarginTop: 1rem;
 }
 @mixin button {
   & {
-    display: inline-block;
-    padding: 7px 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    min-width: 66px;
+    height: 100%;
     font-family: $fontFamily;
-    background-color: $primaryButtonColor;
-    border-radius: 50px;
+    background-color: $darker2Color;
+    border-radius: 3px;
     color: $primaryButtonTextColor;
     text-transform: uppercase;
     &:hover {
