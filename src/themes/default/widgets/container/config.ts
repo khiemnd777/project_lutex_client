@@ -8,6 +8,12 @@ import wrapperHeaderNavContainerStyles from './header-nav-container-wrapper.styl
 import headerNavContainerStyles from './header-nav-container.styled.scss';
 import logoContainerStyles from './logo-container.styled.scss';
 import navContainerStyles from './nav-container.styled.scss';
+// Body container
+import bodyContainerStyles from './body-container.styled.scss';
+// Footer container
+import footerContainerStyles from './footer-container.styled.scss';
+// Footer copyright container
+import footerCopyrightContainerStyles from './footer-copyright-container.styled.scss';
 
 // Default
 ThemeFactory.Register('default', 'container', styles);
@@ -19,3 +25,9 @@ ThemeFactory.Register('default', 'wrapper_header_nav_container', wrapperHeaderNa
 ThemeFactory.Register('default', 'header_nav_container', headerNavContainerStyles);
 ThemeFactory.Register('default', 'logo_container', logoContainerStyles);
 ThemeFactory.Register('default', 'nav_container', navContainerStyles);
+// Body container
+ThemeFactory.Register('default', 'body_container', bodyContainerStyles);
+// Footer container
+ThemeFactory.Register('default', 'footer_container', footerContainerStyles);
+// Footer copyright container
+ThemeFactory.Register('default', 'footer_copyright_container', footerCopyrightContainerStyles);

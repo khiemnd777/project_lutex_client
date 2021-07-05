@@ -3,7 +3,7 @@
   @include noPadding;
   width: 100%;
   height: 105px;
-  background-color: $mainBackgroundColor;
+  background-color: $mainColor;
   &.sticky {
     height: 75px;
     position: fixed;
