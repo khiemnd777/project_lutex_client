@@ -26,7 +26,7 @@ const LogoWidget: FunctionalComponent<LogoWidgetArgs> = ({ logo, theme, paramete
   return (
     <div style={style} class={cx('logo', !isEmpty(logo) ? 'visible' : null)}>
       <Link href="/">
-        <img src={imgProps.url} alt={logo.Caption} />
+        <img src={imgProps.url} alt={logo?.Caption} />
       </Link>
     </div>
   );

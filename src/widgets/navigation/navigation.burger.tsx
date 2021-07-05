@@ -1,9 +1,8 @@
 import { size } from 'lodash-es';
 import { Fragment, FunctionalComponent, h } from 'preact';
-import { StateUpdater, useRef, useState } from 'preact/hooks';
+import { StateUpdater, useRef } from 'preact/hooks';
 import { ThemeType } from '_stdio/core/theme/theme-types';
 import { BuildClassNameBind } from '_stdio/core/theme/theme-utils';
-import StickyAnchor from '_stdio/shared/components/sticky/sticky-anchor';
 import { FullNavigationType } from './navigation-types';
 
 interface NavigationBurgerArgs {
@@ -16,13 +15,11 @@ interface NavigationBurgerArgs {
 export const NavigationBurger: FunctionalComponent<NavigationBurgerArgs> = ({ data, theme, open, setOpen }) => {
   const cx = BuildClassNameBind(theme.Name, 'navigation_burger');
   const navRef = useRef<HTMLButtonElement>();
-  const [addedSticky, setAddedSticky] = useState(false);
   return (
     <Fragment>
-      <StickyAnchor stickyRef={navRef} handler={setAddedSticky} />
       <button
         ref={navRef}
-        class={cx('navigation_burger', addedSticky ? 'sticky' : null, size(data?.Children) ? 'visible' : null)}
+        class={cx('navigation_burger', size(data?.Children) ? 'visible' : null)}
         open={open}
         onClick={() => setOpen?.(!open)}
       >

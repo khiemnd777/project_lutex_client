@@ -1,0 +1,5 @@
+@import "../../theme";
+.container {
+  @include noPadding;
+  flex: 1;
+}

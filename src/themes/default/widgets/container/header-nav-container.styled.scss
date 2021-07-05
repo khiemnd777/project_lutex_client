@@ -1,0 +1,6 @@
+@import "../../theme";
+.container {
+  @include primaryLayout;
+  display: flex;
+  height: 100%;
+}

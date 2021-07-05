@@ -1,0 +1,7 @@
+@import "../../theme";
+.container {
+  @include noPadding;
+  width: 100%;
+  background-color: $mainBackgroundColor;
+  height: 105px;
+}
