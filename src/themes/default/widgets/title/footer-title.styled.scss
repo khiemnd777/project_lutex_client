@@ -1,0 +1,19 @@
+@import '../../theme';
+
+.title {
+  margin-bottom: 1rem;
+  h1 {
+    display: block;
+    span {
+      display: block;
+      font-family: 'Roboto Condensed', sans-serif;
+      font-size: 18px;
+      font-weight: 400;
+      text-transform: uppercase;
+      color: $color-white;
+      @media (max-width: $mobile) {
+        text-align: center;
+      }
+    }
+  }
+}

@@ -2,4 +2,8 @@
 .container {
   @include primaryLayout;
   height: 100%;
+  display: flex;
+  @media (max-width: $mobile) {
+    flex-direction: column;
+  }
 }

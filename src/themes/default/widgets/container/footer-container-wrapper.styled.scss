@@ -2,6 +2,10 @@
 .container {
   @include noPadding;
   width: 100%;
-  min-height: 242px;
+  min-height: 252px;
   background-color: $lighterColor;
+  @media (max-width: $mobile) {
+    flex-direction: column;
+    min-height: inherit;
+  }
 }

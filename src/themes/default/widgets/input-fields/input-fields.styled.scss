@@ -102,7 +102,7 @@ $errorBackgroundColor: #ffd8d8;
       @include fontStyleDefault;
       height: 2.4rem;
       padding: 0 0.5rem;
-      border: 0.13rem solid #0d0c1d;
+      border: 1px solid $lighter2Color;
       transition: all ease 0.5s;
       &.error {
         border-color: $errorColor;
