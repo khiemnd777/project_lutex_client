@@ -1,4 +1,4 @@
-@import '../../theme';
+@import "../../theme";
 
 .input_fields {
   display: flex;
@@ -12,7 +12,7 @@
   }
   &.left_right {
     flex-direction: row;
-    padding-bottom: 2rem;
+    padding-bottom: 1rem;
   }
   .fields {
     display: flex;
@@ -47,6 +47,71 @@
     .actions {
       padding-top: 0;
       padding-bottom: 0;
+      .submit {
+        margin-left: 10px;
+      }
+      .submit2 {
+        margin-left: 10px;
+      }
+    }
+  }
+}
+
+/* Input styles */
+
+$regularWeight: 400;
+$errorColor: #f00;
+$errorBackgroundColor: #ffd8d8;
+
+@mixin textSpacingDefault {
+  letter-spacing: 0.05rem;
+  word-spacing: 0.1rem;
+  line-height: 1.5rem;
+}
+
+@mixin fontStyleDefault {
+  font-size: 14px;
+  @include textSpacingDefault;
+  font-weight: $regularWeight;
+}
+
+.form_field {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: flex-start;
+  padding-top: 1rem;
+  &:first-child {
+    padding-top: 0;
+  }
+  .title {
+    margin-bottom: 0.3rem;
+    @include fontStyleDefault;
+    font-weight: $regularWeight;
+    .required {
+      margin-left: 0.3rem;
+      color: $errorColor;
+    }
+  }
+  .field {
+    display: flex;
+    width: 100%;
+    input,
+    textarea {
+      flex: 1;
+      @include fontStyleDefault;
+      height: 2.4rem;
+      padding: 0 0.5rem;
+      border: 0.13rem solid #0d0c1d;
+      transition: all ease 0.5s;
+      &.error {
+        border-color: $errorColor;
+        background-color: $errorBackgroundColor;
+      }
+    }
+    .longtext {
+      height: 7rem;
+      font-size: 1.2rem;
     }
   }
 }

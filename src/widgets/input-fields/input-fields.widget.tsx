@@ -27,7 +27,8 @@ const onSubmit = (data: InputModel[], setExecutedState: StateUpdater<ExecutedSta
 };
 
 const InputFieldsWidget: FunctionalComponent<InputFieldWidgetArgs> = ({ theme, data, parameters }) => {
-  const cx = BuildClassNameBind(theme.Name, 'input_fields');
+  const styleName = GetParameterValue('styleName', parameters, DefaultParams) || 'input_fields';
+  const cx = BuildClassNameBind(theme.Name, styleName);
   // consume macro.
   const macroName = GetParameterValue('macro', parameters, DefaultParams);
   const actionLayout = GetParameterValue('actionLayout', parameters, DefaultParams) || 'top-bottom';
@@ -65,7 +66,7 @@ const InputFieldsWidget: FunctionalComponent<InputFieldWidgetArgs> = ({ theme, d
         )}
       >
         <div class={cx('fields', shownDisable ? 'disabled' : null)}>
-          {!!size(inputModels) && map(inputModels, (model) => <Input data={model} />)}
+          {!!size(inputModels) && map(inputModels, (model) => <Input theme={theme} data={model} styleName={styleName} />)}
         </div>
         <div class={cx('actions')}>
           <Button

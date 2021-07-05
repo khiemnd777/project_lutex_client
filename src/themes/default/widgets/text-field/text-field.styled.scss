@@ -1,6 +1,7 @@
 .text_field {
   opacity: 0;
   transition: opacity ease 0.5s;
+  font-size: 14px;
   &.visible {
     opacity: 1;
   }
