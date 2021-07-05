@@ -60,7 +60,7 @@ const ContainerWidget: FunctionalComponent<WidgetArgs> = ({
   }
   return (
     <Fragment>
-      <StickyAnchor stickyRef={refEl} handler={setAddedSticky} />
+      {useSticky ? <StickyAnchor stickyRef={refEl} handler={setAddedSticky} /> : null}
       <div style={style} class={cx('container', useSticky && addedSticky ? 'sticky' : null)}>
         <Placeholder
           name={placeholderName}
