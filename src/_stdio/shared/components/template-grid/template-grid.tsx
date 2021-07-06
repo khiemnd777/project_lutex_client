@@ -21,11 +21,6 @@ interface GridArgs {
   [x: string]: any;
 }
 
-export const showTemplateGridItem = (gridElmRef?: Ref<HTMLDivElement>) => {
-  const cb = classNamesBind.bind(styles);
-  gridElmRef?.current?.classList?.add(cb('grid_item_visible'));
-};
-
 const TemplateGrid: FunctionalComponent<GridArgs> = ({
   list,
   dataLength,

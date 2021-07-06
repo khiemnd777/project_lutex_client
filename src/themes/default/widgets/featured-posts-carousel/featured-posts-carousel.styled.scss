@@ -1,0 +1,77 @@
+@import "../../theme";
+@import "../../../../_stdio/shared/scss/arrow";
+$height: 630px;
+$heightMobile: 530px;
+.featured_posts_carousel {
+  opacity: 0;
+  transition: opacity ease 0.5s;
+  width: 100%;
+  height: $height;
+  position: relative;
+  @media (max-width: $mobile) {
+    height: $heightMobile;
+  }
+  &.visible {
+    opacity: 1;
+  }
+  .container {
+    width: 100%;
+    .post_items_container {
+      .post_item {
+        height: $height;
+        @media (max-width: $mobile) {
+          height: $heightMobile;
+        }
+        .post_item_container {
+          .post_item_cover {
+            width: 100%;
+            height: auto;
+            img {
+              width: 100%;
+            }
+          }
+          .post_item_date_catalog {
+            padding-top: 25px;
+            display: flex;
+            .post_item_created_at {
+              color: $lighterFontColor;
+              font-size: 14px;
+            }
+            .post_item_catalog {
+              text-transform: uppercase;
+              color: $color-black;
+              font-size: 14px;
+            }
+          }
+          .post_item_title {
+            padding-top: 15px;
+            color: $primaryFontColor;
+            font-size: 18px;
+          }
+        }
+      }
+    }
+  }
+}
+$slideControlDim: 35px;
+.slide_control {
+  cursor: pointer;
+  position: relative;
+  width: $slideControlDim;
+  height: $slideControlDim;
+  .slide_control_overlay {
+    position: absolute;
+    transition: all ease 0.25s;
+    background-color: $color-white;
+    width: 100%;
+    height: 100%;
+    opacity: 0.35;
+    top: 0;
+    left: 0;
+  }
+  &:hover{
+    .slide_control_overlay {
+      opacity: .8;
+    }
+  }
+}
