@@ -18,6 +18,8 @@ import footerItemContainerStyles from './footer-item-container.styled.scss';
 import wrapperFooterCopyrightContainerStyles from './footer-copyright-container-wrapper.styled.scss';
 import footerCopyrightContainerStyles from './footer-copyright-container.styled.scss';
 
+import wrapperContainer from './wrapper-container.styled.scss';
+
 // Default
 ThemeFactory.Register('default', 'container', styles);
 // Header info container
@@ -37,3 +39,5 @@ ThemeFactory.Register('default', 'footer_item_container', footerItemContainerSty
 // Footer copyright container
 ThemeFactory.Register('default', 'wrapper_footer_copyright_container', wrapperFooterCopyrightContainerStyles);
 ThemeFactory.Register('default', 'footer_copyright_container', footerCopyrightContainerStyles);
+// Wrapper container
+ThemeFactory.Register('default', 'wrapper_container', wrapperContainer);
