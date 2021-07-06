@@ -1,9 +1,10 @@
 @import "../../theme";
 .container {
-  @include noPadding;
+  padding: 0;
   @media (max-width: $mobile) {
     display: flex !important;
-    flex-direction: column;
+    flex-direction: column!important;
+    flex: none!important;
     width: 100% !important;
   }
   &.sticky {

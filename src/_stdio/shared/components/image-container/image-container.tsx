@@ -2,7 +2,7 @@ import Masonry from 'masonry-layout';
 import { FunctionalComponent, h } from 'preact';
 import { Ref } from 'preact/hooks';
 import { LazyLoadImage, ScrollPosition } from 'react-lazy-load-image-component';
-import { showTemplateGridItem } from '../template-grid/template-grid';
+import { showTemplateGridItem } from '../template-grid/template-grid-utils';
 
 interface ImageContainerArgs {
   className?: string;
@@ -28,7 +28,7 @@ const ImageContainer: FunctionalComponent<ImageContainerArgs> = ({
       <LazyLoadImage
         className={imageClassName}
         afterLoad={() => {
-          showTemplateGridItem(gridItemRef);
+          gridItemRef && showTemplateGridItem(gridItemRef);
           const currentMGrid = mGrid?.call(null);
           currentMGrid?.layout?.call(currentMGrid);
         }}
