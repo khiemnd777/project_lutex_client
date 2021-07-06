@@ -2,7 +2,7 @@ import { Fragment, FunctionalComponent, h } from 'preact';
 import { PostItemsListWidgetArgs } from './post-items-list-interfaces';
 import { size, map, isEmpty, first } from 'lodash-es';
 import { WidgetFactory } from '_stdio/core/widget/widget-factory';
-import TemplateGrid, { showTemplateGridItem } from '_stdio/shared/components/template-grid/template-grid';
+import TemplateGrid from '_stdio/shared/components/template-grid/template-grid';
 import TemplateGridItem, { TemplateGridArgs } from '_stdio/shared/components/template-grid/template-grid-item';
 import { parseBool, threeDotsAt, tryParseInt } from '_stdio/shared/utils/string.utils';
 import { convertDateFormat, DATE_FORMAT, timeSince } from '_stdio/shared/utils/date.utils';
@@ -17,6 +17,7 @@ import { DefaultParams } from './post-items-list-constants';
 import Placeholder from '_stdio/core/placeholder/placeholder';
 import { PackDefaultParams } from '_stdio/core/widget/widget-utils';
 import { WidgetInstaller } from '_stdio/core/widget/widget-installer';
+import { showTemplateGridItem } from '_stdio/shared/components/template-grid/template-grid-utils';
 
 const PostItemsListWidget: FunctionalComponent<PostItemsListWidgetArgs> = ({
   theme,
