@@ -6,13 +6,18 @@ import { WidgetFactory } from '_stdio/core/widget/widget-factory';
 import { WidgetInstaller } from '_stdio/core/widget/widget-installer';
 import { WidgetArgs } from '_stdio/core/widget/widget-interfaces';
 import { PackDefaultParams } from '_stdio/core/widget/widget-utils';
+import { BackgroundImageParallax } from '_stdio/shared/components/background-image-parallax/background-image-parallax';
 import StickyAnchor from '_stdio/shared/components/sticky/sticky-anchor';
+import { MediaFormatEnums } from '_stdio/shared/enums/image-enums';
+import { GetSingleMedia } from '_stdio/shared/utils/media.utils';
 import { GetParameterValue } from '_stdio/shared/utils/params.util';
 import { parseBool } from '_stdio/shared/utils/string.utils';
 import { DefaultParams } from './container-constants';
 
 const ContainerWidget: FunctionalComponent<WidgetArgs> = ({
   theme,
+  backgroundColor,
+  backgroundImage,
   parameters,
   routerParams,
   visitorId,
@@ -30,6 +35,7 @@ const ContainerWidget: FunctionalComponent<WidgetArgs> = ({
   const paddingRight = GetParameterValue('paddingRight', parameters, DefaultParams);
   const useSticky = parseBool(GetParameterValue('useSticky', parameters, DefaultParams));
   const styleName = GetParameterValue('styleName', parameters, DefaultParams) || 'container';
+  const backgroundImageValue = GetSingleMedia(backgroundImage, MediaFormatEnums.ordinary);
   const cx = BuildClassNameBind(theme.Name, styleName);
   const [addedSticky, setAddedSticky] = useState(false);
   const refEl = useRef<HTMLDivElement>(null);
@@ -58,10 +64,24 @@ const ContainerWidget: FunctionalComponent<WidgetArgs> = ({
   if (paddingRight) {
     style['padding-right'] = paddingRight;
   }
+  if (backgroundColor) {
+    style['background-color'] = backgroundColor;
+  }
+
   return (
     <Fragment>
       {useSticky ? <StickyAnchor stickyRef={refEl} handler={setAddedSticky} /> : null}
       <div style={style} class={cx('container', useSticky && addedSticky ? 'sticky' : null)}>
+        {backgroundImageValue && backgroundImageValue.url ? (
+          <BackgroundImageParallax
+            primaryClassName={cx('header_background_image_container')}
+            imageClassName={cx('header_background_image')}
+            image={backgroundImageValue.url}
+            alt={backgroundImage?.Caption}
+            speed={1}
+            opacity={0.5}
+          />
+        ) : null}
         <Placeholder
           name={placeholderName}
           theme={theme}
