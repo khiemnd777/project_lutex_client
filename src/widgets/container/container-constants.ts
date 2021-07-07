@@ -10,4 +10,5 @@ export const DefaultParams = {
   paddingLeft: '',
   paddingRight: '',
   useSticky: false,
+  useParallax: false,
 } as Record<string, any>;

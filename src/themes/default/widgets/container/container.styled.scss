@@ -1,13 +1,19 @@
 @import "../../theme";
 .container {
+  position: relative;
   padding: 0;
+  .header_background_image_container {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
   @media (max-width: $mobile) {
     display: flex !important;
-    flex-direction: column!important;
-    flex: none!important;
+    flex-direction: column !important;
+    flex: none !important;
     width: 100% !important;
-    padding-left: 0!important;
-    padding-right: 0!important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
   }
   &.sticky {
     position: fixed;
