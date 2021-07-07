@@ -29,5 +29,6 @@ import './widgets/post-item-body-button/config';
 import './widgets/specific-contact-information/config';
 import './widgets/featured-posts-carousel/config';
 import './widgets/featured-catalogs/config';
+import './widgets/featured-posts/config';
 import './macros/contact-send/config';
 import './macros/register-subscription/config';
