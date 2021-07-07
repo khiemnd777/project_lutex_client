@@ -3,6 +3,6 @@
   @include primaryLayout;
   @media (max-width: $mobile) {
     display: flex !important;
-    flex-direction: column;
+    flex-direction: column!important;
   }
 }
