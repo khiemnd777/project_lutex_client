@@ -1,0 +1,18 @@
+@import "../../theme";
+
+.text_field {
+  display: flex;
+  flex: 1;
+  align-items: flex-end;
+  opacity: 0;
+  transition: opacity ease 0.5s;
+  font-size: 22px;
+  font-weight: $boldWeight;
+  color: $darker2Color;
+  &.visible {
+    opacity: 1;
+  }
+  @media (max-width: $mobile) {
+    text-align: center;
+  }
+}
