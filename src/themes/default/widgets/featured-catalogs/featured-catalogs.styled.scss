@@ -1,0 +1,49 @@
+@import "../../theme";
+
+.featured_catalogs {
+  transition: opacity ease 0.5s;
+  opacity: 0;
+  width: 100%;
+  &.visible {
+    opacity: 1;
+  }
+  @media (max-width: $mobile) {
+    padding-top: 20px;
+  }
+  .header_background_image_container {
+    .header_background_image {
+    }
+  }
+  .container {
+    width: 100%;
+    .catalog_items_container {
+      // Template grid
+      .catalog_item_grid {
+        @include gridLayout(1, 0, 0, 1px, 226px);
+      }
+      .catalog_item {
+        width: 100%;
+        .catalog_item_container {
+          position: relative;
+          .catalog_item_cover {
+            width: 100%;
+            height: 100%;
+            img {
+              width: 100%;
+            }
+          }
+          .catalog_item_title {
+            position: absolute;
+            bottom: 15px;
+            left: 15px;
+            a,
+            span {
+              color:$color-white;
+              font-size: 16px;
+            }
+          }
+        }
+      }
+    }
+  }
+}

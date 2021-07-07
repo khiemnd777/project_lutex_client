@@ -64,3 +64,6 @@ import './specific-contact-information/specific-contact-information.widget';
 
 import './featured-posts-carousel/featured-posts-carousel.config';
 import './featured-posts-carousel/featured-posts-carousel.widget';
+
+import './featured-catalogs/featured-catalogs.config';
+import './featured-catalogs/featured-catalogs.widget';
