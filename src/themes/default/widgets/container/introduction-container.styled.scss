@@ -1,0 +1,27 @@
+@import "../../theme";
+.container {
+  padding: 0;
+  height: 596px;
+  position: relative;
+  .header_background_image_container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    .header_background_image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+  @media (max-width: $mobile) {
+    height: 409px;
+    display: flex !important;
+    flex-direction: column!important;
+    flex: none!important;
+    width: 100% !important;
+    padding-left: 0!important;
+    padding-right: 0!important;
+  }
+}
