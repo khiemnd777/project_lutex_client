@@ -7,6 +7,7 @@ import { WidgetInstaller } from '_stdio/core/widget/widget-installer';
 import { WidgetArgs } from '_stdio/core/widget/widget-interfaces';
 import { PackDefaultParams } from '_stdio/core/widget/widget-utils';
 import { BackgroundImageParallax } from '_stdio/shared/components/background-image-parallax/background-image-parallax';
+import ImageContainer from '_stdio/shared/components/image-container/image-container';
 import StickyAnchor from '_stdio/shared/components/sticky/sticky-anchor';
 import { MediaFormatEnums } from '_stdio/shared/enums/image-enums';
 import { GetSingleMedia } from '_stdio/shared/utils/media.utils';
@@ -34,6 +35,7 @@ const ContainerWidget: FunctionalComponent<WidgetArgs> = ({
   const paddingLeft = GetParameterValue('paddingLeft', parameters, DefaultParams);
   const paddingRight = GetParameterValue('paddingRight', parameters, DefaultParams);
   const useSticky = parseBool(GetParameterValue('useSticky', parameters, DefaultParams));
+  const useParallax = parseBool(GetParameterValue('useParallax', parameters, DefaultParams));
   const styleName = GetParameterValue('styleName', parameters, DefaultParams) || 'container';
   const backgroundImageValue = GetSingleMedia(backgroundImage, MediaFormatEnums.ordinary);
   const cx = BuildClassNameBind(theme.Name, styleName);
@@ -73,14 +75,23 @@ const ContainerWidget: FunctionalComponent<WidgetArgs> = ({
       {useSticky ? <StickyAnchor stickyRef={refEl} handler={setAddedSticky} /> : null}
       <div style={style} class={cx('container', useSticky && addedSticky ? 'sticky' : null)}>
         {backgroundImageValue && backgroundImageValue.url ? (
-          <BackgroundImageParallax
-            primaryClassName={cx('header_background_image_container')}
-            imageClassName={cx('header_background_image')}
-            image={backgroundImageValue.url}
-            alt={backgroundImage?.Caption}
-            speed={1}
-            opacity={0.5}
-          />
+          useParallax ? (
+            <BackgroundImageParallax
+              primaryClassName={cx('header_background_image_container')}
+              imageClassName={cx('header_background_image')}
+              image={backgroundImageValue.url}
+              alt={backgroundImage?.Caption}
+              speed={1}
+              opacity={1}
+            />
+          ) : (
+            <ImageContainer
+              alt={backgroundImage?.Caption}
+              className={cx('header_background_image_container')}
+              imageClassName={cx('header_background_image')}
+              src={backgroundImageValue.url}
+            />
+          )
         ) : null}
         <Placeholder
           name={placeholderName}
