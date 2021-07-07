@@ -1,0 +1,36 @@
+@import "../../theme";
+@import "../../../../_stdio/shared/scss/arrow";
+.featured_posts {
+  opacity: 0;
+  transition: opacity ease 0.5s;
+  width: 100%;
+  position: relative;
+  &.visible {
+    opacity: 1;
+  }
+  .container {
+    width: 100%;
+    .post_items_container {
+      display: block;
+      .post_item {
+        width: 100%;
+        padding-bottom: 30px;
+        .post_item_container {
+          display: flex;
+          .post_item_cover {
+            width: 120px;
+            img {
+              width: 100%;
+            }
+          }
+          .post_item_title {
+            flex: 1;
+            padding-left: 15px;
+            color: $primaryFontColor;
+            font-size: 15px;
+          }
+        }
+      }
+    }
+  }
+}

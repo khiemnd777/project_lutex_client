@@ -67,3 +67,6 @@ import './featured-posts-carousel/featured-posts-carousel.widget';
 
 import './featured-catalogs/featured-catalogs.config';
 import './featured-catalogs/featured-catalogs.widget';
+
+import './featured-posts/featured-posts.config';
+import './featured-posts/featured-posts.widget';
