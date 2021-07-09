@@ -13,14 +13,14 @@ export const GetTheme = (theme?: ThemeType) => {
 
 export const BuildClassNameBind = (
   themeName: string,
-  widgetName: string,
+  styleName: string,
   styles?: Record<string, string>
 ): ((...args: (string | null | undefined)[]) => string) => {
-  const values = { ...GetClassNameValues(themeName, widgetName), ...styles } as Record<string, string>;
+  const values = { ...GetClassNameValues(themeName, styleName), ...styles } as Record<string, string>;
   return classNamesBind.bind(values);
 };
 
-export const GetClassNameValues = (themeName: string, widgetName: string): Record<string, string> => {
-  const values = { ...ThemeFactory.Get(themeName, widgetName) } as Record<string, string>;
+export const GetClassNameValues = (themeName: string, styleName: string): Record<string, string> => {
+  const values = { ...ThemeFactory.Get(themeName, styleName) } as Record<string, string>;
   return values;
 };

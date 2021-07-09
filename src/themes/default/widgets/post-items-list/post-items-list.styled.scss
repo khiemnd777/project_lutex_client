@@ -3,6 +3,10 @@
 .post_items_list {
   opacity: 0;
   transition: opacity ease 0.5s;
+  position: relative;
+  width: 100%;
+  padding: 0;
+  margin: 0;
   &.visible {
     opacity: 1;
   }
@@ -19,10 +23,12 @@
     .content_container {
       flex: 1;
       margin-left: 25px;
-      .title {
-        text-decoration: none;
-        font-size: $titleFontSize;
-        color: $primaryHeaderColor;
+      .title_container {
+        .title {
+          text-decoration: none;
+          font-size: $titleFontSize;
+          color: $primaryHeaderColor;
+        }
       }
       .activity_container {
         display: flex;
