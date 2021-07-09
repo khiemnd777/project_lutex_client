@@ -11,33 +11,31 @@
     opacity: 1;
   }
   .container {
+    padding: 0 0 30px 0;
     display: flex;
-    padding: 0 15px 0 25px;
-    margin-bottom: 25px;
-    .image_container {
-      width: 300px;
-      .image {
-        width: 100%;
-      }
-    }
+    @include imageContainer(120, 1px, 120, 87, 1px, 120, 1px);
     .content_container {
+      padding-left: 15px;
       flex: 1;
-      margin-left: 25px;
       .title_container {
         .title {
           text-decoration: none;
-          font-size: $titleFontSize;
+          font-size: 14px;
           color: $primaryHeaderColor;
         }
       }
       .activity_container {
         display: flex;
-        margin-top: 10px;
-
+        padding-top: 15px;
         .catalog,
         .created_at {
           display: inline-block;
-          font-size: $smallFontSizeDefault;
+          font-size: 12px;
+          font-weight: $bolderWeight;
+          text-transform: uppercase;
+          @media (max-width: $mobile) {
+            font-size: 8px;
+          }
         }
         .seperate {
           &::before {
@@ -53,18 +51,7 @@
         }
       }
       .short {
-        margin-top: 10px;
-      }
-    }
-    @media (max-width: $mobile) {
-      flex-direction: column;
-      padding: 25px 0;
-      .image_container {
-        width: 100%;
-      }
-      .content_container {
-        margin-left: 0;
-        margin-top: 25px;
+        padding-top: 20px;
       }
     }
   }

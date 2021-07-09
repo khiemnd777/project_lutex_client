@@ -11,18 +11,11 @@
     opacity: 1;
   }
   .container {
-    display: flex;
-    padding: 0 15px 0 25px;
+    padding: 0;
     margin-bottom: 25px;
-    .image_container {
-      width: 300px;
-      .image {
-        width: 100%;
-      }
-    }
+    @include imageContainer(100, 1%, 370, 290, 1px, 100, 1%);
     .content_container {
-      flex: 1;
-      margin-left: 25px;
+      padding-top: 15px;
       .title_container {
         .title {
           text-decoration: none;
@@ -32,12 +25,13 @@
       }
       .activity_container {
         display: flex;
-        margin-top: 10px;
-
+        padding-top: 15px;
         .catalog,
         .created_at {
           display: inline-block;
-          font-size: $smallFontSizeDefault;
+          font-size: 14px;
+          font-weight: $bolderWeight;
+          text-transform: uppercase;
         }
         .seperate {
           &::before {
@@ -53,15 +47,12 @@
         }
       }
       .short {
-        margin-top: 10px;
+        padding-top: 20px;
       }
     }
     @media (max-width: $mobile) {
       flex-direction: column;
       padding: 25px 0;
-      .image_container {
-        width: 100%;
-      }
       .content_container {
         margin-left: 0;
         margin-top: 25px;
