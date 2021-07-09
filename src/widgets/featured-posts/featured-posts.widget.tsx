@@ -83,7 +83,7 @@ const PostItemsBuilder: FunctionalComponent<PostBuilderArgs> = ({
         return (
           <div class={cx('post_item')}>
             <div class={cx('post_item_container')}>
-              <ImageContainer className={cx('post_item_cover')} src={cover?.url} alt={post.Cover?.Caption} />
+              <ImageContainer className={cx('post_item_cover', 'image_container')} src={cover?.url} alt={post.Cover?.Caption} />
               <div class={cx('post_item_title')}>
                 <Link href={post.Url}>
                   <span>{threeDotsAt(post.Title, 30)}</span>

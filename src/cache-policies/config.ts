@@ -6,3 +6,5 @@ CachePolicy.RegisterFieldPolicy(
   'postItems',
   startLimitPagination(['where', ['Catalog', ['id', 'Slug']], 'start', 'limit'])
 );
+CachePolicy.RegisterFieldPolicy('featuredPosts', startLimitPagination(['where', ['id', 'Name']]));
+CachePolicy.RegisterFieldPolicy('featuredCatalogs', startLimitPagination(['where', ['id', 'Name']]));
