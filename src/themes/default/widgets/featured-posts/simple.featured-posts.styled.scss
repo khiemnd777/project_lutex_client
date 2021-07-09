@@ -1,0 +1,42 @@
+@import "../../theme";
+@import "../../../../_stdio/shared/scss/arrow";
+.featured_posts {
+  opacity: 0;
+  transition: opacity ease 0.5s;
+  width: 100%;
+  position: relative;
+  &.visible {
+    opacity: 1;
+  }
+  .container {
+    width: 100%;
+    .post_items_container {
+      display: block;
+      .post_item {
+        width: 100%;
+        padding-bottom: 30px;
+        .post_item_container {
+          position: relative;
+          display: flex;
+          @include imageContainer(100, 1%, 270, 195, 1px, 100, 1%);
+          .post_item_title {
+            position: absolute;
+            bottom: 15px;
+            left: 15px;
+            flex: 1;
+            color: $color-white;
+            font-size: 16px;
+            a, a > span {
+              color: $color-white;
+              font-size: 16px;
+              font-weight: $lightBoldWeight;
+              @media (max-width: $mobile){
+                font-size: 23px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
