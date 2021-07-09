@@ -1,0 +1,64 @@
+@import "../../theme";
+
+.post_items_list {
+  opacity: 0;
+  transition: opacity ease 0.5s;
+  position: relative;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  &.visible {
+    opacity: 1;
+  }
+  .container {
+    display: flex;
+    padding: 0;
+    margin-bottom: 25px;
+    @include imageContainer(270, 1px, 270, 195, 1px, 100, 1%);
+    .content_container {
+      flex: 1;
+      margin-left: 25px;
+      .title_container {
+        .title {
+          text-decoration: none;
+          font-size: $titleFontSize;
+          color: $primaryHeaderColor;
+        }
+      }
+      .activity_container {
+        display: flex;
+        padding-top: 15px;
+        .catalog,
+        .created_at {
+          display: inline-block;
+          font-size: 14px;
+          font-weight: $bolderWeight;
+          text-transform: uppercase;
+        }
+        .seperate {
+          &::before {
+            display: flex;
+            content: ".";
+            align-items: center;
+            justify-content: center;
+            align-content: center;
+            height: 50%;
+            width: 25px;
+            font-weight: $boldWeight;
+          }
+        }
+      }
+      .short {
+        padding-top: 20px;
+      }
+    }
+    @media (max-width: $mobile) {
+      flex-direction: column;
+      padding: 25px 0;
+      .content_container {
+        margin-left: 0;
+        margin-top: 25px;
+      }
+    }
+  }
+}

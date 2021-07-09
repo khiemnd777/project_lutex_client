@@ -1,0 +1,58 @@
+@import "../../theme";
+
+.post_items_list {
+  opacity: 0;
+  transition: opacity ease 0.5s;
+  position: relative;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  &.visible {
+    opacity: 1;
+  }
+  .container {
+    padding: 0 0 30px 0;
+    display: flex;
+    @include imageContainer(120, 1px, 120, 87, 1px, 120, 1px);
+    .content_container {
+      padding-left: 15px;
+      flex: 1;
+      .title_container {
+        .title {
+          text-decoration: none;
+          font-size: 14px;
+          color: $primaryHeaderColor;
+        }
+      }
+      .activity_container {
+        display: flex;
+        padding-top: 15px;
+        .catalog,
+        .created_at {
+          display: inline-block;
+          font-size: 12px;
+          font-weight: $bolderWeight;
+          text-transform: uppercase;
+          @media (max-width: $mobile) {
+            font-size: 8px;
+          }
+        }
+        .seperate {
+          &::before {
+            display: flex;
+            content: ".";
+            align-items: center;
+            justify-content: center;
+            align-content: center;
+            height: 50%;
+            width: 25px;
+            font-weight: $boldWeight;
+          }
+        }
+      }
+      .short {
+        padding-top: 20px;
+      }
+    }
+  }
+}
