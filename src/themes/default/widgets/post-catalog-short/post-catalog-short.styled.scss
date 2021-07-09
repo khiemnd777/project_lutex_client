@@ -1,0 +1,19 @@
+@import "../../theme";
+.post_catalog_short {
+  position: relative;
+  width: 55%;
+  opacity: 0;
+  transition: opacity ease 0.5s;
+  &.visible {
+    opacity: 1;
+  }
+  .short {
+    span {
+      display: block;
+      font-size: 14px;
+      color: $primaryFontColor;
+      text-align: center;
+      line-height: 20px;
+    }
+  }
+}

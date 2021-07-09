@@ -70,3 +70,9 @@ import './featured-catalogs/featured-catalogs.widget';
 
 import './featured-posts/featured-posts.config';
 import './featured-posts/featured-posts.widget';
+
+import './post-catalog-title/post-catalog-title.config';
+import './post-catalog-title/post-catalog-title.widget';
+
+import './post-catalog-short/post-catalog-short.config';
+import './post-catalog-short/post-catalog-short.widget';
