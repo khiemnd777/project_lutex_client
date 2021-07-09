@@ -29,6 +29,21 @@
   padding: 0;
   margin: 0 auto;
 }
+@mixin imageContainer($containerWidth, $dimWidthUnit, $realContainerWidth, $containerHeight, $dimHeightUnit, $widthMobile, $widthMobileUnit) {
+  .image_container {
+    width: #{$containerWidth * $dimWidthUnit};
+    height: #{$containerHeight * $dimHeightUnit};
+    > img, > img.image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    @media (max-width: $mobile) {
+      width: #{$widthMobile * $widthMobileUnit};
+      height: calc(#{$widthMobile * $widthMobileUnit} * (#{$containerHeight} / #{$realContainerWidth}));
+    }
+  }
+}
 @mixin gridLayout($itemNumberOnRow, $paddingLeftNumber, $paddingRightNumber, $paddingUnit, $minHeight) {
   width: calc(100% / #{$itemNumberOnRow});
   min-height: $minHeight;

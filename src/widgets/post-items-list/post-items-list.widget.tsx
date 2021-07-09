@@ -6,11 +6,10 @@ import TemplateGrid from '_stdio/shared/components/template-grid/template-grid';
 import TemplateGridItem, { TemplateGridArgs } from '_stdio/shared/components/template-grid/template-grid-item';
 import { parseBool, threeDotsAt, tryParseInt } from '_stdio/shared/utils/string.utils';
 import { convertDateFormat, DATE_FORMAT, timeSince } from '_stdio/shared/utils/date.utils';
-import { GetClassNameValues } from '_stdio/core/theme/theme-utils';
+import { BuildClassNameBind } from '_stdio/core/theme/theme-utils';
 import ImageContainer from '_stdio/shared/components/image-container/image-container';
 import { Link } from 'preact-router/match';
 import { GetParameterValue } from '_stdio/shared/utils/params.util';
-import classNamesBind from 'classnames/bind';
 import { buildRouterPath } from '_stdio/core/router/router-utils';
 import marked from 'marked';
 import { DefaultParams } from './post-items-list-constants';
@@ -18,6 +17,8 @@ import Placeholder from '_stdio/core/placeholder/placeholder';
 import { PackDefaultParams } from '_stdio/core/widget/widget-utils';
 import { WidgetInstaller } from '_stdio/core/widget/widget-installer';
 import { showTemplateGridItem } from '_stdio/shared/components/template-grid/template-grid-utils';
+import { GetSingleMedia } from '_stdio/shared/utils/media.utils';
+import { MediaFormatEnums } from '_stdio/shared/enums/image-enums';
 
 const PostItemsListWidget: FunctionalComponent<PostItemsListWidgetArgs> = ({
   theme,
@@ -30,19 +31,21 @@ const PostItemsListWidget: FunctionalComponent<PostItemsListWidgetArgs> = ({
   widgets,
   onFetchMore,
 }) => {
-  const cxVals = GetClassNameValues(theme.Name, 'post_items_list');
-  const cx = classNamesBind.bind(cxVals);
-  const shortWordSize = tryParseInt(GetParameterValue('shortWordSize', parameters, DefaultParams)) || 20;
+  const styleName = GetParameterValue('styleName', parameters, DefaultParams);
+  const cx = BuildClassNameBind(theme.Name, styleName);
+  const shortWordSize = tryParseInt(GetParameterValue('shortWordSize', parameters, DefaultParams));
   const useTimeSince = parseBool(GetParameterValue('useTimeSince', parameters, DefaultParams));
   const enableCreatedDate = parseBool(GetParameterValue('enableCreatedDate', parameters, DefaultParams));
   const useMarked = parseBool(GetParameterValue('useMarked', parameters, DefaultParams));
   const useThreeDot = parseBool(GetParameterValue('useThreeDot', parameters, DefaultParams));
   const enableCatalog = parseBool(GetParameterValue('enableCatalog', parameters, DefaultParams));
+  const useShort = parseBool(GetParameterValue('useShort', parameters, DefaultParams));
   return (
     <div class={cx('post_items_list', size(items) ? 'visible' : null)}>
       <TemplateGrid
         list={map(items, (item) => {
           const routerPath = !isEmpty(item.Router) ? buildRouterPath(item.Router.Path, item) : '';
+          const coverMedia = GetSingleMedia(first(item.Cover), MediaFormatEnums.thumbnail);
           return {
             onAfterLoaded: (model, gridItemRef) => {
               if (!size(item.Cover)) {
@@ -58,7 +61,7 @@ const PostItemsListWidget: FunctionalComponent<PostItemsListWidgetArgs> = ({
                       <ImageContainer
                         className={cx('image_container')}
                         imageClassName={cx('image')}
-                        src={first(item.Cover)?.Media?.formats?.thumbnail?.url}
+                        src={coverMedia?.url}
                         alt={item.Title}
                         gridItemRef={gridItemRef}
                         scrollPosition={scrollPosition}
@@ -66,15 +69,17 @@ const PostItemsListWidget: FunctionalComponent<PostItemsListWidgetArgs> = ({
                       />
                     ) : null}
                     <div class={cx('content_container')}>
-                      {item.Title ? (
-                        routerPath ? (
-                          <Link href={routerPath} class={cx('title')}>
-                            <span>{item.Title}</span>
-                          </Link>
-                        ) : (
-                          <span class={cx('title')}>{item.Title}</span>
-                        )
-                      ) : null}
+                      <div class={cx('title_container')}>
+                        {item.Title ? (
+                          routerPath ? (
+                            <Link href={routerPath} class={cx('title')}>
+                              <span>{item.Title}</span>
+                            </Link>
+                          ) : (
+                            <span class={cx('title')}>{item.Title}</span>
+                          )
+                        ) : null}
+                      </div>
                       {enableCatalog && enableCreatedDate ? (
                         <div class={cx('activity_container')}>
                           {enableCatalog && !isEmpty(item.Catalog) ? (
@@ -97,7 +102,7 @@ const PostItemsListWidget: FunctionalComponent<PostItemsListWidgetArgs> = ({
                           ) : null}
                         </div>
                       ) : null}
-                      {item.Short ? (
+                      {useShort && item.Short ? (
                         useMarked ? (
                           <div class={cx('short')} dangerouslySetInnerHTML={{ __html: marked(item.Short) }}></div>
                         ) : (

@@ -27,10 +27,15 @@ export const PostItemsListByCatalogWidgetConfig: FunctionalComponent<WidgetConfi
     });
   }, []);
   let result = {} as QueryResult<AvailablePostItemsGraphResult, Record<string, any>>;
+  const start = tryParseInt(GetParameterValue('start', parameters, DefaultParams));
   const limit = tryParseInt(GetParameterValue('limit', parameters, DefaultParams)) || 10;
-  const slug = routerParams?.slug || '';
-  if (!isEmpty(datetimeServer)) {
-    result = GraphPostItemInCatalog(slug, datetimeServer, 0, limit);
+  // let slug = routerParams?.slug || '';
+  let slug = GetParameterValue('slug', parameters, DefaultParams);
+  if (!slug) {
+    slug = routerParams?.slug || '';
+  }
+  if (!isEmpty(datetimeServer) && slug) {
+    result = GraphPostItemInCatalog(slug, datetimeServer, start, limit);
   }
   return (
     <PostItemsListByCatalogUtils
