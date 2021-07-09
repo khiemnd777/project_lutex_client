@@ -87,7 +87,7 @@ const ContainerWidget: FunctionalComponent<WidgetArgs> = ({
           ) : (
             <ImageContainer
               alt={backgroundImage?.Caption}
-              className={cx('header_background_image_container')}
+              className={cx('header_background_image_container', 'image_container')}
               imageClassName={cx('header_background_image')}
               src={backgroundImageValue.url}
             />
