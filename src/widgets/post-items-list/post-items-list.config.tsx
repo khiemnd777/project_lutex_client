@@ -29,10 +29,11 @@ export const PostItemsListWidgetConfig: FunctionalComponent<WidgetConfigArgs<Pos
     });
   }, []);
   let result = {} as QueryResult<AvailablePostItemsGraphResult, Record<string, any>>;
-  const limit = tryParseInt(GetParameterValue('limit', parameters)) || LIMIT;
+  const start = tryParseInt(GetParameterValue('start', parameters, DefaultParams));
+  const limit = tryParseInt(GetParameterValue('limit', parameters, DefaultParams)) || LIMIT;
   const useDisplayOrder = parseBool(GetParameterValue('useDisplayOrder', parameters, DefaultParams));
   if (!isEmpty(datetimeServer)) {
-    result = GraphAvailablePostItems(datetimeServer, 0, limit, useDisplayOrder ? 'DisplayOrder:asc' : 'createdAt:desc');
+    result = GraphAvailablePostItems(datetimeServer, start, limit, useDisplayOrder ? 'DisplayOrder:asc' : 'createdAt:desc');
   }
   return (
     <PostItemsListByCatalogUtils
