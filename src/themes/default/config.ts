@@ -30,5 +30,7 @@ import './widgets/specific-contact-information/config';
 import './widgets/featured-posts-carousel/config';
 import './widgets/featured-catalogs/config';
 import './widgets/featured-posts/config';
+import './widgets/post-catalog-title/config';
+import './widgets/post-catalog-short/config';
 import './macros/contact-send/config';
 import './macros/register-subscription/config';
