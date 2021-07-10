@@ -1,0 +1,22 @@
+@import "../../theme";
+
+.text_field {
+  opacity: 0;
+  transition: opacity ease 0.5s;
+  font-size: 15px;
+  text-transform: uppercase;
+  color: $color-white;
+  padding-top: 10px;
+  &.visible {
+    opacity: 1;
+  }
+  .content {
+    a {
+      color: $color-white;
+    }
+    p {
+      padding: 0;
+      margin: 0;
+    }
+  }
+}

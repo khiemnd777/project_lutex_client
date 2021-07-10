@@ -1,4 +1,5 @@
 import { gql, useQuery } from '@apollo/client';
+import { MediaGraphProps } from '_stdio/shared/constants/image-constants';
 import { PictureFieldGraphResult } from './picture-field-types';
 
 export const GraphPictureField = (name: string) =>
@@ -10,9 +11,7 @@ export const GraphPictureField = (name: string) =>
           Name
           Url
           Picture {
-            id
-            Caption
-            Media
+            ${MediaGraphProps}
           }
         }
       }
