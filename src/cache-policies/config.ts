@@ -1,10 +1,11 @@
 import { CachePolicy } from '_stdio/core/cache-policy/cache-policy';
-import { startLimitPagination } from '_stdio/core/cache-policy/cache-policy.utils';
+import { defaultPolicy, startLimitPagination } from '_stdio/core/cache-policy/cache-policy.utils';
 
-CachePolicy.RegisterFieldPolicy('postCatalogs', startLimitPagination());
+CachePolicy.RegisterFieldPolicy('postCatalogs', defaultPolicy(['where', ['Slug']]));
 CachePolicy.RegisterFieldPolicy(
   'postItems',
   startLimitPagination(['where', ['Catalog', ['id', 'Slug']], 'start', 'limit'])
 );
-CachePolicy.RegisterFieldPolicy('featuredPosts', startLimitPagination(['where', ['id', 'Name']]));
-CachePolicy.RegisterFieldPolicy('featuredCatalogs', startLimitPagination(['where', ['id', 'Name']]));
+CachePolicy.RegisterFieldPolicy('featuredPosts', defaultPolicy(['where', ['id', 'Name']]));
+CachePolicy.RegisterFieldPolicy('featuredCatalogs', defaultPolicy(['where', ['id', 'Name']]));
+CachePolicy.RegisterFieldPolicy('pictureFields', defaultPolicy(['where', ['Name']]));
