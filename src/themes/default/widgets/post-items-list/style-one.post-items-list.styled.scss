@@ -1,0 +1,39 @@
+@import "../../theme";
+
+.post_items_list {
+  opacity: 0;
+  transition: opacity ease 0.5s;
+  position: relative;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  &.visible {
+    opacity: 1;
+  }
+  // Template grid
+  .template_grid_item {
+    @include gridLayout(3, 30, 30, 1px, 441px);
+  }
+  .container {
+    padding: 0 0 30px 0;
+    width: 100%;
+    @include imageContainer(100, 1%, 370, 370, 1px, 100, 1%, true);
+    .content_container {
+      width: 100%;
+      background-color: $darkerColor;
+      .title_container {
+        width: 65%;
+        padding: 15px 0;
+        min-height: 71px;
+        text-align: center;
+        margin: 0 auto;
+        .title {
+          text-decoration: none;
+          font-size: 14px;
+          color: $color-white;
+          text-transform: uppercase;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,47 @@
+@import "../../theme";
+
+.post_items_list {
+  opacity: 0;
+  transition: opacity ease 0.5s;
+  position: relative;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  &.visible {
+    opacity: 1;
+  }
+  // Template grid
+  .template_grid_item {
+    @include gridLayout(3, 30, 30, 1px, 441px);
+  }
+  .container {
+    padding-bottom: 30px;
+    width: 100%;
+    @include imageContainer(100, 1%, 370, 370, 1px, 100, 1%, true);
+    .content_container {
+      background-color: $darkerColor;
+      padding: 15px 0 30px;
+      width: 100%;
+      .title_container {
+        width: 90%;
+        padding: 15px 0 0;
+        text-align: center;
+        margin: 0 auto;
+        .title {
+          text-decoration: none;
+          font-size: 18px;
+          color: $color-white;
+          text-transform: uppercase;
+        }
+      }
+      .short {
+        width: 90%;
+        color: $color-white;
+        font-size: 14px;
+        margin: 0 auto;
+        text-align: center;
+        margin-top: 10px;
+      }
+    }
+  }
+}
