@@ -1,4 +1,5 @@
 @import "../../theme";
+
 .post_catalog_short {
   position: relative;
   width: 55%;
@@ -6,6 +7,9 @@
   transition: opacity ease 0.5s;
   &.visible {
     opacity: 1;
+  }
+  @media (max-width: $mobile) {
+    width: 100%;
   }
   .short {
     span {
