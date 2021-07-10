@@ -25,6 +25,6 @@ export const GraphCatalog = (slug: string) =>
       variables: {
         slug,
       },
-      fetchPolicy: 'no-cache',
+      fetchPolicy: 'cache-first',
     }
   );

@@ -19,3 +19,13 @@ export const startLimitPagination = <T = Reference>(keyArgs: KeyArgs = false): F
     },
   };
 };
+
+export const defaultPolicy = <T = Reference>(keyArgs: KeyArgs = false): FieldPolicy<T[]> => {
+  return {
+    keyArgs: keyArgs,
+    merge(existing, incoming, { args }) {
+      const merged = existing ? existing.slice(0) : [];
+      return [...merged, ...incoming];
+    },
+  };
+};
