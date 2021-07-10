@@ -83,7 +83,14 @@ export const GraphAvailablePostItems = (datetimeNow: Date, start: number, limit:
   );
 };
 
-export const GraphPostItemInCatalog = (slug: string, datetimeNow: Date, start: number, limit: number) => {
+export const GraphPostItemInCatalog = (
+  slug: string,
+  datetimeNow: Date,
+  start: number,
+  limit: number,
+  useDisplayOrder = false,
+  seqDisplayOrder = 'asc'
+) => {
   return useQuery<AvailablePostItemsGraphResult>(
     gql`
     query ($slug:String, $start:Int, $limit:Int) {
@@ -95,7 +102,7 @@ export const GraphPostItemInCatalog = (slug: string, datetimeNow: Date, start: n
           }
           ${availablePostItemCondition(datetimeNow)}
         }
-        sort:"createdAt:desc"
+        sort:"${useDisplayOrder ? `DisplayOrder:${seqDisplayOrder}` : 'createdAt:desc'}"
         start: $start
         limit: $limit
       ) {

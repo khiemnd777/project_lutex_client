@@ -36,8 +36,13 @@ export const PostItemsListByPostCatalogWidgetConfig: FunctionalComponent<WidgetC
       result = GraphPostItemInCatalogId(catalogId, datetimeServer, start, limit);
     }
   } else {
-    const slug = GetParameterValue('slug', parameters, DefaultParams);
-    result = GraphPostItemInCatalog(slug, datetimeServer, start, limit);
+    let slug = GetParameterValue('slug', parameters, DefaultParams);
+    if (!slug) {
+      slug = routerParams?.slug || '';
+    }
+    const useDisplayOrder = parseBool(GetParameterValue('useDisplayOrder', parameters, DefaultParams));
+    const seqDisplayOrder = GetParameterValue('seqDisplayOrder', parameters, DefaultParams);
+    result = GraphPostItemInCatalog(slug, datetimeServer, start, limit, useDisplayOrder, seqDisplayOrder);
   }
   return (
     <PostItemsListByCatalogUtils
