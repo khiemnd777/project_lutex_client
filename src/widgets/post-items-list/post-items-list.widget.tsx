@@ -40,12 +40,18 @@ const PostItemsListWidget: FunctionalComponent<PostItemsListWidgetArgs> = ({
   const useThreeDot = parseBool(GetParameterValue('useThreeDot', parameters, DefaultParams));
   const enableCatalog = parseBool(GetParameterValue('enableCatalog', parameters, DefaultParams));
   const useShort = parseBool(GetParameterValue('useShort', parameters, DefaultParams));
+  const useHqPicture = parseBool(GetParameterValue('useHqPicture', parameters, DefaultParams));
   return (
     <div class={cx('post_items_list', size(items) ? 'visible' : null)}>
       <TemplateGrid
+        classGridItem={cx('template_grid_item')}
+        classGridItemContainer={cx('grid_item_container')}
         list={map(items, (item) => {
           const routerPath = !isEmpty(item.Router) ? buildRouterPath(item.Router.Path, item) : '';
-          const coverMedia = GetSingleMedia(first(item.Cover), MediaFormatEnums.thumbnail);
+          const coverMedia = GetSingleMedia(
+            first(item.Cover),
+            useHqPicture ? MediaFormatEnums.ordinary : MediaFormatEnums.thumbnail
+          );
           return {
             onAfterLoaded: (model, gridItemRef) => {
               if (!size(item.Cover)) {
