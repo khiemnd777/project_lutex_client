@@ -11,8 +11,10 @@ export const DefaultParams = {
   useMarked: false,
   useThreeDot: true,
   useDisplayOrder: false,
+  seqDisplayOrder: 'asc',
   useShort: true,
   enableCatalog: true,
   useInternal: true,
   useFetchScrolling: false,
+  useHqPicture: false,
 } as Record<string, any>;

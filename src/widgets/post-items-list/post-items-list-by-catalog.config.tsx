@@ -6,7 +6,7 @@ import { WidgetFactory } from '_stdio/core/widget/widget-factory';
 import { WidgetConfigArgs } from '_stdio/core/widget/widget-interfaces';
 import { GetDatetimeServer } from '_stdio/shared/utils/datetime-server/datetime-server';
 import { GetParameterValue } from '_stdio/shared/utils/params.util';
-import { tryParseInt } from '_stdio/shared/utils/string.utils';
+import { parseBool, tryParseInt } from '_stdio/shared/utils/string.utils';
 import { AvailablePostItemsGraphResult } from './post-item-types';
 import PostItemsListByCatalogUtils from './post-items-list-by-catalog-utils';
 import { DefaultParams } from './post-items-list-constants';
@@ -35,7 +35,9 @@ export const PostItemsListByCatalogWidgetConfig: FunctionalComponent<WidgetConfi
     slug = routerParams?.slug || '';
   }
   if (!isEmpty(datetimeServer) && slug) {
-    result = GraphPostItemInCatalog(slug, datetimeServer, start, limit);
+    const useDisplayOrder = parseBool(GetParameterValue('useDisplayOrder', parameters, DefaultParams));
+    const seqDisplayOrder = GetParameterValue('seqDisplayOrder', parameters, DefaultParams);
+    result = GraphPostItemInCatalog(slug, datetimeServer, start, limit, useDisplayOrder, seqDisplayOrder);
   }
   return (
     <PostItemsListByCatalogUtils
