@@ -1,3 +1,3 @@
 export const DefaultParams = {
-  styleName: '',
+  styleName: 'mission_container',
 } as Record<string, any>;

@@ -27,7 +27,7 @@ export const PictureFieldWidget: FunctionalComponent<PictureFieldWidgetArgs> = (
   const cx = BuildClassNameBind(theme.Name, styleName);
   const picture = GetSingleMedia(data?.Picture, useHqPicture ? MediaFormatEnums.ordinary : MediaFormatEnums.thumbnail);
   return (
-    <div style={style} class={cx('text_field', !isEmpty(data) ? 'visible' : null)}>
+    <div style={style} class={cx('picture_field', !isEmpty(data) ? 'visible' : null)}>
       <div class={cx('image_container')}>
         {picture ? (
           data?.Url ? (

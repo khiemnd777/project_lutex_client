@@ -20,7 +20,7 @@ const MissionContainerWidget: FunctionalComponent<MissionContainerWidgetArgs> = 
     <div class={cx('mission_container')}>
       <div class={cx('left_container')}>
         <Placeholder
-          name="left_container"
+          name="mission_left_container"
           widgets={widgets}
           theme={theme}
           routerParams={routerParams}
@@ -28,24 +28,66 @@ const MissionContainerWidget: FunctionalComponent<MissionContainerWidgetArgs> = 
         />
       </div>
       <div class={cx('right_container')}>
-        <div class={cx('top')}>
+        <div class={cx('right_background_container')}>
           <Placeholder
-            name="left_container_top_container"
+            name="mission_right_background_container"
             widgets={widgets}
             theme={theme}
             routerParams={routerParams}
             visitorId={visitorId}
           />
         </div>
+        <div class={cx('top')}>
+          <div class={cx('top_container')}>
+            <div class={cx('title')}>
+              <Placeholder
+                name="mission_title_container"
+                widgets={widgets}
+                theme={theme}
+                routerParams={routerParams}
+                visitorId={visitorId}
+              />
+            </div>
+            <div class={cx('description')}>
+              <Placeholder
+                name="mission_description_container"
+                widgets={widgets}
+                theme={theme}
+                routerParams={routerParams}
+                visitorId={visitorId}
+              />
+            </div>
+          </div>
+        </div>
         <div class={cx('bottom')}>
           <div class={cx('mission_icons')}>
-            <Placeholder
-              name="mission_icons_container"
-              widgets={widgets}
-              theme={theme}
-              routerParams={routerParams}
-              visitorId={visitorId}
-            />
+            <div class={cx('alt', 'alt_1')}>
+              <Placeholder
+                name="mission_icons_alt_1_container"
+                widgets={widgets}
+                theme={theme}
+                routerParams={routerParams}
+                visitorId={visitorId}
+              />
+            </div>
+            <div class={cx('alt', 'alt_2')}>
+              <Placeholder
+                name="mission_icons_alt_2_container"
+                widgets={widgets}
+                theme={theme}
+                routerParams={routerParams}
+                visitorId={visitorId}
+              />
+            </div>
+            <div class={cx('alt', 'alt_3')}>
+              <Placeholder
+                name="mission_icons_alt_3_container"
+                widgets={widgets}
+                theme={theme}
+                routerParams={routerParams}
+                visitorId={visitorId}
+              />
+            </div>
           </div>
         </div>
       </div>

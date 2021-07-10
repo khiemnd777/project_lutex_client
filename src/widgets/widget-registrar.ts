@@ -79,3 +79,5 @@ import './post-catalog-short/post-catalog-short.widget';
 
 import './picture-field/picture-field.config';
 import './picture-field/picture-field.widget';
+
+import './mission-container/mission-container.widget';

@@ -1,0 +1,79 @@
+@import "../../theme";
+
+.mission_container {
+  position: relative;
+  display: flex;
+  width: 100%;
+  height: 493px;
+  .left_container {
+    flex: 1;
+    height: 100%;
+    position: relative;
+    @media (max-width: $mobile) {
+      display: none;
+    }
+  }
+  .right_container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    height: 100%;
+    .right_background_container {
+      position: absolute;
+      height: 100%;
+      width: 100%;
+      top: 0;
+      right: 0;
+      z-index: -1;
+    }
+    .top {
+      flex: 1;
+      display: flex;
+      align-items: flex-end;
+      .top_container {
+        width: 75%;
+        margin: 0 auto;
+        @media (max-width: $mobile) {
+          width: 90%;
+        }
+        .title {
+          width: 100%;
+          display: flex;
+          justify-content: center;
+        }
+        .description {
+          padding-top: 15px;
+          width: 100%;
+          display: flex;
+          justify-content: center;
+        }
+      }
+    }
+    .bottom {
+      flex: 1;
+      margin: 0 auto;
+      width: 42%;
+      align-items: flex-start;
+      padding-top: 30px;
+      @media (max-width: $mobile) {
+        width: 90%;
+      }
+      .mission_icons {
+        display: flex;
+        .alt {
+          flex: 1;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          &.alt_1 {
+          }
+          &.alt_2 {
+          }
+          &.alt_3 {
+          }
+        }
+      }
+    }
+  }
+}
