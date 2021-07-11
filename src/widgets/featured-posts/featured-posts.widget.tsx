@@ -30,7 +30,8 @@ const FeaturedPostsWidget: FunctionalComponent<FeaturedPostsWidgetArgs> = ({
   const posts = map(data, (fpost) => {
     const post = fpost.Post;
     const title = fpost.Title || post.Title;
-    const url = buildRouterPath(fpost.Router?.Path, post);
+    const routerPath = post.Router ? post.Router.Path : fpost.Router?.Path;
+    const url = buildRouterPath(routerPath, post);
     const cover = first(fpost.Media) || first(post.Cover);
     const catalog = post.Catalog;
     const catalogName = catalog?.DisplayName;
@@ -52,11 +53,7 @@ const FeaturedPostsWidget: FunctionalComponent<FeaturedPostsWidgetArgs> = ({
       <div class={cx('container')}>
         {size(posts) ? (
           <div class={cx('post_items_container')}>
-            <PostItemsBuilder
-              theme={theme}
-              styleName={styleName}
-              posts={posts}
-            />
+            <PostItemsBuilder theme={theme} styleName={styleName} posts={posts} />
           </div>
         ) : null}
       </div>
@@ -70,11 +67,7 @@ interface PostBuilderArgs {
   posts?: VisualizedPostType[];
 }
 
-const PostItemsBuilder: FunctionalComponent<PostBuilderArgs> = ({
-  posts,
-  theme,
-  styleName,
-}) => {
+const PostItemsBuilder: FunctionalComponent<PostBuilderArgs> = ({ posts, theme, styleName }) => {
   const cx = BuildClassNameBind(theme.Name, styleName);
   return (
     <Fragment>
@@ -83,7 +76,11 @@ const PostItemsBuilder: FunctionalComponent<PostBuilderArgs> = ({
         return (
           <div class={cx('post_item')}>
             <div class={cx('post_item_container')}>
-              <ImageContainer className={cx('post_item_cover', 'image_container')} src={cover?.url} alt={post.Cover?.Caption} />
+              <ImageContainer
+                className={cx('post_item_cover', 'image_container')}
+                src={cover?.url}
+                alt={post.Cover?.Caption}
+              />
               <div class={cx('post_item_title')}>
                 <Link href={post.Url}>
                   <span>{threeDotsAt(post.Title, 30)}</span>
