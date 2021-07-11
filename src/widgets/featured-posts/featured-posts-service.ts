@@ -21,6 +21,10 @@ export const GraphFeaturedPosts = (name: string) =>
               Title
               createdAt
               Slug
+              Router{
+                id
+                Path
+              }
               Catalog{
                 DisplayName
                 Slug
@@ -44,6 +48,6 @@ export const GraphFeaturedPosts = (name: string) =>
       variables: {
         name,
       },
-      fetchPolicy: 'no-cache',
+      fetchPolicy: 'cache-first',
     }
   );
