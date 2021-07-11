@@ -40,17 +40,17 @@ const BuildChildren: FunctionalComponent<BuildChildrenArgs> = ({ items }) => {
             };
             return (
               <BuildPostCatalogNavItems
-                items={map(
-                  item.Children,
-                  (item) =>
-                    ({
-                      id: item.id,
-                      DisplayName: item.DisplayName,
-                      Name: item.Name,
-                      RouterPath: router.Path,
-                      Slug: item.Slug,
-                    } as PostCatalogNavItemType)
-                )}
+                items={map(item.Children, (item) => {
+                  const routerPath = item.Router ? item.Router.Path : router.Path;
+                  return {
+                    id: item.id,
+                    DisplayName: item.DisplayName,
+                    Name: item.Name,
+                    RouterPath: routerPath,
+                    Slug: item.Slug,
+                    Children: item.Children,
+                  } as PostCatalogNavItemType;
+                })}
               />
             );
           }
@@ -66,6 +66,7 @@ const BuildChildren: FunctionalComponent<BuildChildrenArgs> = ({ items }) => {
                       DisplayName: item.DisplayName,
                       Name: item.Name,
                       Path: item.Path,
+                      Children: item.Children,
                     } as OtherNavItemType)
                 )}
               />
@@ -92,6 +93,7 @@ const BuildPostCatalogNavItems: FunctionalComponent<BuildPostCatalogNavItemsArgs
             <Link href={path}>
               <span>{item.DisplayName}</span>
             </Link>
+            {size(item.Children) ? <BuildChildren children={item.Children} /> : null}
           </li>
         );
       })}
@@ -112,6 +114,7 @@ const BuildOthersNavItems: FunctionalComponent<BuildOtherNavItemArgs> = ({ items
             <Link href={item.Path}>
               <span>{item.DisplayName}</span>
             </Link>
+            {size(item.Children) ? <BuildChildren items={item.Children} /> : null}
           </li>
         );
       })}

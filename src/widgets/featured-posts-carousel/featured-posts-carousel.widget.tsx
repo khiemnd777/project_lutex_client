@@ -38,7 +38,8 @@ const FeaturedPostsCarouselWidget: FunctionalComponent<FeaturedPostsCarouselWidg
   const posts = map(data?.FeaturedPosts, (fpost) => {
     const post = fpost.Post;
     const title = fpost.Title || post.Title;
-    const url = buildRouterPath(fpost.Router?.Path, post);
+    const routerPath = post.Router ? post.Router.Path : fpost.Router?.Path;
+    const url = buildRouterPath(routerPath, post);
     const cover = first(fpost.Media) || first(post.Cover);
     const catalog = post.Catalog;
     const catalogName = catalog?.DisplayName;

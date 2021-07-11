@@ -24,6 +24,7 @@ export type PostType = {
   Title: string;
   createdAt: Date;
   Slug: string;
+  Router: RouterType;
   Catalog: {
     DisplayName: string;
     Router: RouterType;

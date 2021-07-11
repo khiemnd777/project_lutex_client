@@ -8,7 +8,7 @@ $deltaCap: 120px;
   flex-direction: column;
   align-items: center;
   width: 100vw;
-  height: calc(100% - #{$deltaCap});
+  height: 100%;
   opacity: 0;
   padding-top: $deltaCap;
   top: 0;
@@ -35,6 +35,7 @@ $deltaCap: 120px;
     z-index: 10;
     li {
       border-bottom: 1px dashed $primaryColor;
+      transition: all ease 0.25s;
       a {
         display: block;
         font-size: $navFontSize;
@@ -42,6 +43,26 @@ $deltaCap: 120px;
         color: $primaryFontColor;
         text-transform: uppercase;
         padding: 20px;
+      }
+      > ul {
+        opacity: 0;
+        height: 0;
+        transition: all ease 0.25s;
+        > li {
+          &:first-child {
+            border-top: 1px dashed $primaryColor;
+          }
+          &:last-child {
+            border-bottom: none;
+          }
+          > a {
+            padding-left: 40px;
+          }
+        }
+      }
+      & > a:focus + ul {
+        height: 100%;
+        opacity: 1;
       }
     }
   }
