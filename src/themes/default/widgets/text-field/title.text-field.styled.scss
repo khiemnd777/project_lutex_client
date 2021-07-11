@@ -1,0 +1,12 @@
+@import "../../theme";
+
+.text_field {
+  opacity: 0;
+  transition: opacity ease 0.5s;
+  font-size: 18px;
+  text-transform: uppercase;
+  color: $darker2Color;
+  &.visible {
+    opacity: 1;
+  }
+}

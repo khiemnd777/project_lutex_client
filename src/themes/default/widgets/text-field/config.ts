@@ -6,6 +6,7 @@ import introductionDescriptionStyles from './introduction-description-text-field
 import missionTitleStyles from './mission-title.text-field.styled.scss';
 import missionDescriptionStyles from './mission-description.text-field.styled.scss';
 import missionAltDescriptionStyles from './mission-alt.text-field.styled.scss';
+import titleStyles from './title.text-field.styled.scss';
 
 ThemeFactory.Register('default', 'text_field', styles);
 ThemeFactory.Register('default', 'footer_text_field', footerStyles);
@@ -14,3 +15,4 @@ ThemeFactory.Register('default', 'introduction_description_text_field', introduc
 ThemeFactory.Register('default', 'mission_title_text_field', missionTitleStyles);
 ThemeFactory.Register('default', 'mission_description_text_field', missionDescriptionStyles);
 ThemeFactory.Register('default', 'mission_alt_text_field', missionAltDescriptionStyles);
+ThemeFactory.Register('default', 'title_text_field', titleStyles);
