@@ -1,5 +1,5 @@
-import { FeaturedDetailPostType } from 'widgets/featured-posts-carousel/featured-posts-carousel-types';
 import { WidgetArgs } from '_stdio/core/widget/widget-interfaces';
+import { FeaturedDetailPostType } from './featured-posts-types';
 
 export interface FeaturedPostsWidgetArgs extends WidgetArgs {
   data?: FeaturedDetailPostType[];

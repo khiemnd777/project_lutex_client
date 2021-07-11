@@ -24,6 +24,7 @@ export type PostType = {
   Title: string;
   createdAt: Date;
   Slug: string;
+  Router: RouterType;
   Catalog: {
     DisplayName: string;
     Router: RouterType;
@@ -36,7 +37,7 @@ export type VisualizedPostType = {
   Title: string;
   Url: string;
   CreatedAt: Date;
-  Cover: SingleMediaType,
-  CatalogName: string,
-  CatalogUrl: string,
-}
+  Cover: SingleMediaType;
+  CatalogName: string;
+  CatalogUrl: string;
+};
