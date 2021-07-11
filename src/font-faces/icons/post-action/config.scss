@@ -1,11 +1,11 @@
 @font-face {
-  font-family: 'fontello';
-  src: url('../assets/font-faces/post-features/font/fontello.eot?29984650');
-  src: url('../assets/font-faces/post-features/font/fontello.eot?29984650#iefix') format('embedded-opentype'),
-    url('../assets/font-faces/post-features/font/fontello.woff2?29984650') format('woff2'),
-    url('../assets/font-faces/post-features/font/fontello.woff?29984650') format('woff'),
-    url('../assets/font-faces/post-features/font/fontello.ttf?29984650') format('truetype'),
-    url('../assets/font-faces/post-features/font/fontello.svg?29984650#fontello') format('svg');
+  font-family: 'post-features';
+  src: url('../assets/font-faces/post-features/font/post-features.eot?29984650');
+  src: url('../assets/font-faces/post-features/font/post-features.eot?29984650#iefix') format('embedded-opentype'),
+    url('../assets/font-faces/post-features/font/post-features.woff2?29984650') format('woff2'),
+    url('../assets/font-faces/post-features/font/post-features.woff?29984650') format('woff'),
+    url('../assets/font-faces/post-features/font/post-features.ttf?29984650') format('truetype'),
+    url('../assets/font-faces/post-features/font/post-features.svg?29984650#fontello') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -21,7 +21,7 @@
 */
 
 .icon {
-  font-family: 'fontello';
+  font-family: 'post-features';
   font-style: normal;
   font-weight: normal;
   speak: never;
