@@ -7,6 +7,7 @@ import { WidgetConfigArgs } from '_stdio/core/widget/widget-interfaces';
 import { GetDatetimeServer } from '_stdio/shared/utils/datetime-server/datetime-server';
 import { GetParameterValueWithGeneric, GetParameterValue } from '_stdio/shared/utils/params.util';
 import { tryParseInt } from '_stdio/shared/utils/string.utils';
+import { DefaultParams } from './related-post-items-list-constants';
 import { RelatedPostItemsListWidgetArgs } from './related-post-items-list-interfaces';
 import { GraphRelatedPostItemsList } from './related-post-items-list-service';
 import { RelatedPostItemsListGraphResult } from './related-post-items-list-types';
@@ -27,7 +28,7 @@ const RelatedPostItemsListWidgetConfig: FunctionalComponent<WidgetConfigArgs<Rel
     });
   }, []);
   const postId = GetParameterValueWithGeneric('postId', internalParams);
-  const limit = tryParseInt(GetParameterValue('limit', parameters)) || 5;
+  const limit = tryParseInt(GetParameterValue('limit', parameters, DefaultParams));
   let result = {} as QueryResult<RelatedPostItemsListGraphResult, Record<string, any>>;
   if (!isEmpty(datetimeServer) && postId) {
     result = GraphRelatedPostItemsList(postId, datetimeServer, limit);

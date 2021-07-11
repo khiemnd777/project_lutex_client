@@ -58,7 +58,7 @@ const PostItemWidget: FunctionalComponent<PostItemWidgetArgs> = ({ theme, visito
                       Slug: data?.Slug,
                       Router: data?.Router,
                     },
-                    CatalogId: data?.Catalog.id,
+                    CatalogId: data?.Catalog?.id,
                     postItemId: data?.id,
                     containerRef: bodyLeftRef,
                   }}
@@ -84,24 +84,26 @@ const PostItemWidget: FunctionalComponent<PostItemWidgetArgs> = ({ theme, visito
             </div>
           )}
         </div>
-        <div class={cx('footer')}>
-          <div class={cx('footer_container')}>
-            <Placeholder
-              name={'post_footer'}
-              theme={theme}
-              routerParams={routerParams}
-              widgets={widgets}
-              internalParams={{
-                CatalogId: data?.Catalog.id,
-                postItem: {
-                  id: data?.id,
-                  Slug: data?.Slug,
-                  Router: data?.Router,
-                },
-              }}
-            />
+        {data && data?.Catalog ? (
+          <div class={cx('footer')}>
+            <div class={cx('footer_container')}>
+              <Placeholder
+                name={'post_footer'}
+                theme={theme}
+                routerParams={routerParams}
+                widgets={widgets}
+                internalParams={{
+                  CatalogId: data?.Catalog?.id,
+                  postItem: {
+                    id: data?.id,
+                    Slug: data?.Slug,
+                    Router: data?.Router,
+                  },
+                }}
+              />
+            </div>
           </div>
-        </div>
+        ) : null}
       </div>
     </div>
   );
