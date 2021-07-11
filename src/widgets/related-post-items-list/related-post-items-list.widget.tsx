@@ -6,10 +6,12 @@ import { map, size } from 'lodash-es';
 import Placeholder from '_stdio/core/placeholder/placeholder';
 import { buildRouterPath } from '_stdio/core/router/router-utils';
 import { Link } from 'preact-router/match';
-import { GetParameterValueWithGeneric } from '_stdio/shared/utils/params.util';
+import { GetParameterValue, GetParameterValueWithGeneric } from '_stdio/shared/utils/params.util';
 import { PropRef, useRef, useState } from 'preact/hooks';
 import StickyAnchor from '_stdio/shared/components/sticky/sticky-anchor';
 import { WidgetInstaller } from '_stdio/core/widget/widget-installer';
+import { DefaultParams } from './related-post-items-list-constants';
+import { PackDefaultParams } from '_stdio/core/widget/widget-utils';
 
 const RelatedPostItemsListWidget: FunctionalComponent<RelatedPostItemsListWidgetArgs> = ({
   theme,
@@ -17,9 +19,11 @@ const RelatedPostItemsListWidget: FunctionalComponent<RelatedPostItemsListWidget
   widgets,
   internalParams,
   routerParams,
+  parameters,
   visitorId,
 }) => {
-  const cx = BuildClassNameBind(theme.Name, 'related_posts');
+  const styleName = GetParameterValue('styleName', parameters, DefaultParams);
+  const cx = BuildClassNameBind(theme.Name, styleName);
   const containerRef = GetParameterValueWithGeneric<PropRef<HTMLDivElement>>('containerRef', internalParams);
   const stickedRef = useRef<HTMLDivElement>();
   const [addedSticky, setAddedSticky] = useState(false);
@@ -74,5 +78,5 @@ export default WidgetFactory.Register(
   'related_posts',
   'Related posts',
   RelatedPostItemsListWidget,
-  new WidgetInstaller()
+  new WidgetInstaller(PackDefaultParams(DefaultParams))
 );

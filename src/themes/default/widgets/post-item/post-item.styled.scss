@@ -12,7 +12,6 @@ $postShortFontSize: 16px;
     opacity: 1;
   }
   .container {
-    @include primaryLayout;
     padding-top: $moduleMarginTop;
     padding-bottom: $moduleMarginTop;
     .header {
@@ -109,7 +108,6 @@ $postShortFontSize: 16px;
     }
     .footer {
       .footer_container {
-        padding-top: $moduleMarginTop;
         padding-left: calc(70px + 2.5rem);
         padding-right: calc(270px + 5rem);
         @media (max-width: $mobile) {

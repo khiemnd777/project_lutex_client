@@ -21,7 +21,7 @@ const PostItemWidgetConfig: FunctionComponent<WidgetConfigArgs<PostItemWidgetArg
   visitorId,
 }) => {
   const defaultSlug = GetParameterValue('slug', parameters, DefaultParams);
-  const slug = defaultSlug ?? routerParams?.['slug'] ?? '';
+  const slug = defaultSlug ? defaultSlug : routerParams?.['slug'] ?? '';
   const { data, loading, error } = GraphPostItemBySlug(slug);
   const list = data && !loading && !error ? data?.postItems : ([] as PostItemType[]);
   const result = size(list) ? first(list) : undefined;
