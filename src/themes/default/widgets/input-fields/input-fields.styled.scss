@@ -7,13 +7,6 @@
   &.visible {
     opacity: 1;
   }
-  &.top_bottom {
-    flex-direction: column;
-  }
-  &.left_right {
-    flex-direction: row;
-    padding-bottom: 1rem;
-  }
   .fields {
     display: flex;
     flex-direction: column;
@@ -28,8 +21,7 @@
     justify-content: center;
     align-items: center;
     position: relative;
-    padding-top: 2rem;
-    padding-bottom: 2rem;
+    height: 38px;
     .submit {
       @include button;
       &.disabled {
@@ -41,6 +33,21 @@
       &.disabled {
         @include disabled;
       }
+    }
+  }
+  &.top_bottom {
+    flex-direction: column;
+    .actions {
+      margin-top: 2rem;
+      margin-bottom: 2rem;
+    }
+  }
+  &.left_right {
+    flex-direction: row;
+    padding-bottom: 1rem;
+    .actions {
+      padding-top: 2rem;
+      padding-bottom: 2rem;
     }
   }
   &.left_right {
