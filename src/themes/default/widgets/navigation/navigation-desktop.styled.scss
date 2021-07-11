@@ -79,13 +79,13 @@
         left: 0;
         width: 100%;
         height: auto;
-        background-color: $mainColor;
+        background-color: $primaryColor;
         z-index: 999;
         opacity: 0;
         transform: scaleY(0);
         transition: all ease 0.25s;
         > li {
-          border-bottom: 1px solid $lighter2Color;
+          border-bottom: 1px solid $primaryHoverColor;
           &:last-child {
             border-bottom: none;
           }
