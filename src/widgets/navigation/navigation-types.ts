@@ -1,3 +1,4 @@
+import { RouterType } from '_stdio/core/router/router-types';
 import { ChildrenNavigationEnum } from './navigation-enums';
 
 export type RootNavigationGraphResult = {
@@ -42,10 +43,12 @@ export type ChildrenNavigationType = {
   id: string;
   Children: {
     id: string;
-    Name: string;
+    Name: string; 
     DisplayName: string;
     Slug: string;
     Path: string;
+    Router: RouterType;
+    Children: ChildrenNavigationType[];
   }[];
   Router: {
     id: string;
@@ -59,6 +62,7 @@ export type PostCatalogNavItemType = {
   DisplayName: string;
   Slug: string;
   RouterPath: string;
+  Children: ChildrenNavigationType[];
 };
 
 export type OtherNavItemType = {
@@ -66,6 +70,7 @@ export type OtherNavItemType = {
   Name: string;
   DisplayName: string;
   Path: string;
+  Children: ChildrenNavigationType[];
 };
 
 export type NavigationsGraphResult = {
