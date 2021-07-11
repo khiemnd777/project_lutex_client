@@ -21,6 +21,10 @@ export const GraphFeaturedPosts = (name: string) =>
               Title
               createdAt
               Slug
+              Router{
+                id
+                Path
+              }
               Catalog{
                 DisplayName
                 Slug
