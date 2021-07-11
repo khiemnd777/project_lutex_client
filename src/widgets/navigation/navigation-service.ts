@@ -20,11 +20,15 @@ const fullNavigationProps = `
     ... on ComponentNavigationCatalog {
       __typename
       id
-      Children{
+      Children {
         id
         Name
         DisplayName
         Slug
+        Router {
+          id
+          Path
+        }
       }
       Router{
         id
@@ -36,6 +40,33 @@ const fullNavigationProps = `
       id
       Children{
         ${navigationProps}
+        Children {
+          ... on ComponentNavigationCatalog {
+            __typename
+            id
+            Children {
+              id
+              Name
+              DisplayName
+              Slug
+              Router {
+                id
+                Path
+              }
+            }
+            Router{
+              id
+              Path
+            }
+          }
+          ... on ComponentNavigationOthers {
+            __typename
+            id
+            Children{
+              ${navigationProps}
+            }
+          }
+        }
       }
     }
   }
