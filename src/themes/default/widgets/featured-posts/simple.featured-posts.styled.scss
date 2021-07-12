@@ -20,6 +20,7 @@
           display: flex;
           @include imageContainer(100, 1%, 270, 195, 1px, 100, 1%);
           .post_item_title {
+            font-family: $alterFontFamily;
             position: absolute;
             bottom: 15px;
             left: 15px;
@@ -27,6 +28,7 @@
             color: $color-white;
             font-size: 16px;
             a, a > span {
+              font-family: $alterFontFamily;
               color: $color-white;
               font-size: 16px;
               font-weight: $lightBoldWeight;

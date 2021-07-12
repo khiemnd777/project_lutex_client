@@ -37,6 +37,7 @@ $deltaCap: 120px;
       border-bottom: 1px dashed $primaryColor;
       transition: all ease 0.25s;
       a {
+        font-family: $alterFontFamily;
         display: block;
         font-size: $navFontSize;
         text-decoration: none;

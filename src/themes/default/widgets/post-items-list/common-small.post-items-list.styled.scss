@@ -19,6 +19,7 @@
       flex: 1;
       .title_container {
         .title {
+          font-family: $alterFontFamily;
           text-decoration: none;
           font-size: 14px;
           color: $primaryHeaderColor;

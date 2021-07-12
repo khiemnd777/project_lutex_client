@@ -20,6 +20,8 @@
       margin-left: 25px;
       .title_container {
         .title {
+          font-family: $alterFontFamily;
+          font-weight: 500;
           text-decoration: none;
           font-size: $titleFontSize;
           color: $primaryHeaderColor;
