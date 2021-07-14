@@ -39,9 +39,7 @@ const PostItemWidget: FunctionalComponent<PostItemWidgetArgs> = ({ theme, visito
             <h1>{data?.Title}</h1>
           </div>
           {!!data?.Short && (
-            <div class={cx('post_short')}>
-              <span>{data?.Short}</span>
-            </div>
+            <div class={cx('post_short')} dangerouslySetInnerHTML={{ __html: marked(data?.Short) }}></div>
           )}
           {!!data?.Body && (
             <div class={cx('post_body')}>
