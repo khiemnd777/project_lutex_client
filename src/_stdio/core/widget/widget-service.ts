@@ -66,11 +66,11 @@ export const GraphWidgetByTemplate = (templateId: string) => {
 };
 
 export const FetchWidgetsByRouter = async (routerId: string) => {
-  const result = await axios.get(`${API_HOST}router/${routerId}/widgets`);
+  const result = await axios.get(`${API_HOST}routers/${routerId}/widgets`);
   return result.data as WidgetType[];
 };
 
 export const FetchWidgetsByTemplate = async (templateId?: string) => {
-  const result = await axios.get(`${API_HOST}template/${templateId}/widgets`);
+  const result = await axios.get(`${API_HOST}templates/${templateId}/widgets`);
   return result.data as WidgetType[];
 };
