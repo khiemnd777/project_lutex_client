@@ -8,18 +8,19 @@ export interface FetchanicResult<TData> {
   error?: FetchanicError;
 }
 
-const Fetchanic = <TData>(func: () => Promise<TData>) => {
+const Fetchanic = <TData>(func: () => Promise<TData>, ...keyArgs: string[]) => {
   const [data, setData] = useState<TData>({} as TData);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<FetchanicError>({} as FetchanicError);
   useEffect(() => {
     if (isFunction(func)) {
+      setLoading(true);
       void func()
         .then((data) => setData(data))
         .catch((err: any) => setError(new FetchanicError(err.message)))
         .finally(() => setLoading(false));
     }
-  }, []);
+  }, [...keyArgs]);
   const oData = isEmpty(data) ? null : data;
   const oError = isEmpty(error) ? null : error;
   return {

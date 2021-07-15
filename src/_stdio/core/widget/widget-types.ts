@@ -60,6 +60,7 @@ export type WidgetType = {
   BackgroundColor: string;
   BackgroundImage?: SingleMediaType;
   widget: WidgetDetailType;
+  WidgetName: string;
   Parameters: ParameterResultType[];
 };
 
