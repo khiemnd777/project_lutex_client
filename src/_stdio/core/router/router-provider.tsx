@@ -3,7 +3,7 @@ import size from 'lodash-es/size';
 import { FunctionalComponent, h } from 'preact';
 import Router, { route, RouterOnChangeArgs } from 'preact-router';
 import { ErrorPage } from '_stdio/shared/pages/error-page/error-page';
-import { GraphRouters } from './router-service';
+import { FetchAllRouters, GraphRouters } from './router-service';
 import RouterPage from './router-page';
 import { ThemeType } from '../theme/theme-types';
 import LoginPage from '../auth/pages/login-page';
@@ -11,6 +11,7 @@ import { AuthGuard } from '../auth/auth-guard';
 import { RouterType } from './router-types';
 import { find } from 'lodash-es';
 import WidgetConfig from 'admin/modules/widget/widget-config';
+import Fetchanic from '../fetchanic/fetchanic';
 
 const handleRoute = async (routing: RouterOnChangeArgs, routers: RouterType[]) => {
   switch (routing.url) {
@@ -51,8 +52,9 @@ interface RouterProviderArgs {
   visitorId: string;
 }
 const RouterProvider: FunctionalComponent<RouterProviderArgs> = ({ theme, visitorId }) => {
-  const { data, loading, error } = GraphRouters();
-  const routers = (!loading && !error && data?.routers) || [];
+  // const { data, loading, error } = GraphRouters();
+  const { data, loading, error } = Fetchanic(() => FetchAllRouters());
+  const routers = (!loading && !error && data) || [];
   if (size(routers)) {
     return (
       <Router onChange={(args) => handleRoute(args, routers)}>
@@ -60,10 +62,8 @@ const RouterProvider: FunctionalComponent<RouterProviderArgs> = ({ theme, visito
           return (
             <RouterPage
               routerId={router.id}
+              templateId={router.templateId}
               path={router.Path}
-              templateId={router.template.id}
-              templateName={router.template.Name}
-              templateStyleName={router.template.StyleName}
               name={router.Name}
               theme={theme}
               visitorId={visitorId}

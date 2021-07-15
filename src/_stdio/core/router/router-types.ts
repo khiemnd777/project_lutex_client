@@ -18,9 +18,9 @@ type RouterTempalteType = {
 
 export type RouterType = {
   id: string;
+  templateId: string;
   Name: string;
   Path: string;
-  template: RouterTempalteType;
   Enabled: boolean;
   IsAuth: boolean;
 };
