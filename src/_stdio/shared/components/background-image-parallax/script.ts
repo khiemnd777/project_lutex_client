@@ -35,6 +35,15 @@ function parallaxImg2(
     alignment === ParallaxAlignment.left ? '0' : alignment === ParallaxAlignment.right ? '-100%' : '-50%';
   img.style.top = `${imgPercent}%`;
   img.style.transform = `translate(${percentX}, ${-imgPercent}%)`;
+
+  const imgBoundingBox = img.getBoundingClientRect();
+  if (imgBoundingBox.top > parentY) {
+    img.style.top = `${parentY}px`;
+    img.style.transform = `translate(${percentX}, ${-parentY}px)`;
+  }
+  if(imgBoundingBox.top + imgBoundingBox.height < imgParentBoundingBox.height +imgParentBoundingBox.height){
+    imgParent.style.height = `${imgBoundingBox.height}px`;
+  }
 }
 
 export function initParallaxImg(
