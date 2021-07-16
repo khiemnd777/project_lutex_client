@@ -14,7 +14,7 @@ const NavigationWidget: FunctionalComponent<NavigationWidgetArgs> = ({ data, the
   return (
     <Fragment>
       <NavigationBurger theme={theme} data={data} open={open} setOpen={setOpen} />
-      <NavigationMobile theme={theme} data={data} open={open} loading={loading} />
+      <NavigationMobile theme={theme} data={data} open={open} loading={loading} setOpen={setOpen} />
       <NavigationDesktop theme={theme} data={data} loading={loading} />
     </Fragment>
   );
