@@ -61,12 +61,12 @@
           padding: 0 7px;
         }
       }
-      &:first-child {
+      &:first-child, > &:first-child {
         > a {
           padding-left: 0;
         }
       }
-      &:last-child {
+      &:last-child, > &:last-child {
         > a {
           padding-right: 0;
         }
