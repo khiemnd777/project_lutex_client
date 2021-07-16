@@ -61,12 +61,12 @@
           padding: 0 7px;
         }
       }
-      &:first-child, > &:first-child {
+      &:first-child {
         > a {
           padding-left: 0;
         }
       }
-      &:last-child, > &:last-child {
+      &:last-child {
         > a {
           padding-right: 0;
         }
@@ -93,6 +93,12 @@
           > a {
             padding-top: 15px;
             padding-bottom: 15px;
+            &:first-child {
+              padding-left: 45px;
+            }
+            &:last-child {
+              padding-right: 45px;
+            }
           }
         }
       }
