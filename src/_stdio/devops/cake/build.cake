@@ -61,7 +61,7 @@ else
 
 // Update task
 var updateTask = Task ("Update");
-if(envMode == "development"){
+if(config.Environment == "development"){
   updateTask
     .IsDependentOn ("Clean")
     .IsDependentOn ("Clean-Www")
@@ -73,7 +73,7 @@ if(envMode == "development"){
     .IsDependentOn ("Build-Ssr")
     .Does (() =>
     {
-      Information("Update with {0} environment.", envMode);
+      Information("Update with {0} environment.", config.Environment);
     });
 }else{
   updateTask
@@ -89,7 +89,7 @@ if(envMode == "development"){
     .IsDependentOn ("PM2-Start")
     .Does (() =>
     {
-      Information("Update with {0} environment.", envMode);
+      Information("Update with {0} environment.", config.Environment);
     });
 }
 
