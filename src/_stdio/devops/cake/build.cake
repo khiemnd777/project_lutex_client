@@ -59,6 +59,40 @@ else
     });
 }
 
+// Update task
+var updateTask = Task ("Update");
+if(config.Environment == "development"){
+  updateTask
+    .IsDependentOn ("Clean")
+    .IsDependentOn ("Clean-Www")
+    .IsDependentOn ("Copy-FS")
+    .IsDependentOn ("Git-Checkout")
+    .IsDependentOn ("Git-Pull")
+    .IsDependentOn ("Yarn-Install")
+    .IsDependentOn ("Build")
+    .IsDependentOn ("Build-Ssr")
+    .Does (() =>
+    {
+      Information("Update with {0} environment.", config.Environment);
+    });
+}else{
+  updateTask
+    .IsDependentOn ("Clean")
+    .IsDependentOn ("Clean-Www")
+    .IsDependentOn ("Copy-FS")
+    .IsDependentOn ("Git-Checkout")
+    .IsDependentOn ("Git-Pull")
+    .IsDependentOn ("Yarn-Install")
+    .IsDependentOn ("Build")
+    .IsDependentOn ("Build-Ssr")
+    .IsDependentOn ("PM2-Stop")
+    .IsDependentOn ("PM2-Start")
+    .Does (() =>
+    {
+      Information("Update with {0} environment.", config.Environment);
+    });
+}
+
 // Default task.
 var defaultTask = Task("Default");
 if(config.Environment == "development")
