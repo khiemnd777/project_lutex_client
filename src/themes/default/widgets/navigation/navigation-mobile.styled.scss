@@ -47,6 +47,7 @@ $deltaCap: 120px;
       > ul {
         opacity: 0;
         height: 0;
+        transform: scaleY(0);
         transition: all ease 0.25s;
         > li {
           &:first-child {
@@ -56,13 +57,27 @@ $deltaCap: 120px;
             border-bottom: none;
           }
           > a {
+            opacity: 0;
+            padding-top: 0;
+            padding-bottom: 0;
             padding-left: 40px;
+            height: 0;
+            transition: all ease 0.25s;
           }
         }
       }
-      & > a:focus + ul {
+      & > a.expand + ul {
         height: 100%;
         opacity: 1;
+        transform: scaleY(1);
+        > li {
+          > a {
+            opacity: 1;
+            padding-top: 20px;
+            padding-bottom: 20px;
+            height: 100%;
+          }
+        }
       }
     }
   }
