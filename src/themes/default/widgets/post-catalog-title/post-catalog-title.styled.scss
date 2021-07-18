@@ -16,5 +16,8 @@
       color: $primaryColor;
       text-align: center;
     }
+    @media (max-width: $mobile) {
+      font-weight: 600;
+    }
   }
 }

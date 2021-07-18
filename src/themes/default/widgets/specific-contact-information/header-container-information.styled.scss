@@ -33,8 +33,20 @@
       &.key {
         font-weight: $lightBoldWeight;
       }
-      &:hover{
+      &:hover {
         color: $highlightColor;
+      }
+    }
+  }
+  @media (max-width: $mobile) {
+    &:first-child {
+      .container {
+        justify-content: flex-end;
+      }
+    }
+    &:last-child {
+      .container {
+        justify-content: flex-start;
       }
     }
   }

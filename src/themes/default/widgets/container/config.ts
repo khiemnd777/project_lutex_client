@@ -23,6 +23,7 @@ import footerCopyrightContainerStyles from './footer-copyright-container.styled.
 import introductionContainerStyles from './introduction-container.styled.scss';
 import introductioniImageContainerStyles from './introduction-image-container.styled.scss';
 import introductionTextContainerStyles from './introduction-text-container.styled.scss';
+import introductionWrapperContainerStyles from './introduction-wrapper-container.styled.scss';
 // Top catalog container
 import topCatalogContainerStyles from './top-catalog-container.styled.scss';
 import topCatalogWrapperContainerStyles from './top-catalog-wrapper-container.styled.scss';
@@ -52,6 +53,7 @@ ThemeFactory.Register('default', 'footer_copyright_container', footerCopyrightCo
 ThemeFactory.Register('default', 'introduction_container', introductionContainerStyles);
 ThemeFactory.Register('default', 'introduction_image_container', introductioniImageContainerStyles);
 ThemeFactory.Register('default', 'introduction_text_container', introductionTextContainerStyles);
+ThemeFactory.Register('default', 'introduction_wrapper_container', introductionWrapperContainerStyles);
 // Top catalog container
 ThemeFactory.Register('default', 'top_catalog_container', topCatalogContainerStyles);
 ThemeFactory.Register('default', 'top_catalog_wrapper_container', topCatalogWrapperContainerStyles);

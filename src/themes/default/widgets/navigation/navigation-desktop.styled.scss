@@ -52,10 +52,14 @@
         text-transform: uppercase;
         padding: 0 45px;
         text-align: center;
-        @media (max-width: $ipadL) {
+        @media (min-width: $sd) and (max-width: $ultraHd) {
           font-size: 15px;
-          padding: 0 15px;
+          padding: 0 30px;
         }
+        // @media (max-width: $ipadL) {
+        //   font-size: 15px;
+        //   padding: 0 15px;
+        // }
         @media (max-width: $ipad) {
           font-size: 13px;
           padding: 0 7px;
