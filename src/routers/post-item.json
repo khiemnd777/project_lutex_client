@@ -1,0 +1,287 @@
+[
+  {
+    "Enabled": true,
+    "Name": "Container - Wrapper Container",
+    "WidgetName": "container",
+    "Placeholder": "body_container",
+    "Parameters": [
+      {
+        "Name": "placeholder",
+        "Value": "wrapper_container"
+      },
+      {
+        "Name": "styleName",
+        "Value": "wrapper_container"
+      },
+      {
+        "Name": "width",
+        "Value": ""
+      },
+      {
+        "Name": "flex",
+        "Value": ""
+      },
+      {
+        "Name": "display",
+        "Value": ""
+      },
+      {
+        "Name": "flexDirection",
+        "Value": ""
+      },
+      {
+        "Name": "paddingTop",
+        "Value": ""
+      },
+      {
+        "Name": "paddingBottom",
+        "Value": ""
+      },
+      {
+        "Name": "paddingLeft",
+        "Value": ""
+      },
+      {
+        "Name": "paddingRight",
+        "Value": ""
+      },
+      {
+        "Name": "useSticky",
+        "Value": "false"
+      },
+      {
+        "Name": "useParallax",
+        "Value": "false"
+      }
+    ]
+  },
+  {
+    "Enabled": true,
+    "Name": "Post Item",
+    "WidgetName": "post_item",
+    "Placeholder": "wrapper_container",
+    "Parameters": [
+      {
+        "Name": "slug",
+        "Value": ""
+      },
+      {
+        "Name": "allowViewCount",
+        "Value": "false"
+      },
+      {
+        "Name": "updateViewCountDelay",
+        "Value": "5000"
+      }
+    ]
+  },
+  {
+    "Enabled": true,
+    "Name": "Post Item Action",
+    "WidgetName": "post_action",
+    "Placeholder": "post_action",
+    "Parameters": [
+      {
+        "Name": "allowLike",
+        "Value": "true"
+      },
+      {
+        "Name": "allowFacebook",
+        "Value": "true"
+      },
+      {
+        "Name": "allowSharedLink",
+        "Value": "true"
+      },
+      {
+        "Name": "facebookAppId",
+        "Value": ""
+      }
+    ]
+  },
+  {
+    "Enabled": true,
+    "Name": "Text Field - Related Post Items",
+    "WidgetName": "text_field",
+    "Placeholder": "related_posts_top",
+    "Parameters": [
+      {
+        "Name": "styleName",
+        "Value": "title_text_field"
+      },
+      {
+        "Name": "name",
+        "Value": "related-post-title"
+      },
+      {
+        "Name": "fontSize",
+        "Value": "14px"
+      }
+    ]
+  },
+  {
+    "Enabled": true,
+    "Name": "Related Posts",
+    "WidgetName": "related_posts",
+    "Placeholder": "post_body_content_right",
+    "Parameters": [
+      {
+        "Name": "styleName",
+        "Value": "related_posts"
+      },
+      {
+        "Name": "limit",
+        "Value": "5"
+      }
+    ]
+  },
+  {
+    "Enabled": true,
+    "Name": "Container - Post Items Same Catalog",
+    "WidgetName": "container",
+    "Placeholder": "post_footer",
+    "Parameters": [
+      {
+        "Name": "placeholder",
+        "Value": "post_items_same_catalog_container"
+      },
+      {
+        "Name": "styleName",
+        "Value": "container"
+      },
+      {
+        "Name": "width",
+        "Value": ""
+      },
+      {
+        "Name": "flex",
+        "Value": ""
+      },
+      {
+        "Name": "display",
+        "Value": ""
+      },
+      {
+        "Name": "flexDirection",
+        "Value": ""
+      },
+      {
+        "Name": "paddingTop",
+        "Value": "30px"
+      },
+      {
+        "Name": "paddingBottom",
+        "Value": "50px"
+      },
+      {
+        "Name": "paddingLeft",
+        "Value": ""
+      },
+      {
+        "Name": "paddingRight",
+        "Value": ""
+      },
+      {
+        "Name": "useSticky",
+        "Value": "false"
+      },
+      {
+        "Name": "useParallax",
+        "Value": "false"
+      }
+    ]
+  },
+  {
+    "Enabled": true,
+    "Name": "Text Field - Same Catalog",
+    "WidgetName": "text_field",
+    "Placeholder": "post_items_same_catalog_container",
+    "Parameters": [
+      {
+        "Name": "styleName",
+        "Value": "title_text_field"
+      },
+      {
+        "Name": "name",
+        "Value": "same-catalog"
+      },
+      {
+        "Name": "fontSize",
+        "Value": "14px"
+      }
+    ]
+  },
+  {
+    "Enabled": true,
+    "Name": "Post Items List- Same Catalog",
+    "WidgetName": "post_items_list",
+    "Placeholder": "post_items_same_catalog_container",
+    "ConfigurationName": "post_items_list_by_post_catalog",
+    "Parameters": [
+      {
+        "Name": "limit",
+        "Value": "10"
+      },
+      {
+        "Name": "shortWordSize",
+        "Value": "20"
+      },
+      {
+        "Name": "enableCreatedDate",
+        "Value": "true"
+      },
+      {
+        "Name": "useTimeSince",
+        "Value": "false"
+      },
+      {
+        "Name": "useMarked",
+        "Value": "false"
+      },
+      {
+        "Name": "useThreeDot",
+        "Value": "true"
+      },
+      {
+        "Name": "useDisplayOrder",
+        "Value": "false"
+      },
+      {
+        "Name": "enableCatalog",
+        "Value": "true"
+      },
+      {
+        "Name": "styleName",
+        "Value": "post_items_list_common"
+      },
+      {
+        "Name": "slug",
+        "Value": ""
+      },
+      {
+        "Name": "useInternal",
+        "Value": "true"
+      },
+      {
+        "Name": "useShort",
+        "Value": "true"
+      },
+      {
+        "Name": "start",
+        "Value": "0"
+      },
+      {
+        "Name": "useFetchScrolling",
+        "Value": "true"
+      },
+      {
+        "Name": "useHqPicture",
+        "Value": "false"
+      },
+      {
+        "Name": "seqDisplayOrder",
+        "Value": "asc"
+      }
+    ]
+  }
+]

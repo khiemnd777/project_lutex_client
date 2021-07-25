@@ -1,14 +1,1314 @@
-{
-  "Name": "index",
-  "IsAuth": false,
-  "Enabled": true,
-  "Widgets": [
-    {
-      "Name": "",
-      "ConfigurationName": "",
-      "Enabled": false,
-      "Placeholder": "",
-      "Parameters": [{ "Name": "", "Value": "" }]
+[
+  {
+    "Enabled": false,
+    "Name": "Container - Carousel",
+    "WidgetName": "container",
+    "Placeholder": "body_container",
+    "Parameters": [
+      {
+        "Name": "placeholder",
+        "Value": "carousel_container"
+      },
+      {
+        "Name": "styleName",
+        "Value": "container"
+      },
+      {
+        "Name": "width",
+        "Value": ""
+      },
+      {
+        "Name": "flex",
+        "Value": ""
+      },
+      {
+        "Name": "display",
+        "Value": ""
+      },
+      {
+        "Name": "flexDirection",
+        "Value": ""
+      },
+      {
+        "Name": "paddingTop",
+        "Value": ""
+      },
+      {
+        "Name": "paddingBottom",
+        "Value": ""
+      },
+      {
+        "Name": "paddingLeft",
+        "Value": ""
+      },
+      {
+        "Name": "paddingRight",
+        "Value": ""
+      },
+      {
+        "Name": "useSticky",
+        "Value": "false"
+      }
+    ]
+  },
+  {
+    "Enabled": false,
+    "Name": "Carousel",
+    "WidgetName": "carousel",
+    "Placeholder": "carousel_container",
+    "ConfigurationName": "home_carousel",
+    "Parameters": []
+  },
+  {
+    "Enabled": false,
+    "Name": "-",
+    "Parameters": []
+  },
+  {
+    "Enabled": true,
+    "Name": "Container - Featured Container",
+    "WidgetName": "container",
+    "Placeholder": "body_container",
+    "Parameters": [
+      {
+        "Name": "placeholder",
+        "Value": "featured_container"
+      },
+      {
+        "Name": "styleName",
+        "Value": "wrapper_container"
+      },
+      {
+        "Name": "width",
+        "Value": ""
+      },
+      {
+        "Name": "flex",
+        "Value": ""
+      },
+      {
+        "Name": "display",
+        "Value": "flex"
+      },
+      {
+        "Name": "flexDirection",
+        "Value": "row"
+      },
+      {
+        "Name": "paddingTop",
+        "Value": "50px"
+      },
+      {
+        "Name": "paddingBottom",
+        "Value": "50px"
+      },
+      {
+        "Name": "paddingLeft",
+        "Value": ""
+      },
+      {
+        "Name": "paddingRight",
+        "Value": ""
+      },
+      {
+        "Name": "useSticky",
+        "Value": "false"
+      }
+    ]
+  },
+  {
+    "Enabled": true,
+    "Name": "Container - Featured Posts Carousel Container",
+    "WidgetName": "container",
+    "Placeholder": "featured_container",
+    "Parameters": [
+      {
+        "Name": "placeholder",
+        "Value": "featured_posts_carousel_container"
+      },
+      {
+        "Name": "styleName",
+        "Value": "container"
+      },
+      {
+        "Name": "width",
+        "Value": "470px"
+      },
+      {
+        "Name": "flex",
+        "Value": ""
+      },
+      {
+        "Name": "display",
+        "Value": ""
+      },
+      {
+        "Name": "flexDirection",
+        "Value": ""
+      },
+      {
+        "Name": "paddingTop",
+        "Value": ""
+      },
+      {
+        "Name": "paddingBottom",
+        "Value": ""
+      },
+      {
+        "Name": "paddingLeft",
+        "Value": ""
+      },
+      {
+        "Name": "paddingRight",
+        "Value": ""
+      },
+      {
+        "Name": "useSticky",
+        "Value": "false"
+      }
+    ]
+  },
+  {
+    "Enabled": true,
+    "Name": "Featured Posts Carousel",
+    "WidgetName": "featured_posts_carousel",
+    "Placeholder": "featured_posts_carousel_container",
+    "Parameters": [
+      {
+        "Name": "name",
+        "Value": "carousel-posts"
+      },
+      {
+        "Name": "styleName",
+        "Value": ""
+      },
+      {
+        "Name": "dateEnabled",
+        "Value": "true"
+      },
+      {
+        "Name": "explorationButtonEnabled",
+        "Value": "false"
+      },
+      {
+        "Name": "explorationText",
+        "Value": "Explore"
+      }
+    ]
+  },
+  {
+    "Enabled": false,
+    "Name": "-",
+    "Parameters": []
+  },
+  {
+    "Enabled": true,
+    "Name": "Container - Featured Catalogs",
+    "WidgetName": "container",
+    "Placeholder": "featured_container",
+    "Parameters": [
+      {
+        "Name": "placeholder",
+        "Value": "featured_catalogs_container"
+      },
+      {
+        "Name": "styleName",
+        "Value": "container"
+      },
+      {
+        "Name": "width",
+        "Value": "300px"
+      },
+      {
+        "Name": "flex",
+        "Value": ""
+      },
+      {
+        "Name": "display",
+        "Value": ""
+      },
+      {
+        "Name": "flexDirection",
+        "Value": ""
+      },
+      {
+        "Name": "paddingTop",
+        "Value": ""
+      },
+      {
+        "Name": "paddingBottom",
+        "Value": ""
+      },
+      {
+        "Name": "paddingLeft",
+        "Value": "30px"
+      },
+      {
+        "Name": "paddingRight",
+        "Value": ""
+      },
+      {
+        "Name": "useSticky",
+        "Value": "false"
+      }
+    ]
+  },
+  {
+    "Enabled": false,
+    "Name": "Featured Catalogs",
+    "WidgetName": "featured_catalogs",
+    "Placeholder": "featured_catalogs_container",
+    "Parameters": [
+      {
+        "Name": "name",
+        "Value": "featured-catalogs-home-page"
+      },
+      {
+        "Name": "styleName",
+        "Value": "featured_catalogs"
+      }
+    ]
+  },
+  {
+    "Enabled": true,
+    "Name": "Feature Posts - Middle",
+    "WidgetName": "featured_posts",
+    "Placeholder": "featured_catalogs_container",
+    "Parameters": [
+      {
+        "Name": "name",
+        "Value": "featured-posts-middle"
+      },
+      {
+        "Name": "styleName",
+        "Value": "featured_posts_simple"
+      }
+    ]
+  },
+  {
+    "Enabled": false,
+    "Name": "-",
+    "Parameters": []
+  },
+  {
+    "Enabled": true,
+    "Name": "Container - Featured Posts",
+    "WidgetName": "container",
+    "Placeholder": "featured_container",
+    "Parameters": [
+      {
+        "Name": "placeholder",
+        "Value": "featured_posts_container"
+      },
+      {
+        "Name": "styleName",
+        "Value": "container"
+      },
+      {
+        "Name": "width",
+        "Value": ""
+      },
+      {
+        "Name": "flex",
+        "Value": "1"
+      },
+      {
+        "Name": "display",
+        "Value": ""
+      },
+      {
+        "Name": "flexDirection",
+        "Value": ""
+      },
+      {
+        "Name": "paddingTop",
+        "Value": ""
+      },
+      {
+        "Name": "paddingBottom",
+        "Value": ""
+      },
+      {
+        "Name": "paddingLeft",
+        "Value": "30px"
+      },
+      {
+        "Name": "paddingRight",
+        "Value": ""
+      },
+      {
+        "Name": "useSticky",
+        "Value": "false"
+      }
+    ]
+  },
+  {
+    "Enabled": true,
+    "Name": "Featured Posts",
+    "WidgetName": "featured_posts",
+    "Placeholder": "featured_posts_container",
+    "Parameters": [
+      {
+        "Name": "name",
+        "Value": "featured-post-home-page"
+      },
+      {
+        "Name": "styleName",
+        "Value": "featured_posts"
+      }
+    ]
+  },
+  {
+    "Enabled": false,
+    "Name": "-",
+    "Parameters": []
+  },
+  {
+    "Enabled": true,
+    "Name": "Container - Introduction",
+    "WidgetName": "container",
+    "Placeholder": "body_container",
+    "Parameters": [
+      {
+        "Name": "placeholder",
+        "Value": "introduction_container"
+      },
+      {
+        "Name": "styleName",
+        "Value": "introduction_container"
+      },
+      {
+        "Name": "width",
+        "Value": ""
+      },
+      {
+        "Name": "flex",
+        "Value": ""
+      },
+      {
+        "Name": "display",
+        "Value": ""
+      },
+      {
+        "Name": "flexDirection",
+        "Value": ""
+      },
+      {
+        "Name": "paddingTop",
+        "Value": ""
+      },
+      {
+        "Name": "paddingBottom",
+        "Value": ""
+      },
+      {
+        "Name": "paddingLeft",
+        "Value": ""
+      },
+      {
+        "Name": "paddingRight",
+        "Value": ""
+      },
+      {
+        "Name": "useSticky",
+        "Value": "false"
+      },
+      {
+        "Name": "useParallax",
+        "Value": "false"
+      }
+    ],
+    "BackgroundImage": {
+      "Media": {
+        "name": "Group 29.png",
+        "alternativeText": "",
+        "caption": "",
+        "hash": "Group_29_a438a967de",
+        "ext": ".png",
+        "mime": "image/png",
+        "size": 18.99,
+        "width": 1920,
+        "height": 594,
+        "url": "https://res.cloudinary.com/dk0yp5rel/image/upload/v1625681543/Group_29_a438a967de.png",
+        "provider_metadata": {
+          "public_id": "Group_29_a438a967de",
+          "resource_type": "image"
+        },
+        "formats": {
+          "thumbnail": {
+            "name": "thumbnail_Group 29.png",
+            "hash": "thumbnail_Group_29_a438a967de",
+            "ext": ".png",
+            "mime": "image/png",
+            "width": 245,
+            "height": 76,
+            "size": 2.53,
+            "path": null,
+            "url": "https://res.cloudinary.com/dk0yp5rel/image/upload/v1625681544/thumbnail_Group_29_a438a967de.png",
+            "provider_metadata": {
+              "public_id": "thumbnail_Group_29_a438a967de",
+              "resource_type": "image"
+            }
+          },
+          "large": {
+            "name": "large_Group 29.png",
+            "hash": "large_Group_29_a438a967de",
+            "ext": ".png",
+            "mime": "image/png",
+            "width": 1000,
+            "height": 309,
+            "size": 12.88,
+            "path": null,
+            "url": "https://res.cloudinary.com/dk0yp5rel/image/upload/v1625681546/large_Group_29_a438a967de.png",
+            "provider_metadata": {
+              "public_id": "large_Group_29_a438a967de",
+              "resource_type": "image"
+            }
+          },
+          "medium": {
+            "name": "medium_Group 29.png",
+            "hash": "medium_Group_29_a438a967de",
+            "ext": ".png",
+            "mime": "image/png",
+            "width": 750,
+            "height": 232,
+            "size": 8.87,
+            "path": null,
+            "url": "https://res.cloudinary.com/dk0yp5rel/image/upload/v1625681547/medium_Group_29_a438a967de.png",
+            "provider_metadata": {
+              "public_id": "medium_Group_29_a438a967de",
+              "resource_type": "image"
+            }
+          },
+          "small": {
+            "name": "small_Group 29.png",
+            "hash": "small_Group_29_a438a967de",
+            "ext": ".png",
+            "mime": "image/png",
+            "width": 500,
+            "height": 155,
+            "size": 5.32,
+            "path": null,
+            "url": "https://res.cloudinary.com/dk0yp5rel/image/upload/v1625681548/small_Group_29_a438a967de.png",
+            "provider_metadata": {
+              "public_id": "small_Group_29_a438a967de",
+              "resource_type": "image"
+            }
+          }
+        },
+        "provider": "cloudinary",
+        "related": [],
+        "createdAt": "2021-07-07T18:12:28.853Z",
+        "updatedAt": "2021-07-09T02:50:49.247Z",
+
+        "created_by": "60dfd7d9a6d6a69dde1b1bbb",
+        "updated_by": "60dfd7d9a6d6a69dde1b1bbb"
+      }
     }
-  ]
-}
+  },
+  {
+    "Enabled": true,
+    "Name": "Container - Introduction Wrapper",
+    "WidgetName": "container",
+    "Placeholder": "introduction_container",
+    "Parameters": [
+      {
+        "Name": "placeholder",
+        "Value": "introduction_wrapper_container"
+      },
+      {
+        "Name": "styleName",
+        "Value": "introduction_wrapper_container"
+      },
+      {
+        "Name": "width",
+        "Value": ""
+      },
+      {
+        "Name": "flex",
+        "Value": ""
+      },
+      {
+        "Name": "display",
+        "Value": "flex"
+      },
+      {
+        "Name": "flexDirection",
+        "Value": ""
+      },
+      {
+        "Name": "paddingTop",
+        "Value": "100px"
+      },
+      {
+        "Name": "paddingBottom",
+        "Value": "100px"
+      },
+      {
+        "Name": "paddingLeft",
+        "Value": ""
+      },
+      {
+        "Name": "paddingRight",
+        "Value": ""
+      },
+      {
+        "Name": "useSticky",
+        "Value": "false"
+      }
+    ]
+  },
+  {
+    "Enabled": true,
+    "Name": "Container - Introduction Image",
+    "WidgetName": "container",
+    "Placeholder": "introduction_wrapper_container",
+    "Parameters": [
+      {
+        "Name": "placeholder",
+        "Value": "container"
+      },
+      {
+        "Name": "styleName",
+        "Value": "introduction_image_container"
+      },
+      {
+        "Name": "width",
+        "Value": ""
+      },
+      {
+        "Name": "flex",
+        "Value": ""
+      },
+      {
+        "Name": "display",
+        "Value": ""
+      },
+      {
+        "Name": "flexDirection",
+        "Value": ""
+      },
+      {
+        "Name": "paddingTop",
+        "Value": ""
+      },
+      {
+        "Name": "paddingBottom",
+        "Value": ""
+      },
+      {
+        "Name": "paddingLeft",
+        "Value": ""
+      },
+      {
+        "Name": "paddingRight",
+        "Value": ""
+      },
+      {
+        "Name": "useSticky",
+        "Value": "false"
+      },
+      {
+        "Name": "useParallax",
+        "Value": "false"
+      }
+    ],
+    "BackgroundImage": {
+      "Media": {
+        "name": "shutterstock_1403053493 1.png",
+        "alternativeText": "",
+        "caption": "",
+        "hash": "shutterstock_1403053493_1_f70188e4a8",
+        "ext": ".png",
+        "mime": "image/png",
+        "size": 430.41,
+        "width": 778,
+        "height": 417,
+        "url": "https://res.cloudinary.com/dk0yp5rel/image/upload/v1625682658/shutterstock_1403053493_1_f70188e4a8.png",
+        "provider_metadata": {
+          "public_id": "shutterstock_1403053493_1_f70188e4a8",
+          "resource_type": "image"
+        },
+        "formats": {
+          "thumbnail": {
+            "name": "thumbnail_shutterstock_1403053493 1.png",
+            "hash": "thumbnail_shutterstock_1403053493_1_f70188e4a8",
+            "ext": ".png",
+            "mime": "image/png",
+            "width": 245,
+            "height": 131,
+            "size": 71.71,
+            "path": null,
+            "url": "https://res.cloudinary.com/dk0yp5rel/image/upload/v1625682660/thumbnail_shutterstock_1403053493_1_f70188e4a8.png",
+            "provider_metadata": {
+              "public_id": "thumbnail_shutterstock_1403053493_1_f70188e4a8",
+              "resource_type": "image"
+            }
+          },
+          "medium": {
+            "name": "medium_shutterstock_1403053493 1.png",
+            "hash": "medium_shutterstock_1403053493_1_f70188e4a8",
+            "ext": ".png",
+            "mime": "image/png",
+            "width": 750,
+            "height": 402,
+            "size": 577.11,
+            "path": null,
+            "url": "https://res.cloudinary.com/dk0yp5rel/image/upload/v1625682663/medium_shutterstock_1403053493_1_f70188e4a8.png",
+            "provider_metadata": {
+              "public_id": "medium_shutterstock_1403053493_1_f70188e4a8",
+              "resource_type": "image"
+            }
+          },
+          "small": {
+            "name": "small_shutterstock_1403053493 1.png",
+            "hash": "small_shutterstock_1403053493_1_f70188e4a8",
+            "ext": ".png",
+            "mime": "image/png",
+            "width": 500,
+            "height": 268,
+            "size": 260.07,
+            "path": null,
+            "url": "https://res.cloudinary.com/dk0yp5rel/image/upload/v1625682665/small_shutterstock_1403053493_1_f70188e4a8.png",
+            "provider_metadata": {
+              "public_id": "small_shutterstock_1403053493_1_f70188e4a8",
+              "resource_type": "image"
+            }
+          }
+        },
+        "provider": "cloudinary",
+        "related": [],
+        "createdAt": "2021-07-07T18:31:05.911Z",
+        "updatedAt": "2021-07-09T02:50:49.247Z",
+
+        "created_by": "60dfd7d9a6d6a69dde1b1bbb",
+        "updated_by": "60dfd7d9a6d6a69dde1b1bbb"
+      }
+    }
+  },
+  {
+    "Enabled": true,
+    "Name": "Container - Introduction Text Container",
+    "WidgetName": "container",
+    "Placeholder": "introduction_wrapper_container",
+    "Parameters": [
+      {
+        "Name": "placeholder",
+        "Value": "introduction_text_container"
+      },
+      {
+        "Name": "styleName",
+        "Value": "introduction_text_container"
+      },
+      {
+        "Name": "width",
+        "Value": ""
+      },
+      {
+        "Name": "flex",
+        "Value": ""
+      },
+      {
+        "Name": "display",
+        "Value": ""
+      },
+      {
+        "Name": "flexDirection",
+        "Value": ""
+      },
+      {
+        "Name": "paddingTop",
+        "Value": ""
+      },
+      {
+        "Name": "paddingBottom",
+        "Value": ""
+      },
+      {
+        "Name": "paddingLeft",
+        "Value": "30px"
+      },
+      {
+        "Name": "paddingRight",
+        "Value": ""
+      },
+      {
+        "Name": "useSticky",
+        "Value": "false"
+      },
+      {
+        "Name": "useParallax",
+        "Value": "false"
+      }
+    ]
+  },
+  {
+    "Enabled": true,
+    "Name": "Text Field - Introduction Title",
+    "WidgetName": "text_field",
+    "Placeholder": "introduction_text_container",
+    "Parameters": [
+      {
+        "Name": "styleName",
+        "Value": "introduction_title_text_field"
+      },
+      {
+        "Name": "name",
+        "Value": "introduction_title"
+      },
+      {
+        "Name": "fontSize",
+        "Value": "14px"
+      }
+    ]
+  },
+  {
+    "Enabled": true,
+    "Name": "Text Field - Introduction Description",
+    "WidgetName": "text_field",
+    "Placeholder": "introduction_text_container",
+    "Parameters": [
+      {
+        "Name": "styleName",
+        "Value": "introduction_description_text_field"
+      },
+      {
+        "Name": "name",
+        "Value": "introduction_description"
+      },
+      {
+        "Name": "fontSize",
+        "Value": "14px"
+      }
+    ]
+  },
+  {
+    "Enabled": false,
+    "Name": "-",
+    "Parameters": []
+  },
+  {
+    "Enabled": true,
+    "Name": "Container - Post Catalogs Container",
+    "WidgetName": "container",
+    "Placeholder": "body_container",
+    "Parameters": [
+      {
+        "Name": "placeholder",
+        "Value": "post_catalogs_container"
+      },
+      {
+        "Name": "styleName",
+        "Value": "container"
+      },
+      {
+        "Name": "width",
+        "Value": ""
+      },
+      {
+        "Name": "flex",
+        "Value": ""
+      },
+      {
+        "Name": "display",
+        "Value": ""
+      },
+      {
+        "Name": "flexDirection",
+        "Value": ""
+      },
+      {
+        "Name": "paddingTop",
+        "Value": ""
+      },
+      {
+        "Name": "paddingBottom",
+        "Value": ""
+      },
+      {
+        "Name": "paddingLeft",
+        "Value": ""
+      },
+      {
+        "Name": "paddingRight",
+        "Value": ""
+      },
+      {
+        "Name": "useSticky",
+        "Value": "false"
+      },
+      {
+        "Name": "useParallax",
+        "Value": "false"
+      }
+    ]
+  },
+  {
+    "Enabled": true,
+    "Name": "Container - Post Catalogs Container Wrapper",
+    "WidgetName": "container",
+    "Placeholder": "post_catalogs_container",
+    "Parameters": [
+      {
+        "Name": "placeholder",
+        "Value": "post_catalogs_container_wrapper"
+      },
+      {
+        "Name": "styleName",
+        "Value": "wrapper_container"
+      },
+      {
+        "Name": "width",
+        "Value": ""
+      },
+      {
+        "Name": "flex",
+        "Value": ""
+      },
+      {
+        "Name": "display",
+        "Value": "flex"
+      },
+      {
+        "Name": "flexDirection",
+        "Value": ""
+      },
+      {
+        "Name": "paddingTop",
+        "Value": "50px"
+      },
+      {
+        "Name": "paddingBottom",
+        "Value": "50px"
+      },
+      {
+        "Name": "paddingLeft",
+        "Value": ""
+      },
+      {
+        "Name": "paddingRight",
+        "Value": ""
+      },
+      {
+        "Name": "useSticky",
+        "Value": "false"
+      },
+      {
+        "Name": "useParallax",
+        "Value": "false"
+      }
+    ]
+  },
+  {
+    "Enabled": true,
+    "Name": "Container - Thư Viện",
+    "WidgetName": "container",
+    "Placeholder": "post_catalogs_container_wrapper",
+    "Parameters": [
+      {
+        "Name": "placeholder",
+        "Value": "post_catalogs_1"
+      },
+      {
+        "Name": "styleName",
+        "Value": "container"
+      },
+      {
+        "Name": "width",
+        "Value": ""
+      },
+      {
+        "Name": "flex",
+        "Value": "2"
+      },
+      {
+        "Name": "display",
+        "Value": ""
+      },
+      {
+        "Name": "flexDirection",
+        "Value": ""
+      },
+      {
+        "Name": "paddingTop",
+        "Value": ""
+      },
+      {
+        "Name": "paddingBottom",
+        "Value": ""
+      },
+      {
+        "Name": "paddingLeft",
+        "Value": ""
+      },
+      {
+        "Name": "paddingRight",
+        "Value": ""
+      },
+      {
+        "Name": "useSticky",
+        "Value": "false"
+      },
+      {
+        "Name": "useParallax",
+        "Value": "false"
+      }
+    ]
+  },
+  {
+    "Enabled": true,
+    "Name": "Post Items - Thư Viện",
+    "WidgetName": "post_items_list",
+    "Placeholder": "post_catalogs_1",
+    "ConfigurationName": "post_items_list_by_post_catalog",
+    "Parameters": [
+      {
+        "Name": "limit",
+        "Value": "4"
+      },
+      {
+        "Name": "shortWordSize",
+        "Value": "20"
+      },
+      {
+        "Name": "enableCreatedDate",
+        "Value": "true"
+      },
+      {
+        "Name": "useTimeSince",
+        "Value": "false"
+      },
+      {
+        "Name": "useMarked",
+        "Value": "false"
+      },
+      {
+        "Name": "useThreeDot",
+        "Value": "true"
+      },
+      {
+        "Name": "useDisplayOrder",
+        "Value": "false"
+      },
+      {
+        "Name": "enableCatalog",
+        "Value": "true"
+      },
+      {
+        "Name": "styleName",
+        "Value": "post_items_list_common"
+      },
+      {
+        "Name": "slug",
+        "Value": "thu-vien"
+      },
+      {
+        "Name": "useInternal",
+        "Value": "false"
+      }
+    ]
+  },
+  {
+    "Enabled": false,
+    "Name": "-",
+    "Parameters": []
+  },
+  {
+    "Enabled": true,
+    "Name": "Container - Worshop Container",
+    "WidgetName": "container",
+    "Placeholder": "post_catalogs_container_wrapper",
+    "Parameters": [
+      {
+        "Name": "placeholder",
+        "Value": "post_catalogs_2"
+      },
+      {
+        "Name": "styleName",
+        "Value": "container"
+      },
+      {
+        "Name": "width",
+        "Value": ""
+      },
+      {
+        "Name": "flex",
+        "Value": "1"
+      },
+      {
+        "Name": "display",
+        "Value": ""
+      },
+      {
+        "Name": "flexDirection",
+        "Value": ""
+      },
+      {
+        "Name": "paddingTop",
+        "Value": ""
+      },
+      {
+        "Name": "paddingBottom",
+        "Value": ""
+      },
+      {
+        "Name": "paddingLeft",
+        "Value": "30px"
+      },
+      {
+        "Name": "paddingRight",
+        "Value": ""
+      },
+      {
+        "Name": "useSticky",
+        "Value": "false"
+      },
+      {
+        "Name": "useParallax",
+        "Value": "false"
+      }
+    ]
+  },
+  {
+    "Enabled": true,
+    "Name": "Container - First Workshop Container",
+    "WidgetName": "container",
+    "Placeholder": "post_catalogs_2",
+    "Parameters": [
+      {
+        "Name": "placeholder",
+        "Value": "first_workshop_container"
+      },
+      {
+        "Name": "styleName",
+        "Value": "container"
+      },
+      {
+        "Name": "width",
+        "Value": ""
+      },
+      {
+        "Name": "flex",
+        "Value": ""
+      },
+      {
+        "Name": "display",
+        "Value": ""
+      },
+      {
+        "Name": "flexDirection",
+        "Value": ""
+      },
+      {
+        "Name": "paddingTop",
+        "Value": ""
+      },
+      {
+        "Name": "paddingBottom",
+        "Value": "30px"
+      },
+      {
+        "Name": "paddingLeft",
+        "Value": ""
+      },
+      {
+        "Name": "paddingRight",
+        "Value": ""
+      },
+      {
+        "Name": "useSticky",
+        "Value": "false"
+      },
+      {
+        "Name": "useParallax",
+        "Value": "false"
+      }
+    ]
+  },
+  {
+    "Enabled": true,
+    "Name": "Post Items - First Workshop",
+    "WidgetName": "post_items_list",
+    "Placeholder": "first_workshop_container",
+    "ConfigurationName": "post_items_list_by_post_catalog",
+    "Parameters": [
+      {
+        "Name": "start",
+        "Value": "0"
+      },
+      {
+        "Name": "limit",
+        "Value": "1"
+      },
+      {
+        "Name": "shortWordSize",
+        "Value": "20"
+      },
+      {
+        "Name": "enableCreatedDate",
+        "Value": "true"
+      },
+      {
+        "Name": "useTimeSince",
+        "Value": "false"
+      },
+      {
+        "Name": "useMarked",
+        "Value": "false"
+      },
+      {
+        "Name": "useThreeDot",
+        "Value": "true"
+      },
+      {
+        "Name": "useDisplayOrder",
+        "Value": "false"
+      },
+      {
+        "Name": "enableCatalog",
+        "Value": "true"
+      },
+      {
+        "Name": "styleName",
+        "Value": "post_items_list_single"
+      },
+      {
+        "Name": "slug",
+        "Value": "workshop"
+      },
+      {
+        "Name": "useInternal",
+        "Value": "false"
+      },
+      {
+        "Name": "useShort",
+        "Value": "true"
+      },
+      {
+        "Name": "useFetchScrolling",
+        "Value": "false"
+      }
+    ]
+  },
+  {
+    "Enabled": true,
+    "Name": "Container - New Workshop Container",
+    "WidgetName": "container",
+    "Placeholder": "post_catalogs_2",
+    "Parameters": [
+      {
+        "Name": "placeholder",
+        "Value": "new_workshop_container"
+      },
+      {
+        "Name": "styleName",
+        "Value": "container"
+      },
+      {
+        "Name": "width",
+        "Value": ""
+      },
+      {
+        "Name": "flex",
+        "Value": ""
+      },
+      {
+        "Name": "display",
+        "Value": ""
+      },
+      {
+        "Name": "flexDirection",
+        "Value": ""
+      },
+      {
+        "Name": "paddingTop",
+        "Value": ""
+      },
+      {
+        "Name": "paddingBottom",
+        "Value": ""
+      },
+      {
+        "Name": "paddingLeft",
+        "Value": ""
+      },
+      {
+        "Name": "paddingRight",
+        "Value": ""
+      },
+      {
+        "Name": "useSticky",
+        "Value": "false"
+      },
+      {
+        "Name": "useParallax",
+        "Value": "false"
+      }
+    ]
+  },
+  {
+    "Enabled": true,
+    "Name": "Post Items - New Worshop",
+    "WidgetName": "post_items_list",
+    "Placeholder": "new_workshop_container",
+    "ConfigurationName": "post_items_list_by_post_catalog",
+    "Parameters": [
+      {
+        "Name": "start",
+        "Value": "1"
+      },
+      {
+        "Name": "limit",
+        "Value": "3"
+      },
+      {
+        "Name": "shortWordSize",
+        "Value": "20"
+      },
+      {
+        "Name": "enableCreatedDate",
+        "Value": "true"
+      },
+      {
+        "Name": "useTimeSince",
+        "Value": "false"
+      },
+      {
+        "Name": "useMarked",
+        "Value": "false"
+      },
+      {
+        "Name": "useThreeDot",
+        "Value": "true"
+      },
+      {
+        "Name": "useDisplayOrder",
+        "Value": "false"
+      },
+      {
+        "Name": "enableCatalog",
+        "Value": "true"
+      },
+      {
+        "Name": "styleName",
+        "Value": "post_items_list_common_small"
+      },
+      {
+        "Name": "slug",
+        "Value": "workshop"
+      },
+      {
+        "Name": "useInternal",
+        "Value": "false"
+      },
+      {
+        "Name": "useShort",
+        "Value": "false"
+      },
+      {
+        "Name": "useFetchScrolling",
+        "Value": "false"
+      }
+    ]
+  }
+]

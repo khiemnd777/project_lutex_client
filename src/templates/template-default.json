@@ -1,13 +1,978 @@
-{
-  "Name": "template-default",
-  "StyleName": "",
-  "Widgets": [
-    {
-      "Name": "",
-      "ConfigurationName": "",
-      "Enabled": false,
-      "Placeholder": "",
-      "Parameters": [{ "Name": "", "Value": "" }]
-    }
-  ]
-}
+[
+  {
+    "Enabled": true,
+    "Name": "Wrapper - Header Info Container",
+    "WidgetName": "container",
+    "Placeholder": "body",
+    "Parameters": [
+      {
+        "Name": "placeholder",
+        "Value": "wrapper_header_info_container"
+      },
+      {
+        "Name": "styleName",
+        "Value": "wrapper_header_info_container"
+      },
+      {
+        "Name": "width",
+        "Value": ""
+      },
+      {
+        "Name": "flex",
+        "Value": ""
+      },
+      {
+        "Name": "display",
+        "Value": ""
+      },
+      {
+        "Name": "flexDirection",
+        "Value": ""
+      },
+      {
+        "Name": "paddingTop",
+        "Value": ""
+      },
+      {
+        "Name": "paddingBottom",
+        "Value": ""
+      },
+      {
+        "Name": "paddingLeft",
+        "Value": ""
+      },
+      {
+        "Name": "paddingRight",
+        "Value": ""
+      },
+      {
+        "Name": "useSticky",
+        "Value": "false"
+      }
+    ]
+  },
+  {
+    "Enabled": true,
+    "Name": "Container - Header Info Container",
+    "WidgetName": "container",
+    "Placeholder": "wrapper_header_info_container",
+    "Parameters": [
+      {
+        "Name": "placeholder",
+        "Value": "header_info_container"
+      },
+      {
+        "Name": "styleName",
+        "Value": "header_info_container"
+      },
+      {
+        "Name": "width",
+        "Value": ""
+      },
+      {
+        "Name": "flex",
+        "Value": ""
+      },
+      {
+        "Name": "display",
+        "Value": ""
+      },
+      {
+        "Name": "flexDirection",
+        "Value": ""
+      },
+      {
+        "Name": "paddingTop",
+        "Value": ""
+      },
+      {
+        "Name": "paddingBottom",
+        "Value": ""
+      },
+      {
+        "Name": "paddingLeft",
+        "Value": ""
+      },
+      {
+        "Name": "paddingRight",
+        "Value": ""
+      },
+      {
+        "Name": "useSticky",
+        "Value": "false"
+      }
+    ]
+  },
+  {
+    "Enabled": true,
+    "Name": "Specific_contact_information - Phone",
+    "WidgetName": "specific_contact_information",
+    "Placeholder": "header_info_container",
+    "Parameters": [
+      {
+        "Name": "key",
+        "Value": "phone"
+      },
+      {
+        "Name": "styleName",
+        "Value": "header_contact_information"
+      },
+      {
+        "Name": "fontFaceName",
+        "Value": "common"
+      },
+      {
+        "Name": "useIconOnly",
+        "Value": "true"
+      }
+    ]
+  },
+  {
+    "Enabled": true,
+    "Name": "Specific_contact_information - Email",
+    "WidgetName": "specific_contact_information",
+    "Placeholder": "header_info_container",
+    "Parameters": [
+      {
+        "Name": "key",
+        "Value": "email"
+      },
+      {
+        "Name": "styleName",
+        "Value": "header_contact_information"
+      },
+      {
+        "Name": "fontFaceName",
+        "Value": "common"
+      },
+      {
+        "Name": "useIconOnly",
+        "Value": "true"
+      }
+    ]
+  },
+  {
+    "Enabled": false,
+    "Parameters": []
+  },
+  {
+    "Enabled": true,
+    "Name": "Wrapper - Header Nav Container",
+    "WidgetName": "container",
+    "Placeholder": "body",
+    "Parameters": [
+      {
+        "Name": "placeholder",
+        "Value": "wrapper_header_nav_container"
+      },
+      {
+        "Name": "styleName",
+        "Value": "wrapper_header_nav_container"
+      },
+      {
+        "Name": "width",
+        "Value": ""
+      },
+      {
+        "Name": "flex",
+        "Value": ""
+      },
+      {
+        "Name": "display",
+        "Value": ""
+      },
+      {
+        "Name": "flexDirection",
+        "Value": ""
+      },
+      {
+        "Name": "paddingTop",
+        "Value": ""
+      },
+      {
+        "Name": "paddingBottom",
+        "Value": ""
+      },
+      {
+        "Name": "paddingLeft",
+        "Value": ""
+      },
+      {
+        "Name": "paddingRight",
+        "Value": ""
+      },
+      {
+        "Name": "useSticky",
+        "Value": "true"
+      }
+    ]
+  },
+  {
+    "Enabled": true,
+    "Name": "Container - Header Nav Container",
+    "WidgetName": "container",
+    "Placeholder": "wrapper_header_nav_container",
+    "Parameters": [
+      {
+        "Name": "placeholder",
+        "Value": "header_nav_container"
+      },
+      {
+        "Name": "styleName",
+        "Value": "header_nav_container"
+      },
+      {
+        "Name": "width",
+        "Value": ""
+      },
+      {
+        "Name": "flex",
+        "Value": ""
+      },
+      {
+        "Name": "display",
+        "Value": ""
+      },
+      {
+        "Name": "flexDirection",
+        "Value": ""
+      },
+      {
+        "Name": "paddingTop",
+        "Value": ""
+      },
+      {
+        "Name": "paddingBottom",
+        "Value": ""
+      },
+      {
+        "Name": "paddingLeft",
+        "Value": ""
+      },
+      {
+        "Name": "paddingRight",
+        "Value": ""
+      },
+      {
+        "Name": "useSticky",
+        "Value": "false"
+      }
+    ]
+  },
+  {
+    "Enabled": true,
+    "Name": "Container - Logo Container",
+    "WidgetName": "container",
+    "Placeholder": "header_nav_container",
+    "Parameters": [
+      {
+        "Name": "placeholder",
+        "Value": "logo_container"
+      },
+      {
+        "Name": "styleName",
+        "Value": "logo_container"
+      },
+      {
+        "Name": "width",
+        "Value": ""
+      },
+      {
+        "Name": "flex",
+        "Value": ""
+      },
+      {
+        "Name": "display",
+        "Value": ""
+      },
+      {
+        "Name": "flexDirection",
+        "Value": ""
+      },
+      {
+        "Name": "paddingTop",
+        "Value": ""
+      },
+      {
+        "Name": "paddingBottom",
+        "Value": ""
+      },
+      {
+        "Name": "paddingLeft",
+        "Value": ""
+      },
+      {
+        "Name": "paddingRight",
+        "Value": ""
+      },
+      {
+        "Name": "useSticky",
+        "Value": "false"
+      }
+    ]
+  },
+  {
+    "Enabled": true,
+    "Name": "Container - Nav Container",
+    "WidgetName": "container",
+    "Placeholder": "header_nav_container",
+    "Parameters": [
+      {
+        "Name": "placeholder",
+        "Value": "nav_container"
+      },
+      {
+        "Name": "styleName",
+        "Value": "nav_container"
+      },
+      {
+        "Name": "width",
+        "Value": ""
+      },
+      {
+        "Name": "flex",
+        "Value": ""
+      },
+      {
+        "Name": "display",
+        "Value": ""
+      },
+      {
+        "Name": "flexDirection",
+        "Value": ""
+      },
+      {
+        "Name": "paddingTop",
+        "Value": ""
+      },
+      {
+        "Name": "paddingBottom",
+        "Value": ""
+      },
+      {
+        "Name": "paddingLeft",
+        "Value": ""
+      },
+      {
+        "Name": "paddingRight",
+        "Value": ""
+      },
+      {
+        "Name": "useSticky",
+        "Value": "false"
+      }
+    ]
+  },
+  {
+    "Enabled": true,
+    "Name": "Logo",
+    "WidgetName": "logo",
+    "Placeholder": "logo_container",
+    "Parameters": [
+      {
+        "Name": "width",
+        "Value": ""
+      },
+      {
+        "Name": "height",
+        "Value": ""
+      }
+    ]
+  },
+  {
+    "Enabled": true,
+    "Name": "Nav",
+    "WidgetName": "navigation",
+    "Placeholder": "nav_container",
+    "Parameters": [
+      {
+        "Name": "name",
+        "Value": "main-menu"
+      }
+    ]
+  },
+  {
+    "Enabled": false,
+    "Parameters": []
+  },
+  {
+    "Enabled": true,
+    "Name": "Container - Body Container",
+    "WidgetName": "container",
+    "Placeholder": "body",
+    "Parameters": [
+      {
+        "Name": "placeholder",
+        "Value": "body_container"
+      },
+      {
+        "Name": "styleName",
+        "Value": "body_container"
+      },
+      {
+        "Name": "width",
+        "Value": ""
+      },
+      {
+        "Name": "flex",
+        "Value": ""
+      },
+      {
+        "Name": "display",
+        "Value": ""
+      },
+      {
+        "Name": "flexDirection",
+        "Value": ""
+      },
+      {
+        "Name": "paddingTop",
+        "Value": ""
+      },
+      {
+        "Name": "paddingBottom",
+        "Value": ""
+      },
+      {
+        "Name": "paddingLeft",
+        "Value": ""
+      },
+      {
+        "Name": "paddingRight",
+        "Value": ""
+      },
+      {
+        "Name": "useSticky",
+        "Value": "false"
+      }
+    ]
+  },
+  {
+    "Enabled": false,
+    "Parameters": []
+  },
+  {
+    "Enabled": true,
+    "Name": "Wrapper - Footer Container",
+    "WidgetName": "container",
+    "Placeholder": "body",
+    "Parameters": [
+      {
+        "Name": "placeholder",
+        "Value": "wrapper_footer_container"
+      },
+      {
+        "Name": "styleName",
+        "Value": "wrapper_footer_container"
+      },
+      {
+        "Name": "width",
+        "Value": ""
+      },
+      {
+        "Name": "flex",
+        "Value": ""
+      },
+      {
+        "Name": "display",
+        "Value": ""
+      },
+      {
+        "Name": "flexDirection",
+        "Value": ""
+      },
+      {
+        "Name": "paddingTop",
+        "Value": ""
+      },
+      {
+        "Name": "paddingBottom",
+        "Value": ""
+      },
+      {
+        "Name": "paddingLeft",
+        "Value": ""
+      },
+      {
+        "Name": "paddingRight",
+        "Value": ""
+      },
+      {
+        "Name": "useSticky",
+        "Value": "false"
+      }
+    ]
+  },
+  {
+    "Enabled": true,
+    "Name": "Container - Footer Container",
+    "WidgetName": "container",
+    "Placeholder": "wrapper_footer_container",
+    "Parameters": [
+      {
+        "Name": "placeholder",
+        "Value": "footer_container"
+      },
+      {
+        "Name": "styleName",
+        "Value": "footer_container"
+      },
+      {
+        "Name": "width",
+        "Value": ""
+      },
+      {
+        "Name": "flex",
+        "Value": ""
+      },
+      {
+        "Name": "display",
+        "Value": ""
+      },
+      {
+        "Name": "flexDirection",
+        "Value": ""
+      },
+      {
+        "Name": "paddingTop",
+        "Value": ""
+      },
+      {
+        "Name": "paddingBottom",
+        "Value": ""
+      },
+      {
+        "Name": "paddingLeft",
+        "Value": ""
+      },
+      {
+        "Name": "paddingRight",
+        "Value": ""
+      },
+      {
+        "Name": "useSticky",
+        "Value": "false"
+      }
+    ]
+  },
+  {
+    "Enabled": true,
+    "Name": "Container - Picked Nav About Us",
+    "WidgetName": "container",
+    "Placeholder": "footer_container",
+    "Parameters": [
+      {
+        "Name": "placeholder",
+        "Value": "picked_nav_about_us_container"
+      },
+      {
+        "Name": "styleName",
+        "Value": "footer_item_container"
+      },
+      {
+        "Name": "width",
+        "Value": ""
+      },
+      {
+        "Name": "flex",
+        "Value": ""
+      },
+      {
+        "Name": "display",
+        "Value": ""
+      },
+      {
+        "Name": "flexDirection",
+        "Value": ""
+      },
+      {
+        "Name": "paddingTop",
+        "Value": ""
+      },
+      {
+        "Name": "paddingBottom",
+        "Value": ""
+      },
+      {
+        "Name": "paddingLeft",
+        "Value": ""
+      },
+      {
+        "Name": "paddingRight",
+        "Value": ""
+      },
+      {
+        "Name": "useSticky",
+        "Value": "false"
+      }
+    ]
+  },
+  {
+    "Enabled": true,
+    "Name": "Picked Nav - About Us",
+    "WidgetName": "picked_navigation",
+    "Placeholder": "picked_nav_about_us_container",
+    "Parameters": [
+      {
+        "Name": "name",
+        "Value": "footer-about-us"
+      },
+      {
+        "Name": "styleName",
+        "Value": "footer_picked_navigation"
+      }
+    ]
+  },
+  {
+    "Enabled": true,
+    "Name": "Container - Contact Us",
+    "WidgetName": "container",
+    "Placeholder": "footer_container",
+    "Parameters": [
+      {
+        "Name": "placeholder",
+        "Value": "footer_contact_us_container"
+      },
+      {
+        "Name": "styleName",
+        "Value": "footer_item_container"
+      },
+      {
+        "Name": "width",
+        "Value": ""
+      },
+      {
+        "Name": "flex",
+        "Value": ""
+      },
+      {
+        "Name": "display",
+        "Value": ""
+      },
+      {
+        "Name": "flexDirection",
+        "Value": ""
+      },
+      {
+        "Name": "paddingTop",
+        "Value": ""
+      },
+      {
+        "Name": "paddingBottom",
+        "Value": ""
+      },
+      {
+        "Name": "paddingLeft",
+        "Value": ""
+      },
+      {
+        "Name": "paddingRight",
+        "Value": ""
+      },
+      {
+        "Name": "useSticky",
+        "Value": "false"
+      }
+    ]
+  },
+  {
+    "Enabled": true,
+    "Name": "Title - Contact Us",
+    "WidgetName": "title",
+    "Placeholder": "footer_contact_us_container",
+    "Parameters": [
+      {
+        "Name": "styleName",
+        "Value": "footer_title"
+      },
+      {
+        "Name": "className",
+        "Value": "title"
+      },
+      {
+        "Name": "title",
+        "Value": "Liên hệ"
+      },
+      {
+        "Name": "fontSize",
+        "Value": ""
+      }
+    ]
+  },
+  {
+    "Enabled": true,
+    "Name": "Contact Information - Contact Us",
+    "WidgetName": "contact_information",
+    "Placeholder": "footer_contact_us_container",
+    "Parameters": [
+      {
+        "Name": "styleName",
+        "Value": "footer_contact_information"
+      },
+      {
+        "Name": "fontFaceName",
+        "Value": ""
+      },
+      {
+        "Name": "useIconOnly",
+        "Value": "false"
+      }
+    ]
+  },
+  {
+    "Enabled": true,
+    "Name": "Container - Subscription",
+    "WidgetName": "container",
+    "Placeholder": "footer_container",
+    "Parameters": [
+      {
+        "Name": "placeholder",
+        "Value": "footer_subscription_container"
+      },
+      {
+        "Name": "styleName",
+        "Value": "footer_item_container"
+      },
+      {
+        "Name": "width",
+        "Value": ""
+      },
+      {
+        "Name": "flex",
+        "Value": ""
+      },
+      {
+        "Name": "display",
+        "Value": ""
+      },
+      {
+        "Name": "flexDirection",
+        "Value": ""
+      },
+      {
+        "Name": "paddingTop",
+        "Value": ""
+      },
+      {
+        "Name": "paddingBottom",
+        "Value": ""
+      },
+      {
+        "Name": "paddingLeft",
+        "Value": ""
+      },
+      {
+        "Name": "paddingRight",
+        "Value": ""
+      },
+      {
+        "Name": "useSticky",
+        "Value": "false"
+      }
+    ]
+  },
+  {
+    "Enabled": true,
+    "Name": "Title - Subscription",
+    "WidgetName": "title",
+    "Placeholder": "footer_subscription_container",
+    "Parameters": [
+      {
+        "Name": "styleName",
+        "Value": "footer_title"
+      },
+      {
+        "Name": "className",
+        "Value": "title"
+      },
+      {
+        "Name": "title",
+        "Value": "Đăng ký nhận tin"
+      },
+      {
+        "Name": "fontSize",
+        "Value": "30px"
+      }
+    ]
+  },
+  {
+    "Enabled": true,
+    "Name": "Input Fields - Subscription",
+    "WidgetName": "input_fields",
+    "Placeholder": "footer_subscription_container",
+    "Parameters": [
+      {
+        "Name": "styleName",
+        "Value": ""
+      },
+      {
+        "Name": "name",
+        "Value": "subscription"
+      },
+      {
+        "Name": "macro",
+        "Value": "register_subscription"
+      },
+      {
+        "Name": "actionLayout",
+        "Value": "left-right"
+      },
+      {
+        "Name": "submitText",
+        "Value": "Gửi"
+      },
+      {
+        "Name": "submitClassName",
+        "Value": "submit"
+      }
+    ]
+  },
+  {
+    "Enabled": true,
+    "Name": "Text Field - Subscription Text",
+    "WidgetName": "text_field",
+    "Placeholder": "footer_subscription_container",
+    "Parameters": [
+      {
+        "Name": "styleName",
+        "Value": "footer_text_field"
+      },
+      {
+        "Name": "name",
+        "Value": "subscription_text"
+      },
+      {
+        "Name": "fontSize",
+        "Value": "14px"
+      }
+    ]
+  },
+  {
+    "Enabled": false,
+    "Parameters": []
+  },
+  {
+    "Enabled": true,
+    "Name": "Wrapper - Footer Copyright Container",
+    "WidgetName": "container",
+    "Placeholder": "body",
+    "Parameters": [
+      {
+        "Name": "placeholder",
+        "Value": "wrapper_footer_copyright_container"
+      },
+      {
+        "Name": "styleName",
+        "Value": "wrapper_footer_copyright_container"
+      },
+      {
+        "Name": "width",
+        "Value": ""
+      },
+      {
+        "Name": "flex",
+        "Value": ""
+      },
+      {
+        "Name": "display",
+        "Value": ""
+      },
+      {
+        "Name": "flexDirection",
+        "Value": ""
+      },
+      {
+        "Name": "paddingTop",
+        "Value": ""
+      },
+      {
+        "Name": "paddingBottom",
+        "Value": ""
+      },
+      {
+        "Name": "paddingLeft",
+        "Value": ""
+      },
+      {
+        "Name": "paddingRight",
+        "Value": ""
+      },
+      {
+        "Name": "useSticky",
+        "Value": "false"
+      }
+    ]
+  },
+  {
+    "Enabled": true,
+    "Name": "Container - Footer Copyright Container",
+    "WidgetName": "container",
+    "Placeholder": "wrapper_footer_copyright_container",
+    "Parameters": [
+      {
+        "Name": "placeholder",
+        "Value": "footer_copyright_container"
+      },
+      {
+        "Name": "styleName",
+        "Value": "footer_copyright_container"
+      },
+      {
+        "Name": "width",
+        "Value": ""
+      },
+      {
+        "Name": "flex",
+        "Value": ""
+      },
+      {
+        "Name": "display",
+        "Value": ""
+      },
+      {
+        "Name": "flexDirection",
+        "Value": ""
+      },
+      {
+        "Name": "paddingTop",
+        "Value": ""
+      },
+      {
+        "Name": "paddingBottom",
+        "Value": ""
+      },
+      {
+        "Name": "paddingLeft",
+        "Value": ""
+      },
+      {
+        "Name": "paddingRight",
+        "Value": ""
+      },
+      {
+        "Name": "useSticky",
+        "Value": "false"
+      }
+    ]
+  },
+  {
+    "Enabled": true,
+    "Name": "Text Field - Copyright Text",
+    "WidgetName": "text_field",
+    "Placeholder": "footer_copyright_container",
+    "Parameters": [
+      {
+        "Name": "styleName",
+        "Value": "footer_text_field"
+      },
+      {
+        "Name": "name",
+        "Value": "copyright_text"
+      },
+      {
+        "Name": "fontSize",
+        "Value": "14px"
+      }
+    ]
+  }
+]

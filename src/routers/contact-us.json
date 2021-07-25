@@ -1,0 +1,130 @@
+[
+  {
+    "Enabled": true,
+    "Name": "Container - Wrapper Container",
+    "WidgetName": "container",
+    "Placeholder": "body_container",
+    "Parameters": [
+      {
+        "Name": "placeholder",
+        "Value": "wrapper_container"
+      },
+      {
+        "Name": "styleName",
+        "Value": "wrapper_container"
+      },
+      {
+        "Name": "width",
+        "Value": ""
+      },
+      {
+        "Name": "flex",
+        "Value": ""
+      },
+      {
+        "Name": "display",
+        "Value": ""
+      },
+      {
+        "Name": "flexDirection",
+        "Value": ""
+      },
+      {
+        "Name": "paddingTop",
+        "Value": ""
+      },
+      {
+        "Name": "paddingBottom",
+        "Value": ""
+      },
+      {
+        "Name": "paddingLeft",
+        "Value": ""
+      },
+      {
+        "Name": "paddingRight",
+        "Value": ""
+      },
+      {
+        "Name": "useSticky",
+        "Value": "false"
+      },
+      {
+        "Name": "useParallax",
+        "Value": "false"
+      }
+    ]
+  },
+  {
+    "Enabled": true,
+    "Name": "Text Field - Title",
+    "WidgetName": "text_field",
+    "Placeholder": "wrapper_container",
+    "Parameters": [
+      {
+        "Name": "styleName",
+        "Value": "title_text_field"
+      },
+      {
+        "Name": "name",
+        "Value": "contact-us-title"
+      },
+      {
+        "Name": "fontSize",
+        "Value": "14px"
+      }
+    ]
+  },
+  {
+    "Enabled": true,
+    "Name": "Text Field - Description",
+    "WidgetName": "text_field",
+    "Placeholder": "wrapper_container",
+    "Parameters": [
+      {
+        "Name": "styleName",
+        "Value": "text_field"
+      },
+      {
+        "Name": "name",
+        "Value": "contact-us-description"
+      },
+      {
+        "Name": "fontSize",
+        "Value": "14px"
+      }
+    ]
+  },
+  {
+    "Enabled": true,
+    "Name": "Input Fields - Contact Us",
+    "WidgetName": "input_fields",
+    "Placeholder": "wrapper_container",
+    "Parameters": [
+      {
+        "Name": "name",
+        "Value": "contact-us"
+      },
+      {
+        "Name": "styleName",
+        "Value": ""
+      },
+      {
+        "Name": "macro",
+        "Value": "macro_contact_send"
+      },
+      {
+        "Name": "actionLayout",
+        "Value": "top-bottom"
+      },
+      {
+        "Name": "submitText",
+        "Value": "Gửi"
+      },
+      {
+        "Name": "submitClassName",
+        "Value": "submit"
+      }
+    ]
+  }
+]

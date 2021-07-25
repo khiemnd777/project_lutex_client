@@ -1,12 +1,56 @@
 [
   {
     "Name": "index",
+    "FileName": "index.json",
     "Path": "/",
-    "TemplateName": "template-default"
+    "TemplateName": "template_default",
+    "TemplateStyleName": "",
+    "IsAuth": false,
+    "Enabled": true
   },
   {
     "Name": "about-us",
+    "FileName": "about-us.json",
     "Path": "/ve-chung-toi",
-    "TemplateName": "template-default"
+    "TemplateName": "template_default",
+    "TemplateStyleName": "",
+    "IsAuth": false,
+    "Enabled": true
+  },
+  {
+    "Name": "post-item",
+    "FileName": "post-item.json",
+    "Path": "/bai-viet/:slug",
+    "TemplateName": "template_default",
+    "TemplateStyleName": "",
+    "IsAuth": false,
+    "Enabled": true
+  },
+  {
+    "Name": "post-catalog",
+    "FileName": "post-catalog.json",
+    "Path": "/danh-muc/:slug",
+    "TemplateName": "template_default",
+    "TemplateStyleName": "",
+    "IsAuth": false,
+    "Enabled": true
+  },
+  {
+    "Name": "post-catalog-solution",
+    "FileName": "post-catalog-solution.json",
+    "Path": "/danh-muc/giai-phap-dich-vu/:slug",
+    "TemplateName": "template_default",
+    "TemplateStyleName": "",
+    "IsAuth": false,
+    "Enabled": true
+  },
+  {
+    "Name": "contact-us",
+    "FileName": "contact-us.json",
+    "Path": "/lien-he",
+    "TemplateName": "template_default",
+    "TemplateStyleName": "",
+    "IsAuth": false,
+    "Enabled": true
   }
 ]
