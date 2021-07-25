@@ -4,7 +4,6 @@ const fs = require('fs');
 const env = require('../../src/_stdio/config/env.config');
 
 const distPath = env('DIST');
-const port = env('PORT');
 // Api host
 const apiSecure = !!env('API_SECURE') || false;
 const secureProtocol = apiSecure ? 'https' : 'http';
@@ -14,8 +13,9 @@ const apiHost = `${secureProtocol}://${apiHostName}:${apiPort}/`;
 // Client host
 const clientSecure = !!env('CLIENT_SECURE') || false;
 const clientSecureProtocal = clientSecure ? 'https' : 'http';
+const clientPort = process.env.NODE_ENV === 'production' ? '' : env('CLIENT_PORT');
 const clientHostName = env('CLIENT_HOST');
-const clientHost = `${clientSecureProtocal}://${clientHostName}${!!port ? `:${port}` : ''}/`;
+const clientHost = `${clientSecureProtocal}://${clientHostName}${!!clientPort ? `:${clientPort}` : ''}/`;
 
 async function fetchSeo(req) {
   let seo = null;

@@ -28,6 +28,7 @@ Task ("Clean-Www")
     Utility.ForceDeleteFile(Context, $"{wwwroot}index.css");
     Utility.ForceDeleteFile(Context, $"{wwwroot}index.css.map");
     Utility.ForceDeleteFile(Context, $"{wwwroot}index.html");
+    Utility.ForceDeleteFile(Context, $"{wwwroot}client.html");
     Utility.ForceDeleteFile(Context, $"{wwwroot}index.js");
     Utility.ForceDeleteFile(Context, $"{wwwroot}index.js.map");
     Utility.ForceDeleteFile(Context, $"{wwwroot}server.js");
