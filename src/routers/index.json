@@ -1,4 +1,14 @@
 {
-  "name": "index",
-  "path": "/"
+  "Name": "index",
+  "IsAuth": false,
+  "Enabled": true,
+  "Widgets": [
+    {
+      "Name": "",
+      "ConfigurationName": "",
+      "Enabled": false,
+      "Placeholder": "",
+      "Parameters": [{ "Name": "", "Value": "" }]
+    }
+  ]
 }

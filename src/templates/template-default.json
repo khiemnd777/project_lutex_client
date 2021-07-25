@@ -1,7 +1,6 @@
 {
-  "Name": "about-us",
-  "IsAuth": false,
-  "Enabled": true,
+  "Name": "template-default",
+  "StyleName": "",
   "Widgets": [
     {
       "Name": "",

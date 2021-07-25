@@ -1,10 +1,12 @@
 [
   {
-    "name": "index",
-    "path": "/"
+    "Name": "index",
+    "Path": "/",
+    "TemplateName": "template-default"
   },
   {
-    "name": "about-us",
-    "path": "/ve-chung-toi"
+    "Name": "about-us",
+    "Path": "/ve-chung-toi",
+    "TemplateName": "template-default"
   }
 ]
