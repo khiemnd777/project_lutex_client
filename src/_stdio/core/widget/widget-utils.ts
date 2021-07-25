@@ -4,7 +4,9 @@ import { JsonParse, JsonStringify } from '_stdio/shared/utils/object.utils';
 import Fetchanic from '../fetchanic/fetchanic';
 import {
   FetchWidgetsByRouter,
+  FetchWidgetsByRouterName,
   FetchWidgetsByTemplate,
+  FetchWidgetsByTemplateName,
   GraphWidgetByRouter,
   GraphWidgetByTemplate,
 } from './widget-service';
@@ -40,8 +42,20 @@ export const PrepareIndicatedWidgetByRouter = (routerId: string) => {
   return widgets;
 };
 
+export const PrepareIndicatedWidgetByRouterName = (routerName: string) => {
+  const { data, loading, error } = Fetchanic(() => FetchWidgetsByRouterName(routerName), routerName);
+  const widgets = (data && !loading && !error && prepareIndicatedWidgets(data)) || [];
+  return widgets;
+};
+
 export const PrepareIndicatedWidgetByTemplate = (templateId?: string) => {
   const { data, loading, error } = Fetchanic(() => FetchWidgetsByTemplate(templateId), !templateId ? '' : templateId);
+  const widgets = (data && !loading && !error && prepareIndicatedWidgets(data)) || [];
+  return widgets;
+};
+
+export const PrepareIndicatedWidgetByTemplateName = (templateName?: string) => {
+  const { data, loading, error } = Fetchanic(() => FetchWidgetsByTemplateName(templateName), !templateName ? '' : templateName);
   const widgets = (data && !loading && !error && prepareIndicatedWidgets(data)) || [];
   return widgets;
 };

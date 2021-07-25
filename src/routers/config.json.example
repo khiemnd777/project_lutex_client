@@ -1,7 +1,11 @@
 [
   {
     "Name": "router_name",
+    "FileName": "router.json",
     "Path": "/",
-    "TemplateName": ""
+    "TemplateName": "",
+    "TemplateStyleName": "",
+    "IsAuth": false,
+    "Enabled": true
   }
 ]

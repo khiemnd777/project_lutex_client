@@ -16,13 +16,20 @@ module.exports = {
       res.status(500).send(err);
     }
   },
-  async getRouter(req, res) {
+  async getWidgetsByRouter(req, res) {
     const name = req.params?.name;
     if (!name) {
-      res.status(204).send('No content found');
+      res.status(400).send('Bad request');
     }
-    const routerFile = path.join(getRouterPath(), `${name}.json`);
     try {
+      const configFile = path.join(getRouterPath(), 'config.json');
+      const configJson = await readFileSync(configFile);
+      const routerFound = configJson.find((x) => x.Name === name);
+      if (!routerFound) {
+        res.status(204).send('No content found');
+        return;
+      }
+      const routerFile = path.join(getRouterPath(), `${routerFound.FileName}`);
       const routerJson = await readFileSync(routerFile);
       res.json(routerJson);
     } catch (err) {

@@ -118,6 +118,7 @@ yarn.lock
 
 # K89 Studio's
 wwwroot/index.html
+wwwroot/client.html
 wwwroot/*.map
 wwwroot/index.css
 wwwroot/index.js

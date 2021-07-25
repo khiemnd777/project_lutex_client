@@ -6,13 +6,20 @@ function getTemplatePath() {
 }
 
 module.exports = {
-  async getTemplate(req, res) {
+  async getWidgetsByTemplate(req, res) {
     const name = req.params?.name;
     if (!name) {
-      res.status(204).send('No content found');
+      res.status(400).send('Bad request');
     }
-    const templateFile = path.join(getTemplatePath(), `${name}.json`);
     try {
+      const configFile = path.join(getTemplatePath(), 'config.json');
+      const configJson = await readFileSync(configFile);
+      const templateFound = configJson.find((x) => x.Name === name);
+      if (!templateFound) {
+        res.status(204).send('No content found');
+        return;
+      }
+      const templateFile = path.join(getTemplatePath(), `${templateFound.FileName}`);
       const templateJson = await readFileSync(templateFile);
       res.json(templateJson);
     } catch (err) {

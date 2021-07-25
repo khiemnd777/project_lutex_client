@@ -7,8 +7,12 @@ function readFileSync(filePath) {
         reject(err);
         return;
       }
-      const student = JSON.parse(data);
-      resolve(student);
+      try {
+        const student = JSON.parse(data);
+        resolve(student);
+      } catch (err) {
+        reject(err);
+      }
     });
   });
 }
