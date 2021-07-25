@@ -70,7 +70,6 @@ if(config.Environment == "development"){
     .IsDependentOn ("Git-Pull")
     .IsDependentOn ("Yarn-Install")
     .IsDependentOn ("Build")
-    .IsDependentOn ("Build-Ssr")
     .Does (() =>
     {
       Information("Update with {0} environment.", config.Environment);
@@ -84,7 +83,6 @@ if(config.Environment == "development"){
     .IsDependentOn ("Git-Pull")
     .IsDependentOn ("Yarn-Install")
     .IsDependentOn ("Build")
-    .IsDependentOn ("Build-Ssr")
     .IsDependentOn ("PM2-Stop")
     .IsDependentOn ("PM2-Start")
     .Does (() =>
@@ -106,7 +104,6 @@ if(config.Environment == "development")
     .IsDependentOn ("Yarn-Init")
     .IsDependentOn ("Yarn-Install")
     .IsDependentOn ("Build")
-    .IsDependentOn ("Build-Ssr")
     .Does(() => {
 
     });
