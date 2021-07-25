@@ -8,5 +8,5 @@ Task("Yarn-Init")
 Task("Yarn-Install")
   .Does(() => {
     Yarn.Install();
-    Yarn.FromPath($"{Constants.ROOT}wwwroot").Install();
+    Yarn.FromPath($"{Constants.ROOT}ssr").Install();
   });
