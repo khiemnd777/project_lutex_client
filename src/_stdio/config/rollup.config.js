@@ -29,7 +29,7 @@ const apiPort = env('API_PORT') || 1337;
 const apiHost = `${secureProtocol}://${apiHostName}:${apiPort}/`;
 const clientSecureProtocal = !!env('CLIENT_SECURE') ? 'https' : 'http'; //!!argv.clientSecure && argv.clientSecure === 'true' ? 'https' : 'http';
 const clientHostName = env('CLIENT_HOST') || (node_env === 'development' ? 'localhost' : 'lutex.io'); // argv.clientHost || (node_env === 'development' ? 'localhost' : 'lutex.io');
-const clientPort = env('CLIENT_PORT') || (node_env === 'development' ? '7777' : ''); // argv.clientPort || (node_env === 'development' ? '7777' : '');
+const clientPort = node_env === 'production' ? '' : env('CLIENT_PORT') || (node_env === 'development' ? '7777' : ''); // argv.clientPort || (node_env === 'development' ? '7777' : '');
 const clientHost = `${clientSecureProtocal}://${clientHostName}${!!clientPort ? `:${clientPort}` : ''}/`;
 
 const plugins = [
