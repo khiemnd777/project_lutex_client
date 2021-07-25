@@ -20,12 +20,13 @@ const clientHost = `${clientSecureProtocal}://${clientHostName}${!!port ? `:${po
 async function fetchSeo(req) {
   let seo = null;
   try {
-    const seoUrl = `${apiHost}seo${req.baseUrl}`;
+    const baseUrl = !!req.baseUrl ? req.baseUrl : req.originalUrl;
+    const seoUrl = `${apiHost}seo${baseUrl}`;
     const seoData = await axios.get(seoUrl);
     seo = seoData ? seoData.data : null;
     if (seo && seo.Facebook) {
       // Attach facebook's og:url
-      const realBaseUrl = req.baseUrl.replace(/^\/+/i, '');
+      const realBaseUrl = baseUrl.replace(/^\/+/i, '');
       !seo.Facebook.Url && (seo.Facebook.Url = `${clientHost}${realBaseUrl}`);
     }
   } catch {}
@@ -56,10 +57,9 @@ const generateSeoMetaTags = (seoData) => {
 };
 
 const genrateHtml = (req, res, seoData) => {
-  const domFile = `${distPath}/index.html`;
+  const domFile = `${distPath}/client.html`;
   fs.readFile(path.resolve(domFile), 'utf-8', async (err, data) => {
     if (err) {
-      console.log(err);
       return res.status(500).send('Some errors happened');
     }
     if (!!seoData) {

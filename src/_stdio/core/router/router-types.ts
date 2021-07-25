@@ -10,15 +10,11 @@ export type RouterWidgetType = {
   widget: RouterWidgetDetailType;
 };
 
-type RouterTempalteType = {
-  id: string;
-  Name: string;
-  StyleName: string;
-};
-
 export type RouterType = {
   id: string;
   templateId: string;
+  TemplateName: string;
+  TemplateStyleName: string;
   Name: string;
   Path: string;
   Enabled: boolean;

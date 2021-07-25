@@ -1,6 +1,6 @@
 import { gql, useQuery } from '@apollo/client';
 import axios from 'axios';
-import { API_HOST } from '_stdio/environment';
+import { API_HOST, CLIENT_HOST } from '_stdio/environment';
 import { MediaGraphProps } from '_stdio/shared/constants/image-constants';
 import { RouterWidgetResponseType, TemplateWidgetResponseType, WidgetType } from './widget-types';
 
@@ -70,7 +70,17 @@ export const FetchWidgetsByRouter = async (routerId: string) => {
   return result.data as WidgetType[];
 };
 
+export const FetchWidgetsByRouterName = async (routerName: string) => {
+  const result = await axios.get(`${CLIENT_HOST}routers/${routerName}/widgets`);
+  return result.data as WidgetType[];
+};
+
 export const FetchWidgetsByTemplate = async (templateId?: string) => {
   const result = await axios.get(`${API_HOST}templates/${templateId}/widgets`);
+  return result.data as WidgetType[];
+};
+
+export const FetchWidgetsByTemplateName = async (templateName?: string) => {
+  const result = await axios.get(`${CLIENT_HOST}templates/${templateName}/widgets`);
   return result.data as WidgetType[];
 };

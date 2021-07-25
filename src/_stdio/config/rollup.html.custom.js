@@ -1,5 +1,4 @@
-import { makeHtmlAttributes } from '@rollup/plugin-html';
-import html from '@rollup/plugin-html';
+import html, { makeHtmlAttributes } from '@rollup/plugin-html';
 import { extname } from 'path';
 
 const generateInlineElements = (bundle) => {
@@ -59,7 +58,7 @@ ${scriptElements}
 export default () =>
   html({
     title: 'Hello folks!',
-    fileName: 'index.html',
+    fileName: 'client.html',
     template: generateHtmlBundle,
     meta: [{ charset: 'utf-8' }, { name: 'viewport', content: 'width=device-width,initial-scale=1' }],
   });

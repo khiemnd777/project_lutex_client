@@ -1,6 +1,6 @@
 import { useQuery, gql } from '@apollo/client';
 import axios from 'axios';
-import { API_HOST } from '_stdio/environment';
+import { API_HOST, CLIENT_HOST } from '_stdio/environment';
 import { RouterResponseType, RouterType } from './router-types';
 
 export const GraphRouters = () => {
@@ -27,3 +27,8 @@ export const FetchAllRouters = async () => {
   const result = await axios.get(`${API_HOST}routers/all`);
   return result.data as RouterType[];
 };
+
+export const FetchRouters = async () => {
+  const result = await axios.get(`${CLIENT_HOST}routers`);
+  return result.data as RouterType[];
+}

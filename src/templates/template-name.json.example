@@ -1,13 +1,10 @@
-{
-  "Name": "template-name",
-  "StyleName": "",
-  "Widgets": [
-    {
-      "Name": "",
-      "ConfigurationName": "",
-      "Enabled": false,
-      "Placeholder": "",
-      "Parameters": [{ "Name": "", "Value": "" }]
-    }
-  ]
-}
+[
+  {
+    "Name": "",
+    "WidgetName": "",
+    "ConfigurationName": "",
+    "Enabled": false,
+    "Placeholder": "",
+    "Parameters": [{ "Name": "", "Value": "" }]
+  }
+]

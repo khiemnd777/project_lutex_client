@@ -18,8 +18,7 @@ const apiHost = `${secureProtocol}://${apiHostName}:${apiPort}/`;
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(express.static(path.resolve(__dirname, '../', 'wwwroot')));
-
-// Init routes
+// routes
 routes(app);
 
 app.listen(port, () => {
