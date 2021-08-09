@@ -4,10 +4,19 @@
   font-family: $alterFontFamily;
   opacity: 0;
   transition: opacity ease 0.5s;
-  font-size: 18px;
+  font-size: 25px;
   text-transform: uppercase;
   color: $darker2Color;
+  font-weight: 600;
+  border-left: 5px solid $darker2Color;
+  padding-left: 10px;
+  margin-bottom: 30px;
   &.visible {
     opacity: 1;
+  }
+  .content {
+    p {
+      margin: 0;
+    }
   }
 }
