@@ -1,4 +1,4 @@
-@import '../../theme';
+@import "../../theme";
 
 $postFontColor: #000;
 $postShortFontColor: #757575;
@@ -24,7 +24,7 @@ $postShortFontSize: 16px;
         .seperate {
           &::before {
             display: flex;
-            content: '.';
+            content: ".";
             align-items: center;
             justify-content: center;
             align-content: center;
@@ -93,6 +93,12 @@ $postShortFontSize: 16px;
               padding: 0 5rem 0 2.5rem;
               p:first-child {
                 margin-block-start: 0;
+              }
+              figure {
+                margin: 0 !important;
+              }
+              img {
+                width: 100% !important;
               }
               @media (max-width: $mobile) {
                 padding: 0 0 0.5rem;
