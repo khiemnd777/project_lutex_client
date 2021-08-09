@@ -4,6 +4,6 @@ import { PostItemType } from './post-item-types';
 export interface PostItemsListWidgetArgs extends WidgetArgs {
   items?: PostItemType[];
   totalCount?: number;
-  datetimeServer?: Date;
+  datetimeServer: string;
   onFetchMore?: () => void;
 }

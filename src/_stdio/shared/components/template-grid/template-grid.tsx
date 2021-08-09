@@ -52,7 +52,7 @@ const TemplateGrid: FunctionalComponent<GridArgs> = ({
     <Fragment>
       {size(list) ? (
         <div ref={gridElmRef} class={cb('grid')}>
-          <InfiniteScroll dataLength={dataLength} scrollThreshold={0.9} next={nextFunc} hasMore={true} loader={null}>
+          <InfiniteScroll dataLength={list.length} scrollThreshold={0.9} next={nextFunc} hasMore={true} loader={null}>
             {map(list, (model) => {
               return (
                 <AssembliedTemplateGridItem

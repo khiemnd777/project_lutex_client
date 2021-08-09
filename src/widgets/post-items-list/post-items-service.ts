@@ -18,6 +18,10 @@ const postItemProps = `
     id
     DisplayName
     Slug
+    Router {
+      id
+      Path
+    }
   }
   Cover{
     ${MediaGraphProps}
@@ -43,27 +47,37 @@ const postItemsConnection = `
   }
 `;
 
-const availablePostItemCondition = (datetimeNow: Date) => `
+const availablePostItemCondition = () => `
   _or: [
     { PostOn_null: true },
     {
-      PostOn_lte: "${datetimeNow}"
+      PostOn_lte: $datetimeNow
       _or: [
         { PostOff_null: true }, 
-        { PostOff_gte: "${datetimeNow}" }
+        { PostOff_gte: $datetimeNow }
       ]
     }
   ]
 `;
 
-export const GraphAvailablePostItems = (datetimeNow: Date, start: number, limit: number, sort = 'createdAt:desc') => {
+export const GraphAvailablePostItems = (
+  datetimeNow: string,
+  start: number,
+  limit: number,
+  sort = 'createdAt:desc',
+  notContainsCatalogs: string = ''
+) => {
   return useQuery<AvailablePostItemsGraphResult>(
     gql`
-    query ($start:Int, $limit:Int, $sort: String) {
+    query ($datetimeNow:DateTime, $start:Int, $limit:Int, $sort: String) {
       ${postItemsConnection}
       postItems (
         where: {
-          ${availablePostItemCondition(datetimeNow)}
+          Catalog: {
+            Slug_null: false
+            ${notContainsCatalogs}
+          }
+          ${availablePostItemCondition()}
         }
         sort: $sort
         start: $start
@@ -75,17 +89,20 @@ export const GraphAvailablePostItems = (datetimeNow: Date, start: number, limit:
   `,
     {
       variables: {
+        datetimeNow,
         start,
         limit,
         sort,
       },
+      nextFetchPolicy: 'cache-first',
+      fetchPolicy: 'cache-first',
     }
   );
 };
 
 export const GraphPostItemInCatalog = (
   slug: string,
-  datetimeNow: Date,
+  datetimeNow: string,
   start: number,
   limit: number,
   useDisplayOrder = false,
@@ -93,14 +110,14 @@ export const GraphPostItemInCatalog = (
 ) => {
   return useQuery<AvailablePostItemsGraphResult>(
     gql`
-    query ($slug:String, $start:Int, $limit:Int) {
+    query ($datetimeNow:DateTime, $slug:String, $start:Int, $limit:Int) {
       ${postItemsConnection}
       postItems (
         where: {
           Catalog: {
             Slug: $slug
           }
-          ${availablePostItemCondition(datetimeNow)}
+          ${availablePostItemCondition()}
         }
         sort:"${useDisplayOrder ? `DisplayOrder:${seqDisplayOrder}` : 'createdAt:desc'}"
         start: $start
@@ -112,6 +129,7 @@ export const GraphPostItemInCatalog = (
   `,
     {
       variables: {
+        datetimeNow,
         slug,
         start,
         limit,
@@ -122,17 +140,17 @@ export const GraphPostItemInCatalog = (
   );
 };
 
-export const GraphPostItemInCatalogId = (catalogId: string, datetimeNow: Date, start: number, limit: number) => {
+export const GraphPostItemInCatalogId = (catalogId: string, datetimeNow: string, start: number, limit: number) => {
   return useQuery<AvailablePostItemsGraphResult>(
     gql`
-    query ($catalogId:String, $start:Int, $limit:Int) {
+    query ($datetimeNow:DateTime, $catalogId:String, $start:Int, $limit:Int) {
       ${postItemsConnection}
       postItems (
         where: {
           Catalog: {
             id: $catalogId
           }
-          ${availablePostItemCondition(datetimeNow)}
+          ${availablePostItemCondition()}
         }
         sort:"createdAt:desc"
         start: $start
@@ -144,6 +162,7 @@ export const GraphPostItemInCatalogId = (catalogId: string, datetimeNow: Date, s
   `,
     {
       variables: {
+        datetimeNow,
         catalogId,
         start,
         limit,

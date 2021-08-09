@@ -48,10 +48,12 @@ const PostItemsListWidget: FunctionalComponent<PostItemsListWidgetArgs> = ({
         classGridItemContainer={cx('grid_item_container')}
         list={map(items, (item) => {
           const routerPath = !isEmpty(item.Router) ? buildRouterPath(item.Router.Path, item) : '';
-          const coverMedia = GetSingleMedia(
-            first(item.Cover),
-            useHqPicture ? MediaFormatEnums.ordinary : MediaFormatEnums.thumbnail
-          );
+          const catalogRoutePath = !isEmpty(item.Catalog?.Router)
+            ? buildRouterPath(item.Catalog?.Router?.Path ?? '', item.Catalog)
+            : '';
+          const coverMedia = !size(item.Cover)
+            ? undefined
+            : GetSingleMedia(item.Cover[0], useHqPicture ? MediaFormatEnums.ordinary : MediaFormatEnums.thumbnail);
           return {
             onAfterLoaded: (model, gridItemRef) => {
               if (!size(item.Cover)) {
@@ -64,15 +66,17 @@ const PostItemsListWidget: FunctionalComponent<PostItemsListWidgetArgs> = ({
                 <Fragment>
                   <div class={cx('container')}>
                     {size(item.Cover) ? (
-                      <ImageContainer
-                        className={cx('image_container')}
-                        imageClassName={cx('image')}
-                        src={coverMedia?.url}
-                        alt={item.Title}
-                        gridItemRef={gridItemRef}
-                        scrollPosition={scrollPosition}
-                        mGrid={mGrid}
-                      />
+                      <Link href={routerPath} class={cx('title')}>
+                        <ImageContainer
+                          className={cx('image_container')}
+                          imageClassName={cx('image')}
+                          src={coverMedia?.url}
+                          alt={item.Title}
+                          gridItemRef={gridItemRef}
+                          scrollPosition={scrollPosition}
+                          mGrid={mGrid}
+                        />
+                      </Link>
                     ) : null}
                     <div class={cx('content_container')}>
                       <div class={cx('title_container')}>
@@ -89,7 +93,9 @@ const PostItemsListWidget: FunctionalComponent<PostItemsListWidgetArgs> = ({
                       {enableCatalog && enableCreatedDate ? (
                         <div class={cx('activity_container')}>
                           {enableCatalog && !isEmpty(item.Catalog) ? (
-                            <div class={cx('catalog')}>{item.Catalog?.DisplayName}</div>
+                            <div class={cx('catalog')}>
+                              <Link href={catalogRoutePath}>{item.Catalog?.DisplayName}</Link>
+                            </div>
                           ) : null}
                           {enableCatalog && enableCreatedDate && !isEmpty(item.Catalog) && !isEmpty(item.createdAt) ? (
                             <div class={cx('seperate')}></div>

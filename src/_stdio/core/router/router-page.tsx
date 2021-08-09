@@ -1,9 +1,10 @@
 import size from 'lodash-es/size';
 import { FunctionalComponent, h } from 'preact';
 import TemplateProvider from '../template/template-provider';
+import { PrepareTemplate } from '../template/template-utils';
 import { ThemeType } from '../theme/theme-types';
 import { IndicatedWidgetType } from '../widget/widget-types';
-import { PrepareIndicatedWidgetByRouterName, PrepareIndicatedWidgetByTemplateName } from '../widget/widget-utils';
+import { PrepareIndicatedWidgetByRouter, PrepareIndicatedWidgetByTemplate } from '../widget/widget-utils';
 
 interface RouterPageArgs {
   routerId: string;
@@ -25,11 +26,11 @@ const RouterPage: FunctionalComponent<RouterPageArgs> = ({
   visitorId,
   matches: routerParams,
 }) => {
-  // const indicatedWidgets = PrepareIndicatedWidgetByRouter(routerId);
-  const indicatedWidgets = PrepareIndicatedWidgetByRouterName(name);
-  // const templateWidgets = PrepareIndicatedWidgetByTemplate(templateId);
-  const templateWidgets = PrepareIndicatedWidgetByTemplateName(templateName);
-  // const template = PrepareTemplate(templateId);
+  const indicatedWidgets = PrepareIndicatedWidgetByRouter(routerId);
+  // const indicatedWidgets = PrepareIndicatedWidgetByRouterName(name);
+  const templateWidgets = PrepareIndicatedWidgetByTemplate(templateId);
+  // const templateWidgets = PrepareIndicatedWidgetByTemplateName(templateName);
+  const template = PrepareTemplate(templateId);
   let widgets = [] as IndicatedWidgetType[];
   if (size(indicatedWidgets)) {
     widgets = widgets.concat(indicatedWidgets);
@@ -40,8 +41,8 @@ const RouterPage: FunctionalComponent<RouterPageArgs> = ({
   return (
     <TemplateProvider
       theme={theme}
-      name={templateName}
-      styleName={templateStyleName}
+      name={template.Name}
+      styleName={template.StyleName}
       widgets={widgets}
       routerParams={routerParams}
       visitorId={visitorId}

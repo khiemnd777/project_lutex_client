@@ -40,4 +40,5 @@ export type VisualizedPostType = {
   Cover: SingleMediaType;
   CatalogName: string;
   CatalogUrl: string;
+  ShowTitle: boolean;
 };

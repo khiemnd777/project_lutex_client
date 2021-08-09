@@ -9,7 +9,7 @@ import { BuildClassNameBind } from '_stdio/core/theme/theme-utils';
 import { WidgetFactory } from '_stdio/core/widget/widget-factory';
 import { MediaFormatEnums } from '_stdio/shared/enums/image-enums';
 import { GetSingleMedia } from '_stdio/shared/utils/media.utils';
-import { threeDotsAt } from '_stdio/shared/utils/string.utils';
+import { parseBool, threeDotsAt } from '_stdio/shared/utils/string.utils';
 import { FeaturedPostsWidgetArgs } from './featured-posts-interfaces';
 import { buildRouterPath } from '_stdio/core/router/router-utils';
 import { WidgetInstaller } from '_stdio/core/widget/widget-installer';
@@ -26,6 +26,7 @@ const FeaturedPostsWidget: FunctionalComponent<FeaturedPostsWidgetArgs> = ({
   parameters,
 }) => {
   const styleName = GetParameterValue('styleName', parameters, DefaultParams);
+  const showTitle = parseBool(GetParameterValue('showTitle', parameters, DefaultParams));
   const cx = BuildClassNameBind(theme.Name, styleName);
   const posts = map(data, (fpost) => {
     const post = fpost.Post;
@@ -43,6 +44,7 @@ const FeaturedPostsWidget: FunctionalComponent<FeaturedPostsWidgetArgs> = ({
       Cover: cover,
       CatalogName: catalogName,
       CatalogUrl: catalogUrl,
+      ShowTitle: showTitle,
     } as VisualizedPostType;
   });
   return (
@@ -75,18 +77,20 @@ const PostItemsBuilder: FunctionalComponent<PostBuilderArgs> = ({ posts, theme, 
         const cover = GetSingleMedia(post.Cover, MediaFormatEnums.ordinary);
         return (
           <div class={cx('post_item')}>
-            <div class={cx('post_item_container')}>
-              <ImageContainer
-                className={cx('post_item_cover', 'image_container')}
-                src={cover?.url}
-                alt={post.Cover?.Caption}
-              />
-              <div class={cx('post_item_title')}>
-                <Link href={post.Url}>
-                  <span>{threeDotsAt(post.Title, 30)}</span>
-                </Link>
+            <Link href={post.Url} class={cx('post_item_link_image')}>
+              <div class={cx('post_item_container')}>
+                <ImageContainer
+                  className={cx('post_item_cover', 'image_container')}
+                  src={cover?.url}
+                  alt={post.Cover?.Caption}
+                />
+                {post.ShowTitle ? (
+                  <div class={cx('post_item_title')}>
+                    <span>{threeDotsAt(post.Title, 30)}</span>
+                  </div>
+                ) : null}
               </div>
-            </div>
+            </Link>
           </div>
         );
       })}

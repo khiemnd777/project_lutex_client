@@ -4,7 +4,7 @@ import { defaultPolicy, startLimitPagination } from '_stdio/core/cache-policy/ca
 CachePolicy.RegisterFieldPolicy('postCatalogs', defaultPolicy(['where', ['Slug']]));
 CachePolicy.RegisterFieldPolicy(
   'postItems',
-  startLimitPagination(['where', ['Catalog', ['id', 'Slug']], 'start', 'limit'])
+  startLimitPagination(['where', ['Catalog', ['id', 'Slug']], 'limit'])
 );
 CachePolicy.RegisterFieldPolicy('featuredPosts', defaultPolicy(['where', ['id', 'Name']]));
 CachePolicy.RegisterFieldPolicy('featuredCatalogs', defaultPolicy(['where', ['id', 'Name']]));
