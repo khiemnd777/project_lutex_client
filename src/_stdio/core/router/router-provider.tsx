@@ -3,7 +3,7 @@ import size from 'lodash-es/size';
 import { FunctionalComponent, h } from 'preact';
 import Router, { route, RouterOnChangeArgs } from 'preact-router';
 import { ErrorPage } from '_stdio/shared/pages/error-page/error-page';
-import { FetchRouters } from './router-service';
+import { FetchAllRouters } from './router-service';
 import RouterPage from './router-page';
 import { ThemeType } from '../theme/theme-types';
 import LoginPage from '../auth/pages/login-page';
@@ -53,8 +53,8 @@ interface RouterProviderArgs {
 }
 const RouterProvider: FunctionalComponent<RouterProviderArgs> = ({ theme, visitorId }) => {
   // const { data, loading, error } = GraphRouters();
-  // const { data, loading, error } = Fetchanic(() => FetchAllRouters());
-  const { data, loading, error } = Fetchanic(() => FetchRouters());
+  const { data, loading, error } = Fetchanic(() => FetchAllRouters());
+  // const { data, loading, error } = Fetchanic(() => FetchRouters());
   const routers = (!loading && !error && data) || [];
   if (size(routers)) {
     return (

@@ -3,6 +3,7 @@ import { size } from 'lodash-es';
 import isEmpty from 'lodash-es/isEmpty';
 import { createElement, Fragment, FunctionalComponent, h } from 'preact';
 import { useEffect, useState } from 'preact/hooks';
+import Fetchanic from '_stdio/core/fetchanic/fetchanic';
 import { WidgetFactory } from '_stdio/core/widget/widget-factory';
 import { WidgetConfigArgs } from '_stdio/core/widget/widget-interfaces';
 import { GetDatetimeServer } from '_stdio/shared/utils/datetime-server/datetime-server';
@@ -22,18 +23,27 @@ export const PostItemsListWidgetConfig: FunctionalComponent<WidgetConfigArgs<Pos
   internalParams,
   widgets,
 }) => {
-  const [datetimeServer, setDatetimeServer] = useState<Date>({} as Date);
-  useEffect(() => {
-    void GetDatetimeServer().then((value) => {
-      setDatetimeServer(value);
-    });
-  }, []);
-  let result = {} as QueryResult<AvailablePostItemsGraphResult, Record<string, any>>;
+  const [datetimeServer, setDatetimeServer] = useState<string>('');
+  const datetimServerResult = Fetchanic(() => GetDatetimeServer());
+  if (datetimServerResult && !datetimServerResult.loading && !datetimServerResult.error && !datetimeServer) {
+    setDatetimeServer(datetimServerResult.data ?? '');
+  }
+  let result: () => QueryResult<AvailablePostItemsGraphResult, Record<string, any>> = () => {
+    return {} as QueryResult<AvailablePostItemsGraphResult, Record<string, any>>;
+  };
   const start = tryParseInt(GetParameterValue('start', parameters, DefaultParams));
   const limit = tryParseInt(GetParameterValue('limit', parameters, DefaultParams)) || LIMIT;
+  const notContainsCatalogs = GetParameterValue('notContainsCatalogs', parameters, DefaultParams);
   const useDisplayOrder = parseBool(GetParameterValue('useDisplayOrder', parameters, DefaultParams));
   if (!isEmpty(datetimeServer)) {
-    result = GraphAvailablePostItems(datetimeServer, start, limit, useDisplayOrder ? 'DisplayOrder:asc' : 'createdAt:desc');
+    result = () =>
+      GraphAvailablePostItems(
+        datetimeServer,
+        start,
+        limit,
+        useDisplayOrder ? 'DisplayOrder:asc' : 'createdAt:desc',
+        `${notContainsCatalogs}`
+      );
   }
   return (
     <PostItemsListByCatalogUtils

@@ -37,7 +37,8 @@ export type VisualizedPostType = {
   Title: string;
   Url: string;
   CreatedAt: Date;
-  Cover: SingleMediaType,
-  CatalogName: string,
-  CatalogUrl: string,
-}
+  Cover: SingleMediaType;
+  CatalogName: string;
+  CatalogUrl: string;
+  ShowTitle: boolean;
+};

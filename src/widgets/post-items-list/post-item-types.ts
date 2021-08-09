@@ -49,4 +49,5 @@ export type PostCatalogType = {
   id: string;
   DisplayName: string;
   Slug: string;
+  Router: SimpleRouterType;
 };

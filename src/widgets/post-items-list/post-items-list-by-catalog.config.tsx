@@ -2,6 +2,7 @@ import { QueryResult } from '@apollo/client';
 import isEmpty from 'lodash-es/isEmpty';
 import { FunctionalComponent, h } from 'preact';
 import { useEffect, useState } from 'preact/hooks';
+import Fetchanic from '_stdio/core/fetchanic/fetchanic';
 import { WidgetFactory } from '_stdio/core/widget/widget-factory';
 import { WidgetConfigArgs } from '_stdio/core/widget/widget-interfaces';
 import { GetDatetimeServer } from '_stdio/shared/utils/datetime-server/datetime-server';
@@ -20,13 +21,14 @@ export const PostItemsListByCatalogWidgetConfig: FunctionalComponent<WidgetConfi
   routerParams,
   internalParams,
 }) => {
-  const [datetimeServer, setDatetimeServer] = useState<Date>({} as Date);
-  useEffect(() => {
-    void GetDatetimeServer().then((value) => {
-      setDatetimeServer(value);
-    });
-  }, []);
-  let result = {} as QueryResult<AvailablePostItemsGraphResult, Record<string, any>>;
+  const [datetimeServer, setDatetimeServer] = useState<string>('');
+  const datetimServerResult = Fetchanic(() => GetDatetimeServer());
+  if (datetimServerResult && !datetimServerResult.loading && !datetimServerResult.error && !datetimeServer) {
+    setDatetimeServer(datetimServerResult.data ?? '');
+  }
+  let result: () => QueryResult<AvailablePostItemsGraphResult, Record<string, any>> = () => {
+    return {} as QueryResult<AvailablePostItemsGraphResult, Record<string, any>>;
+  };
   const start = tryParseInt(GetParameterValue('start', parameters, DefaultParams));
   const limit = tryParseInt(GetParameterValue('limit', parameters, DefaultParams)) || 10;
   // let slug = routerParams?.slug || '';
@@ -37,7 +39,7 @@ export const PostItemsListByCatalogWidgetConfig: FunctionalComponent<WidgetConfi
   if (!isEmpty(datetimeServer) && slug) {
     const useDisplayOrder = parseBool(GetParameterValue('useDisplayOrder', parameters, DefaultParams));
     const seqDisplayOrder = GetParameterValue('seqDisplayOrder', parameters, DefaultParams);
-    result = GraphPostItemInCatalog(slug, datetimeServer, start, limit, useDisplayOrder, seqDisplayOrder);
+    result = () => GraphPostItemInCatalog(slug, datetimeServer, start, limit, useDisplayOrder, seqDisplayOrder);
   }
   return (
     <PostItemsListByCatalogUtils

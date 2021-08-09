@@ -9,8 +9,8 @@ import { DefaultParams } from './post-items-list-constants';
 import { PostItemsListWidgetArgs } from './post-items-list-interfaces';
 
 interface PostItemsListByCatalogUtilsArgs extends WidgetConfigArgs<PostItemsListWidgetArgs> {
-  result: QueryResult<AvailablePostItemsGraphResult, Record<string, any>>;
-  datetimeServer: Date;
+  result: (() => QueryResult<AvailablePostItemsGraphResult, Record<string, any>>);
+  datetimeServer: string;
   limit?: number;
 }
 
@@ -24,7 +24,7 @@ const PostItemsListByCatalogUtils: FunctionalComponent<PostItemsListByCatalogUti
   routerParams,
   widgets,
 }) => {
-  const { data, loading, error, fetchMore } = result;
+  const { data, loading, error, fetchMore } = result();
   const totalCount = !loading && !error ? data?.postItemsConnection.aggregate.totalCount : 0;
   const items = !loading && !error ? data?.postItems : [];
   return (

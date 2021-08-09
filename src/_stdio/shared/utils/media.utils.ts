@@ -3,7 +3,7 @@ import { MediaFormatEnums } from '../enums/image-enums';
 import { ImageType, SingleMediaType } from '../types/image-types';
 
 export const GetSingleMedia = (
-  singleMedia?: SingleMediaType,
+  singleMedia: SingleMediaType,
   formatEnums: MediaFormatEnums = MediaFormatEnums.ordinary
 ) => {
   if (!singleMedia || isEmpty(singleMedia)) {
@@ -11,17 +11,13 @@ export const GetSingleMedia = (
       url: '',
     } as ImageType;
   }
-  const formats = singleMedia.Media.formats;
+  const formats = singleMedia.Media?.formats;
   if (!isEmpty(formats)) {
     switch (formatEnums) {
-      case MediaFormatEnums.thumbnail: {
-        if (formats.thumbnail) {
-          return formats.thumbnail;
-        }
-      }
-      case MediaFormatEnums.small: {
-        if (formats.small) {
-          return formats.small;
+      case MediaFormatEnums.ordinary:
+      case MediaFormatEnums.large: {
+        if (formats.large) {
+          return formats.large;
         }
       }
       case MediaFormatEnums.medium: {
@@ -29,9 +25,14 @@ export const GetSingleMedia = (
           return formats.medium;
         }
       }
-      case MediaFormatEnums.large: {
-        if (formats.large) {
-          return formats.large;
+      case MediaFormatEnums.small: {
+        if (formats.small) {
+          return formats.small;
+        }
+      }
+      case MediaFormatEnums.thumbnail: {
+        if (formats.thumbnail) {
+          return formats.thumbnail;
         }
       }
       default:
@@ -40,6 +41,6 @@ export const GetSingleMedia = (
   }
   const media = singleMedia.Media;
   return {
-    url: media.url,
+    url: media?.url,
   } as ImageType;
 };
