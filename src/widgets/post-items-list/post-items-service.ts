@@ -73,8 +73,9 @@ export const GraphAvailablePostItems = (
       ${postItemsConnection}
       postItems (
         where: {
+          Slug_null: false
+          published_at_null: false
           Catalog: {
-            Slug_null: false
             ${notContainsCatalogs}
           }
           ${availablePostItemCondition()}
