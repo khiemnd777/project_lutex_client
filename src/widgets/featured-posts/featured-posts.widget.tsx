@@ -31,16 +31,16 @@ const FeaturedPostsWidget: FunctionalComponent<FeaturedPostsWidgetArgs> = ({
   const posts = map(data, (fpost) => {
     const post = fpost.Post;
     const title = fpost.Title || post.Title;
-    const routerPath = post.Router ? post.Router.Path : fpost.Router?.Path;
+    const routerPath = post?.Router ? post?.Router.Path : fpost.Router?.Path;
     const url = buildRouterPath(routerPath, post);
-    const cover = first(fpost.Media) || first(post.Cover);
-    const catalog = post.Catalog;
+    const cover = first(fpost.Media) || first(post?.Cover);
+    const catalog = post?.Catalog;
     const catalogName = catalog?.DisplayName;
     const catalogUrl = buildRouterPath(catalog?.Router?.Path, catalog);
     return {
       Title: title,
       Url: url,
-      CreatedAt: post.createdAt,
+      CreatedAt: post?.createdAt,
       Cover: cover,
       CatalogName: catalogName,
       CatalogUrl: catalogUrl,

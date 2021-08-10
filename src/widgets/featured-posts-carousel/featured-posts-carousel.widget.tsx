@@ -38,16 +38,16 @@ const FeaturedPostsCarouselWidget: FunctionalComponent<FeaturedPostsCarouselWidg
   const posts = map(data?.FeaturedPosts, (fpost) => {
     const post = fpost.Post;
     const title = fpost.Title || post.Title;
-    const routerPath = post.Router ? post.Router.Path : fpost.Router?.Path;
+    const routerPath = post?.Router ? post?.Router.Path : fpost.Router?.Path;
     const url = buildRouterPath(routerPath, post);
-    const cover = first(fpost.Media) || first(post.Cover);
-    const catalog = post.Catalog;
+    const cover = first(fpost.Media) || first(post?.Cover);
+    const catalog = post?.Catalog;
     const catalogName = catalog?.DisplayName;
     const catalogUrl = buildRouterPath(catalog?.Router?.Path, catalog);
     return {
       Title: title,
       Url: url,
-      CreatedAt: post.createdAt,
+      CreatedAt: post?.createdAt,
       Cover: cover,
       CatalogName: catalogName,
       CatalogUrl: catalogUrl,
@@ -118,7 +118,7 @@ const PostItemsBuilder: FunctionalComponent<PostBuilderArgs> = ({
               <div class={cx('post_item_date_catalog')}>
                 {dateEnabled ? (
                   <div class={cx('post_item_created_at')}>
-                    <span>{convertDateFormat(new Date(post.CreatedAt), DATE_FORMAT)}</span>
+                    {post.CreatedAt ? <span>{convertDateFormat(new Date(post.CreatedAt), DATE_FORMAT)}</span> : null}
                   </div>
                 ) : null}
                 <div class={cx('post_item_catalog')}>
