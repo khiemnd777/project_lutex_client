@@ -18,6 +18,7 @@ import { DefaultParams } from './featured-posts-constants';
 import { GetParameterValue } from '_stdio/shared/utils/params.util';
 import { VisualizedPostType } from './featured-posts-types';
 import ImageContainer from '_stdio/shared/components/image-container/image-container';
+import { convertDateFormat, DATE_FORMAT } from '_stdio/shared/utils/date.utils';
 
 const FeaturedPostsWidget: FunctionalComponent<FeaturedPostsWidgetArgs> = ({
   theme,
@@ -27,6 +28,8 @@ const FeaturedPostsWidget: FunctionalComponent<FeaturedPostsWidgetArgs> = ({
 }) => {
   const styleName = GetParameterValue('styleName', parameters, DefaultParams);
   const showTitle = parseBool(GetParameterValue('showTitle', parameters, DefaultParams));
+  const enableCreatedDate = parseBool(GetParameterValue('enableCreatedDate', parameters, DefaultParams));
+  const enableCatalog = parseBool(GetParameterValue('enableCatalog', parameters, DefaultParams));
   const cx = BuildClassNameBind(theme.Name, styleName);
   const posts = map(data, (fpost) => {
     const post = fpost.Post;
@@ -55,7 +58,13 @@ const FeaturedPostsWidget: FunctionalComponent<FeaturedPostsWidgetArgs> = ({
       <div class={cx('container')}>
         {size(posts) ? (
           <div class={cx('post_items_container')}>
-            <PostItemsBuilder theme={theme} styleName={styleName} posts={posts} />
+            <PostItemsBuilder
+              theme={theme}
+              styleName={styleName}
+              posts={posts}
+              enableCatalog={enableCatalog}
+              enableCreatedDate={enableCreatedDate}
+            />
           </div>
         ) : null}
       </div>
@@ -67,9 +76,17 @@ interface PostBuilderArgs {
   theme: ThemeType;
   styleName: string;
   posts?: VisualizedPostType[];
+  enableCreatedDate: boolean;
+  enableCatalog: boolean;
 }
 
-const PostItemsBuilder: FunctionalComponent<PostBuilderArgs> = ({ posts, theme, styleName }) => {
+const PostItemsBuilder: FunctionalComponent<PostBuilderArgs> = ({
+  posts,
+  theme,
+  styleName,
+  enableCreatedDate,
+  enableCatalog,
+}) => {
   const cx = BuildClassNameBind(theme.Name, styleName);
   return (
     <Fragment>
@@ -77,20 +94,40 @@ const PostItemsBuilder: FunctionalComponent<PostBuilderArgs> = ({ posts, theme, 
         const cover = GetSingleMedia(post.Cover, MediaFormatEnums.ordinary);
         return (
           <div class={cx('post_item')}>
-            <Link href={post.Url} class={cx('post_item_link_image')}>
-              <div class={cx('post_item_container')}>
-                <ImageContainer
-                  className={cx('post_item_cover', 'image_container')}
-                  src={cover?.url}
-                  alt={post.Cover?.Caption}
-                />
+            <div class={cx('post_item_container')}>
+              <ImageContainer
+                className={cx('post_item_cover', 'image_container')}
+                src={cover?.url}
+                alt={post.Cover?.Caption}
+                url={post.Url}
+              />
+              <div class={cx('post_item_info')}>
                 {post.ShowTitle ? (
                   <div class={cx('post_item_title')}>
-                    <span>{threeDotsAt(post.Title, 30)}</span>
+                    <Link href={post.Url}>
+                      <span>{threeDotsAt(post.Title, 30)}</span>
+                    </Link>
+                  </div>
+                ) : null}
+                {enableCatalog && enableCreatedDate ? (
+                  <div class={cx('activity_container')}>
+                    {enableCatalog ? (
+                      <div class={cx('catalog')}>
+                        <Link href={post.CatalogUrl}>{post.CatalogName}</Link>
+                      </div>
+                    ) : null}
+                    {enableCatalog && enableCreatedDate && !isEmpty(post.CreatedAt) ? (
+                      <div class={cx('seperate')}></div>
+                    ) : null}
+                    {enableCreatedDate ? (
+                      !isEmpty(post.CreatedAt) ? (
+                        <div class={cx('created_at')}>{convertDateFormat(post?.CreatedAt, DATE_FORMAT)}</div>
+                      ) : null
+                    ) : null}
                   </div>
                 ) : null}
               </div>
-            </Link>
+            </div>
           </div>
         );
       })}

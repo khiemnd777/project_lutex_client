@@ -37,16 +37,38 @@
   $dimHeightUnit,
   $widthMobile,
   $widthMobileUnit,
-  $inheritedHeightMobile: false
+  $inheritedHeightMobile: false,
+  $imgWidthCover: false
 ) {
   .image_container {
     width: #{$containerWidth * $dimWidthUnit};
     height: #{$containerHeight * $dimHeightUnit};
-    > img,
-    > img.image {
+    a {
+      display: block;
       width: 100%;
       height: 100%;
+      > img,
+      > img.image {
+        @if $imgWidthCover {
+          width: initial;
+        } @else {
+          width: 100%;
+        }
+        height: 100%;
+        object-fit: cover;
+        border-radius: 3px;
+      }
+    }
+    > img,
+    > img.image {
+      @if $imgWidthCover {
+        width: initial;
+      } @else {
+        width: 100%;
+      }
+      height: 100%;
       object-fit: cover;
+      border-radius: 3px;
     }
     @media (max-width: $mobile) {
       width: #{$widthMobile * $widthMobileUnit};
