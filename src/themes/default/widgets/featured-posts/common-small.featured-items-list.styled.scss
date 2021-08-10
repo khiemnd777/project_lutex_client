@@ -23,7 +23,7 @@
         .post_item_container {
           position: relative;
           display: flex;
-          @include imageContainer(120, 1px, 120, 87.27, 1px, 100, 1%, false, true);
+          @include imageContainer(120, 1px, 120, 87.27, 1px, 100, 1%, false, true, true);
           .post_item_info {
             flex: 1;
             .post_item_title {
@@ -54,9 +54,48 @@
                   align-items: center;
                   justify-content: center;
                   align-content: center;
-                  height: 50%;
+                  height: 17%;
                   width: 25px;
                   font-weight: $boldWeight;
+                }
+              }
+            }
+          }
+        }
+        &:first-child {
+          border-bottom: 1px solid $darker2Color;
+          padding-bottom: 30px;
+          margin-bottom: 30px;
+          .post_item_container {
+            display: flex;
+            flex-direction: column;
+            @include imageContainer(100, 1%, 406, 294, 1px, 100, 1%);
+            .post_item_info {
+              display: flex;
+              flex-direction: column-reverse;
+              padding-top: 15px;
+              .post_item_title {
+                padding-top: 5px;
+                padding-left: 0;
+                a {
+                  font-family: $alterFontFamily;
+                  color: $primaryHeaderColor;
+                  font-weight: 800;
+                  font-size: 18px;
+                }
+              }
+              .activity_container {
+                padding-top: 0;
+                padding-left: 0;
+                .catalog,
+                .created_at {
+                  display: inline-block;
+                  font-size: 12px;
+                  font-weight: $bolderWeight;
+                  text-transform: uppercase;
+                  @media (max-width: $mobile) {
+                    font-size: 8px;
+                  }
                 }
               }
             }
