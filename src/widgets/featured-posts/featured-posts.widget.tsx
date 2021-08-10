@@ -30,7 +30,7 @@ const FeaturedPostsWidget: FunctionalComponent<FeaturedPostsWidgetArgs> = ({
   const cx = BuildClassNameBind(theme.Name, styleName);
   const posts = map(data, (fpost) => {
     const post = fpost.Post;
-    const title = fpost.Title || post.Title;
+    const title = fpost.Title || post?.Title;
     const routerPath = post?.Router ? post?.Router.Path : fpost.Router?.Path;
     const url = buildRouterPath(routerPath, post);
     const cover = first(fpost.Media) || first(post?.Cover);
