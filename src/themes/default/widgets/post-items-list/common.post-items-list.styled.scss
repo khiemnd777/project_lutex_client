@@ -36,6 +36,9 @@
           font-size: 14px;
           font-weight: $bolderWeight;
           text-transform: uppercase;
+          @media (max-width: $mobile) {
+            font-size: 11px;
+          }
         }
         .seperate {
           &::before {

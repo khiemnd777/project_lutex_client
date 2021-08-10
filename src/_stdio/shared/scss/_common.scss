@@ -38,6 +38,7 @@
   $widthMobile,
   $widthMobileUnit,
   $inheritedHeightMobile: false,
+  $inheritedWidthMobile: false,
   $imgWidthCover: false
 ) {
   .image_container {
@@ -50,7 +51,7 @@
       > img,
       > img.image {
         @if $imgWidthCover {
-          width: initial;
+          width: inherit;
         } @else {
           width: 100%;
         }
@@ -62,7 +63,7 @@
     > img,
     > img.image {
       @if $imgWidthCover {
-        width: initial;
+        width: inherit;
       } @else {
         width: 100%;
       }
@@ -71,7 +72,11 @@
       border-radius: 3px;
     }
     @media (max-width: $mobile) {
-      width: #{$widthMobile * $widthMobileUnit};
+      @if $inheritedWidthMobile {
+        width: #{$containerWidth * $dimWidthUnit};
+      } @else {
+        width: #{$widthMobile * $widthMobileUnit};
+      }
       @if $inheritedHeightMobile {
         height: #{$containerHeight * $dimHeightUnit};
       } @else {
