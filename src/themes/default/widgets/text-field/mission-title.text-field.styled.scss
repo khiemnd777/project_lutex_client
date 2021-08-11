@@ -5,6 +5,7 @@
   opacity: 0;
   transition: opacity ease 0.5s;
   font-size: 24px;
+  font-weight: 600;
   text-transform: uppercase;
   color: $color-white;
   &.visible {

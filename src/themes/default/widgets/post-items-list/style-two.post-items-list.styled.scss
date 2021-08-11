@@ -18,7 +18,7 @@ $contentWidth: 90%;
   .container {
     padding: 0 0 30px 0;
     width: 100%;
-    @include imageContainer(100, 1%, 370, 220, 1px, 100, 1%, true);
+    @include imageContainer(100, 1%, 386, 279, 1px, 100, 1%, true);
     .content_container {
       width: 100%;
       background-color: transparent;

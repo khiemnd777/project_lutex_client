@@ -115,6 +115,8 @@ export const GraphPostItemInCatalog = (
       ${postItemsConnection}
       postItems (
         where: {
+          Slug_null: false
+          published_at_null: false
           Catalog: {
             Slug: $slug
           }
@@ -148,6 +150,7 @@ export const GraphPostItemInCatalogId = (catalogId: string, datetimeNow: string,
       ${postItemsConnection}
       postItems (
         where: {
+          published_at_null: false
           Catalog: {
             id: $catalogId
           }
