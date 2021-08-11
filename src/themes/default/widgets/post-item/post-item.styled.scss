@@ -95,7 +95,18 @@ $postShortFontSize: 16px;
                 margin-block-start: 0;
               }
               figure {
-                margin: 0 !important;
+                margin: 0 auto !important;
+                img{
+                  border-radius: 3px;
+                }
+                figcaption {
+                  text-align: center;
+                  span{
+                    font-size: 13px;
+                    color:$lighterFontColor;
+
+                  }
+                }
               }
               img {
                 width: 100% !important;

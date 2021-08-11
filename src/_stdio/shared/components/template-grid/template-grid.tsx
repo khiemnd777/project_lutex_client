@@ -65,24 +65,6 @@ const TemplateGrid: FunctionalComponent<GridArgs> = ({
                   onSelect={onSelect}
                 />
               );
-              // return (
-              //   <div
-              //     ref={gridItemRef}
-              //     class={cb('grid_item', classGridItem)}
-              //     onClick={() => {
-              //       onSelect?.call(null, model);
-              //       !!model.url && route(model.url);
-              //     }}
-              //   >
-              //     <div class={cb(classGridItemContainer, 'grid_item_container')}>
-              //       {model.template({
-              //         scrollPosition: scrollPosition,
-              //         gridItemRef: gridItemRef,
-              //         mGrid: getGrid,
-              //       } as TemplateGridArgs)}
-              //     </div>
-              //   </div>
-              // );
             })}
           </InfiniteScroll>
           {children}
