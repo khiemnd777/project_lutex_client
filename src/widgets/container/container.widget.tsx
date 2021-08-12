@@ -1,5 +1,5 @@
 import { Fragment, FunctionalComponent, h } from 'preact';
-import { useRef, useState } from 'preact/hooks';
+import { PropRef, useRef, useState } from 'preact/hooks';
 import Placeholder from '_stdio/core/placeholder/placeholder';
 import { BuildClassNameBind } from '_stdio/core/theme/theme-utils';
 import { WidgetFactory } from '_stdio/core/widget/widget-factory';
@@ -11,7 +11,7 @@ import ImageContainer from '_stdio/shared/components/image-container/image-conta
 import StickyAnchor from '_stdio/shared/components/sticky/sticky-anchor';
 import { MediaFormatEnums } from '_stdio/shared/enums/image-enums';
 import { GetSingleMedia } from '_stdio/shared/utils/media.utils';
-import { GetParameterValue } from '_stdio/shared/utils/params.util';
+import { GetParameterValue, GetParameterValueWithGeneric } from '_stdio/shared/utils/params.util';
 import { parseBool } from '_stdio/shared/utils/string.utils';
 import { DefaultParams } from './container-constants';
 
@@ -37,10 +37,11 @@ const ContainerWidget: FunctionalComponent<WidgetArgs> = ({
   const useSticky = parseBool(GetParameterValue('useSticky', parameters, DefaultParams));
   const useParallax = parseBool(GetParameterValue('useParallax', parameters, DefaultParams));
   const styleName = GetParameterValue('styleName', parameters, DefaultParams) || 'container';
-  const backgroundImageValue = GetSingleMedia(backgroundImage, MediaFormatEnums.ordinary);
+  const backgroundImageValue = backgroundImage ? GetSingleMedia(backgroundImage, MediaFormatEnums.ordinary) : undefined;
   const cx = BuildClassNameBind(theme.Name, styleName);
   const [addedSticky, setAddedSticky] = useState(false);
   const refEl = useRef<HTMLDivElement>(null);
+  const containerRef = GetParameterValueWithGeneric<PropRef<HTMLDivElement>>('containerRef', internalParams);
   const style = {};
   if (display) {
     style['display'] = display;
@@ -72,8 +73,8 @@ const ContainerWidget: FunctionalComponent<WidgetArgs> = ({
 
   return (
     <Fragment>
-      {useSticky ? <StickyAnchor stickyRef={refEl} handler={setAddedSticky} /> : null}
-      <div style={style} class={cx('container', useSticky && addedSticky ? 'sticky' : null)}>
+      {useSticky ? <StickyAnchor stickyRef={refEl} containerRef={containerRef} handler={setAddedSticky} /> : null}
+      <div ref={refEl} style={style} class={cx('container', useSticky && addedSticky ? 'sticky' : null)}>
         {backgroundImageValue && backgroundImageValue.url ? (
           useParallax ? (
             <BackgroundImageParallax
@@ -99,7 +100,7 @@ const ContainerWidget: FunctionalComponent<WidgetArgs> = ({
           routerParams={routerParams}
           visitorId={visitorId}
           widgets={widgets}
-          internalParams={internalParams}
+          internalParams={{ containerRef: refEl }}
         />
       </div>
     </Fragment>

@@ -17,7 +17,8 @@
   }
   &.sticky {
     position: fixed;
-    z-index: 9999;
-    top: 0;
+    z-index: 10;
+    top: 95px;
+    width: 406px;
   }
 }

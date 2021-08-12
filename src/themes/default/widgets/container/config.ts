@@ -27,6 +27,8 @@ import introductionWrapperContainerStyles from './introduction-wrapper-container
 // Top catalog container
 import topCatalogContainerStyles from './top-catalog-container.styled.scss';
 import topCatalogWrapperContainerStyles from './top-catalog-wrapper-container.styled.scss';
+// Highlight container
+import highlightContainerStyles from './highlight.container.styled.scss';
 
 // Default
 ThemeFactory.Register('default', 'container', styles);
@@ -57,3 +59,5 @@ ThemeFactory.Register('default', 'introduction_wrapper_container', introductionW
 // Top catalog container
 ThemeFactory.Register('default', 'top_catalog_container', topCatalogContainerStyles);
 ThemeFactory.Register('default', 'top_catalog_wrapper_container', topCatalogWrapperContainerStyles);
+// Highlight container
+ThemeFactory.Register('default', 'highlight_container', highlightContainerStyles);
