@@ -4,4 +4,5 @@ export const DefaultParams = {
   showTitle: true,
   enableCatalog: false,
   enableCreatedDate: false,
+  useHqPicture: false,
 } as Record<string, any>;

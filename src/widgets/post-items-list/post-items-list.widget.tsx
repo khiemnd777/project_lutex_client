@@ -33,6 +33,7 @@ const PostItemsListWidget: FunctionalComponent<PostItemsListWidgetArgs> = ({
 }) => {
   const styleName = GetParameterValue('styleName', parameters, DefaultParams);
   const cx = BuildClassNameBind(theme.Name, styleName);
+  const titleSize = tryParseInt(GetParameterValue('titleSize', parameters, DefaultParams));
   const shortWordSize = tryParseInt(GetParameterValue('shortWordSize', parameters, DefaultParams));
   const useTimeSince = parseBool(GetParameterValue('useTimeSince', parameters, DefaultParams));
   const enableCreatedDate = parseBool(GetParameterValue('enableCreatedDate', parameters, DefaultParams));
@@ -66,7 +67,7 @@ const PostItemsListWidget: FunctionalComponent<PostItemsListWidgetArgs> = ({
                 <Fragment>
                   <div class={cx('container')}>
                     {size(item.Cover) ? (
-                      <Link href={routerPath} class={cx('title')}>
+                      <Link href={routerPath} class={cx('title')} title={item.Title}>
                         <ImageContainer
                           className={cx('image_container')}
                           imageClassName={cx('image')}
@@ -82,11 +83,13 @@ const PostItemsListWidget: FunctionalComponent<PostItemsListWidgetArgs> = ({
                       <div class={cx('title_container')}>
                         {item.Title ? (
                           routerPath ? (
-                            <Link href={routerPath} class={cx('title')}>
-                              <span>{item.Title}</span>
+                            <Link href={routerPath} class={cx('title')} title={item.Title}>
+                              <span>{useThreeDot ? threeDotsAt(item.Title, titleSize) : item.Title}</span>
                             </Link>
                           ) : (
-                            <span class={cx('title')}>{item.Title}</span>
+                            <span class={cx('title')}>
+                              {useThreeDot ? threeDotsAt(item.Title, titleSize) : item.Title}
+                            </span>
                           )
                         ) : null}
                       </div>
@@ -94,7 +97,7 @@ const PostItemsListWidget: FunctionalComponent<PostItemsListWidgetArgs> = ({
                         <div class={cx('activity_container')}>
                           {enableCatalog && !isEmpty(item.Catalog) ? (
                             <div class={cx('catalog')}>
-                              <Link href={catalogRoutePath}>{item.Catalog?.DisplayName}</Link>
+                              <Link href={catalogRoutePath} title={item.Catalog?.DisplayName}>{item.Catalog?.DisplayName}</Link>
                             </div>
                           ) : null}
                           {enableCatalog && enableCreatedDate && !isEmpty(item.Catalog) && !isEmpty(item.createdAt) ? (
@@ -114,7 +117,7 @@ const PostItemsListWidget: FunctionalComponent<PostItemsListWidgetArgs> = ({
                           ) : null}
                         </div>
                       ) : null}
-                      {useShort && item.Short ? (
+                      {useShort ? (
                         useMarked ? (
                           <div class={cx('short')} dangerouslySetInnerHTML={{ __html: marked(item.Short) }}></div>
                         ) : (
