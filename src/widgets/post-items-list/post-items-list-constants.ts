@@ -5,6 +5,7 @@ export const DefaultParams = {
   slug: '',
   start: 0,
   limit: 10,
+  titleSize: 15,
   shortWordSize: 20,
   enableCreatedDate: true,
   useTimeSince: false,

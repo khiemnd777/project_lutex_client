@@ -14,7 +14,6 @@ export const GetSingleMedia = (
   const formats = singleMedia.Media?.formats;
   if (!isEmpty(formats)) {
     switch (formatEnums) {
-      case MediaFormatEnums.ordinary:
       case MediaFormatEnums.large: {
         if (formats.large) {
           return formats.large;
@@ -36,6 +35,14 @@ export const GetSingleMedia = (
         }
       }
       default:
+      case MediaFormatEnums.ordinary:
+        {
+          if (singleMedia.Media?.url) {
+            return {
+              url: singleMedia.Media?.url,
+            } as ImageType;
+          }
+        }
         break;
     }
   }

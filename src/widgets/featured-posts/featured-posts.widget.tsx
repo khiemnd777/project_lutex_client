@@ -30,6 +30,7 @@ const FeaturedPostsWidget: FunctionalComponent<FeaturedPostsWidgetArgs> = ({
   const showTitle = parseBool(GetParameterValue('showTitle', parameters, DefaultParams));
   const enableCreatedDate = parseBool(GetParameterValue('enableCreatedDate', parameters, DefaultParams));
   const enableCatalog = parseBool(GetParameterValue('enableCatalog', parameters, DefaultParams));
+  const useHqPicture = parseBool(GetParameterValue('useHqPicture', parameters, DefaultParams));
   const cx = BuildClassNameBind(theme.Name, styleName);
   const posts = map(data, (fpost) => {
     const post = fpost.Post;
@@ -64,6 +65,7 @@ const FeaturedPostsWidget: FunctionalComponent<FeaturedPostsWidgetArgs> = ({
               posts={posts}
               enableCatalog={enableCatalog}
               enableCreatedDate={enableCreatedDate}
+              useHqPicture={useHqPicture}
             />
           </div>
         ) : null}
@@ -78,6 +80,7 @@ interface PostBuilderArgs {
   posts?: VisualizedPostType[];
   enableCreatedDate: boolean;
   enableCatalog: boolean;
+  useHqPicture: boolean;
 }
 
 const PostItemsBuilder: FunctionalComponent<PostBuilderArgs> = ({
@@ -86,12 +89,13 @@ const PostItemsBuilder: FunctionalComponent<PostBuilderArgs> = ({
   styleName,
   enableCreatedDate,
   enableCatalog,
+  useHqPicture,
 }) => {
   const cx = BuildClassNameBind(theme.Name, styleName);
   return (
     <Fragment>
       {map(posts, (post) => {
-        const cover = GetSingleMedia(post.Cover, MediaFormatEnums.ordinary);
+        const cover = GetSingleMedia(post.Cover, useHqPicture ? MediaFormatEnums.ordinary : MediaFormatEnums.thumbnail);
         return (
           <div class={cx('post_item')}>
             <div class={cx('post_item_container')}>
