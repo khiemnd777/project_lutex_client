@@ -42,10 +42,10 @@ const TemplateGrid: FunctionalComponent<GridArgs> = ({
   const cb = classNamesBind.bind(styleVals);
   useEffect(() => {
     if (!!gridElmRef.current && !mGrid) {
-      const gridClassName = `.${gridElmRef.current?.className}`;
-      mGrid = new Masonry(gridClassName, {
-        itemSelector: `.${cb('grid_item')}`,
-      });
+      // const gridClassName = `.${gridElmRef.current?.className}`;
+      // mGrid = new Masonry(gridClassName, {
+      //   itemSelector: `.${cb('grid_item')}`,
+      // });
     }
   });
   return (
