@@ -1,3 +1,4 @@
+import { isEmpty } from 'lodash-es';
 import { Fragment, FunctionalComponent, h } from 'preact';
 import { PropRef, useRef, useState } from 'preact/hooks';
 import Placeholder from '_stdio/core/placeholder/placeholder';
@@ -11,6 +12,7 @@ import ImageContainer from '_stdio/shared/components/image-container/image-conta
 import StickyAnchor from '_stdio/shared/components/sticky/sticky-anchor';
 import { MediaFormatEnums } from '_stdio/shared/enums/image-enums';
 import { GetSingleMedia } from '_stdio/shared/utils/media.utils';
+import { isNullOrUndefined } from '_stdio/shared/utils/object.utils';
 import { GetParameterValue, GetParameterValueWithGeneric } from '_stdio/shared/utils/params.util';
 import { parseBool } from '_stdio/shared/utils/string.utils';
 import { DefaultParams } from './container-constants';
@@ -42,6 +44,10 @@ const ContainerWidget: FunctionalComponent<WidgetArgs> = ({
   const [addedSticky, setAddedSticky] = useState(false);
   const refEl = useRef<HTMLDivElement>(null);
   const containerRef = GetParameterValueWithGeneric<PropRef<HTMLDivElement>>('containerRef', internalParams);
+  if (isNullOrUndefined(internalParams)) {
+    internalParams = {};
+    internalParams['containerRef'] = refEl;
+  }
   const style = {};
   if (display) {
     style['display'] = display;
@@ -100,7 +106,7 @@ const ContainerWidget: FunctionalComponent<WidgetArgs> = ({
           routerParams={routerParams}
           visitorId={visitorId}
           widgets={widgets}
-          internalParams={{ containerRef: refEl }}
+          internalParams={internalParams}
         />
       </div>
     </Fragment>
