@@ -1,8 +1,8 @@
 @import "../../theme";
 .container {
   padding: 0;
-  height: 596px;
   position: relative;
+  background-color: #f6f6f6;
   .header_background_image_container {
     position: absolute;
     top: 0;
@@ -16,7 +16,6 @@
     }
   }
   @media (max-width: $mobile) {
-    height: 409px;
     display: flex !important;
     flex-direction: column!important;
     flex: none!important;
