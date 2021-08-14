@@ -43,7 +43,14 @@ export const generateHtmlBundle = ({ attributes, files, meta, publicPath, title,
 <link rel="icon" type="image/png" sizes="120x120" href="/assets/fav-icons/120.png">
 <link rel="icon" type="image/png" sizes="152x152" href="/assets/fav-icons/152.png">
 <link rel="icon" type="image/png" sizes="192x192" href="/assets/fav-icons/192.png">
-
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id={{gtag}}"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', '{{gtag}}');
+</script>
 ${metas}
 {{metaTags}}
 <title>{{title}}</title>
