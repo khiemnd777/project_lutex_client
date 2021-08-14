@@ -6,6 +6,7 @@ import { WidgetFactory } from '_stdio/core/widget/widget-factory';
 import { WidgetInstaller } from '_stdio/core/widget/widget-installer';
 import { PackDefaultParams } from '_stdio/core/widget/widget-utils';
 import { MediaFormatEnums } from '_stdio/shared/enums/image-enums';
+import { isMobileBrowser } from '_stdio/shared/utils/common.utils';
 import { GetSingleMedia } from '_stdio/shared/utils/media.utils';
 import { GetParameterValue } from '_stdio/shared/utils/params.util';
 import { parseBool } from '_stdio/shared/utils/string.utils';
@@ -13,6 +14,13 @@ import { DefaultParams } from './picture-field-constants';
 import { PictureFieldWidgetArgs } from './picture-field-interfaces';
 
 export const PictureFieldWidget: FunctionalComponent<PictureFieldWidgetArgs> = ({ theme, data, parameters }) => {
+  const isMobile = parseBool(GetParameterValue('isMobile', parameters, DefaultParams));
+  if (isMobile && !isMobileBrowser()) {
+    return null;
+  }
+  if (!isMobile && isMobileBrowser()) {
+    return null;
+  }
   const styleName = GetParameterValue('styleName', parameters, DefaultParams);
   const width = GetParameterValue('width', parameters, DefaultParams);
   const height = GetParameterValue('height', parameters, DefaultParams);
@@ -25,7 +33,9 @@ export const PictureFieldWidget: FunctionalComponent<PictureFieldWidgetArgs> = (
   }
   const useHqPicture = parseBool(GetParameterValue('useHqPicture', parameters, DefaultParams));
   const cx = BuildClassNameBind(theme.Name, styleName);
-  const picture = GetSingleMedia(data?.Picture, useHqPicture ? MediaFormatEnums.ordinary : MediaFormatEnums.thumbnail);
+  const picture = data?.Picture
+    ? GetSingleMedia(data?.Picture, useHqPicture ? MediaFormatEnums.ordinary : MediaFormatEnums.thumbnail)
+    : undefined;
   return (
     <div style={style} class={cx('text_field', !isEmpty(data) ? 'visible' : null)}>
       <div class={cx('image_container')}>
