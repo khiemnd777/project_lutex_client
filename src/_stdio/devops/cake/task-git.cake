@@ -16,5 +16,6 @@ Task ("Git-Pull")
     var gitMergerEmail = config.GitMergerEmail;
     var gitPassword = config.GitPassword;
     var gitRemote = config.GitRemote;
-    var result = GitPull(Constants.ROOT, gitMergerName, gitMergerEmail, gitMergerEmail, gitPassword, gitRemote);
+    // var result = GitPull(Constants.ROOT, gitMergerName, gitMergerEmail, gitMergerEmail, gitPassword, gitRemote);
+    StartProcess("git", new ProcessSettings{ Arguments = $"pull" });
   });
