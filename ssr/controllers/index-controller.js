@@ -33,6 +33,15 @@ async function fetchSeo(req) {
   return seo;
 }
 
+async function fetchGTag(req) {
+  let gtag = null;
+  try {
+    const gtagResult = await axios.get(`${apiHost}googleAnalyticId`);
+    gtag = gtagResult ? gtagResult.data : null;
+  } catch {}
+  return gtag;
+}
+
 async function fetchPtk(req) {
   const ptk = req.query.ptk;
   const ptkUrl = `${apiHost}environment/pairptk/${ptk}`;
@@ -56,7 +65,7 @@ const generateSeoMetaTags = (seoData) => {
   `;
 };
 
-const genrateHtml = (req, res, seoData) => {
+const genrateHtml = (req, res, seoData, gtagData) => {
   const domFile = `${distPath}/client.html`;
   fs.readFile(path.resolve(domFile), 'utf-8', async (err, data) => {
     if (err) {
@@ -70,6 +79,9 @@ const genrateHtml = (req, res, seoData) => {
       data = data.replace('{{metaTags}}', '');
       data = data.replace('{{title}}', '');
     }
+    if(gtagData){
+      data = data.replace(/\{\{gtag\}\}/gm, gtagData);
+    }
     return res.send(data);
   });
 };
@@ -77,15 +89,17 @@ const genrateHtml = (req, res, seoData) => {
 module.exports = {
   async index(req, res) {
     let seo = null;
+    let gtag = null;
     try {
-      const result = await Promise.all([fetchPtk(req), fetchSeo(req)]);
+      const result = await Promise.all([fetchPtk(req), fetchSeo(req), fetchGTag(req)]);
       const pairedPtk = result[0];
       if (!pairedPtk) {
         res.send(`This is a private page.`);
         return;
       }
       seo = result[1];
+      gtag = result[2];
     } catch (exc) {}
-    genrateHtml(req, res, seo);
+    genrateHtml(req, res, seo, gtag);
   },
 };
