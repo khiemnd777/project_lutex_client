@@ -5,6 +5,7 @@ import { useEffect, useState } from 'preact/hooks';
 import Fetchanic from '_stdio/core/fetchanic/fetchanic';
 import { WidgetFactory } from '_stdio/core/widget/widget-factory';
 import { WidgetConfigArgs } from '_stdio/core/widget/widget-interfaces';
+import { convertDateFormat } from '_stdio/shared/utils/date.utils';
 import { GetDatetimeServer } from '_stdio/shared/utils/datetime-server/datetime-server';
 import { GetParameterValueWithGeneric, GetParameterValue } from '_stdio/shared/utils/params.util';
 import { parseBool, tryParseInt } from '_stdio/shared/utils/string.utils';
@@ -35,7 +36,7 @@ export const PostItemsListByPostCatalogWidgetConfig: FunctionalComponent<WidgetC
   const catalogId = GetParameterValueWithGeneric('CatalogId', internalParams);
   if (useInternal) {
     if (!isEmpty(datetimeServer) && catalogId) {
-      result = () => GraphPostItemInCatalogId(catalogId, datetimeServer, start, limit);
+      result = () => GraphPostItemInCatalogId(catalogId, convertDateFormat(datetimeServer, 'yyyy-mm-dd'), start, limit);
     }
   } else {
     let slug = GetParameterValue('slug', parameters, DefaultParams);
@@ -45,7 +46,7 @@ export const PostItemsListByPostCatalogWidgetConfig: FunctionalComponent<WidgetC
     const useDisplayOrder = parseBool(GetParameterValue('useDisplayOrder', parameters, DefaultParams));
     const seqDisplayOrder = GetParameterValue('seqDisplayOrder', parameters, DefaultParams);
     if (!isEmpty(datetimeServer)) {
-      result = () => GraphPostItemInCatalog(slug, datetimeServer, start, limit, useDisplayOrder, seqDisplayOrder);
+      result = () => GraphPostItemInCatalog(slug, convertDateFormat(datetimeServer, 'yyyy-mm-dd'), start, limit, useDisplayOrder, seqDisplayOrder);
     }
   }
   return (

@@ -69,7 +69,7 @@ export const GraphAvailablePostItems = (
 ) => {
   return useQuery<AvailablePostItemsGraphResult>(
     gql`
-    query ($datetimeNow:DateTime, $start:Int, $limit:Int, $sort: String) {
+    query ($datetimeNow:Date, $start:Int, $limit:Int, $sort: String) {
       ${postItemsConnection}
       postItems (
         where: {
@@ -111,7 +111,7 @@ export const GraphPostItemInCatalog = (
 ) => {
   return useQuery<AvailablePostItemsGraphResult>(
     gql`
-    query ($datetimeNow:DateTime, $slug:String, $start:Int, $limit:Int) {
+    query ($datetimeNow:Date, $slug:String, $start:Int, $limit:Int) {
       ${postItemsConnection}
       postItems (
         where: {
@@ -146,7 +146,7 @@ export const GraphPostItemInCatalog = (
 export const GraphPostItemInCatalogId = (catalogId: string, datetimeNow: string, start: number, limit: number) => {
   return useQuery<AvailablePostItemsGraphResult>(
     gql`
-    query ($datetimeNow:DateTime, $catalogId:String, $start:Int, $limit:Int) {
+    query ($datetimeNow:Date, $catalogId:String, $start:Int, $limit:Int) {
       ${postItemsConnection}
       postItems (
         where: {

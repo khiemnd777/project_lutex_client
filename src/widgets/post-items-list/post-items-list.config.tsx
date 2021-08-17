@@ -6,6 +6,7 @@ import { useEffect, useState } from 'preact/hooks';
 import Fetchanic from '_stdio/core/fetchanic/fetchanic';
 import { WidgetFactory } from '_stdio/core/widget/widget-factory';
 import { WidgetConfigArgs } from '_stdio/core/widget/widget-interfaces';
+import { convertDateFormat } from '_stdio/shared/utils/date.utils';
 import { GetDatetimeServer } from '_stdio/shared/utils/datetime-server/datetime-server';
 import { GetParameterValue } from '_stdio/shared/utils/params.util';
 import { parseBool, tryParseInt } from '_stdio/shared/utils/string.utils';
@@ -38,7 +39,7 @@ export const PostItemsListWidgetConfig: FunctionalComponent<WidgetConfigArgs<Pos
   if (!isEmpty(datetimeServer)) {
     result = () =>
       GraphAvailablePostItems(
-        datetimeServer,
+        convertDateFormat(datetimeServer, 'yyyy-mm-dd'),
         start,
         limit,
         useDisplayOrder ? 'DisplayOrder:asc' : 'createdAt:desc',
