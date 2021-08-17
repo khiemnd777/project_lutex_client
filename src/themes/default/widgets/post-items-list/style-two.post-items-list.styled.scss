@@ -18,6 +18,7 @@ $contentWidth: 90%;
   .container {
     padding: 0 0 30px 0;
     width: 100%;
+    height: 430px;
     @include imageContainer(100, 1%, 386, 279, 1px, 100, 1%, true);
     .content_container {
       width: 100%;
