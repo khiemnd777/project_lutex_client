@@ -50,4 +50,7 @@
       list-style: none;
     }
   }
+  li a span {
+    word-break: break-all;
+  }
 }
