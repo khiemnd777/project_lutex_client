@@ -120,6 +120,9 @@ $postShortFontSize: 16px;
                 font-size: 16px;
               }
             }
+            a {
+              word-break: break-word;
+            }
           }
           .post_body_content_right {
             width: 270px;
