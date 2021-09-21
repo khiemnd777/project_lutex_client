@@ -19,12 +19,14 @@ import { GetParameterValue } from '_stdio/shared/utils/params.util';
 import { VisualizedPostType } from './featured-posts-types';
 import ImageContainer from '_stdio/shared/components/image-container/image-container';
 import { convertDateFormat, DATE_FORMAT } from '_stdio/shared/utils/date.utils';
+import Loading from '_stdio/shared/components/loading/loading';
 
 const FeaturedPostsWidget: FunctionalComponent<FeaturedPostsWidgetArgs> = ({
   theme,
   backgroundColor,
   data,
   parameters,
+  loading
 }) => {
   const styleName = GetParameterValue('styleName', parameters, DefaultParams);
   const showTitle = parseBool(GetParameterValue('showTitle', parameters, DefaultParams));
@@ -52,25 +54,28 @@ const FeaturedPostsWidget: FunctionalComponent<FeaturedPostsWidgetArgs> = ({
     } as VisualizedPostType;
   });
   return (
-    <div
-      style={{ 'background-color': backgroundColor || 'inherit' }}
-      class={cx('featured_posts', !isEmpty(data) ? 'visible' : null)}
-    >
-      <div class={cx('container')}>
-        {size(posts) ? (
-          <div class={cx('post_items_container')}>
-            <PostItemsBuilder
-              theme={theme}
-              styleName={styleName}
-              posts={posts}
-              enableCatalog={enableCatalog}
-              enableCreatedDate={enableCreatedDate}
-              useHqPicture={useHqPicture}
-            />
-          </div>
-        ) : null}
+    <Fragment>
+      <Loading hidden={!loading} />
+      <div
+        style={{ 'background-color': backgroundColor || 'inherit' }}
+        class={cx('featured_posts', !isEmpty(data) ? 'visible' : null)}
+      >
+        <div class={cx('container')}>
+          {size(posts) ? (
+            <div class={cx('post_items_container')}>
+              <PostItemsBuilder
+                theme={theme}
+                styleName={styleName}
+                posts={posts}
+                enableCatalog={enableCatalog}
+                enableCreatedDate={enableCreatedDate}
+                useHqPicture={useHqPicture}
+              />
+            </div>
+          ) : null}
+        </div>
       </div>
-    </div>
+    </Fragment>
   );
 };
 

@@ -1,5 +1,9 @@
+import classNames from 'classnames/bind';
 import { h, FunctionalComponent } from 'preact';
 import { MathRound } from '_stdio/shared/utils/math.utils';
+import styles from './loading.styled.scss';
+
+const cx = classNames.bind(styles);
 
 interface LoadingProps {
   message?: string;
@@ -7,22 +11,16 @@ interface LoadingProps {
   fontSize?: string;
   bgColor?: string;
   fgColor?: string;
+  hidden?: boolean;
 }
-const Loading: FunctionalComponent<LoadingProps> = ({ message, size, fontSize, bgColor, fgColor }) => {
-  const loaderSize = size || 64;
-  const borderSize = MathRound(loaderSize * 0.2);
-  const loadStyle = {
-    width: `${loaderSize}px`,
-    height: `${loaderSize}px`,
-    border: `${borderSize}px solid ${bgColor || '#f3f3f3'}`,
-    'border-top': `${borderSize}px solid ${fgColor || '#3498db'}`,
-  };
-  const style: any = {};
-  fontSize && (style['font-size'] = fontSize);
+const Loading: FunctionalComponent<LoadingProps> = ({ message, hidden }) => {
   return (
-    <div class="loading" style={style}>
-      <div class="loader" style={loadStyle}></div>
+    <div class={cx('loading', hidden ? 'hidden' : null)}>
       {message ? <span>{message}</span> : null}
+      <div class={cx('content')}>
+        <div class={cx('logo')}></div>
+      </div>
+      <div class={cx('overlay')}></div>
     </div>
   );
 };
