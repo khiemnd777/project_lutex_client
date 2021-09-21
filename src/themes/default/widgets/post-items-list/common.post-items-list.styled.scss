@@ -20,6 +20,9 @@
     .content_container {
       flex: 1;
       margin-left: 25px;
+      @media (max-width: $mobile) {
+        margin-left: 10px;
+      }
       .title_container {
         .title {
           font-family: $alterFontFamily;
@@ -27,6 +30,9 @@
           text-decoration: none;
           font-size: $titleFontSize;
           color: $primaryHeaderColor;
+          @media (max-width: $mobile) {
+            font-size: 15px;
+          }
         }
       }
       .activity_container {
@@ -39,7 +45,7 @@
           font-weight: $bolderWeight;
           text-transform: uppercase;
           @media (max-width: $mobile) {
-            font-size: 11px;
+            font-size: 9px;
           }
         }
         .seperate {
@@ -57,14 +63,18 @@
       }
       .short {
         padding-top: 15px;
+        @media (max-width: $mobile) {
+          display: none;
+        }
       }
     }
     @media (max-width: $mobile) {
-      flex-direction: column;
-      .content_container {
-        margin-left: 0;
-        margin-top: 10px;
-      }
+      // flex-direction: column;
+      // .content_container {
+      //   margin-left: 0;
+      //   margin-top: 10px;
+      // }
+      @include imageContainer(140, 1px, 140, 101, 1px, 100, 1%, true, true);
     }
   }
 }
