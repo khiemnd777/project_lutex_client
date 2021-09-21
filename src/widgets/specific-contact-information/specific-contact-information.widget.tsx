@@ -37,9 +37,9 @@ const SpecificContactInformationWidget: FunctionalComponent<SpecificContactInfor
           )
         ) : null}
         {data?.Link ? (
-          <Link href={data?.Link}>
+          <a href={data?.Link}>
             <span class={cx('value')}>{data.Value}</span>
-          </Link>
+          </a>
         ) : (
           <span class={cx('value')}>{data?.Value}</span>
         )}
