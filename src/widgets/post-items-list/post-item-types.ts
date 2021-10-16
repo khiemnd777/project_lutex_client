@@ -5,6 +5,7 @@ export type AvailablePostItemsGraphResult = {
   postItemsConnection: {
     aggregate: {
       totalCount: number;
+      count: number;
     };
   };
   postItems: PostItemType[];

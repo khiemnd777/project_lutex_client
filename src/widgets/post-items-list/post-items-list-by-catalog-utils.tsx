@@ -25,7 +25,7 @@ const PostItemsListByCatalogUtils: FunctionalComponent<PostItemsListByCatalogUti
   widgets,
 }) => {
   const { data, loading, error, fetchMore } = result();
-  const totalCount = !loading && !error ? data?.postItemsConnection.aggregate.totalCount : 0;
+  const totalCount = !loading && !error ? data?.postItemsConnection.aggregate.count : 0;
   const items = !loading && !error ? data?.postItems : [];
   return (
     <Fragment>
@@ -41,6 +41,7 @@ const PostItemsListByCatalogUtils: FunctionalComponent<PostItemsListByCatalogUti
         widgets,
         onFetchMore: async () => {
           if (totalCount && size(items) < totalCount) {
+            console.log('loading...');
             const useFetchScrolling = parseBool(GetParameterValue('useFetchScrolling', parameters, DefaultParams));
             if (useFetchScrolling) {
               await fetchMore({
