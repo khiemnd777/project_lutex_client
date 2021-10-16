@@ -44,6 +44,8 @@ const PostItemsListWidget: FunctionalComponent<PostItemsListWidgetArgs> = ({
   const enableCatalog = parseBool(GetParameterValue('enableCatalog', parameters, DefaultParams));
   const useShort = parseBool(GetParameterValue('useShort', parameters, DefaultParams));
   const useHqPicture = parseBool(GetParameterValue('useHqPicture', parameters, DefaultParams));
+  console.log(totalCount);
+  console.log(items?.length);
   return (
     <Fragment>
       <Loading hidden={!loading} />
@@ -51,6 +53,8 @@ const PostItemsListWidget: FunctionalComponent<PostItemsListWidgetArgs> = ({
         <TemplateGrid
           classGridItem={cx('template_grid_item')}
           classGridItemContainer={cx('grid_item_container')}
+          loader={<div><span>Loading more, please wait a second!</span></div>}
+          hasMore={totalCount ? size(items) < totalCount : true}
           list={map(items, (item) => {
             const routerPath = !isEmpty(item.Router) ? buildRouterPath(item.Router.Path, item) : '';
             const catalogRoutePath = !isEmpty(item.Catalog?.Router)

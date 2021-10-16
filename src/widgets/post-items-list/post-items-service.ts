@@ -39,10 +39,11 @@ const detailPostItemProps = `
   }
 `;
 
-const postItemsConnection = `
-  postItemsConnection{
+const postItemsConnection = (where?: string) => `
+  postItemsConnection ${where ? `(where:${where})` : ''}{
     aggregate{
       totalCount
+      count
     }
   }
 `;
@@ -67,25 +68,27 @@ export const GraphAvailablePostItems = (
   sort = 'createdAt:desc',
   notContainsCatalogs: string = ''
 ) => {
+  const where = `
+  {
+    Slug_null: false
+    published_at_null: false
+    Catalog: {
+      ${notContainsCatalogs}
+    }
+    ${availablePostItemCondition()}
+  }`;
   return useQuery<AvailablePostItemsGraphResult>(
     gql`
     query ($datetimeNow:Date, $start:Int, $limit:Int, $sort: String) {
-      ${postItemsConnection}
       postItems (
-        where: {
-          Slug_null: false
-          published_at_null: false
-          Catalog: {
-            ${notContainsCatalogs}
-          }
-          ${availablePostItemCondition()}
-        }
+        where: ${where}
         sort: $sort
         start: $start
         limit: $limit
       ) {
         ${postItemProps}
       }
+      ${postItemsConnection(where)}
     }
   `,
     {
@@ -109,25 +112,28 @@ export const GraphPostItemInCatalog = (
   useDisplayOrder = false,
   seqDisplayOrder = 'asc'
 ) => {
+  const where = `
+  {
+    Slug_null: false
+    published_at_null: false
+    Catalog: {
+      Slug: $slug
+    }
+    ${availablePostItemCondition()}
+  }
+  `;
   return useQuery<AvailablePostItemsGraphResult>(
     gql`
     query ($datetimeNow:Date, $slug:String, $start:Int, $limit:Int) {
-      ${postItemsConnection}
       postItems (
-        where: {
-          Slug_null: false
-          published_at_null: false
-          Catalog: {
-            Slug: $slug
-          }
-          ${availablePostItemCondition()}
-        }
+        where: ${where}
         sort:"${useDisplayOrder ? `DisplayOrder:${seqDisplayOrder}` : 'createdAt:desc'}"
         start: $start
         limit: $limit
       ) {
         ${postItemProps}
       }
+      ${postItemsConnection(where)}
     }
   `,
     {
@@ -144,24 +150,27 @@ export const GraphPostItemInCatalog = (
 };
 
 export const GraphPostItemInCatalogId = (catalogId: string, datetimeNow: string, start: number, limit: number) => {
+  const where = `
+  {
+    published_at_null: false
+    Catalog: {
+      id: $catalogId
+    }
+    ${availablePostItemCondition()}
+  }
+  `;
   return useQuery<AvailablePostItemsGraphResult>(
     gql`
     query ($datetimeNow:Date, $catalogId:String, $start:Int, $limit:Int) {
-      ${postItemsConnection}
       postItems (
-        where: {
-          published_at_null: false
-          Catalog: {
-            id: $catalogId
-          }
-          ${availablePostItemCondition()}
-        }
+        where: ${where}
         sort:"createdAt:desc"
         start: $start
         limit: $limit
       ) {
         ${postItemProps}
       }
+      ${postItemsConnection(where)}
     }
   `,
     {

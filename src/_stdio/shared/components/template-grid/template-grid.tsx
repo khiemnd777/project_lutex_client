@@ -18,6 +18,8 @@ interface GridArgs {
   scrollPosition: ScrollPosition;
   onSelect?: (model: TemplateGridItem) => void;
   classNames?: Record<string, string>;
+  loader?: h.JSX.Element;
+  hasMore?: boolean;
   [x: string]: any;
 }
 
@@ -30,6 +32,8 @@ const TemplateGrid: FunctionalComponent<GridArgs> = ({
   scrollPosition,
   onSelect,
   classNames,
+  loader,
+  hasMore,
   ...props
 }) => {
   const { children } = props;
@@ -52,7 +56,7 @@ const TemplateGrid: FunctionalComponent<GridArgs> = ({
     <Fragment>
       {size(list) ? (
         <div ref={gridElmRef} class={cb('grid')}>
-          <InfiniteScroll dataLength={list.length} scrollThreshold={0.9} next={nextFunc} hasMore={true} loader={null}>
+          <InfiniteScroll dataLength={list.length} scrollThreshold={0.9} next={nextFunc} hasMore={hasMore ?? true} loader={loader}>
             {map(list, (model) => {
               return (
                 <AssembliedTemplateGridItem
