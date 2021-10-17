@@ -9,5 +9,5 @@ export interface SpecificContactInformationModel {
 }
 
 export interface SpecificContactInformationWidgetArgs extends WidgetArgs {
-  data?: SpecificContactInformationModel;
+  data?: SpecificContactInformationModel | null;
 }

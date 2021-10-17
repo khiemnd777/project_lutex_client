@@ -20,7 +20,7 @@ interface WidgetAbstractArgs {
 
 export interface WidgetArgs extends WidgetAbstractArgs {
   loading?: boolean;
-  error?: Error;
+  error?: Error | null;
 }
 
 export interface WidgetConfigArgs<T extends WidgetArgs> extends WidgetAbstractArgs {

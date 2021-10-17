@@ -1,3 +1,5 @@
+import InputModel from '_stdio/shared/components/input/input-model';
+
 export type FeelingCheckinAnswer = {
   id: string;
   Type: string;
@@ -21,4 +23,9 @@ export type FeelingCheckinForm = {
   Header: string;
   Name: string;
   Questions: FeelingCheckinQuestion[];
+};
+
+export type FeelingContactSender = {
+  inputFields: InputModel[];
+  answers: FeelingCheckinQuestion[];
 };

@@ -1,30 +1,39 @@
-import { each, filter, isEmpty, map, size, some } from 'lodash-es';
+import { each, filter, first, isEmpty, map, size, some } from 'lodash-es';
 import marked from 'marked';
-import { Fragment, FunctionalComponent, h } from 'preact';
-import { useState } from 'preact/hooks';
+import { createElement, Fragment, FunctionalComponent, h } from 'preact';
+import { StateUpdater, useState } from 'preact/hooks';
+import { InputFieldWidgetArgs } from 'widgets/input-fields/input-fields-interfaces';
+import { GraphInputFieldsByName } from 'widgets/input-fields/input-fields-services';
+import { InputFieldType } from 'widgets/input-fields/input-fields-types';
 import Fetchanic from '_stdio/core/fetchanic/fetchanic';
+import { MacroFactory } from '_stdio/core/macros/macro-factory';
 import { ThemeType } from '_stdio/core/theme/theme-types';
 import { BuildClassNameBind } from '_stdio/core/theme/theme-utils';
 import { WidgetFactory } from '_stdio/core/widget/widget-factory';
 import { WidgetInstaller } from '_stdio/core/widget/widget-installer';
 import { PackDefaultParams } from '_stdio/core/widget/widget-utils';
 import Button from '_stdio/shared/components/button/button';
+import Input from '_stdio/shared/components/input/input';
+import { ValidateInputs } from '_stdio/shared/components/input/input-factory';
+import InputModel from '_stdio/shared/components/input/input-model';
 import Loading from '_stdio/shared/components/loading/loading';
 import { MediaFormatEnums } from '_stdio/shared/enums/image-enums';
+import { ExecutedState } from '_stdio/shared/enums/state-enums';
 import { ParameterConsumedType } from '_stdio/shared/types/parameter-types';
 import { isMobileBrowser } from '_stdio/shared/utils/common.utils';
 import { GetSingleMedia } from '_stdio/shared/utils/media.utils';
 import { GetParameterValue } from '_stdio/shared/utils/params.util';
+import { AreNotBeingInStates } from '_stdio/shared/utils/state-utils';
 import { parseBool } from '_stdio/shared/utils/string.utils';
 import { DefaultParams } from './feeling-checkin-form-constants';
-import { FeelingCheckinFormWidgetArgs, FormDialogArgs, FormPanelArgs } from './feeling-checkin-form-interfaces';
+import { ContactFieldsArgs, FeelingCheckinFormWidgetArgs, FormDialogArgs, FormPanelArgs } from './feeling-checkin-form-interfaces';
 import { FetchForm, FetchNextForm } from './feeling-checkin-form-service';
 import { FeelingCheckinAnswer, FeelingCheckinForm, FeelingCheckinQuestion } from './feeling-checkin-form-types';
 
 const FeelingCheckinFormWidget: FunctionalComponent<FeelingCheckinFormWidgetArgs> = ({
   theme,
   data,
-  loading,
+  loading: loading,
   error,
   parameters,
 }) => {
@@ -121,6 +130,7 @@ const FormPanel: FunctionalComponent<FormPanelArgs> = ({
   const styleName = GetParameterValue('styleName', parameters, DefaultParams);
   const [loading, setLoading] = useState<boolean>(false);
   const [nextFlag, setNextFlag] = useState<boolean>(false);
+  const [openContactFields, setOpenContactFields] = useState<boolean>(false);
   const cx = BuildClassNameBind(theme.Name, styleName);
   const currentForm = forms[selectedIndex]
     ? forms[selectedIndex]
@@ -175,37 +185,53 @@ const FormPanel: FunctionalComponent<FormPanelArgs> = ({
 
   return (
     <div class={cx('form_panel')}>
-      <div class={cx('header')}>
-        {currentForm?.Header && <h1 class={cx('header_content')}>{currentForm?.Header}</h1>}
-      </div>
-      <div class={cx('form_question_area')}>
-        <QuestionPanel data={currentForm?.Questions} theme={theme} parameters={parameters} />
-      </div>
+      {openContactFields ? (
+        <div class={cx('form_contact_fields')}>
+          <ContactInputs theme={theme} parameters={parameters} forms={forms} />
+        </div>
+      ) : (
+        <Fragment>
+          <div class={cx('header')}>
+            {currentForm?.Header && <h1 class={cx('header_content')}>{currentForm?.Header}</h1>}
+          </div>
+          <div class={cx('form_question_area')}>
+            <QuestionPanel data={currentForm?.Questions} theme={theme} parameters={parameters} />
+          </div>
+        </Fragment>
+      )}
       <div class={cx('form_action_panel')}>
         <a
           class={cx('form_button', 'back', currentForm?.Start ? 'disabled' : null)}
           onClick={() => {
             console.log('back');
-            --selectedIndex;
-            if (selectedIndex < 0) {
-              selectedIndex = 0;
+            if (!openContactFields) {
+              --selectedIndex;
+              if (selectedIndex < 0) {
+                selectedIndex = 0;
+              }
+              setSelectedIndex(selectedIndex);
+            } else {
+              selectedIndex = forms.length - 1;
+              setSelectedIndex(selectedIndex);
             }
-            setSelectedIndex(selectedIndex);
+            setOpenContactFields(false);
           }}
         >
           <span>Back</span>
         </a>
-        {!currentForm?.Completed && (
-          <a
-            class={cx('form_button', 'next', currentForm?.Completed ? 'disabled' : null)}
-            onClick={() => {
-              console.log('next');
+        <a
+          class={cx('form_button', 'next', currentForm?.Completed ? 'disabled' : null)}
+          onClick={() => {
+            console.log('next');
+            if (!currentForm?.Completed) {
               setNextFlag(true);
-            }}
-          >
-            <span>Next</span>
-          </a>
-        )}
+            } else {
+              setOpenContactFields(true);
+            }
+          }}
+        >
+          <span>Next</span>
+        </a>
       </div>
     </div>
   );
@@ -333,6 +359,85 @@ const AnswerPanel: FunctionalComponent<{
       })}
     </div>
   ) : null;
+};
+
+// Contact Input Fields
+const onSubmit = (data: InputModel[], setExecutedState: StateUpdater<ExecutedState>) => {
+  setExecutedState(ExecutedState.validating);
+  if (ValidateInputs(data)) {
+    setExecutedState(ExecutedState.validated);
+    setExecutedState(ExecutedState.sendRequest);
+    return;
+  }
+  setExecutedState(ExecutedState.failedValidating);
+};
+
+const ContactInputs: FunctionalComponent<ContactFieldsArgs> = ({ theme, parameters, forms }) => {
+  const inputFieldsName = GetParameterValue('inputFieldsName', parameters, DefaultParams);
+  const { data, loading, error } = GraphInputFieldsByName(inputFieldsName);
+  
+  const result =
+    !!data && !loading && !error && size(data?.inputFields)
+      ? first(data?.inputFields)?.InputFields
+      : ([] as InputFieldType[]);
+  const styleName = GetParameterValue('styleName', parameters, DefaultParams) || 'input_fields';
+  const cx = BuildClassNameBind(theme.Name, styleName);
+  // consume macro.
+  const macroName = GetParameterValue('inputFieldsMacro', parameters, DefaultParams);
+  const actionLayout = GetParameterValue('inputFieldsActionLayout', parameters, DefaultParams) || 'top-bottom';
+  const submitText = GetParameterValue('inputFieldsSubmitText', parameters, DefaultParams) || 'Submit';
+  const submitClassName = GetParameterValue('inputFieldsSubmitClassName', parameters, DefaultParams) || 'submit';
+  const macroComponent = MacroFactory.Get(macroName);
+  const [executedState, setExecutedState] = useState(() => ExecutedState.initial);
+  const inputModelsParsed = map(result, (inputField) => {
+    return {
+      title: inputField.Title,
+      name: inputField.Name,
+      required: inputField.Required,
+      type: inputField.Type,
+      val: inputField.DefaultValue,
+      visibleTitle: inputField.VisibleTitle,
+    } as InputModel;
+  });
+  const [inputModels, setInputModels] = useState<InputModel[]>(() => inputModelsParsed);
+  if (!size(inputModels) && size(result)) {
+    setInputModels(inputModelsParsed);
+  }
+  const shownDisable = AreNotBeingInStates(
+    executedState,
+    ExecutedState.initial,
+    ExecutedState.completed,
+    ExecutedState.failedValidating
+  );
+  return (
+    <Fragment>
+      <div
+        class={cx(
+          'input_fields',
+          actionLayout === 'top-bottom' ? 'top_bottom' : 'left_right',
+          size(result) ? 'visible' : null
+        )}
+      >
+        <div class={cx('fields', shownDisable ? 'disabled' : null)}>
+          {!!size(inputModels) &&
+            map(inputModels, (model) => <Input theme={theme} data={model} styleName={styleName} />)}
+        </div>
+        <div class={cx('actions')}>
+          <Button
+            value={submitText}
+            classed={cx(submitClassName, shownDisable ? 'disabled' : null)}
+            onClick={() => onSubmit(inputModels, setExecutedState)}
+          />
+        </div>
+      </div>
+      {macroComponent
+        ? createElement(macroComponent, {
+            theme,
+            parameters: { data: {inputFields: inputModels, answers: }, setExecutedState, executedState },
+          })
+        : null}
+    </Fragment>
+  );
 };
 
 WidgetFactory.Register(
