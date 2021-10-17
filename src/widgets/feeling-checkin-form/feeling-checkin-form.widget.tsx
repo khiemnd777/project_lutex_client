@@ -251,7 +251,9 @@ const QuestionPanel: FunctionalComponent<{
 
 function selectAnswer(checked: boolean, answer: FeelingCheckinAnswer, question: FeelingCheckinQuestion) {
   if (!question.MultipleChoice) {
-    each(question.Answers, (ans) => (ans.Selected = false));
+    each(question.Answers, (ans) => {
+      ans.Selected = false;
+    });
   }
   answer.Selected = checked;
 }
@@ -261,6 +263,10 @@ const AnswerPanel: FunctionalComponent<{
   data: FeelingCheckinQuestion;
   parameters?: ParameterConsumedType[];
 }> = ({ theme, data, parameters }) => {
+  const [updateUI, setUpdateUI] = useState<boolean>(false);
+  if (updateUI) {
+    setUpdateUI(false);
+  }
   const styleName = GetParameterValue('styleName', parameters, DefaultParams);
   const cx = BuildClassNameBind(theme.Name, styleName);
   return size(data?.Answers) ? (
@@ -273,6 +279,7 @@ const AnswerPanel: FunctionalComponent<{
                 class={cx('answer_image', ans.Selected ? 'selected' : null)}
                 onClick={() => {
                   selectAnswer(!ans.Selected, ans, data);
+                  setUpdateUI(true);
                 }}
               >
                 <div class={cx('answer_image_content')} dangerouslySetInnerHTML={{ __html: marked(ans.Answer) }}></div>
@@ -290,6 +297,7 @@ const AnswerPanel: FunctionalComponent<{
                     type="checkbox"
                     onChange={(evt) => {
                       selectAnswer(evt.currentTarget.checked, ans, data);
+                      setUpdateUI(true);
                     }}
                   />
                 ) : (
@@ -300,6 +308,7 @@ const AnswerPanel: FunctionalComponent<{
                     type="checkbox"
                     onChange={(evt) => {
                       selectAnswer(evt.currentTarget.checked, ans, data);
+                      setUpdateUI(true);
                     }}
                   />
                 )}
