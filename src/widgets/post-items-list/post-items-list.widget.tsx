@@ -44,8 +44,6 @@ const PostItemsListWidget: FunctionalComponent<PostItemsListWidgetArgs> = ({
   const enableCatalog = parseBool(GetParameterValue('enableCatalog', parameters, DefaultParams));
   const useShort = parseBool(GetParameterValue('useShort', parameters, DefaultParams));
   const useHqPicture = parseBool(GetParameterValue('useHqPicture', parameters, DefaultParams));
-  console.log(totalCount);
-  console.log(items?.length);
   return (
     <Fragment>
       <Loading hidden={!loading} />

@@ -81,3 +81,6 @@ import './picture-field/picture-field.config';
 import './picture-field/picture-field.widget';
 
 import './mission-container/mission-container.widget';
+
+import './feeling-checkin-form/feeling-checkin-form.config';
+import './feeling-checkin-form/feeling-checkin-form.widget';

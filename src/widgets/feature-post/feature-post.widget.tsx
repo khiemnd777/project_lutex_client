@@ -24,6 +24,7 @@ import { GetDatetimeServer } from '_stdio/shared/utils/datetime-server/datetime-
 import { WidgetInstaller } from '_stdio/core/widget/widget-installer';
 import { PackDefaultParams } from '_stdio/core/widget/widget-utils';
 import { DefaultParams } from './feature-post-constants';
+import Fetchanic from '_stdio/core/fetchanic/fetchanic';
 
 const FeaturePostWidget: FunctionalComponent<FeaturePostWidgetArgs> = ({
   theme,
@@ -42,14 +43,12 @@ const FeaturePostWidget: FunctionalComponent<FeaturePostWidgetArgs> = ({
   const short = paramShort?.value || data?.Short;
   const dateEnabled = parseBool(paramsDateEnabled?.value);
   const explorationText = paramsExplorationText?.value || 'Explore';
-  const [datetimeServer, setDatetimeServer] = useState<Date>({} as Date);
-  useEffect(() => {
-    if (dateEnabled) {
-      void GetDatetimeServer().then((value) => {
-        setDatetimeServer(value);
-      });
-    }
-  }, []);
+  const [datetimeServer, setDatetimeServer] = useState<string>('');
+  const datetimServerResult = Fetchanic(() => GetDatetimeServer());
+  
+  if (datetimServerResult && !datetimServerResult.loading && !datetimServerResult.error && !datetimeServer) {
+    setDatetimeServer(datetimServerResult.data ?? '');
+  }
 
   const posts = map(data?.FeaturePosts, (fpost) => {
     const post = fpost.Post;
@@ -95,7 +94,7 @@ const FeaturePostWidget: FunctionalComponent<FeaturePostWidgetArgs> = ({
 
 interface PostBuilderArgs {
   theme: ThemeType;
-  datetimeServer: Date;
+  datetimeServer: string;
   posts?: VisualizedPostType[];
   dateEnabled?: boolean;
   explorationText?: string;

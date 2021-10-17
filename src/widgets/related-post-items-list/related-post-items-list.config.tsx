@@ -2,6 +2,7 @@ import { QueryResult } from '@apollo/client';
 import { isEmpty } from 'lodash-es';
 import { createElement, Fragment, FunctionalComponent, h } from 'preact';
 import { useEffect, useState } from 'preact/hooks';
+import Fetchanic from '_stdio/core/fetchanic/fetchanic';
 import { WidgetFactory } from '_stdio/core/widget/widget-factory';
 import { WidgetConfigArgs } from '_stdio/core/widget/widget-interfaces';
 import { GetDatetimeServer } from '_stdio/shared/utils/datetime-server/datetime-server';
@@ -21,12 +22,13 @@ const RelatedPostItemsListWidgetConfig: FunctionalComponent<WidgetConfigArgs<Rel
   widgets,
   visitorId,
 }) => {
-  const [datetimeServer, setDatetimeServer] = useState<Date>({} as Date);
-  useEffect(() => {
-    void GetDatetimeServer().then((value) => {
-      setDatetimeServer(value);
-    });
-  }, []);
+  const [datetimeServer, setDatetimeServer] = useState<string>('');
+  const datetimServerResult = Fetchanic(() => GetDatetimeServer());
+
+  if (datetimServerResult && !datetimServerResult.loading && !datetimServerResult.error && !datetimeServer) {
+    setDatetimeServer(datetimServerResult.data ?? '');
+  }
+
   const postId = GetParameterValueWithGeneric('postId', internalParams);
   const limit = tryParseInt(GetParameterValue('limit', parameters, DefaultParams));
   let result = {} as QueryResult<RelatedPostItemsListGraphResult, Record<string, any>>;
