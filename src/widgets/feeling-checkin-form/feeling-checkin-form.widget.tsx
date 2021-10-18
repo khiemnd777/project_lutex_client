@@ -1,4 +1,4 @@
-import { each, filter, first, isEmpty, map, size, some } from 'lodash-es';
+import { each, every, filter, first, flatten, isEmpty, map, size, some } from 'lodash-es';
 import marked from 'marked';
 import { createElement, Fragment, FunctionalComponent, h } from 'preact';
 import { StateUpdater, useState } from 'preact/hooks';
@@ -26,9 +26,19 @@ import { GetParameterValue } from '_stdio/shared/utils/params.util';
 import { AreNotBeingInStates } from '_stdio/shared/utils/state-utils';
 import { parseBool } from '_stdio/shared/utils/string.utils';
 import { DefaultParams } from './feeling-checkin-form-constants';
-import { ContactFieldsArgs, FeelingCheckinFormWidgetArgs, FormDialogArgs, FormPanelArgs } from './feeling-checkin-form-interfaces';
+import {
+  ContactFieldsArgs,
+  FeelingCheckinFormWidgetArgs,
+  FormDialogArgs,
+  FormPanelArgs,
+} from './feeling-checkin-form-interfaces';
 import { FetchForm, FetchNextForm } from './feeling-checkin-form-service';
-import { FeelingCheckinAnswer, FeelingCheckinForm, FeelingCheckinQuestion } from './feeling-checkin-form-types';
+import {
+  FeelingCheckinAnswer,
+  FeelingCheckinForm,
+  FeelingCheckinQuestion,
+  FeelingContactSender,
+} from './feeling-checkin-form-types';
 
 const FeelingCheckinFormWidget: FunctionalComponent<FeelingCheckinFormWidgetArgs> = ({
   theme,
@@ -372,10 +382,35 @@ const onSubmit = (data: InputModel[], setExecutedState: StateUpdater<ExecutedSta
   setExecutedState(ExecutedState.failedValidating);
 };
 
+const prepareAnswers = (forms: FeelingCheckinForm[]) => {
+  const filteredForms = filter(forms, (f) => {
+    return some(f.Questions, (q) => {
+      return some(q.Answers, (a) => (a.Type === 'image' || a.Type === 'checkbox') && a.Selected);
+    });
+  });
+  const answers = flatten(
+    map(filteredForms, (f) => {
+      return map(f.Questions, (q) => {
+        const answers = filter(q.Answers, (a) => a.Selected);
+        return {
+          _v: 1,
+          question: q.Question,
+          answers: map(answers, (a) => {
+            return {
+              value: a.Value,
+            };
+          }),
+        };
+      });
+    })
+  );
+  return answers;
+};
+
 const ContactInputs: FunctionalComponent<ContactFieldsArgs> = ({ theme, parameters, forms }) => {
   const inputFieldsName = GetParameterValue('inputFieldsName', parameters, DefaultParams);
   const { data, loading, error } = GraphInputFieldsByName(inputFieldsName);
-  
+  const answers = prepareAnswers(forms);
   const result =
     !!data && !loading && !error && size(data?.inputFields)
       ? first(data?.inputFields)?.InputFields
@@ -433,7 +468,11 @@ const ContactInputs: FunctionalComponent<ContactFieldsArgs> = ({ theme, paramete
       {macroComponent
         ? createElement(macroComponent, {
             theme,
-            parameters: { data: {inputFields: inputModels, answers: }, setExecutedState, executedState },
+            parameters: {
+              data: { inputFields: inputModels, answers } as FeelingContactSender,
+              setExecutedState,
+              executedState,
+            },
           })
         : null}
     </Fragment>

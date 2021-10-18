@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { API_HOST } from '_stdio/environment';
-import { FeelingCheckinAnswer, FeelingCheckinForm } from './feeling-checkin-form-types';
+import { AddFeelingContact, FeelingCheckinAnswer, FeelingCheckinForm } from './feeling-checkin-form-types';
 
 export const FetchForm = async (formName: string) => {
   const result = await axios.get(`${API_HOST}feeling-checkin-form/${formName}`);
@@ -20,23 +20,10 @@ export const FetchAnswersByQuestion = async (questionId: string) => {
   return result.data as FeelingCheckinAnswer[];
 };
 
-export const AddFeelingCheckinContact = async (
-  contact: {
-    FullName: string;
-    Email: string;
-    PhoneNumber: string;
-    Content: string;
-  },
-  answers: {
-    question: string;
-    answers: {
-      value: string;
-    }[];
-  }[]
-) => {
+export const AddFeelingCheckinContact = async (data: AddFeelingContact) => {
   const result = await axios.post(`${API_HOST}feeling-checkin-contacts/add`, {
-    contact,
-    answers,
+    contact: data.contact,
+    answers: data.answers,
   });
   return result.data;
 };
