@@ -33,6 +33,7 @@ const prepareModel = (data: FeelingContactSender) => {
 
 const ContactSend: FunctionalComponent<MacroArgs> = ({ theme, parameters }) => {
   const data = GetParameterValueWithGeneric<FeelingContactSender>('data', parameters);
+  const sendingSuccess = GetParameterValueWithGeneric<() => void>('sendingSuccess', parameters);
   const setExecutedState = GetParameterValueWithGeneric<StateUpdater<ExecutedState>>('setExecutedState', parameters);
   const executedState = GetParameterValueWithGeneric<ExecutedState>('executedState', parameters);
   const [closedModal, setClosedModal] = useState(false);
@@ -56,6 +57,7 @@ const ContactSend: FunctionalComponent<MacroArgs> = ({ theme, parameters }) => {
     if (executedState === ExecutedState.completed && closedModal) {
       setExecutedState?.call(null, ExecutedState.initial);
       setClosedModal(false);
+      sendingSuccess && sendingSuccess();
     }
   }, [closedModal]);
   return (
@@ -69,8 +71,13 @@ const ContactSend: FunctionalComponent<MacroArgs> = ({ theme, parameters }) => {
         onClick={() => setClosedModal(true)}
       >
         <div class={cx('overlay')}></div>
-        <span>
-          {`Cảm ơn bạn đã dành thời gian, chúng tôi sẽ liên hệ với bạn trong thời gian sớm nhất. Trân trọng!`}
+        <span class={cx('thank_you')}>
+          <i class={cx('thank_you_message')}>
+            {`Cảm ơn bạn đã dành thời gian,\nchúng tôi sẽ liên hệ với bạn trong thời gian sớm nhất.\nTrân trọng!`}
+          </i>
+          <i class={cx('close_form_message')}>
+          {`(Bấm bất kỳ vị trí nào để tắt hộp thoại này)`}
+          </i>
         </span>
       </div>
     </Fragment>

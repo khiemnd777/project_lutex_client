@@ -17,10 +17,12 @@ export interface FormPanelArgs extends FormDialogArgs {
   startFormData?: FeelingCheckinForm;
   forms: FeelingCheckinForm[];
   setForms: StateUpdater<FeelingCheckinForm[]>;
+  setOpenForm?: StateUpdater<boolean>;
   selectedIndex: number;
   setSelectedIndex: StateUpdater<number>;
 }
 
 export interface ContactFieldsArgs extends InputFieldWidgetArgs {
   forms: FeelingCheckinForm[];
+  setOpenForm?: StateUpdater<boolean>;
 }

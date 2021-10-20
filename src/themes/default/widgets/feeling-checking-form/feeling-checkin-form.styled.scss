@@ -182,6 +182,25 @@
                 }
               }
             }
+
+            // Text
+            &.answer_text {
+              display: block;
+              position: relative;
+              width: 100%;
+              .answer_text_content {
+                width: 100%;
+                ul {
+                  li {
+                    list-style: disc;
+                    margin-left: 17px;
+                  }
+                }
+                img {
+                  width: 100% !important;
+                }
+              }
+            }
           }
         }
         &.horizontal {
@@ -219,6 +238,7 @@
     }
   }
 
+  // Form actions
   .form_action_panel {
     position: fixed;
     left: 50%;
@@ -269,6 +289,11 @@
         opacity: 0.6;
       }
     }
+  }
+
+  // Contact fields
+  .form_contact_fields {
+    padding: 0 60px;
   }
 }
 

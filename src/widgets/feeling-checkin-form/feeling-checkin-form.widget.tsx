@@ -145,6 +145,7 @@ const FormDialog: FunctionalComponent<FormDialogArgs> = ({ theme, parameters, se
             setForms={setForms}
             selectedIndex={selectedIndex}
             setSelectedIndex={setSelectedIndex}
+            setOpenForm={setOpenForm}
           />
         </div>
       </div>
@@ -174,6 +175,7 @@ const FormPanel: FunctionalComponent<FormPanelArgs> = ({
   setForms,
   selectedIndex,
   setSelectedIndex,
+  setOpenForm,
 }) => {
   const styleName = GetParameterValue('styleName', parameters, DefaultParams);
   const [loading, setLoading] = useState<boolean>(false);
@@ -235,7 +237,7 @@ const FormPanel: FunctionalComponent<FormPanelArgs> = ({
     <div class={cx('form_panel', loading ? 'loading' : null)}>
       {openContactFields ? (
         <div class={cx('form_contact_fields')}>
-          <ContactInputs theme={theme} parameters={parameters} forms={forms} />
+          <ContactInputs theme={theme} parameters={parameters} forms={forms} setOpenForm={setOpenForm} />
         </div>
       ) : (
         <Fragment>
@@ -450,7 +452,7 @@ const prepareAnswers = (forms: FeelingCheckinForm[]) => {
   return answers;
 };
 
-const ContactInputs: FunctionalComponent<ContactFieldsArgs> = ({ theme, parameters, forms }) => {
+const ContactInputs: FunctionalComponent<ContactFieldsArgs> = ({ theme, parameters, forms, setOpenForm }) => {
   const textFieldName = GetParameterValue('contactTextFieldName', parameters, DefaultParams);
   const textFieldResult = GraphTextFields(textFieldName);
   const contactTextField =
@@ -463,6 +465,11 @@ const ContactInputs: FunctionalComponent<ContactFieldsArgs> = ({ theme, paramete
 
   const styleName = GetParameterValue('styleName', parameters, DefaultParams);
   const cx = BuildClassNameBind(theme.Name, styleName);
+
+  const sendingSuccess = () => {
+    setOpenForm && setOpenForm(false);
+    enableBodyScrolling();
+  };
 
   const inputFieldsName = GetParameterValue('inputFieldsName', parameters, DefaultParams);
   const { data, loading, error } = GraphInputFieldsByName(inputFieldsName);
@@ -531,6 +538,7 @@ const ContactInputs: FunctionalComponent<ContactFieldsArgs> = ({ theme, paramete
             theme,
             parameters: {
               data: { inputFields: inputModels, answers } as FeelingContactSender,
+              sendingSuccess,
               setExecutedState,
               executedState,
             },
