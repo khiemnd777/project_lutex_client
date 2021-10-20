@@ -1,7 +1,7 @@
 import { gql, useQuery } from '@apollo/client';
 import { RelatedPostItemsListGraphResult } from './related-post-items-list-types';
 
-export const GraphRelatedPostItemsList = (postId: string, datetimeNow: Date, limit: number) =>
+export const GraphRelatedPostItemsList = (postId: string, datetimeNow: string, limit: number) =>
   useQuery<RelatedPostItemsListGraphResult>(
     gql`
       query relatedPostItemsList($postId: ID!, $limit:Int) {

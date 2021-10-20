@@ -17,6 +17,7 @@
     text-rendering: optimizeLegibility;
     background-color: $primaryBackground;
     color: $primaryFontColor;
+    overflow-x: hidden;
   }
   *,
   *:before,
@@ -52,5 +53,8 @@
   }
   li a span {
     word-break: break-word;
+  }
+  .disable_scroll {
+    overflow-y: hidden;
   }
 }

@@ -1,0 +1,16 @@
+export const DefaultParams = {
+  pictureFieldName: '',
+  inputFieldsName: '',
+  inputFieldsMacro: '',
+  inputFieldsActionLayout: 'top-bottom',
+  inputFieldsSubmitText: 'Submit',
+  inputFieldsSubmitClassName: 'submit',
+  inputFieldsStyleName: 'input_fields',
+  contactTextFieldName: 'feeling_checkin_contact_text_field',
+  styleName: 'feeling_checkin_form',
+  startFormName: 'form-start',
+  width: '',
+  height: '',
+  isMobile: false,
+  useHqPicture: false,
+} as Record<string, any>;

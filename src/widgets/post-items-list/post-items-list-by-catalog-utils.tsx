@@ -41,7 +41,6 @@ const PostItemsListByCatalogUtils: FunctionalComponent<PostItemsListByCatalogUti
         widgets,
         onFetchMore: async () => {
           if (totalCount && size(items) < totalCount) {
-            console.log('loading...');
             const useFetchScrolling = parseBool(GetParameterValue('useFetchScrolling', parameters, DefaultParams));
             if (useFetchScrolling) {
               await fetchMore({

@@ -1,0 +1,46 @@
+@import "../../theme";
+
+.feeling_checkin_contact_send {
+  &.message_info {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    cursor: pointer;
+    z-index: -1;
+    opacity: 0;
+    transition: all ease 0.5s;
+    &.visible {
+      z-index: 9999;
+      opacity: 1;
+    }
+    .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: #fff;
+      opacity: 0.85;
+      z-index: -1;
+    }
+    .thank_you {
+      display: inline-block;
+      position: absolute;
+      background-color: #fff;
+      padding: 2rem;
+      color: #000;
+      border: 1px solid #ddd;
+      text-align: center;
+      @include middle;
+      .thank_you_message {
+        display: inline-block;
+        font-style: normal;
+      }
+      .close_form_message {
+        display: inline-block;
+      }
+    }
+  }
+}

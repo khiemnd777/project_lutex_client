@@ -48,14 +48,17 @@ export const PrepareIndicatedWidgetByRouterName = (routerName: string) => {
   return widgets;
 };
 
-export const PrepareIndicatedWidgetByTemplate = (templateId?: string) => {
-  const { data, loading, error } = Fetchanic(() => FetchWidgetsByTemplate(templateId), !templateId ? '' : templateId);
+export const PrepareIndicatedWidgetByTemplate = (templateId: string) => {
+  const { data, loading, error } = Fetchanic(() => FetchWidgetsByTemplate(templateId), templateId);
   const widgets = (data && !loading && !error && prepareIndicatedWidgets(data)) || [];
   return widgets;
 };
 
 export const PrepareIndicatedWidgetByTemplateName = (templateName?: string) => {
-  const { data, loading, error } = Fetchanic(() => FetchWidgetsByTemplateName(templateName), !templateName ? '' : templateName);
+  const { data, loading, error } = Fetchanic(
+    () => FetchWidgetsByTemplateName(templateName),
+    !templateName ? '' : templateName
+  );
   const widgets = (data && !loading && !error && prepareIndicatedWidgets(data)) || [];
   return widgets;
 };

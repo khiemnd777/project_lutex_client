@@ -1,6 +1,7 @@
 import { isEmpty } from 'lodash-es';
 import { FunctionalComponent, h } from 'preact';
 import { Link } from 'preact-router/match';
+import { MacroFactory } from '_stdio/core/macros/macro-factory';
 import { BuildClassNameBind } from '_stdio/core/theme/theme-utils';
 import { WidgetFactory } from '_stdio/core/widget/widget-factory';
 import { WidgetInstaller } from '_stdio/core/widget/widget-installer';
@@ -36,6 +37,7 @@ export const PictureFieldWidget: FunctionalComponent<PictureFieldWidgetArgs> = (
   const picture = data?.Picture
     ? GetSingleMedia(data?.Picture, useHqPicture ? MediaFormatEnums.ordinary : MediaFormatEnums.thumbnail)
     : undefined;
+
   return (
     <div style={style} class={cx('picture_field', !isEmpty(data) ? 'visible' : null)}>
       <div class={cx('image_container')}>
