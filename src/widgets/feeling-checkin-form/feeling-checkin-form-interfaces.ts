@@ -10,6 +10,7 @@ export interface FeelingCheckinFormWidgetArgs extends WidgetArgs {
 
 export interface FormDialogArgs extends WidgetArgs {
   setFormLoading?: StateUpdater<boolean>;
+  setOpenForm?: StateUpdater<boolean>;
 }
 
 export interface FormPanelArgs extends FormDialogArgs {
@@ -20,6 +21,6 @@ export interface FormPanelArgs extends FormDialogArgs {
   setSelectedIndex: StateUpdater<number>;
 }
 
-export interface ContactFieldsArgs extends InputFieldWidgetArgs{
+export interface ContactFieldsArgs extends InputFieldWidgetArgs {
   forms: FeelingCheckinForm[];
 }

@@ -21,6 +21,7 @@ import { MediaFormatEnums } from '_stdio/shared/enums/image-enums';
 import { ExecutedState } from '_stdio/shared/enums/state-enums';
 import { ParameterConsumedType } from '_stdio/shared/types/parameter-types';
 import { isMobileBrowser } from '_stdio/shared/utils/common.utils';
+import { disableBodyScrolling, enableBodyScrolling } from '_stdio/shared/utils/dom.utils';
 import { GetSingleMedia } from '_stdio/shared/utils/media.utils';
 import { GetParameterValue } from '_stdio/shared/utils/params.util';
 import { AreNotBeingInStates } from '_stdio/shared/utils/state-utils';
@@ -84,12 +85,14 @@ const FeelingCheckinFormWidget: FunctionalComponent<FeelingCheckinFormWidgetArgs
           ) : null}
         </div>
       </div>
-      {openForm ? <FormDialog theme={theme} parameters={parameters} setFormLoading={setFormLoading} /> : null}
+      {openForm ? (
+        <FormDialog theme={theme} parameters={parameters} setFormLoading={setFormLoading} setOpenForm={setOpenForm} />
+      ) : null}
     </Fragment>
   );
 };
 
-const FormDialog: FunctionalComponent<FormDialogArgs> = ({ theme, parameters, setFormLoading }) => {
+const FormDialog: FunctionalComponent<FormDialogArgs> = ({ theme, parameters, setFormLoading, setOpenForm }) => {
   console.log('open form');
   const styleName = GetParameterValue('styleName', parameters, DefaultParams);
   const cx = BuildClassNameBind(theme.Name, styleName);
@@ -111,19 +114,52 @@ const FormDialog: FunctionalComponent<FormDialogArgs> = ({ theme, parameters, se
     }
   }
 
+  // Disable body scroll bar
+  disableBodyScrolling();
+
+  if (startFormResult.loading) {
+    return (
+      <Fragment>
+        <div class={cx('loading_form')}>
+          <div class={cx('logo_container')}>
+            <div class={cx('logo')}></div>
+          </div>
+        </div>
+        <div class={cx('overlay')}></div>
+      </Fragment>
+    );
+  }
+
   return startFormResult.data ? (
-    <div class={cx('form_dialog')}>
-      <FormPanel
-        startFormData={startFormResult.data}
-        theme={theme}
-        parameters={parameters}
-        setFormLoading={setFormLoading}
-        forms={forms}
-        setForms={setForms}
-        selectedIndex={selectedIndex}
-        setSelectedIndex={setSelectedIndex}
-      />
-    </div>
+    <Fragment>
+      <div class={cx('dialog_wrapper')}>
+        <div class={cx('dialog')}>
+          <FormPanel
+            startFormData={startFormResult.data}
+            theme={theme}
+            parameters={parameters}
+            setFormLoading={setFormLoading}
+            forms={forms}
+            setForms={setForms}
+            selectedIndex={selectedIndex}
+            setSelectedIndex={setSelectedIndex}
+          />
+        </div>
+      </div>
+      <div class={cx('dialog_close_wrapper')}>
+        <div
+          class={cx('dialog_close')}
+          onClick={() => {
+            enableBodyScrolling();
+            setOpenForm && setOpenForm(false);
+          }}
+        >
+          <div></div>
+          <div></div>
+        </div>
+      </div>
+      <div class={cx('overlay')}></div>
+    </Fragment>
   ) : null;
 };
 
@@ -194,7 +230,7 @@ const FormPanel: FunctionalComponent<FormPanelArgs> = ({
   }
 
   return (
-    <div class={cx('form_panel')}>
+    <div class={cx('form_panel', loading ? 'loading' : null)}>
       {openContactFields ? (
         <div class={cx('form_contact_fields')}>
           <ContactInputs theme={theme} parameters={parameters} forms={forms} />
@@ -210,8 +246,9 @@ const FormPanel: FunctionalComponent<FormPanelArgs> = ({
         </Fragment>
       )}
       <div class={cx('form_action_panel')}>
+        {/* Back */}
         <a
-          class={cx('form_button', 'back', currentForm?.Start ? 'disabled' : null)}
+          class={cx('form_button', 'back', currentForm?.Start || loading ? 'disabled' : null)}
           onClick={() => {
             console.log('back');
             if (!openContactFields) {
@@ -229,8 +266,9 @@ const FormPanel: FunctionalComponent<FormPanelArgs> = ({
         >
           <span>Back</span>
         </a>
+        {/* Next */}
         <a
-          class={cx('form_button', 'next', currentForm?.Completed ? 'disabled' : null)}
+          class={cx('form_button', 'next', openContactFields || loading ? 'disabled' : null)}
           onClick={() => {
             console.log('next');
             if (!currentForm?.Completed) {
@@ -312,19 +350,20 @@ const AnswerPanel: FunctionalComponent<{
           case 'image': {
             return (
               <div
-                class={cx('answer_image', ans.Selected ? 'selected' : null)}
+                class={cx('answer_item', 'answer_image', ans.Selected ? 'selected' : null)}
                 onClick={() => {
                   selectAnswer(!ans.Selected, ans, data);
                   setUpdateUI(true);
                 }}
               >
                 <div class={cx('answer_image_content')} dangerouslySetInnerHTML={{ __html: marked(ans.Answer) }}></div>
+                <div class={cx('answer_image_value')}><span>{ans.Value}</span></div>
               </div>
             );
           }
           case 'checkbox': {
             return (
-              <div class={cx('answer_checkbox')}>
+              <div class={cx('answer_item', 'answer_checkbox')}>
                 {ans.Selected ? (
                   <input
                     data-id={`${ans.id}`}
@@ -360,7 +399,7 @@ const AnswerPanel: FunctionalComponent<{
           default:
           case 'text': {
             return (
-              <div class={cx('answer_text')}>
+              <div class={cx('answer_item', 'answer_text')}>
                 <div class={cx('answer_text_content')} dangerouslySetInnerHTML={{ __html: marked(ans.Answer) }}></div>
               </div>
             );

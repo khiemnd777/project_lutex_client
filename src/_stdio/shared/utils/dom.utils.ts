@@ -19,3 +19,11 @@ export function getInnerHeight(elm: Element) {
     padding = parseInt(computed.paddingTop) + parseInt(computed.paddingBottom);
   return elm.clientHeight - padding;
 }
+
+export function disableBodyScrolling(){
+  document.body.classList.add('disable_scroll');
+}
+
+export function enableBodyScrolling(){
+  document.body.classList.remove('disable_scroll');
+}
