@@ -3,26 +3,21 @@ import { useEffect, useState } from 'preact/hooks';
 import { FetchanicError } from './fetchanic-error';
 
 export interface FetchanicResult<TData> {
-  data?: TData;
+  data?: TData | null;
   loading: boolean;
-  error?: FetchanicError;
+  error?: FetchanicError | null;
 }
 
 const Fetchanic = <TData>(func: () => Promise<TData>, ...keyArgs: string[]) => {
-  const [data, setData] = useState<TData | null>(null);
-  const [loading, setLoading] = useState<boolean>(false);
-  const [error, setError] = useState<FetchanicError | null>(null);
+  let [data, setData] = useState<TData | null>(null);
+  let [loading, setLoading] = useState<boolean>(false);
+  let [error, setError] = useState<FetchanicError | null>(null);
   const [keys, setKeys] = useState<string[]>([]);
   if (JSON.stringify(keyArgs) !== JSON.stringify(keys)) {
-    setData(null);
-    setLoading(false);
-    setError(null);
     setKeys(keyArgs);
-    return {
-      data: null,
-      loading: false,
-      error: null,
-    };
+    data = null;
+    loading = false;
+    error = null;
   }
   useEffect(() => {
     if (isFunction(func)) {
@@ -35,9 +30,10 @@ const Fetchanic = <TData>(func: () => Promise<TData>, ...keyArgs: string[]) => {
         .catch((err: any) => {
           setLoading(false);
           setError(new FetchanicError(err.message));
+          console.error(err.message);
         });
     }
-  }, [...keys]);
+  }, [...keyArgs]);
   const oData = isEmpty(data) ? null : data;
   const oError = isEmpty(error) ? null : error;
   return {

@@ -5,6 +5,8 @@ import { StateUpdater, useState } from 'preact/hooks';
 import { InputFieldWidgetArgs } from 'widgets/input-fields/input-fields-interfaces';
 import { GraphInputFieldsByName } from 'widgets/input-fields/input-fields-services';
 import { InputFieldType } from 'widgets/input-fields/input-fields-types';
+import { GraphTextFields } from 'widgets/text-field/text-field-services';
+import { TextFieldType } from 'widgets/text-field/text-field-types';
 import Fetchanic from '_stdio/core/fetchanic/fetchanic';
 import { MacroFactory } from '_stdio/core/macros/macro-factory';
 import { ThemeType } from '_stdio/core/theme/theme-types';
@@ -357,7 +359,9 @@ const AnswerPanel: FunctionalComponent<{
                 }}
               >
                 <div class={cx('answer_image_content')} dangerouslySetInnerHTML={{ __html: marked(ans.Answer) }}></div>
-                <div class={cx('answer_image_value')}><span>{ans.Value}</span></div>
+                <div class={cx('answer_image_value')}>
+                  <span>{ans.Value}</span>
+                </div>
               </div>
             );
           }
@@ -447,6 +451,19 @@ const prepareAnswers = (forms: FeelingCheckinForm[]) => {
 };
 
 const ContactInputs: FunctionalComponent<ContactFieldsArgs> = ({ theme, parameters, forms }) => {
+  const textFieldName = GetParameterValue('contactTextFieldName', parameters, DefaultParams);
+  const textFieldResult = GraphTextFields(textFieldName);
+  const contactTextField =
+    !!textFieldResult.data &&
+    !textFieldResult.loading &&
+    !textFieldResult.error &&
+    !!size(textFieldResult.data.textFields)
+      ? first(textFieldResult.data.textFields)
+      : ({} as TextFieldType);
+
+  const styleName = GetParameterValue('styleName', parameters, DefaultParams);
+  const cx = BuildClassNameBind(theme.Name, styleName);
+
   const inputFieldsName = GetParameterValue('inputFieldsName', parameters, DefaultParams);
   const { data, loading, error } = GraphInputFieldsByName(inputFieldsName);
   const answers = prepareAnswers(forms);
@@ -454,8 +471,8 @@ const ContactInputs: FunctionalComponent<ContactFieldsArgs> = ({ theme, paramete
     !!data && !loading && !error && size(data?.inputFields)
       ? first(data?.inputFields)?.InputFields
       : ([] as InputFieldType[]);
-  const styleName = GetParameterValue('styleName', parameters, DefaultParams) || 'input_fields';
-  const cx = BuildClassNameBind(theme.Name, styleName);
+  const inputFieldsStyleName = GetParameterValue('inputFieldsStyleName', parameters, DefaultParams) || 'input_fields';
+  const cxInputFields = BuildClassNameBind(theme.Name, inputFieldsStyleName);
   // consume macro.
   const macroName = GetParameterValue('inputFieldsMacro', parameters, DefaultParams);
   const actionLayout = GetParameterValue('inputFieldsActionLayout', parameters, DefaultParams) || 'top-bottom';
@@ -485,21 +502,26 @@ const ContactInputs: FunctionalComponent<ContactFieldsArgs> = ({ theme, paramete
   );
   return (
     <Fragment>
+      <div class={cx('contact_header')}>
+        {contactTextField?.Content ? (
+          <div class={cx('content')} dangerouslySetInnerHTML={{ __html: marked(contactTextField?.Content) }}></div>
+        ) : null}
+      </div>
       <div
-        class={cx(
+        class={cxInputFields(
           'input_fields',
           actionLayout === 'top-bottom' ? 'top_bottom' : 'left_right',
           size(result) ? 'visible' : null
         )}
       >
-        <div class={cx('fields', shownDisable ? 'disabled' : null)}>
+        <div class={cxInputFields('fields', shownDisable ? 'disabled' : null)}>
           {!!size(inputModels) &&
-            map(inputModels, (model) => <Input theme={theme} data={model} styleName={styleName} />)}
+            map(inputModels, (model) => <Input theme={theme} data={model} styleName={inputFieldsStyleName} />)}
         </div>
-        <div class={cx('actions')}>
+        <div class={cxInputFields('actions')}>
           <Button
             value={submitText}
-            classed={cx(submitClassName, shownDisable ? 'disabled' : null)}
+            classed={cxInputFields(submitClassName, shownDisable ? 'disabled' : null)}
             onClick={() => onSubmit(inputModels, setExecutedState)}
           />
         </div>
