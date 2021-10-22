@@ -33,5 +33,8 @@ import './widgets/featured-posts/config';
 import './widgets/post-catalog-title/config';
 import './widgets/post-catalog-short/config';
 import './widgets/picture-field/config';
+import './widgets/mission-container/config';
+import './widgets/what-customers-said-about-us/config';
+import './widgets/post-tags/config';
 import './macros/contact-send/config';
 import './macros/register-subscription/config';

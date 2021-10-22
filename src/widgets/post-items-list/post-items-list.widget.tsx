@@ -53,7 +53,11 @@ const PostItemsListWidget: FunctionalComponent<PostItemsListWidgetArgs> = ({
         <TemplateGrid
           classGridItem={cx('template_grid_item')}
           classGridItemContainer={cx('grid_item_container')}
-          loader={<div><span>Loading more, please wait a second!</span></div>}
+          loader={
+            <div>
+              <span>Loading more, please wait a second!</span>
+            </div>
+          }
           hasMore={totalCount ? size(items) < totalCount : true}
           list={map(items, (item) => {
             const routerPath = !isEmpty(item.Router) ? buildRouterPath(item.Router.Path, item) : '';
@@ -88,6 +92,18 @@ const PostItemsListWidget: FunctionalComponent<PostItemsListWidgetArgs> = ({
                         </Link>
                       ) : null}
                       <div class={cx('content_container')}>
+                        {size(item.Tags) ? (
+                          <div class={cx('tags')}>
+                            {map(item.Tags, (tag) => {
+                              const path = !isEmpty(tag.Router) ? buildRouterPath(tag.Router.Path, tag) : '';
+                              return (
+                                <Link href={path} class={cx('link')} title={tag.Tag}>
+                                  <span>{tag.Tag}</span>
+                                </Link>
+                              );
+                            })}
+                          </div>
+                        ) : null}
                         <div class={cx('title_container')}>
                           {item.Title ? (
                             routerPath ? (

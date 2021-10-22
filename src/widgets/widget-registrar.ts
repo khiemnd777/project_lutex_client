@@ -5,6 +5,7 @@ import './post-items-list/post-items-list.widget';
 import './post-items-list/post-items-list.config';
 import './post-items-list/post-items-list-by-catalog.config';
 import './post-items-list/post-items-list-by-post-catalog.config';
+import './post-items-list/post-items-list-by-tag.config';
 
 import './post-item/post-item.widget';
 import './post-item/post-item.config';
@@ -79,3 +80,11 @@ import './post-catalog-short/post-catalog-short.widget';
 
 import './picture-field/picture-field.config';
 import './picture-field/picture-field.widget';
+
+import './mission-container/mission-container.widget';
+
+import './what-customers-said-about-us/what-customers-said-about-us.config';
+import './what-customers-said-about-us/what-customers-said-about-us.widget';
+
+import './post-tags/post-tags.config';
+import './post-tags/post-tags.widget';

@@ -25,6 +25,7 @@ export type PostItemType = {
   createdAt: Date;
   Catalog?: PostCatalogType;
   Router: SimpleRouterType;
+  Tags: PostTag[];
   Cover: SingleMediaType[];
 };
 
@@ -42,6 +43,7 @@ export type DetailPostItemType = {
   }[];
   Catalog: PostCatalogType;
   Router: SimpleRouterType;
+  Tags: PostTag[];
   Cover: SingleMediaType[];
   Media: SingleMediaType[];
 };
@@ -49,6 +51,12 @@ export type DetailPostItemType = {
 export type PostCatalogType = {
   id: string;
   DisplayName: string;
+  Slug: string;
+  Router: SimpleRouterType;
+};
+
+export type PostTag = {
+  Tag: string;
   Slug: string;
   Router: SimpleRouterType;
 };
