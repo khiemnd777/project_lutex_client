@@ -5,6 +5,7 @@ import './post-items-list/post-items-list.widget';
 import './post-items-list/post-items-list.config';
 import './post-items-list/post-items-list-by-catalog.config';
 import './post-items-list/post-items-list-by-post-catalog.config';
+import './post-items-list/post-items-list-by-tag.config';
 
 import './post-item/post-item.widget';
 import './post-item/post-item.config';
@@ -87,3 +88,6 @@ import './feeling-checkin-form/feeling-checkin-form.widget';
 
 import './what-customers-said-about-us/what-customers-said-about-us.config';
 import './what-customers-said-about-us/what-customers-said-about-us.widget';
+
+import './post-tags/post-tags.config';
+import './post-tags/post-tags.widget';

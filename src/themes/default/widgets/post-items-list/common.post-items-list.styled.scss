@@ -23,6 +23,26 @@
       @media (max-width: $mobile) {
         margin-left: 10px;
       }
+      .tags {
+        display: flex;
+        flex-wrap: wrap;
+        margin-bottom: 7px;
+        .link {
+          padding: 1px 8px;
+          border: 1px solid #ddd;
+          background-color: #e9e9e9;
+          margin-right: 8px;
+          margin-bottom: 5px;
+          border-radius: 20px;
+          display: inline-block;
+          &:hover {
+            background-color: #d6d6d6;
+          }
+          @media (max-width: $mobile) {
+            font-size: 9px;
+          }
+        }
+      }
       .title_container {
         .title {
           font-family: $alterFontFamily;
@@ -74,7 +94,7 @@
       //   margin-left: 0;
       //   margin-top: 10px;
       // }
-      @include imageContainer(140, 1px, 140, 101, 1px, 100, 1%, true, true);
+      @include imageContainer(120, 1px, 120, 87, 1px, 100, 1%, true, true);
     }
   }
 }

@@ -14,12 +14,19 @@ const postItemProps = `
     id
     Path
   }
-  Catalog{
+  Catalog {
     id
     DisplayName
     Slug
     Router {
       id
+      Path
+    }
+  }
+  Tags {
+    Tag
+    Slug
+    Router {
       Path
     }
   }
@@ -97,6 +104,51 @@ export const GraphAvailablePostItems = (
         start,
         limit,
         sort,
+      },
+      nextFetchPolicy: 'cache-first',
+      fetchPolicy: 'cache-first',
+    }
+  );
+};
+
+export const GraphPostItemInTag = (
+  slug: string,
+  datetimeNow: string,
+  start: number,
+  limit: number,
+  useDisplayOrder = false,
+  seqDisplayOrder = 'asc'
+) => {
+  const where = `
+  {
+    Slug_null: false
+    published_at_null: false
+    Tags: {
+      Slug: $slug
+    }
+    ${availablePostItemCondition()}
+  }
+  `;
+  return useQuery<AvailablePostItemsGraphResult>(
+    gql`
+    query ($datetimeNow:Date, $slug:String, $start:Int, $limit:Int) {
+      postItems (
+        where: ${where}
+        sort:"${useDisplayOrder ? `DisplayOrder:${seqDisplayOrder}` : 'createdAt:desc'}"
+        start: $start
+        limit: $limit
+      ) {
+        ${postItemProps}
+      }
+      ${postItemsConnection(where)}
+    }
+  `,
+    {
+      variables: {
+        datetimeNow,
+        slug,
+        start,
+        limit,
       },
       nextFetchPolicy: 'cache-first',
       fetchPolicy: 'cache-first',
