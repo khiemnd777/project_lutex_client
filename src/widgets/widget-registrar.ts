@@ -84,3 +84,6 @@ import './mission-container/mission-container.widget';
 
 import './feeling-checkin-form/feeling-checkin-form.config';
 import './feeling-checkin-form/feeling-checkin-form.widget';
+
+import './what-customers-said-about-us/what-customers-said-about-us.config';
+import './what-customers-said-about-us/what-customers-said-about-us.widget';

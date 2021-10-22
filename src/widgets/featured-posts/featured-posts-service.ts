@@ -19,6 +19,8 @@ export const GraphFeaturedPosts = (name: string) =>
             Post {
               id
               Title
+              Short
+              Rate
               createdAt
               Slug
               Router{

@@ -22,6 +22,8 @@ export type FeaturedDetailPostType = {
 export type PostType = {
   id: string;
   Title: string;
+  Short: string;
+  Rate: number;
   createdAt: Date;
   Slug: string;
   Router: RouterType;
@@ -35,6 +37,8 @@ export type PostType = {
 
 export type VisualizedPostType = {
   Title: string;
+  Short: string;
+  Rate?: number;
   Url: string;
   CreatedAt: Date;
   Cover: SingleMediaType;
