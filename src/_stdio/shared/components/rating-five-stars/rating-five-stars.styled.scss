@@ -1,0 +1,30 @@
+.rate {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: center;
+  align-items: center;
+  height: 20px;
+  padding: 0 10px;
+  & > input {
+    pointer-events: none;
+  }
+  &:not(:checked) > input {
+    position: absolute;
+    top: -9999px;
+  }
+  &:not(:checked) > label {
+    pointer-events: none;
+    width: 1em;
+    overflow: hidden;
+    white-space: nowrap;
+    cursor: pointer;
+    font-size: 20px;
+    color: #ccc;
+  }
+  &:not(:checked) > label:before {
+    content: "★ ";
+  }
+  & > input:checked ~ label {
+    color: #ffc700;
+  }
+}
