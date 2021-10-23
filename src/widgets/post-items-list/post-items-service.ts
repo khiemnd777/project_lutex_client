@@ -72,13 +72,13 @@ export const GraphAvailablePostItems = (
   datetimeNow: string,
   start: number,
   limit: number,
+  publicationState: 'LIVE' | 'PREVIEW',
   sort = 'createdAt:desc',
   notContainsCatalogs: string = ''
 ) => {
   const where = `
   {
     Slug_null: false
-    published_at_null: false
     Catalog: {
       ${notContainsCatalogs}
     }
@@ -86,8 +86,9 @@ export const GraphAvailablePostItems = (
   }`;
   return useQuery<AvailablePostItemsGraphResult>(
     gql`
-    query ($datetimeNow:Date, $start:Int, $limit:Int, $sort: String) {
+    query ${publicationState === 'PREVIEW' ? `_noCache` : ''} ($datetimeNow:Date, $start:Int, $limit:Int, $sort: String) {
       postItems (
+        publicationState:${publicationState}
         where: ${where}
         sort: $sort
         start: $start
@@ -116,13 +117,13 @@ export const GraphPostItemInTag = (
   datetimeNow: string,
   start: number,
   limit: number,
+  publicationState: 'LIVE' | 'PREVIEW',
   useDisplayOrder = false,
   seqDisplayOrder = 'asc'
 ) => {
   const where = `
   {
     Slug_null: false
-    published_at_null: false
     Tags: {
       Slug: $slug
     }
@@ -131,8 +132,9 @@ export const GraphPostItemInTag = (
   `;
   return useQuery<AvailablePostItemsGraphResult>(
     gql`
-    query ($datetimeNow:Date, $slug:String, $start:Int, $limit:Int) {
+    query ${publicationState === 'PREVIEW' ? `_noCache` : ''} ($datetimeNow:Date, $slug:String, $start:Int, $limit:Int) {
       postItems (
+        publicationState:${publicationState}
         where: ${where}
         sort:"${useDisplayOrder ? `DisplayOrder:${seqDisplayOrder}` : 'createdAt:desc'}"
         start: $start
@@ -161,13 +163,13 @@ export const GraphPostItemInCatalog = (
   datetimeNow: string,
   start: number,
   limit: number,
+  publicationState: 'LIVE' | 'PREVIEW',
   useDisplayOrder = false,
   seqDisplayOrder = 'asc'
 ) => {
   const where = `
   {
     Slug_null: false
-    published_at_null: false
     Catalog: {
       Slug: $slug
     }
@@ -176,8 +178,9 @@ export const GraphPostItemInCatalog = (
   `;
   return useQuery<AvailablePostItemsGraphResult>(
     gql`
-    query ($datetimeNow:Date, $slug:String, $start:Int, $limit:Int) {
+    query ${publicationState === 'PREVIEW' ? `_noCache` : ''} ($datetimeNow:Date, $slug:String, $start:Int, $limit:Int) {
       postItems (
+        publicationState:${publicationState}
         where: ${where}
         sort:"${useDisplayOrder ? `DisplayOrder:${seqDisplayOrder}` : 'createdAt:desc'}"
         start: $start
@@ -201,10 +204,15 @@ export const GraphPostItemInCatalog = (
   );
 };
 
-export const GraphPostItemInCatalogId = (catalogId: string, datetimeNow: string, start: number, limit: number) => {
+export const GraphPostItemInCatalogId = (
+  catalogId: string,
+  datetimeNow: string,
+  start: number,
+  limit: number,
+  publicationState: 'LIVE' | 'PREVIEW'
+) => {
   const where = `
   {
-    published_at_null: false
     Catalog: {
       id: $catalogId
     }
@@ -213,8 +221,9 @@ export const GraphPostItemInCatalogId = (catalogId: string, datetimeNow: string,
   `;
   return useQuery<AvailablePostItemsGraphResult>(
     gql`
-    query ($datetimeNow:Date, $catalogId:String, $start:Int, $limit:Int) {
+    query ${publicationState === 'PREVIEW' ? `_noCache` : ''} ($datetimeNow:Date, $catalogId:String, $start:Int, $limit:Int) {
       postItems (
+        publicationState:${publicationState}
         where: ${where}
         sort:"createdAt:desc"
         start: $start

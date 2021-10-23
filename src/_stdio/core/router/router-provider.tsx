@@ -12,6 +12,7 @@ import { RouterType } from './router-types';
 import { find } from 'lodash-es';
 import WidgetConfig from 'admin/modules/widget/widget-config';
 import Fetchanic from '../fetchanic/fetchanic';
+import { getPublicationState } from '_stdio/shared/utils/common.utils';
 
 const handleRoute = async (routing: RouterOnChangeArgs, routers: RouterType[]) => {
   switch (routing.url) {
@@ -25,19 +26,27 @@ const handleRoute = async (routing: RouterOnChangeArgs, routers: RouterType[]) =
       {
         const isAuthed = await AuthGuard();
         if (!isAuthed) {
-          route(`/auth/login?redirect=${routing.url}`, true);
+          route(`/auth/login?redirect=${encodeURIComponent(routing.url)}`, true);
           return;
         }
       }
       break;
     default: {
+      const publishState = getPublicationState((routing.current?.props as any)?.matches?.state);
+      if (publishState === 'PREVIEW') {
+        const isAuthed = await AuthGuard();
+        if (!isAuthed) {
+          route(`/auth/login?redirect=${encodeURIComponent(routing.url)}`, true);
+          return;
+        }
+      }
       if (size(routers)) {
         const matchedRoute = find(routers, (r) => r.Path === routing.url);
         if (matchedRoute) {
           if (matchedRoute.IsAuth) {
             const isAuthed = await AuthGuard();
             if (!isAuthed) {
-              route(`/auth/login?redirect=${routing.url}`, true);
+              route(`/auth/login?redirect=${encodeURIComponent(routing.url)}`, true);
               return;
             }
           }
@@ -79,12 +88,7 @@ const RouterProvider: FunctionalComponent<RouterProviderArgs> = ({ theme, visito
       </Router>
     );
   }
-  return (
-    <Router onChange={(args) => handleRoute(args, routers)}>
-      <LoginPage path="/auth/login" />
-      <WidgetConfig path="/admin/widget" />
-    </Router>
-  );
+  return null;
 };
 
 export default RouterProvider;

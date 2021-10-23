@@ -6,6 +6,7 @@ import { useEffect, useState } from 'preact/hooks';
 import Fetchanic from '_stdio/core/fetchanic/fetchanic';
 import { WidgetFactory } from '_stdio/core/widget/widget-factory';
 import { WidgetConfigArgs } from '_stdio/core/widget/widget-interfaces';
+import { getPublicationState } from '_stdio/shared/utils/common.utils';
 import { convertDateFormat } from '_stdio/shared/utils/date.utils';
 import { GetDatetimeServer } from '_stdio/shared/utils/datetime-server/datetime-server';
 import { GetParameterValue } from '_stdio/shared/utils/params.util';
@@ -34,6 +35,7 @@ export const PostItemsListWidgetConfig: FunctionalComponent<WidgetConfigArgs<Pos
   };
   const start = tryParseInt(GetParameterValue('start', parameters, DefaultParams));
   const limit = tryParseInt(GetParameterValue('limit', parameters, DefaultParams)) || LIMIT;
+  const publishState = getPublicationState(routerParams?.state);
   const notContainsCatalogs = GetParameterValue('notContainsCatalogs', parameters, DefaultParams);
   const useDisplayOrder = parseBool(GetParameterValue('useDisplayOrder', parameters, DefaultParams));
   if (!isEmpty(datetimeServer)) {
@@ -42,6 +44,7 @@ export const PostItemsListWidgetConfig: FunctionalComponent<WidgetConfigArgs<Pos
         convertDateFormat(datetimeServer, 'yyyy-mm-dd'),
         start,
         limit,
+        publishState,
         useDisplayOrder ? 'DisplayOrder:asc' : 'createdAt:desc',
         `${notContainsCatalogs}`
       );

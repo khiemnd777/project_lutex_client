@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'preact/hooks';
-import { AuthMe } from './auth-service';
+import { AuthLogout, AuthMe } from './auth-service';
 
 export const AuthGuard = async () => {
   try {
     await AuthMe();
     return true;
   } catch (exc) {
+    await AuthLogout();
     return false;
   }
 };

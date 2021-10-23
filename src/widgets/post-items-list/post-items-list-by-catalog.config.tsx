@@ -1,10 +1,11 @@
 import { QueryResult } from '@apollo/client';
 import isEmpty from 'lodash-es/isEmpty';
 import { FunctionalComponent, h } from 'preact';
-import { useEffect, useState } from 'preact/hooks';
+import { useState } from 'preact/hooks';
 import Fetchanic from '_stdio/core/fetchanic/fetchanic';
 import { WidgetFactory } from '_stdio/core/widget/widget-factory';
 import { WidgetConfigArgs } from '_stdio/core/widget/widget-interfaces';
+import { getPublicationState } from '_stdio/shared/utils/common.utils';
 import { convertDateFormat } from '_stdio/shared/utils/date.utils';
 import { GetDatetimeServer } from '_stdio/shared/utils/datetime-server/datetime-server';
 import { GetParameterValue } from '_stdio/shared/utils/params.util';
@@ -32,6 +33,7 @@ export const PostItemsListByCatalogWidgetConfig: FunctionalComponent<WidgetConfi
   };
   const start = tryParseInt(GetParameterValue('start', parameters, DefaultParams));
   const limit = tryParseInt(GetParameterValue('limit', parameters, DefaultParams)) || 10;
+  const publishState = getPublicationState(routerParams?.state);
   // let slug = routerParams?.slug || '';
   let slug = GetParameterValue('slug', parameters, DefaultParams);
   if (!slug) {
@@ -40,7 +42,7 @@ export const PostItemsListByCatalogWidgetConfig: FunctionalComponent<WidgetConfi
   if (!isEmpty(datetimeServer) && slug) {
     const useDisplayOrder = parseBool(GetParameterValue('useDisplayOrder', parameters, DefaultParams));
     const seqDisplayOrder = GetParameterValue('seqDisplayOrder', parameters, DefaultParams);
-    result = () => GraphPostItemInCatalog(slug, convertDateFormat(datetimeServer, 'yyyy-mm-dd'), start, limit, useDisplayOrder, seqDisplayOrder);
+    result = () => GraphPostItemInCatalog(slug, convertDateFormat(datetimeServer, 'yyyy-mm-dd'), start, limit, publishState, useDisplayOrder, seqDisplayOrder);
   }
   return (
     <PostItemsListByCatalogUtils

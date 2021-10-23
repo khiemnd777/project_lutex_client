@@ -26,7 +26,7 @@ const onSubmit = async (data: InputModel[], setExecutedState: StateUpdater<Execu
       const authInfo = await AuthLogin(identifier.val, password.val);
       await AuthTeardown(authInfo);
       setExecutedState(ExecutedState.completed);
-      redirect && route(redirect);
+      redirect && route(decodeURIComponent(redirect));
     }
     return;
   }
@@ -38,7 +38,7 @@ interface LoginPageArgs {
 }
 
 const LoginPage: FunctionalComponent<LoginPageArgs> = () => {
-  const redirect = getQueryVariable('redirect');
+  const redirect = getQueryVariable('redirect') || '/';
   const [executedState, setExecutedState] = useState(() => ExecutedState.initial);
   const shownDisable = AreNotBeingInStates(
     executedState,

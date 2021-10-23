@@ -1,10 +1,11 @@
 import { QueryResult } from '@apollo/client';
 import { isEmpty } from 'lodash-es';
 import { FunctionalComponent, h } from 'preact';
-import { useEffect, useState } from 'preact/hooks';
+import { useState } from 'preact/hooks';
 import Fetchanic from '_stdio/core/fetchanic/fetchanic';
 import { WidgetFactory } from '_stdio/core/widget/widget-factory';
 import { WidgetConfigArgs } from '_stdio/core/widget/widget-interfaces';
+import { getPublicationState } from '_stdio/shared/utils/common.utils';
 import { convertDateFormat } from '_stdio/shared/utils/date.utils';
 import { GetDatetimeServer } from '_stdio/shared/utils/datetime-server/datetime-server';
 import { GetParameterValueWithGeneric, GetParameterValue } from '_stdio/shared/utils/params.util';
@@ -13,7 +14,7 @@ import { AvailablePostItemsGraphResult } from './post-item-types';
 import PostItemsListByCatalogUtils from './post-items-list-by-catalog-utils';
 import { DefaultParams } from './post-items-list-constants';
 import { PostItemsListWidgetArgs } from './post-items-list-interfaces';
-import { GraphPostItemInCatalog, GraphPostItemInCatalogId, GraphPostItemInTag } from './post-items-service';
+import { GraphPostItemInTag } from './post-items-service';
 
 export const PostItemsListByTagWidgetConfig: FunctionalComponent<WidgetConfigArgs<PostItemsListWidgetArgs>> = ({
   theme,
@@ -33,10 +34,11 @@ export const PostItemsListByTagWidgetConfig: FunctionalComponent<WidgetConfigArg
   const useInternal = parseBool(GetParameterValue('useInternal', parameters, DefaultParams));
   const start = tryParseInt(GetParameterValue('start', parameters, DefaultParams));
   const limit = tryParseInt(GetParameterValue('limit', parameters, DefaultParams)) || 10;
+  const publishState = getPublicationState(routerParams?.state);
   let slug = GetParameterValueWithGeneric('slug', internalParams);
   if (useInternal) {
     if (!isEmpty(datetimeServer) && slug) {
-      result = () => GraphPostItemInTag(slug, convertDateFormat(datetimeServer, 'yyyy-mm-dd'), start, limit);
+      result = () => GraphPostItemInTag(slug, convertDateFormat(datetimeServer, 'yyyy-mm-dd'), start, limit, publishState);
     }
   } else {
     slug = GetParameterValue('slug', parameters, DefaultParams);
@@ -46,7 +48,7 @@ export const PostItemsListByTagWidgetConfig: FunctionalComponent<WidgetConfigArg
     const useDisplayOrder = parseBool(GetParameterValue('useDisplayOrder', parameters, DefaultParams));
     const seqDisplayOrder = GetParameterValue('seqDisplayOrder', parameters, DefaultParams);
     if (!isEmpty(datetimeServer)) {
-      result = () => GraphPostItemInTag(slug, convertDateFormat(datetimeServer, 'yyyy-mm-dd'), start, limit, useDisplayOrder, seqDisplayOrder);
+      result = () => GraphPostItemInTag(slug, convertDateFormat(datetimeServer, 'yyyy-mm-dd'), start, limit, publishState, useDisplayOrder, seqDisplayOrder);
     }
   }
   return (
