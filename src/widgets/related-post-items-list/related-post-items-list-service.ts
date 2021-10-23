@@ -1,11 +1,16 @@
 import { gql, useQuery } from '@apollo/client';
 import { RelatedPostItemsListGraphResult } from './related-post-items-list-types';
 
-export const GraphRelatedPostItemsList = (postId: string, datetimeNow: string, limit: number) =>
+export const GraphRelatedPostItemsList = (
+  postId: string,
+  datetimeNow: string,
+  limit: number,
+  publicationState: 'LIVE' | 'PREVIEW'
+) =>
   useQuery<RelatedPostItemsListGraphResult>(
     gql`
-      query relatedPostItemsList($postId: ID!, $limit:Int) {
-        postItem(id: $postId) {
+      query ${publicationState === 'PREVIEW' ? `_noCache` : `relatedPostItemsList`}($postId: ID!, $limit:Int) {
+        postItem(publicationState:${publicationState}, id: $postId) {
           id
           Related_Items(
             where: {

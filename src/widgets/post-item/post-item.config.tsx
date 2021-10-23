@@ -1,9 +1,11 @@
 import { first, size } from 'lodash-es';
 import { createElement, FunctionComponent } from 'preact';
 import { useState } from 'preact/hooks';
+import { useAuthGuard } from '_stdio/core/auth/auth-guard';
 import { WidgetFactory } from '_stdio/core/widget/widget-factory';
 import { WidgetConfigArgs } from '_stdio/core/widget/widget-interfaces';
 import { ParameterConsumedType } from '_stdio/shared/types/parameter-types';
+import { getPublicationState } from '_stdio/shared/utils/common.utils';
 import { useDelay, useOnceAction } from '_stdio/shared/utils/hooks';
 import { GetParameterValue } from '_stdio/shared/utils/params.util';
 import { parseBool, tryParseInt } from '_stdio/shared/utils/string.utils';
@@ -21,8 +23,9 @@ const PostItemWidgetConfig: FunctionComponent<WidgetConfigArgs<PostItemWidgetArg
   visitorId,
 }) => {
   const defaultSlug = GetParameterValue('slug', parameters, DefaultParams);
+  const publishState = getPublicationState(routerParams?.state);
   const slug = defaultSlug ? defaultSlug : routerParams?.['slug'] ?? '';
-  const { data, loading, error } = GraphPostItemBySlug(slug);
+  const { data, loading, error } = GraphPostItemBySlug(slug, publishState);
   const list = data && !loading && !error ? data?.postItems : ([] as PostItemType[]);
   const result = size(list) ? first(list) : undefined;
 

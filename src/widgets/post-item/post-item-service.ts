@@ -1,4 +1,5 @@
 import { gql, useMutation, useQuery } from '@apollo/client';
+import { PublicationState } from '_stdio/shared/utils/types';
 import {
   CreateViewCountGraphResult,
   PostItemGraphResult,
@@ -6,16 +7,23 @@ import {
   PostItemViewCountGraphResult,
 } from './post-item-type';
 
-export const GraphPostItemBySlug = (slug: string) => {
+export const GraphPostItemBySlug = (slug: string, publicationState: 'LIVE' | 'PREVIEW') => {
   return useQuery<PostItemGraphResult>(
     gql`
-      query($slug: String!) {
-        postItems(where: { Slug: $slug }) {
+      query ${publicationState === 'PREVIEW' ? `_noCache` : ''} ($slug: String!) {
+        postItems(publicationState:${publicationState}, where: { Slug: $slug }) {
           id
           Slug
           Title
           Short
           Body
+          Tags {
+            Tag
+            Slug
+            Router {
+              Path
+            }
+          }
           createdAt
           Router {
             id
@@ -65,7 +73,7 @@ export const CreateViewCount = () => {
 export const GraphPostItemViewCount = (slug: string) => {
   return useQuery<PostItemViewCountGraphResult>(
     gql`
-      query($slug: String) {
+      query ($slug: String) {
         postItemViewCountsConnection(where: { Post: { Slug: $slug } }) {
           aggregate {
             count
@@ -84,7 +92,7 @@ export const GraphPostItemViewCount = (slug: string) => {
 export const GraphPostItemLike = (slug: string) => {
   return useQuery<PostItemLikeGraphResult>(
     gql`
-      query($slug: String) {
+      query ($slug: String) {
         postItemLikesConnection(where: { Post: { Slug: $slug } }) {
           aggregate {
             count

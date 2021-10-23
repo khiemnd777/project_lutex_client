@@ -5,6 +5,7 @@ import { useEffect, useState } from 'preact/hooks';
 import Fetchanic from '_stdio/core/fetchanic/fetchanic';
 import { WidgetFactory } from '_stdio/core/widget/widget-factory';
 import { WidgetConfigArgs } from '_stdio/core/widget/widget-interfaces';
+import { getPublicationState } from '_stdio/shared/utils/common.utils';
 import { GetDatetimeServer } from '_stdio/shared/utils/datetime-server/datetime-server';
 import { GetParameterValueWithGeneric, GetParameterValue } from '_stdio/shared/utils/params.util';
 import { tryParseInt } from '_stdio/shared/utils/string.utils';
@@ -33,10 +34,11 @@ const RelatedPostItemsListWidgetConfig: FunctionalComponent<WidgetConfigArgs<Rel
   const limit = tryParseInt(GetParameterValue('limit', parameters, DefaultParams));
   let result = {} as QueryResult<RelatedPostItemsListGraphResult, Record<string, any>>;
   if (!isEmpty(datetimeServer) && postId) {
-    result = GraphRelatedPostItemsList(postId, datetimeServer, limit);
+    const publishState = getPublicationState(routerParams?.state);
+    result = GraphRelatedPostItemsList(postId, datetimeServer, limit, publishState);
   }
   const { data, loading, error } = result;
-  const items = !loading && !error ? data?.postItem.Related_Items : [];
+  const items = !loading && !error ? data?.postItem?.Related_Items : [];
   return (
     <Fragment>
       {createElement(component, {

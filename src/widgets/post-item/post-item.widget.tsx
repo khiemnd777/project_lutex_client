@@ -1,3 +1,4 @@
+import { map, size } from 'lodash-es';
 import isEmpty from 'lodash-es/isEmpty';
 import marked from 'marked';
 import { Fragment, FunctionalComponent, h } from 'preact';
@@ -11,6 +12,8 @@ import { WidgetInstaller } from '_stdio/core/widget/widget-installer';
 import { PackDefaultParams } from '_stdio/core/widget/widget-utils';
 import Loading from '_stdio/shared/components/loading/loading';
 import { convertDateFormat, DATE_FORMAT } from '_stdio/shared/utils/date.utils';
+import { GetParameterValue } from '_stdio/shared/utils/params.util';
+import { parseBool } from '_stdio/shared/utils/string.utils';
 import { DefaultParams } from './post-item-constants';
 import { PostItemWidgetArgs } from './post-item-interface';
 
@@ -20,10 +23,12 @@ const PostItemWidget: FunctionalComponent<PostItemWidgetArgs> = ({
   data,
   widgets,
   routerParams,
+  parameters,
   loading,
 }) => {
   const cx = BuildClassNameBind(theme.Name, 'post_item');
   const catalogRouterPath = buildRouterPath(data?.Catalog?.Router?.Path ?? '', data?.Catalog);
+  const enableTags = parseBool(GetParameterValue('enableTags', parameters, DefaultParams));
   const bodyLeftRef = useRef<HTMLDivElement>();
   const bodyRightRef = useRef<HTMLDivElement>();
   useEffect(() => {
@@ -37,6 +42,18 @@ const PostItemWidget: FunctionalComponent<PostItemWidgetArgs> = ({
       <div class={cx('post_item', !isEmpty(data) ? 'visible' : null)}>
         <div class={cx('container')}>
           <div class={cx('header')}>
+              {enableTags && size(data?.Tags) ? (
+                <div class={cx('tags')}>
+                  {map(data?.Tags, (tag) => {
+                    const path = !isEmpty(tag.Router) ? buildRouterPath(tag.Router.Path, tag) : '';
+                    return (
+                      <Link href={path} class={cx('link')} title={tag.Tag}>
+                        <span>{tag.Tag}</span>
+                      </Link>
+                    );
+                  })}
+                </div>
+              ) : null}
             <div class={cx('row')}>
               <div class={cx('catalog')}>
                 <Link href={catalogRouterPath}>

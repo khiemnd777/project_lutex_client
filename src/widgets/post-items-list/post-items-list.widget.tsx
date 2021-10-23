@@ -41,6 +41,7 @@ const PostItemsListWidget: FunctionalComponent<PostItemsListWidgetArgs> = ({
   const enableCreatedDate = parseBool(GetParameterValue('enableCreatedDate', parameters, DefaultParams));
   const useMarked = parseBool(GetParameterValue('useMarked', parameters, DefaultParams));
   const useThreeDot = parseBool(GetParameterValue('useThreeDot', parameters, DefaultParams));
+  const enableTags = parseBool(GetParameterValue('enableTags', parameters, DefaultParams));
   const enableCatalog = parseBool(GetParameterValue('enableCatalog', parameters, DefaultParams));
   const useShort = parseBool(GetParameterValue('useShort', parameters, DefaultParams));
   const useHqPicture = parseBool(GetParameterValue('useHqPicture', parameters, DefaultParams));
@@ -90,7 +91,7 @@ const PostItemsListWidget: FunctionalComponent<PostItemsListWidgetArgs> = ({
                         </Link>
                       ) : null}
                       <div class={cx('content_container')}>
-                        {size(item.Tags) ? (
+                        {enableTags && size(item.Tags) ? (
                           <div class={cx('tags')}>
                             {map(item.Tags, (tag) => {
                               const path = !isEmpty(tag.Router) ? buildRouterPath(tag.Router.Path, tag) : '';

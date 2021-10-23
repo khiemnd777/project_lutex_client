@@ -13,6 +13,7 @@ export type PostItemType = {
   Body: string;
   createdAt: string;
   Router: SimpleRouterType;
+  Tags: PostTag[];
   Catalog: {
     id: string;
     DisplayName: string;
@@ -20,6 +21,13 @@ export type PostItemType = {
   };
   Cover: SingleMediaType[];
 };
+
+export type PostTag = {
+  Tag: string;
+  Slug: string;
+  Router: SimpleRouterType;
+};
+
 
 export type UpdateViewCountGraphResult = {
   updatePostItem: UpdateViewCountType;

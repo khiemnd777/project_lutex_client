@@ -1,3 +1,5 @@
+import { lowerCase } from 'lodash-es';
+
 export const getQueryVariable = (variable: string) => {
   const query = window.location.search.substring(1);
   console.log(query); //"app=article&act=news_content&aid=160990"
@@ -28,3 +30,7 @@ export const isMobileBrowser = () => {
   }
   return isMobile;
 };
+
+export const getPublicationState = (state?: string) => {
+  return state ? (lowerCase(state) === 'preview' ? 'PREVIEW' : 'LIVE') : 'LIVE';
+}

@@ -19,6 +19,26 @@ $postShortFontSize: 16px;
     }
     .header {
       padding-bottom: 1rem;
+      .tags {
+        display: flex;
+        flex-wrap: wrap;
+        margin-bottom: 7px;
+        .link {
+          padding: 1px 8px;
+          border: 1px solid #ddd;
+          background-color: #e9e9e9;
+          margin-right: 8px;
+          margin-bottom: 5px;
+          border-radius: 20px;
+          display: inline-block;
+          &:hover {
+            background-color: #d6d6d6;
+          }
+          @media (max-width: $mobile) {
+            font-size: 9px;
+          }
+        }
+      }
       .row {
         display: flex;
         .catalog {
@@ -100,15 +120,14 @@ $postShortFontSize: 16px;
               figure {
                 width: 100% !important;
                 margin: 0 auto !important;
-                img{
+                img {
                   border-radius: 3px;
                 }
                 figcaption {
                   text-align: center;
-                  span{
+                  span {
                     font-size: 13px;
-                    color:$lighterFontColor;
-
+                    color: $lighterFontColor;
                   }
                 }
               }

@@ -14,6 +14,7 @@ export const DefaultParams = {
   useDisplayOrder: false,
   seqDisplayOrder: 'asc',
   useShort: true,
+  enableTags: true,
   enableCatalog: true,
   useInternal: true,
   useFetchScrolling: false,
