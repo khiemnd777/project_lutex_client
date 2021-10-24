@@ -40,6 +40,9 @@
   width: 750px;
   z-index: 99999;
   top: 0;
+  @media (max-width: $mobile) {
+    width: 100%;
+  }
   .dialog_close {
     position: absolute;
     right: -40px;
@@ -47,6 +50,10 @@
     cursor: pointer;
     width: 35px;
     height: 35px;
+    @media (max-width: $mobile) {
+      right: 25px;
+      top: 20px;
+    }
     div {
       width: 2rem;
       height: 0.1rem;

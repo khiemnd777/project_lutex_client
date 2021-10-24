@@ -27,6 +27,9 @@
         display: flex;
         flex-wrap: wrap;
         margin-bottom: 7px;
+        @media (max-width: $mobile) {
+          margin-bottom: 0;
+        }
         .link {
           padding: 1px 8px;
           border: 1px solid #ddd;
@@ -51,7 +54,7 @@
           font-size: $titleFontSize;
           color: $primaryHeaderColor;
           @media (max-width: $mobile) {
-            font-size: 15px;
+            font-size: 14px;
           }
         }
       }
