@@ -20,5 +20,6 @@ export const DefaultParams = {
   useFetchScrolling: false,
   useHqPicture: false,
   useAuthor: false,
+  useReadingTime: false,
   notContainsCatalogs: '',
 } as Record<string, any>;

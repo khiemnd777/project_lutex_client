@@ -47,6 +47,7 @@ const PostItemsListWidget: FunctionalComponent<PostItemsListWidgetArgs> = ({
   const useShort = parseBool(GetParameterValue('useShort', parameters, DefaultParams));
   const useHqPicture = parseBool(GetParameterValue('useHqPicture', parameters, DefaultParams));
   const useAuthor = parseBool(GetParameterValue('useAuthor', parameters, DefaultParams));
+  const useReadingTime = parseBool(GetParameterValue('useReadingTime', parameters, DefaultParams));
   return (
     <Fragment>
       <Loading hidden={!loading} />
@@ -139,7 +140,7 @@ const PostItemsListWidget: FunctionalComponent<PostItemsListWidgetArgs> = ({
                                     <div class={cx('author')}>{item.Author}</div>
                                   </div>
                                 ) : null}
-                                {item.ReadingTime ? (
+                                {useReadingTime && item.ReadingTime ? (
                                   <Fragment>
                                     <div class={cx('seperate')}></div>
                                     <div class={cx('reading_time')}>{item.ReadingTime} đọc</div>
@@ -221,7 +222,7 @@ const PostItemsListWidget: FunctionalComponent<PostItemsListWidgetArgs> = ({
                                 </div>
                               ) : null
                             ) : null}
-                            {item.ReadingTime ? (
+                            {useReadingTime && item.ReadingTime ? (
                               <Fragment>
                                 <div class={cx('seperate')}></div>
                                 <div class={cx('reading_time')}>{item.ReadingTime} đọc</div>
