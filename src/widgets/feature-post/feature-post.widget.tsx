@@ -42,7 +42,7 @@ const FeaturePostWidget: FunctionalComponent<FeaturePostWidgetArgs> = ({
   const short = paramShort?.value || data?.Short;
   const dateEnabled = parseBool(paramsDateEnabled?.value);
   const explorationText = paramsExplorationText?.value || 'Explore';
-  const [datetimeServer, setDatetimeServer] = useState<Date>({} as Date);
+  const [datetimeServer, setDatetimeServer] = useState<string>('');
   useEffect(() => {
     if (dateEnabled) {
       void GetDatetimeServer().then((value) => {
