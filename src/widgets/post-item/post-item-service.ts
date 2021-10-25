@@ -1,5 +1,5 @@
 import { gql, useMutation, useQuery } from '@apollo/client';
-import { PublicationState } from '_stdio/shared/utils/types';
+import { MediaGraphProps } from '_stdio/shared/constants/image-constants';
 import {
   CreateViewCountGraphResult,
   PostItemGraphResult,
@@ -17,6 +17,7 @@ export const GraphPostItemBySlug = (slug: string, publicationState: 'LIVE' | 'PR
           Title
           Short
           Body
+          ReadingTime
           Tags {
             Tag
             Slug
@@ -36,6 +37,10 @@ export const GraphPostItemBySlug = (slug: string, publicationState: 'LIVE' | 'PR
               id
               Path
             }
+          }
+          Author
+          AuthorAvatar{
+            ${MediaGraphProps}
           }
           Cover {
             id

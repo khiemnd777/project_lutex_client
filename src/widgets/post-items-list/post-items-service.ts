@@ -7,6 +7,7 @@ const postItemProps = `
   Slug
   Title
   Short
+  ReadingTime
   PostOn
   PostOff
   createdAt
@@ -29,6 +30,10 @@ const postItemProps = `
     Router {
       Path
     }
+  }
+  Author
+  AuthorAvatar{
+    ${MediaGraphProps}
   }
   Cover{
     ${MediaGraphProps}
@@ -86,7 +91,9 @@ export const GraphAvailablePostItems = (
   }`;
   return useQuery<AvailablePostItemsGraphResult>(
     gql`
-    query ${publicationState === 'PREVIEW' ? `_noCache` : ''} ($datetimeNow:Date, $start:Int, $limit:Int, $sort: String) {
+    query ${
+      publicationState === 'PREVIEW' ? `_noCache` : ''
+    } ($datetimeNow:Date, $start:Int, $limit:Int, $sort: String) {
       postItems (
         publicationState:${publicationState}
         where: ${where}
@@ -132,7 +139,9 @@ export const GraphPostItemInTag = (
   `;
   return useQuery<AvailablePostItemsGraphResult>(
     gql`
-    query ${publicationState === 'PREVIEW' ? `_noCache` : ''} ($datetimeNow:Date, $slug:String, $start:Int, $limit:Int) {
+    query ${
+      publicationState === 'PREVIEW' ? `_noCache` : ''
+    } ($datetimeNow:Date, $slug:String, $start:Int, $limit:Int) {
       postItems (
         publicationState:${publicationState}
         where: ${where}
@@ -178,7 +187,9 @@ export const GraphPostItemInCatalog = (
   `;
   return useQuery<AvailablePostItemsGraphResult>(
     gql`
-    query ${publicationState === 'PREVIEW' ? `_noCache` : ''} ($datetimeNow:Date, $slug:String, $start:Int, $limit:Int) {
+    query ${
+      publicationState === 'PREVIEW' ? `_noCache` : ''
+    } ($datetimeNow:Date, $slug:String, $start:Int, $limit:Int) {
       postItems (
         publicationState:${publicationState}
         where: ${where}
@@ -221,7 +232,9 @@ export const GraphPostItemInCatalogId = (
   `;
   return useQuery<AvailablePostItemsGraphResult>(
     gql`
-    query ${publicationState === 'PREVIEW' ? `_noCache` : ''} ($datetimeNow:Date, $catalogId:String, $start:Int, $limit:Int) {
+    query ${
+      publicationState === 'PREVIEW' ? `_noCache` : ''
+    } ($datetimeNow:Date, $catalogId:String, $start:Int, $limit:Int) {
       postItems (
         publicationState:${publicationState}
         where: ${where}

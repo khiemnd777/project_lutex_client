@@ -20,6 +20,7 @@ import { showTemplateGridItem } from '_stdio/shared/components/template-grid/tem
 import { GetSingleMedia } from '_stdio/shared/utils/media.utils';
 import { MediaFormatEnums } from '_stdio/shared/enums/image-enums';
 import Loading from '_stdio/shared/components/loading/loading';
+import { isMobileBrowser } from '_stdio/shared/utils/common.utils';
 
 const PostItemsListWidget: FunctionalComponent<PostItemsListWidgetArgs> = ({
   theme,
@@ -66,6 +67,9 @@ const PostItemsListWidget: FunctionalComponent<PostItemsListWidgetArgs> = ({
             const coverMedia = !size(item.Cover)
               ? undefined
               : GetSingleMedia(item.Cover[0], useHqPicture ? MediaFormatEnums.ordinary : MediaFormatEnums.thumbnail);
+            const authorAvatar = !item.AuthorAvatar
+              ? undefined
+              : GetSingleMedia(item.AuthorAvatar, MediaFormatEnums.thumbnail);
             return {
               onAfterLoaded: (model, gridItemRef) => {
                 if (!size(item.Cover)) {
@@ -116,14 +120,87 @@ const PostItemsListWidget: FunctionalComponent<PostItemsListWidgetArgs> = ({
                             )
                           ) : null}
                         </div>
-                        {enableCatalog && enableCreatedDate ? (
-                          <div class={cx('activity_container')}>
-                            {enableCatalog && !isEmpty(item.Catalog) ? (
-                              <div class={cx('catalog')}>
-                                <Link href={catalogRoutePath} title={item.Catalog?.DisplayName}>
-                                  {item.Catalog?.DisplayName}
-                                </Link>
+                        {isMobileBrowser() ? (
+                          <div>
+                            {item.Author || item.ReadingTime ? (
+                              <div class={cx('activity_container')}>
+                                {item.Author ? (
+                                  <div class={cx('author_container')}>
+                                    <ImageContainer
+                                      className={cx('author_image_container')}
+                                      imageClassName={cx('image')}
+                                      src={authorAvatar?.url}
+                                      alt={item.Author}
+                                      gridItemRef={gridItemRef}
+                                      scrollPosition={scrollPosition}
+                                      mGrid={mGrid}
+                                    />
+                                    <div class={cx('author')}>{item.Author}</div>
+                                  </div>
+                                ) : null}
+                                {item.ReadingTime ? (
+                                  <Fragment>
+                                    <div class={cx('seperate')}></div>
+                                    <div class={cx('reading_time')}>{item.ReadingTime} đọc</div>
+                                  </Fragment>
+                                ) : null}
                               </div>
+                            ) : null}
+                            <div class={cx('activity_container')}>
+                              {enableCatalog && !isEmpty(item.Catalog) ? (
+                                <Fragment>
+                                  <div class={cx('catalog')}>
+                                    <Link href={catalogRoutePath} title={item.Catalog?.DisplayName}>
+                                      {item.Catalog?.DisplayName}
+                                    </Link>
+                                  </div>
+                                </Fragment>
+                              ) : null}
+                              {enableCatalog &&
+                              enableCreatedDate &&
+                              !isEmpty(item.Catalog) &&
+                              !isEmpty(item.createdAt) ? (
+                                <div class={cx('seperate')}></div>
+                              ) : null}
+                              {enableCreatedDate ? (
+                                !isEmpty(item.createdAt) ? (
+                                  <div class={cx('created_at')}>
+                                    {useTimeSince
+                                      ? timeSince(
+                                          new Date(!datetimeServer ? new Date() : datetimeServer),
+                                          new Date(item?.createdAt)
+                                        )
+                                      : convertDateFormat(item?.createdAt, DATE_FORMAT)}
+                                  </div>
+                                ) : null
+                              ) : null}
+                            </div>
+                          </div>
+                        ) : (
+                          <div class={cx('activity_container')}>
+                            {item.Author ? (
+                              <div class={cx('author_container')}>
+                                <ImageContainer
+                                  className={cx('author_image_container')}
+                                  imageClassName={cx('image')}
+                                  src={authorAvatar?.url}
+                                  alt={item.Author}
+                                  gridItemRef={gridItemRef}
+                                  scrollPosition={scrollPosition}
+                                  mGrid={mGrid}
+                                />
+                                <div class={cx('author')}>{item.Author}</div>
+                              </div>
+                            ) : null}
+                            {enableCatalog && !isEmpty(item.Catalog) ? (
+                              <Fragment>
+                                {item.Author ? <div class={cx('seperate')}></div> : null}
+                                <div class={cx('catalog')}>
+                                  <Link href={catalogRoutePath} title={item.Catalog?.DisplayName}>
+                                    {item.Catalog?.DisplayName}
+                                  </Link>
+                                </div>
+                              </Fragment>
                             ) : null}
                             {enableCatalog &&
                             enableCreatedDate &&
@@ -143,8 +220,14 @@ const PostItemsListWidget: FunctionalComponent<PostItemsListWidgetArgs> = ({
                                 </div>
                               ) : null
                             ) : null}
+                            {item.ReadingTime ? (
+                              <Fragment>
+                                <div class={cx('seperate')}></div>
+                                <div class={cx('reading_time')}>{item.ReadingTime} đọc</div>
+                              </Fragment>
+                            ) : null}
                           </div>
-                        ) : null}
+                        )}
                         {useShort ? (
                           useMarked ? (
                             <div class={cx('short')} dangerouslySetInnerHTML={{ __html: marked(item.Short) }}></div>

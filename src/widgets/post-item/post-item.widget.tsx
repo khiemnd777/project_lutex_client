@@ -10,8 +10,11 @@ import { BuildClassNameBind } from '_stdio/core/theme/theme-utils';
 import { WidgetFactory } from '_stdio/core/widget/widget-factory';
 import { WidgetInstaller } from '_stdio/core/widget/widget-installer';
 import { PackDefaultParams } from '_stdio/core/widget/widget-utils';
+import ImageContainer from '_stdio/shared/components/image-container/image-container';
 import Loading from '_stdio/shared/components/loading/loading';
+import { MediaFormatEnums } from '_stdio/shared/enums/image-enums';
 import { convertDateFormat, DATE_FORMAT } from '_stdio/shared/utils/date.utils';
+import { GetSingleMedia } from '_stdio/shared/utils/media.utils';
 import { GetParameterValue } from '_stdio/shared/utils/params.util';
 import { parseBool } from '_stdio/shared/utils/string.utils';
 import { DefaultParams } from './post-item-constants';
@@ -29,6 +32,7 @@ const PostItemWidget: FunctionalComponent<PostItemWidgetArgs> = ({
   const cx = BuildClassNameBind(theme.Name, 'post_item');
   const catalogRouterPath = buildRouterPath(data?.Catalog?.Router?.Path ?? '', data?.Catalog);
   const enableTags = parseBool(GetParameterValue('enableTags', parameters, DefaultParams));
+  const authorAvatar = !data?.AuthorAvatar ? undefined : GetSingleMedia(data.AuthorAvatar, MediaFormatEnums.thumbnail);
   const bodyLeftRef = useRef<HTMLDivElement>();
   const bodyRightRef = useRef<HTMLDivElement>();
   useEffect(() => {
@@ -42,18 +46,18 @@ const PostItemWidget: FunctionalComponent<PostItemWidgetArgs> = ({
       <div class={cx('post_item', !isEmpty(data) ? 'visible' : null)}>
         <div class={cx('container')}>
           <div class={cx('header')}>
-              {enableTags && size(data?.Tags) ? (
-                <div class={cx('tags')}>
-                  {map(data?.Tags, (tag) => {
-                    const path = !isEmpty(tag.Router) ? buildRouterPath(tag.Router.Path, tag) : '';
-                    return (
-                      <Link href={path} class={cx('link')} title={tag.Tag}>
-                        <span>{tag.Tag}</span>
-                      </Link>
-                    );
-                  })}
-                </div>
-              ) : null}
+            {enableTags && size(data?.Tags) ? (
+              <div class={cx('tags')}>
+                {map(data?.Tags, (tag) => {
+                  const path = !isEmpty(tag.Router) ? buildRouterPath(tag.Router.Path, tag) : '';
+                  return (
+                    <Link href={path} class={cx('link')} title={tag.Tag}>
+                      <span>{tag.Tag}</span>
+                    </Link>
+                  );
+                })}
+              </div>
+            ) : null}
             <div class={cx('row')}>
               <div class={cx('catalog')}>
                 <Link href={catalogRouterPath}>
@@ -75,6 +79,17 @@ const PostItemWidget: FunctionalComponent<PostItemWidgetArgs> = ({
                 <span>{data?.Short}</span>
               </div>
             )}
+            {data?.Author ? (
+              <div class={cx('author_container')}>
+                <ImageContainer
+                  className={cx('author_image_container')}
+                  imageClassName={cx('image')}
+                  src={authorAvatar?.url}
+                  alt={data.Author}
+                />
+                <div class={cx('author')}>{data.Author}</div>
+              </div>
+            ) : null}
             {!!data?.Body && (
               <div class={cx('post_body')}>
                 <div ref={bodyLeftRef} class={cx('post_body_left')}>

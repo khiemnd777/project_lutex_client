@@ -11,6 +11,7 @@ export type PostItemType = {
   Title: string;
   Short: string;
   Body: string;
+  ReadingTime: string;
   createdAt: string;
   Router: SimpleRouterType;
   Tags: PostTag[];
@@ -19,6 +20,8 @@ export type PostItemType = {
     DisplayName: string;
     Router: SimpleRouterType;
   };
+  Author: string;
+  AuthorAvatar: SingleMediaType;
   Cover: SingleMediaType[];
 };
 
@@ -27,7 +30,6 @@ export type PostTag = {
   Slug: string;
   Router: SimpleRouterType;
 };
-
 
 export type UpdateViewCountGraphResult = {
   updatePostItem: UpdateViewCountType;

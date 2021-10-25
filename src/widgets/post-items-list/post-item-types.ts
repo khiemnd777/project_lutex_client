@@ -20,12 +20,15 @@ export type PostItemType = {
   Slug: string;
   Title: string;
   Short: string;
+  ReadingTime: string;
   PostOn: Date;
   PostOff: Date;
   createdAt: Date;
   Catalog?: PostCatalogType;
   Router: SimpleRouterType;
   Tags: PostTag[];
+  Author: string;
+  AuthorAvatar: SingleMediaType;
   Cover: SingleMediaType[];
 };
 
@@ -35,6 +38,7 @@ export type DetailPostItemType = {
   Title: string;
   Short: string;
   Body: string;
+  ReadingTime: string;
   PostOn: Date;
   PostOff: Date;
   createdAt: Date;
@@ -44,6 +48,8 @@ export type DetailPostItemType = {
   Catalog: PostCatalogType;
   Router: SimpleRouterType;
   Tags: PostTag[];
+  Author: string;
+  AuthorAvatar: SingleMediaType;
   Cover: SingleMediaType[];
   Media: SingleMediaType[];
 };
