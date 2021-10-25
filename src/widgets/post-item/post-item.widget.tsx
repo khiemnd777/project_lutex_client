@@ -32,6 +32,7 @@ const PostItemWidget: FunctionalComponent<PostItemWidgetArgs> = ({
   const cx = BuildClassNameBind(theme.Name, 'post_item');
   const catalogRouterPath = buildRouterPath(data?.Catalog?.Router?.Path ?? '', data?.Catalog);
   const enableTags = parseBool(GetParameterValue('enableTags', parameters, DefaultParams));
+  const useAuthor = parseBool(GetParameterValue('useAuthor', parameters, DefaultParams));
   const authorAvatar = !data?.AuthorAvatar ? undefined : GetSingleMedia(data.AuthorAvatar, MediaFormatEnums.thumbnail);
   const bodyLeftRef = useRef<HTMLDivElement>();
   const bodyRightRef = useRef<HTMLDivElement>();
@@ -79,7 +80,7 @@ const PostItemWidget: FunctionalComponent<PostItemWidgetArgs> = ({
                 <span>{data?.Short}</span>
               </div>
             )}
-            {data?.Author ? (
+            {useAuthor && data?.Author ? (
               <div class={cx('author_container')}>
                 <ImageContainer
                   className={cx('author_image_container')}

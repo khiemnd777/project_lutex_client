@@ -19,5 +19,6 @@ export const DefaultParams = {
   useInternal: true,
   useFetchScrolling: false,
   useHqPicture: false,
+  useAuthor: false,
   notContainsCatalogs: '',
 } as Record<string, any>;

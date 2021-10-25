@@ -46,6 +46,7 @@ const PostItemsListWidget: FunctionalComponent<PostItemsListWidgetArgs> = ({
   const enableCatalog = parseBool(GetParameterValue('enableCatalog', parameters, DefaultParams));
   const useShort = parseBool(GetParameterValue('useShort', parameters, DefaultParams));
   const useHqPicture = parseBool(GetParameterValue('useHqPicture', parameters, DefaultParams));
+  const useAuthor = parseBool(GetParameterValue('useAuthor', parameters, DefaultParams));
   return (
     <Fragment>
       <Loading hidden={!loading} />
@@ -124,7 +125,7 @@ const PostItemsListWidget: FunctionalComponent<PostItemsListWidgetArgs> = ({
                           <div>
                             {item.Author || item.ReadingTime ? (
                               <div class={cx('activity_container')}>
-                                {item.Author ? (
+                                {useAuthor && item.Author ? (
                                   <div class={cx('author_container')}>
                                     <ImageContainer
                                       className={cx('author_image_container')}
@@ -178,7 +179,7 @@ const PostItemsListWidget: FunctionalComponent<PostItemsListWidgetArgs> = ({
                           </div>
                         ) : (
                           <div class={cx('activity_container')}>
-                            {item.Author ? (
+                            {useAuthor && item.Author ? (
                               <div class={cx('author_container')}>
                                 <ImageContainer
                                   className={cx('author_image_container')}
@@ -194,7 +195,7 @@ const PostItemsListWidget: FunctionalComponent<PostItemsListWidgetArgs> = ({
                             ) : null}
                             {enableCatalog && !isEmpty(item.Catalog) ? (
                               <Fragment>
-                                {item.Author ? <div class={cx('seperate')}></div> : null}
+                                {useAuthor && item.Author ? <div class={cx('seperate')}></div> : null}
                                 <div class={cx('catalog')}>
                                   <Link href={catalogRoutePath} title={item.Catalog?.DisplayName}>
                                     {item.Catalog?.DisplayName}
