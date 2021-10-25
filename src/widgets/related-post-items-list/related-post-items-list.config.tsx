@@ -21,7 +21,7 @@ const RelatedPostItemsListWidgetConfig: FunctionalComponent<WidgetConfigArgs<Rel
   widgets,
   visitorId,
 }) => {
-  const [datetimeServer, setDatetimeServer] = useState<Date>({} as Date);
+  const [datetimeServer, setDatetimeServer] = useState<string>('');
   useEffect(() => {
     void GetDatetimeServer().then((value) => {
       setDatetimeServer(value);

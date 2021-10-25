@@ -3,7 +3,7 @@ import { MediaFormatEnums } from '../enums/image-enums';
 import { ImageType, SingleMediaType } from '../types/image-types';
 
 export const GetSingleMedia = (
-  singleMedia: SingleMediaType,
+  singleMedia?: SingleMediaType,
   formatEnums: MediaFormatEnums = MediaFormatEnums.ordinary
 ) => {
   if (!singleMedia || isEmpty(singleMedia)) {

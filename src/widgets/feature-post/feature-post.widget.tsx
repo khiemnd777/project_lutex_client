@@ -95,7 +95,7 @@ const FeaturePostWidget: FunctionalComponent<FeaturePostWidgetArgs> = ({
 
 interface PostBuilderArgs {
   theme: ThemeType;
-  datetimeServer: Date;
+  datetimeServer: string;
   posts?: VisualizedPostType[];
   dateEnabled?: boolean;
   explorationText?: string;
