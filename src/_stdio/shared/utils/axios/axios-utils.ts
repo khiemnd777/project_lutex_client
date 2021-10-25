@@ -3,7 +3,11 @@
 import axios, { AxiosResponse } from 'axios';
 
 // See below for an example using Custom instance defaults instead.
-export const Axios_SetAuthToken = (authToken) => {
+export const Axios_SetAuthToken = (authToken: string) => {
+  if (!authToken) {
+    delete axios.defaults.headers.common['Authorization'];
+    return;
+  }
   axios.defaults.headers.common['Authorization'] = `Bearer ${authToken}`;
 };
 

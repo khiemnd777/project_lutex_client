@@ -14,7 +14,7 @@ export const AuthLogin = async (identifier: string, password: string) => {
 };
 
 export const AuthLogout = async () => {
-  localStorage.setItem(AUTH_TOKEN, '');
+  localStorage.removeItem(AUTH_TOKEN);
   await graphqlClient.resetStore();
   Axios_SetAuthToken('');
 };
