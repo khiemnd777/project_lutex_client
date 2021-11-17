@@ -19,15 +19,18 @@
   margin: 0;
 
   .dialog {
-    margin: 75px auto;
+    margin: 0 auto;
     padding: 0;
     position: relative;
     z-index: 10;
-    width: 750px;
-    min-height: 550px;
+    width: 100vw;
+    height: auto;
+    min-height: 100vh;
     background-color: #fff;
     @media (max-width: $mobile) {
       width: 100%;
+      min-height: 100vh;
+      height: auto;
     }
   }
 }
@@ -37,7 +40,7 @@
   left: 50%;
   transform: translateX(-50%);
   margin: 0 auto;
-  width: 750px;
+  width: 100%;
   z-index: 99999;
   top: 0;
   @media (max-width: $mobile) {
@@ -45,7 +48,7 @@
   }
   .dialog_close {
     position: absolute;
-    right: -40px;
+    right: 40px;
     top: 40px;
     cursor: pointer;
     width: 35px;
@@ -88,34 +91,47 @@
   .header {
     margin-top: 10px;
     .header_content {
+      font-family: $alterFontFamily;
       text-align: center;
-      font-size: 20px;
+      font-size: 2.6vw;
+      @media (max-width: $mobile) {
+        font-size: 4vh;
+      }
     }
   }
 
   // Question area
   .form_question_area {
     position: relative;
-    margin-top: 30px;
+    margin-top: 50px;
     padding: 0 60px;
+    @media (max-width: $mobile) {
+      padding: 0 10px;
+    }
     .question_panel {
+      margin: 0 auto;
       .question_panel_layout {
-        margin-bottom: 25px;
+        margin-bottom: 50px;
         border-bottom: 1px dashed #ddd;
-        padding-bottom: 25px;
+        padding-bottom: 50px;
         &:last-child {
           border-bottom: none;
         }
         .question_title {
-          font-size: 16px;
+          font-size: 1.35vw;
           font-weight: 600;
+          text-align: center;
+          font-family: $alterFontFamily;
+          @media (max-width: $mobile) {
+            font-size: 3vh;
+          }
         }
         .answer_area {
-          margin-top: 20px;
+          margin-top: 30px;
           .answer_item {
             // Image type
             &.answer_image {
-              width: 90px;
+              width: 130px;
               height: auto;
               cursor: pointer;
               border-radius: 50%;
@@ -151,7 +167,7 @@
                 margin-top: 5px;
                 text-align: center;
                 width: 100%;
-                font-size: 11px;
+                font-size: 0.95vw;
                 @media (max-width: $mobile) {
                   font-size: 14px;
                 }
@@ -168,7 +184,7 @@
                 appearance: none;
                 -webkit-appearance: none;
                 border: 1px solid #aaa;
-                transition: all 0.3s;
+                transition: all 0.3s ease;
                 background: #ddd;
                 width: $checkbox-size;
                 height: $checkbox-size;
@@ -190,11 +206,49 @@
               }
             }
 
+            // Checkbox2
+            &.answer_checkbox2 {
+              display: flex;
+              align-items: center;
+              margin-bottom: 25px;
+              justify-content: center;
+              .answer_checkbox2_content {
+                cursor: pointer;
+                padding: 1.2vw;
+                background-color: #f1f1f1;
+                border-radius: 10px;
+                font-size: 0.95vw;
+                transition: all 0.3s ease;
+                min-width: 130px;
+                text-align: center;
+                @media (max-width: $mobile) {
+                  padding: 1.5vh;
+                  font-size: 2vh;
+                }
+                &:hover {
+                  background-color: $mainColor;
+                  color: $color-white;
+                }
+                &.selected {
+                  background-color: $mainColor;
+                  color: $color-white;
+                }
+                p {
+                  padding: 0;
+                  margin: 0;
+                }
+              }
+            }
+
             // Text
             &.answer_text {
               display: block;
               position: relative;
-              width: 100%;
+              width: 870px;
+              margin: 0 auto;
+              @media (max-width: $mobile) {
+                width: 100%;
+              }
               .answer_text_content {
                 width: 100%;
                 ul {
@@ -216,15 +270,23 @@
             flex-wrap: wrap;
             justify-content: center;
             .answer_item {
-              margin-right: 20px;
+              margin-right: 50px;
               @media (max-width: $mobile) {
                 margin-right: 25px;
                 margin-bottom: 25px;
+                &:nth-child(2n) {
+                  margin-right: 0;
+                  margin-left: 25px;
+                  &:last-child {
+                    margin-right: 0 !important;
+                  }
+                }
               }
               &:last-child {
                 margin-right: 0;
                 @media (max-width: $mobile) {
                   margin-right: 25px;
+                  margin-left: 25px;
                 }
               }
             }
@@ -253,7 +315,7 @@
     transform: translate(-50%, -50%);
     margin: 0 auto;
     padding: 0;
-    width: 750px;
+    width: 100%;
     @media (max-width: $mobile) {
       width: 100%;
     }
@@ -264,11 +326,11 @@
       cursor: pointer;
       text-transform: uppercase;
       width: 65px;
-      height: auto;
+      height: 65px;
       text-align: center;
       transition: all ease 0.25s;
       @media (max-width: $mobile) {
-        width: 70px;
+        width: 45px;
         font-size: 17px;
         transition: none;
       }
@@ -280,6 +342,28 @@
             right: 2px;
           }
         }
+        div {
+          width: 2rem;
+          height: 0.4rem;
+          background-color: rgb(27, 26, 26);
+          position: absolute;
+          top: 50%;
+          @media (max-width: $mobile) {
+            height: 0.3rem;
+          }
+          &:first-child {
+            transform: rotate(45deg) translate(-5px, -15px);
+            @media (max-width: $mobile) {
+              transform: rotate(45deg) translate(-10px, -10px);
+            }
+          }
+          &:nth-child(2) {
+            transform: rotate(-45deg) translate(2px, 10px);
+            @media (max-width: $mobile) {
+              transform: rotate(-45deg) translate(-4px, 4px);
+            }
+          }
+        }
       }
       &.back {
         left: -2px;
@@ -287,6 +371,28 @@
           left: -8px;
           @media (max-width: $mobile) {
             left: -2px;
+          }
+        }
+        div {
+          width: 2rem;
+          height: 0.4rem;
+          background-color: rgb(27, 26, 26);
+          position: absolute;
+          top: 50%;
+          @media (max-width: $mobile) {
+            height: 0.3rem;
+          }
+          &:first-child {
+            transform: rotate(45deg) translate(8px, 0px);
+            @media (max-width: $mobile) {
+              transform: rotate(45deg) translate(0px, 10px);
+            }
+          }
+          &:nth-child(2) {
+            transform: rotate(-45deg) translate(15px, -5px);
+            @media (max-width: $mobile) {
+              transform: rotate(-45deg) translate(5px, -14px);
+            }
           }
         }
       }
@@ -300,7 +406,18 @@
 
   // Contact fields
   .form_contact_fields {
-    padding: 0 60px;
+    margin: 0 auto;
+    width: 750px;
+    @media (max-width: $mobile) {
+      width: 100%;
+    }
+    .contact_header {
+      font-family: $alterFontFamily;
+      font-size: 1vw;
+      @media (max-width: $mobile) {
+        font-size: 2.5vh;
+      }
+    }
   }
 }
 

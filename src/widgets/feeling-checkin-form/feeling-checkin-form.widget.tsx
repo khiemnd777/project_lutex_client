@@ -93,7 +93,6 @@ const FeelingCheckinFormWidget: FunctionalComponent<FeelingCheckinFormWidgetArgs
 };
 
 const FormDialog: FunctionalComponent<FormDialogArgs> = ({ theme, parameters, setFormLoading, setOpenForm }) => {
-  console.log('open form');
   const styleName = GetParameterValue('styleName', parameters, DefaultParams);
   const cx = BuildClassNameBind(theme.Name, styleName);
   const startFormName = GetParameterValue('startFormName', parameters, DefaultParams);
@@ -252,7 +251,6 @@ const FormPanel: FunctionalComponent<FormPanelArgs> = ({
         <a
           class={cx('form_button', 'back', currentForm?.Start || loading ? 'disabled' : null)}
           onClick={() => {
-            console.log('back');
             if (!openContactFields) {
               --selectedIndex;
               if (selectedIndex < 0) {
@@ -266,13 +264,13 @@ const FormPanel: FunctionalComponent<FormPanelArgs> = ({
             setOpenContactFields(false);
           }}
         >
-          <span>Back</span>
+          <div></div>
+          <div></div>
         </a>
         {/* Next */}
         <a
           class={cx('form_button', 'next', openContactFields || loading ? 'disabled' : null)}
           onClick={() => {
-            console.log('next');
             if (!currentForm?.Completed) {
               setNextFlag(true);
             } else {
@@ -280,7 +278,8 @@ const FormPanel: FunctionalComponent<FormPanelArgs> = ({
             }
           }}
         >
-          <span>Next</span>
+          <div></div>
+          <div></div>
         </a>
       </div>
     </div>
@@ -397,6 +396,20 @@ const AnswerPanel: FunctionalComponent<{
                     dangerouslySetInnerHTML={{ __html: marked(ans.Answer) }}
                   ></div>
                 </label>
+              </div>
+            );
+          }
+          case 'checkbox2': {
+            return (
+              <div class={cx('answer_item', 'answer_checkbox2')}>
+                <div
+                  class={cx('answer_checkbox2_content', ans.Selected ? 'selected' : null)}
+                  dangerouslySetInnerHTML={{ __html: marked(ans.Answer) }}
+                  onClick={(evt) => {
+                    selectAnswer(!ans.Selected, ans, data);
+                    setUpdateUI(true);
+                  }}
+                ></div>
               </div>
             );
           }
