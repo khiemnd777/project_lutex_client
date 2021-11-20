@@ -7,7 +7,6 @@ import { WidgetFactory } from '_stdio/core/widget/widget-factory';
 import { WidgetConfigArgs } from '_stdio/core/widget/widget-interfaces';
 import { GetParameterValue } from '_stdio/shared/utils/params.util';
 import { DefaultParams } from './feeling-checkin-form-constants';
-import { FetchForm } from './feeling-checkin-form-service';
 import { FeelingCheckinFormWidgetArgs } from './feeling-checkin-form-interfaces';
 
 const FeelingCheckinFormWidgetConfig: FunctionalComponent<WidgetConfigArgs<FeelingCheckinFormWidgetArgs>> = ({

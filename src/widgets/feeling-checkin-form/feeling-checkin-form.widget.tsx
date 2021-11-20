@@ -32,6 +32,7 @@ import {
   FeelingCheckinFormWidgetArgs,
   FormDialogArgs,
   FormPanelArgs,
+  HomeFormPanelArgs,
 } from './feeling-checkin-form-interfaces';
 import { FetchForm, FetchNextForm } from './feeling-checkin-form-service';
 import {
@@ -51,53 +52,107 @@ const FeelingCheckinFormWidget: FunctionalComponent<FeelingCheckinFormWidgetArgs
   const [openForm, setOpenForm] = useState<boolean>(false);
   const [formLoading, setFormLoading] = useState<boolean>(false);
 
-  const isMobile = parseBool(GetParameterValue('isMobile', parameters, DefaultParams));
-  if (isMobile && !isMobileBrowser()) {
-    return null;
-  }
-  if (!isMobile && isMobileBrowser()) {
-    return null;
-  }
-  const styleName = GetParameterValue('styleName', parameters, DefaultParams);
-  const width = GetParameterValue('width', parameters, DefaultParams);
-  const height = GetParameterValue('height', parameters, DefaultParams);
-  const style = {};
-  if (width) {
-    style['width'] = width;
-  }
-  if (height) {
-    style['height'] = height;
-  }
-  const useHqPicture = parseBool(GetParameterValue('useHqPicture', parameters, DefaultParams));
-  const cx = BuildClassNameBind(theme.Name, styleName);
-  const picture = data?.Picture
-    ? GetSingleMedia(data?.Picture, useHqPicture ? MediaFormatEnums.ordinary : MediaFormatEnums.thumbnail)
-    : undefined;
+  // const isMobile = parseBool(GetParameterValue('isMobile', parameters, DefaultParams));
+  // if (isMobile && !isMobileBrowser()) {
+  //   return null;
+  // }
+  // if (!isMobile && isMobileBrowser()) {
+  //   return null;
+  // }
+  // const styleName = GetParameterValue('styleName', parameters, DefaultParams);
+  // const width = GetParameterValue('width', parameters, DefaultParams);
+  // const height = GetParameterValue('height', parameters, DefaultParams);
+  // const style = {};
+  // if (width) {
+  //   style['width'] = width;
+  // }
+  // if (height) {
+  //   style['height'] = height;
+  // }
+  // const useHqPicture = parseBool(GetParameterValue('useHqPicture', parameters, DefaultParams));
+  // const cx = BuildClassNameBind(theme.Name, styleName);
+  // const picture = data?.Picture
+  //   ? GetSingleMedia(data?.Picture, useHqPicture ? MediaFormatEnums.ordinary : MediaFormatEnums.thumbnail)
+  //   : undefined;
 
-  return (
+  // return (
+  //   <Fragment>
+  //     <div style={style} class={cx('picture_field', !isEmpty(data) ? 'visible' : null)}>
+  //       <div class={cx('image_container')}>
+  //         {picture ? (
+  //           <a src={data?.Url} onClick={() => setOpenForm(true)}>
+  //             <img src={picture.url} alt={data?.Picture?.Caption} />
+  //           </a>
+  //         ) : null}
+  //       </div>
+  //     </div>
+  //     {openForm ? (
+  //       <FormDialog
+  //         theme={theme}
+  //         parameters={parameters}
+  //         forms={forms}
+  //         setForms={setForms}
+  //         setFormLoading={setFormLoading}
+  //         setOpenForm={setOpenForm}
+  //       />
+  //     ) : null}
+  //   </Fragment>
+  // );
+
+  const [forms, setForms] = useState<FeelingCheckinForm[]>(() => []);
+  const homeFormName = GetParameterValue('homeFormName', parameters, DefaultParams);
+  const homeFormResult = Fetchanic(() => FetchForm(homeFormName));
+
+  if (
+    homeFormResult.data &&
+    !homeFormResult?.loading &&
+    !some(forms, (form) => {
+      return homeFormResult?.data?.id === form.id;
+    })
+  ) {
+    const formData = homeFormResult.data ? homeFormResult.data : ({} as FeelingCheckinForm);
+    if (!isEmpty(formData)) {
+      setForms((f) => [...f, formData]);
+    }
+  }
+
+  return homeFormResult.data ? (
     <Fragment>
-      <div style={style} class={cx('picture_field', !isEmpty(data) ? 'visible' : null)}>
-        <div class={cx('image_container')}>
-          {picture ? (
-            <a src={data?.Url} onClick={() => setOpenForm(true)}>
-              <img src={picture.url} alt={data?.Picture?.Caption} />
-            </a>
-          ) : null}
-        </div>
-      </div>
+      <HomeFormPanel
+        formData={homeFormResult.data}
+        theme={theme}
+        parameters={parameters}
+        setFormLoading={setFormLoading}
+        forms={forms}
+        setForms={setForms}
+        setOpenForm={setOpenForm}
+      />
       {openForm ? (
-        <FormDialog theme={theme} parameters={parameters} setFormLoading={setFormLoading} setOpenForm={setOpenForm} />
+        <FormDialog
+          theme={theme}
+          parameters={parameters}
+          forms={forms}
+          setForms={setForms}
+          setFormLoading={setFormLoading}
+          setOpenForm={setOpenForm}
+        />
       ) : null}
     </Fragment>
-  );
+  ) : null;
 };
 
-const FormDialog: FunctionalComponent<FormDialogArgs> = ({ theme, parameters, setFormLoading, setOpenForm }) => {
+const FormDialog: FunctionalComponent<FormDialogArgs> = ({
+  theme,
+  parameters,
+  forms,
+  setForms,
+  setFormLoading,
+  setOpenForm,
+}) => {
   const styleName = GetParameterValue('styleName', parameters, DefaultParams);
   const cx = BuildClassNameBind(theme.Name, styleName);
   const startFormName = GetParameterValue('startFormName', parameters, DefaultParams);
-  const [forms, setForms] = useState<FeelingCheckinForm[]>(() => []);
-  const [selectedIndex, setSelectedIndex] = useState<number>(0);
+  const [selectedIndex, setSelectedIndex] = useState<number>(1);
   const startFormResult = Fetchanic(() => FetchForm(startFormName));
   setFormLoading?.call(null, startFormResult.loading);
   if (
@@ -163,6 +218,35 @@ const FormDialog: FunctionalComponent<FormDialogArgs> = ({ theme, parameters, se
   ) : null;
 };
 
+const HomeFormPanel: FunctionalComponent<HomeFormPanelArgs> = ({
+  formData,
+  theme,
+  parameters,
+  forms,
+  setForms,
+  setOpenForm,
+}) => {
+  const styleName = GetParameterValue('styleName', parameters, DefaultParams);
+  const cx = BuildClassNameBind(theme.Name, styleName);
+
+  return (
+    <div class={cx('form_panel', 'home')}>
+      <Fragment>
+        <div class={cx('header')}>{formData?.Header && <h1 class={cx('header_content')}>{formData?.Header}</h1>}</div>
+        <div class={cx('form_question_area')}>
+          <QuestionPanel
+            data={formData?.Questions}
+            theme={theme}
+            parameters={parameters}
+            isHomeForm={true}
+            setOpenForm={setOpenForm}
+          />
+        </div>
+      </Fragment>
+    </div>
+  );
+};
+
 const FormPanel: FunctionalComponent<FormPanelArgs> = ({
   startFormData,
   theme,
@@ -177,13 +261,13 @@ const FormPanel: FunctionalComponent<FormPanelArgs> = ({
   const styleName = GetParameterValue('styleName', parameters, DefaultParams);
   const [loading, setLoading] = useState<boolean>(false);
   const [nextFlag, setNextFlag] = useState<boolean>(false);
-  const [openContactFields, setOpenContactFields] = useState<boolean>(false);
+  // const [openContactFields, setOpenContactFields] = useState<boolean>(false);
   const cx = BuildClassNameBind(theme.Name, styleName);
   const currentForm = forms[selectedIndex]
     ? forms[selectedIndex]
     : selectedIndex > size(forms) - 1
     ? forms[size(forms) - 1]
-    : forms[0];
+    : forms[1];
 
   // Fetch the next form by answers
   if (nextFlag) {
@@ -232,7 +316,7 @@ const FormPanel: FunctionalComponent<FormPanelArgs> = ({
 
   return (
     <div class={cx('form_panel', loading ? 'loading' : null)}>
-      {openContactFields ? (
+      {/* {openContactFields ? (
         <div class={cx('form_contact_fields')}>
           <ContactInputs theme={theme} parameters={parameters} forms={forms} setOpenForm={setOpenForm} />
         </div>
@@ -244,24 +328,53 @@ const FormPanel: FunctionalComponent<FormPanelArgs> = ({
           <div class={cx('form_question_area')}>
             <QuestionPanel data={currentForm?.Questions} theme={theme} parameters={parameters} />
           </div>
+          {selectedIndex === forms.length - 1 ? (
+            <div class={cx('form_contact_fields')}>
+              <ContactInputs theme={theme} parameters={parameters} forms={forms} setOpenForm={setOpenForm} />
+            </div>
+          ) : null}
         </Fragment>
-      )}
+      )} */}
+      <Fragment>
+        <div class={cx('header')}>
+          {currentForm?.Header && <h1 class={cx('header_content')}>{currentForm?.Header}</h1>}
+        </div>
+        <div class={cx('form_question_area')}>
+          <QuestionPanel data={currentForm?.Questions} theme={theme} parameters={parameters} />
+        </div>
+        {currentForm?.Completed ? (
+          <div class={cx('form_contact_fields')}>
+            <ContactInputs
+              theme={theme}
+              parameters={parameters}
+              forms={forms}
+              setForms={setForms}
+              setOpenForm={setOpenForm}
+            />
+          </div>
+        ) : null}
+      </Fragment>
       <div class={cx('form_action_panel')}>
         {/* Back */}
         <a
           class={cx('form_button', 'back', currentForm?.Start || loading ? 'disabled' : null)}
           onClick={() => {
-            if (!openContactFields) {
-              --selectedIndex;
-              if (selectedIndex < 0) {
-                selectedIndex = 0;
-              }
-              setSelectedIndex(selectedIndex);
-            } else {
-              selectedIndex = forms.length - 1;
-              setSelectedIndex(selectedIndex);
+            --selectedIndex;
+            if (selectedIndex < 1) {
+              selectedIndex = 1;
             }
-            setOpenContactFields(false);
+            setSelectedIndex(selectedIndex);
+            // if (!openContactFields) {
+            //   --selectedIndex;
+            //   if (selectedIndex < 1) {
+            //     selectedIndex = 1;
+            //   }
+            //   setSelectedIndex(selectedIndex);
+            // } else {
+            //   selectedIndex = forms.length - 1;
+            //   setSelectedIndex(selectedIndex);
+            // }
+            // setOpenContactFields(false);
           }}
         >
           <div></div>
@@ -269,13 +382,16 @@ const FormPanel: FunctionalComponent<FormPanelArgs> = ({
         </a>
         {/* Next */}
         <a
-          class={cx('form_button', 'next', openContactFields || loading ? 'disabled' : null)}
+          class={cx('form_button', 'next', currentForm?.Completed || loading ? 'disabled' : null)}
           onClick={() => {
             if (!currentForm?.Completed) {
               setNextFlag(true);
-            } else {
-              setOpenContactFields(true);
             }
+            // if (!currentForm?.Completed) {
+            //   setNextFlag(true);
+            // } else {
+            //   setOpenContactFields(true);
+            // }
           }}
         >
           <div></div>
@@ -290,7 +406,9 @@ const QuestionPanel: FunctionalComponent<{
   data?: FeelingCheckinQuestion[];
   theme: ThemeType;
   parameters?: ParameterConsumedType[];
-}> = ({ data, theme, parameters }) => {
+  setOpenForm?: StateUpdater<boolean>;
+  isHomeForm?: boolean;
+}> = ({ data, theme, parameters, setOpenForm, isHomeForm }) => {
   const styleName = GetParameterValue('styleName', parameters, DefaultParams);
   const cx = BuildClassNameBind(theme.Name, styleName);
   return (
@@ -303,7 +421,13 @@ const QuestionPanel: FunctionalComponent<{
                 <div class={cx('question_title')}>
                   <span>{item.Question}</span>
                 </div>
-                <AnswerPanel data={item} parameters={parameters} theme={theme} />
+                <AnswerPanel
+                  data={item}
+                  parameters={parameters}
+                  theme={theme}
+                  setOpenForm={setOpenForm}
+                  isHomeForm={isHomeForm}
+                />
               </div>
             ) : null;
           }
@@ -314,7 +438,13 @@ const QuestionPanel: FunctionalComponent<{
                 <div class={cx('question_title')}>
                   <span>{item.Question}</span>
                 </div>
-                <AnswerPanel data={item} parameters={parameters} theme={theme} />
+                <AnswerPanel
+                  data={item}
+                  parameters={parameters}
+                  theme={theme}
+                  setOpenForm={setOpenForm}
+                  isHomeForm={isHomeForm}
+                />
               </div>
             ) : null;
           }
@@ -337,7 +467,9 @@ const AnswerPanel: FunctionalComponent<{
   theme: ThemeType;
   data: FeelingCheckinQuestion;
   parameters?: ParameterConsumedType[];
-}> = ({ theme, data, parameters }) => {
+  setOpenForm?: StateUpdater<boolean>;
+  isHomeForm?: boolean;
+}> = ({ theme, data, parameters, setOpenForm, isHomeForm }) => {
   const [updateUI, setUpdateUI] = useState<boolean>(false);
   if (updateUI) {
     setUpdateUI(false);
@@ -354,6 +486,9 @@ const AnswerPanel: FunctionalComponent<{
                 class={cx('answer_item', 'answer_image', ans.Selected ? 'selected' : null)}
                 onClick={() => {
                   selectAnswer(!ans.Selected, ans, data);
+                  if (isHomeForm) {
+                    setOpenForm && setOpenForm(true);
+                  }
                   setUpdateUI(true);
                 }}
               >
@@ -375,6 +510,9 @@ const AnswerPanel: FunctionalComponent<{
                     type="checkbox"
                     onChange={(evt) => {
                       selectAnswer(evt.currentTarget.checked, ans, data);
+                      if (isHomeForm) {
+                        setOpenForm && setOpenForm(true);
+                      }
                       setUpdateUI(true);
                     }}
                   />
@@ -386,6 +524,9 @@ const AnswerPanel: FunctionalComponent<{
                     type="checkbox"
                     onChange={(evt) => {
                       selectAnswer(evt.currentTarget.checked, ans, data);
+                      if (isHomeForm) {
+                        setOpenForm && setOpenForm(true);
+                      }
                       setUpdateUI(true);
                     }}
                   />
@@ -407,6 +548,9 @@ const AnswerPanel: FunctionalComponent<{
                   dangerouslySetInnerHTML={{ __html: marked(ans.Answer) }}
                   onClick={(evt) => {
                     selectAnswer(!ans.Selected, ans, data);
+                    if (isHomeForm) {
+                      setOpenForm && setOpenForm(true);
+                    }
                     setUpdateUI(true);
                   }}
                 ></div>
@@ -441,7 +585,7 @@ const onSubmit = (data: InputModel[], setExecutedState: StateUpdater<ExecutedSta
 const prepareAnswers = (forms: FeelingCheckinForm[]) => {
   const filteredForms = filter(forms, (f) => {
     return some(f.Questions, (q) => {
-      return some(q.Answers, (a) => (a.Type === 'image' || a.Type === 'checkbox') && a.Selected);
+      return some(q.Answers, (a) => (a.Type === 'image' || a.Type === 'checkbox' || a.Type === 'checkbox2') && a.Selected);
     });
   });
   const answers = flatten(
@@ -463,7 +607,7 @@ const prepareAnswers = (forms: FeelingCheckinForm[]) => {
   return answers;
 };
 
-const ContactInputs: FunctionalComponent<ContactFieldsArgs> = ({ theme, parameters, forms, setOpenForm }) => {
+const ContactInputs: FunctionalComponent<ContactFieldsArgs> = ({ theme, parameters, forms, setForms, setOpenForm }) => {
   const textFieldName = GetParameterValue('contactTextFieldName', parameters, DefaultParams);
   const textFieldResult = GraphTextFields(textFieldName);
   const contactTextField =
@@ -479,6 +623,7 @@ const ContactInputs: FunctionalComponent<ContactFieldsArgs> = ({ theme, paramete
 
   const sendingSuccess = () => {
     setOpenForm && setOpenForm(false);
+    setForms && setForms([]);
     enableBodyScrolling();
   };
 

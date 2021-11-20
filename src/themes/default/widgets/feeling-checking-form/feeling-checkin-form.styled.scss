@@ -95,7 +95,17 @@
       text-align: center;
       font-size: 2.6vw;
       @media (max-width: $mobile) {
-        font-size: 4vh;
+        font-size: 4vh !important;
+      }
+    }
+  }
+  &.home {
+    .header {
+      .header_content {
+        font-size: 2vw;
+        @media (max-width: $ipadProL) {
+          font-size: 2.6vw;
+        }
       }
     }
   }
@@ -123,7 +133,7 @@
           text-align: center;
           font-family: $alterFontFamily;
           @media (max-width: $mobile) {
-            font-size: 3vh;
+            font-size: 3vh !important;
           }
         }
         .answer_area {
@@ -169,7 +179,7 @@
                 width: 100%;
                 font-size: 0.95vw;
                 @media (max-width: $mobile) {
-                  font-size: 14px;
+                  font-size: 14px !important;
                 }
               }
             }
@@ -306,7 +316,52 @@
       }
     }
   }
-
+  &.home {
+    .form_question_area {
+      padding: 0px;
+      .question_panel {
+        .question_panel_layout {
+          margin-bottom: 0;
+          padding-bottom: 0;
+          .question_title {
+            font-size: 1.3vw;
+            @media (max-width: $ipadProL) {
+              font-size: 1.7vw;
+            }
+          }
+          .answer_area {
+            flex-wrap: nowrap;
+            @media (max-width: $ipadPro) {
+              flex-wrap: wrap;
+            }
+            .answer_item {
+              margin-right: 55px;
+              @media (max-width: $ipadPro) {
+                margin-left: 25px;
+                margin-right: 25px;
+                margin-bottom: 25px;
+                &:last-child {
+                  margin-right: 25px;
+                }
+                @media (max-width: $mobile) {
+                  margin-left: 0;
+                }
+              }
+              &.answer_image {
+                width: 115px;
+                .answer_image_value {
+                  font-size: 0.8vw;
+                  @media (max-width: $ipadProL) {
+                    font-size: 1.1vw;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
   // Form actions
   .form_action_panel {
     position: fixed;

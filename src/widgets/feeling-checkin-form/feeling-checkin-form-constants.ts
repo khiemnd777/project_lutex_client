@@ -8,6 +8,7 @@ export const DefaultParams = {
   inputFieldsStyleName: 'input_fields',
   contactTextFieldName: 'feeling_checkin_contact_text_field',
   styleName: 'feeling_checkin_form',
+  homeFormName: 'form-home',
   startFormName: 'form-start',
   width: '',
   height: '',
