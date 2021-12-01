@@ -102,6 +102,18 @@ const FeelingCheckinFormWidget: FunctionalComponent<FeelingCheckinFormWidgetArgs
   const [forms, setForms] = useState<FeelingCheckinForm[]>(() => []);
   const homeFormName = GetParameterValue('homeFormName', parameters, DefaultParams);
   const homeFormResult = Fetchanic(() => FetchForm(homeFormName));
+  // Reset home form for being unselected
+  if (!openForm) {
+    if (homeFormResult && size(homeFormResult.data?.Questions)) {
+      each(homeFormResult.data?.Questions, (q) => {
+        if (q && size(q?.Answers)) {
+          each(q?.Answers, (a) => {
+            a.Selected = false;
+          });
+        }
+      });
+    }
+  }
 
   if (
     homeFormResult.data &&
@@ -259,6 +271,7 @@ const FormPanel: FunctionalComponent<FormPanelArgs> = ({
   setOpenForm,
 }) => {
   const styleName = GetParameterValue('styleName', parameters, DefaultParams);
+  const thankfulMessage = GetParameterValue('thankfulMessage', parameters, DefaultParams);
   const [loading, setLoading] = useState<boolean>(false);
   const [nextFlag, setNextFlag] = useState<boolean>(false);
   // const [openContactFields, setOpenContactFields] = useState<boolean>(false);
@@ -342,7 +355,7 @@ const FormPanel: FunctionalComponent<FormPanelArgs> = ({
         <div class={cx('form_question_area')}>
           <QuestionPanel data={currentForm?.Questions} theme={theme} parameters={parameters} />
         </div>
-        {currentForm?.Completed ? (
+        {currentForm?.Completed && currentForm?.ShowContactForm ? (
           <div class={cx('form_contact_fields')}>
             <ContactInputs
               theme={theme}
@@ -351,6 +364,16 @@ const FormPanel: FunctionalComponent<FormPanelArgs> = ({
               setForms={setForms}
               setOpenForm={setOpenForm}
             />
+          </div>
+        ) : currentForm?.Completed ? (
+          <div
+            class={cx('thank_you')}
+            onClick={() => {
+              enableBodyScrolling();
+              setOpenForm && setOpenForm(false);
+            }}
+          >
+            <span>{thankfulMessage}</span>
           </div>
         ) : null}
       </Fragment>
@@ -585,7 +608,10 @@ const onSubmit = (data: InputModel[], setExecutedState: StateUpdater<ExecutedSta
 const prepareAnswers = (forms: FeelingCheckinForm[]) => {
   const filteredForms = filter(forms, (f) => {
     return some(f.Questions, (q) => {
-      return some(q.Answers, (a) => (a.Type === 'image' || a.Type === 'checkbox' || a.Type === 'checkbox2') && a.Selected);
+      return some(
+        q.Answers,
+        (a) => (a.Type === 'image' || a.Type === 'checkbox' || a.Type === 'checkbox2') && a.Selected
+      );
     });
   });
   const answers = flatten(

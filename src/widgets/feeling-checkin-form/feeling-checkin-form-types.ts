@@ -21,6 +21,7 @@ export type FeelingCheckinForm = {
   id: string;
   Start: boolean;
   Completed: boolean;
+  ShowContactForm: boolean;
   Header: string;
   Name: string;
   Questions: FeelingCheckinQuestion[];

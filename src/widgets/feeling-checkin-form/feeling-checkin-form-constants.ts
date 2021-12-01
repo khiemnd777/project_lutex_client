@@ -12,6 +12,7 @@ export const DefaultParams = {
   startFormName: 'form-start',
   width: '',
   height: '',
+  thankfulMessage: '',
   isMobile: false,
   useHqPicture: false,
 } as Record<string, any>;
