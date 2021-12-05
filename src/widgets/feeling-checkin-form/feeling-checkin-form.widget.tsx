@@ -17,15 +17,11 @@ import Button from '_stdio/shared/components/button/button';
 import Input from '_stdio/shared/components/input/input';
 import { ValidateInputs } from '_stdio/shared/components/input/input-factory';
 import InputModel from '_stdio/shared/components/input/input-model';
-import { MediaFormatEnums } from '_stdio/shared/enums/image-enums';
 import { ExecutedState } from '_stdio/shared/enums/state-enums';
 import { ParameterConsumedType } from '_stdio/shared/types/parameter-types';
-import { isMobileBrowser } from '_stdio/shared/utils/common.utils';
 import { disableBodyScrolling, enableBodyScrolling } from '_stdio/shared/utils/dom.utils';
-import { GetSingleMedia } from '_stdio/shared/utils/media.utils';
 import { GetParameterValue } from '_stdio/shared/utils/params.util';
 import { AreNotBeingInStates } from '_stdio/shared/utils/state-utils';
-import { parseBool } from '_stdio/shared/utils/string.utils';
 import { DefaultParams } from './feeling-checkin-form-constants';
 import {
   ContactFieldsArgs,
@@ -211,6 +207,9 @@ const FormDialog: FunctionalComponent<FormDialogArgs> = ({
             setSelectedIndex={setSelectedIndex}
             setOpenForm={setOpenForm}
           />
+          <div class={cx('dialog_background_footer')}>
+            <div class={cx('background')}></div>
+          </div>
         </div>
       </div>
       <div class={cx('dialog_close_wrapper')}>
