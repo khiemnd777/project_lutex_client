@@ -17,6 +17,7 @@
   overflow-y: auto;
   padding: 0;
   margin: 0;
+  background-color: #fff;
 
   .dialog {
     margin: 0 auto;
@@ -24,8 +25,7 @@
     position: relative;
     z-index: 10;
     width: 100vw;
-    height: auto;
-    min-height: 100vh;
+    height: 100vh;
     background-color: #fff;
     @media (max-width: $mobile) {
       width: 100%;
@@ -35,8 +35,6 @@
     .dialog_background_footer {
       height: 320px;
       width: 100vw;
-      position: fixed;
-      bottom: 0;
       @media (max-width: $mobile) {
         height: 115px;
       }
@@ -45,7 +43,8 @@
         height: 100%;
         background-image: url("../assets/images/background-feeling-checkin.png");
         background-repeat: no-repeat;
-        background-size: cover;
+        background-size: contain;
+        background-position: bottom;
         @media (max-width: $mobile) {
           background-image: url("../assets/images/background-feeling-checkin-mobile.png");
         }
@@ -99,8 +98,9 @@
   position: relative;
   margin: 0 auto;
   width: 100%;
+  min-height: calc(100% - 320px);
   padding: 20px;
-  transition: all easy 0.25s;
+  transition: all ease 0.25s;
   &.loading {
     opacity: 0.6;
     pointer-events: none;
