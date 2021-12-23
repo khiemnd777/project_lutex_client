@@ -19,6 +19,7 @@ export const GraphFeaturedPosts = (name: string) =>
             Post {
               id
               Title
+              SubTitle
               Short
               Rate
               createdAt

@@ -19,7 +19,6 @@ import ImageContainer from '_stdio/shared/components/image-container/image-conta
 import { VisualizedPostType } from 'widgets/featured-posts/featured-posts-types';
 import { GraphTextFields } from 'widgets/text-field/text-field-services';
 import { TextFieldType } from 'widgets/text-field/text-field-types';
-import { convert } from 'html-to-text';
 import marked from 'marked';
 import { RatingFiveStars } from '_stdio/shared/components/rating-five-stars/rating-five-stars';
 
@@ -51,6 +50,7 @@ const WhatCustomersSaidAboutUsWidget: FunctionalComponent<WhatCustomersSaidAbout
   const posts = map(data, (fpost) => {
     const post = fpost.Post;
     const title = fpost.Title || post?.Title;
+    const subTitle = post?.SubTitle;
     const short = post?.Short;
     const routerPath = post?.Router ? post?.Router.Path : fpost.Router?.Path;
     const url = buildRouterPath(routerPath, post);
@@ -60,6 +60,7 @@ const WhatCustomersSaidAboutUsWidget: FunctionalComponent<WhatCustomersSaidAbout
     const catalogUrl = buildRouterPath(catalog?.Router?.Path, catalog);
     return {
       Title: title,
+      SubTitle: subTitle,
       Short: short,
       Rate: post?.Rate,
       Url: url,
@@ -118,6 +119,9 @@ const PostItemsBuilder: FunctionalComponent<PostBuilderArgs> = ({ posts, theme, 
               <div class={cx('post_item_info')}>
                 <div class={cx('post_item_title')}>
                   <span>{post.Title}</span>
+                </div>
+                <div class={cx('post_item_sub_title')}>
+                  <span>{post.SubTitle}</span>
                 </div>
                 {/* Rating via 5 stars */}
                 <div class={cx('post_item_rate')}>

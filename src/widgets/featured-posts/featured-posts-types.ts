@@ -22,6 +22,7 @@ export type FeaturedDetailPostType = {
 export type PostType = {
   id: string;
   Title: string;
+  SubTitle: string;
   Short: string;
   Rate: number;
   createdAt: Date;
@@ -37,6 +38,7 @@ export type PostType = {
 
 export type VisualizedPostType = {
   Title: string;
+  SubTitle: string;
   Short: string;
   Rate?: number;
   Url: string;
