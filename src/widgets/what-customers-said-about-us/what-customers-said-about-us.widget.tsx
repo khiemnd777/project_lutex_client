@@ -8,7 +8,7 @@ import { BuildClassNameBind } from '_stdio/core/theme/theme-utils';
 import { WidgetFactory } from '_stdio/core/widget/widget-factory';
 import { MediaFormatEnums } from '_stdio/shared/enums/image-enums';
 import { GetSingleMedia } from '_stdio/shared/utils/media.utils';
-import { parseBool, threeDotsAt } from '_stdio/shared/utils/string.utils';
+import { parseBool } from '_stdio/shared/utils/string.utils';
 import { WhatCustomersSaidAboutUsWidgetArgs } from './what-customers-said-about-us-interfaces';
 import { buildRouterPath } from '_stdio/core/router/router-utils';
 import { WidgetInstaller } from '_stdio/core/widget/widget-installer';
@@ -21,6 +21,8 @@ import { GraphTextFields } from 'widgets/text-field/text-field-services';
 import { TextFieldType } from 'widgets/text-field/text-field-types';
 import marked from 'marked';
 import { RatingFiveStars } from '_stdio/shared/components/rating-five-stars/rating-five-stars';
+import { useState } from 'preact/hooks';
+import { disableBodyScrolling, enableBodyScrolling } from '_stdio/shared/utils/dom.utils';
 
 const WhatCustomersSaidAboutUsWidget: FunctionalComponent<WhatCustomersSaidAboutUsWidgetArgs> = ({
   theme,
@@ -85,9 +87,7 @@ const WhatCustomersSaidAboutUsWidget: FunctionalComponent<WhatCustomersSaidAbout
             <div class={cx('description')} dangerouslySetInnerHTML={{ __html: marked(description.Content) }}></div>
           ) : null}
           {size(posts) ? (
-            <div class={cx('post_items_container')}>
-              <PostItemsBuilder theme={theme} styleName={styleName} posts={posts} useHqPicture={useHqPicture} />
-            </div>
+            <PostItemsBuilder theme={theme} styleName={styleName} posts={posts} useHqPicture={useHqPicture} />
           ) : null}
         </div>
       </div>
@@ -104,35 +104,104 @@ interface PostBuilderArgs {
 
 const PostItemsBuilder: FunctionalComponent<PostBuilderArgs> = ({ posts, theme, styleName, useHqPicture }) => {
   const cx = BuildClassNameBind(theme.Name, styleName);
+  const [coverUrl, setCoverUrl] = useState<string>('');
+  const [title, setTitle] = useState<string>('');
+  const [subTitle, setSubTitle] = useState<string>('');
+  const [rate, setRate] = useState<number | undefined>(0);
+  const [short, setShort] = useState<string>('');
+  const [openDetail, setOpenDetail] = useState<boolean>(false);
   return (
     <Fragment>
-      {map(posts, (post) => {
-        const cover = GetSingleMedia(post.Cover, useHqPicture ? MediaFormatEnums.ordinary : MediaFormatEnums.thumbnail);
-        return (
-          <div class={cx('post_item')}>
-            <div class={cx('post_item_container')}>
-              <ImageContainer
-                className={cx('post_item_cover', 'image_container')}
-                src={cover?.url}
-                alt={post.Cover?.Caption}
-              />
-              <div class={cx('post_item_info')}>
-                <div class={cx('post_item_title')}>
-                  <span>{post.Title}</span>
+      <div class={cx('post_items_container')}>
+        {map(posts, (post) => {
+          const cover = GetSingleMedia(
+            post.Cover,
+            useHqPicture ? MediaFormatEnums.ordinary : MediaFormatEnums.thumbnail
+          );
+          return (
+            <div class={cx('post_item')}>
+              <div class={cx('post_item_container')}>
+                <ImageContainer
+                  className={cx('post_item_cover', 'image_container')}
+                  src={cover?.url}
+                  alt={post.Cover?.Caption}
+                />
+                <div class={cx('post_item_info')}>
+                  <div class={cx('post_item_title')}>
+                    <span>{post.Title}</span>
+                  </div>
+                  <div class={cx('post_item_sub_title')}>
+                    <span>{post.SubTitle}</span>
+                  </div>
+                  {/* Rating via 5 stars */}
+                  <div class={cx('post_item_rate')}>
+                    <RatingFiveStars rate={post.Rate ?? 0} />
+                  </div>
+                  <div class={cx('post_item_short')}>{post.Short}</div>
+                  <div class={cx('post_item_action')}>
+                    <div
+                      class={cx('post_item_next_button')}
+                      onClick={() => {
+                        setCoverUrl(cover.url);
+                        setTitle(post.Title);
+                        setSubTitle(post.SubTitle);
+                        setRate(post.Rate);
+                        setShort(post.Short);
+                        setOpenDetail(true);
+                        disableBodyScrolling();
+                      }}
+                    >
+                      Xem tiếp
+                    </div>
+                  </div>
                 </div>
-                <div class={cx('post_item_sub_title')}>
-                  <span>{post.SubTitle}</span>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+      {/* Detail dialog */}
+      {openDetail ? (
+        <div>
+          <div class={cx('dialog_wrapper')}>
+            <div class={cx('dialog')}>
+              <div class={cx('dialog_content')}>
+                <div class={cx('post_item')}>
+                  <div class={cx('post_item_container')}>
+                    <ImageContainer className={cx('post_item_cover', 'image_container')} src={coverUrl} />
+                    <div class={cx('post_item_info')}>
+                      <div class={cx('post_item_title')}>
+                        <span>{title}</span>
+                      </div>
+                      <div class={cx('post_item_sub_title')}>
+                        <span>{subTitle}</span>
+                      </div>
+                      {/* Rating via 5 stars */}
+                      <div class={cx('post_item_rate')}>
+                        <RatingFiveStars rate={rate ?? 0} />
+                      </div>
+                      <div class={cx('post_item_short', 'detail')}>{short}</div>
+                    </div>
+                  </div>
                 </div>
-                {/* Rating via 5 stars */}
-                <div class={cx('post_item_rate')}>
-                  <RatingFiveStars rate={post.Rate ?? 0} />
-                </div>
-                <div class={cx('post_item_short')}>{post.Short}</div>
               </div>
             </div>
           </div>
-        );
-      })}
+          <div class={cx('dialog_close_wrapper')}>
+            <div
+              class={cx('dialog_close')}
+              onClick={() => {
+                enableBodyScrolling();
+                setOpenDetail && setOpenDetail(false);
+              }}
+            >
+              <div></div>
+              <div></div>
+            </div>
+          </div>
+          <div class={cx('overlay')}></div>
+        </div>
+      ) : null}
     </Fragment>
   );
 };
