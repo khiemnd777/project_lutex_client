@@ -76,7 +76,7 @@
           padding-left: 20px;
         }
       }
-      &:nth-child(4n) {
+      &:nth-child(3n + 1) {
         padding-left: 0;
         padding-right: 120px;
         @media (max-width: $mobile) {
@@ -155,7 +155,7 @@
             text-overflow: ellipsis;
             overflow: hidden;
             display: -webkit-box;
-            -webkit-line-clamp: 8;
+            -webkit-line-clamp: 5;
             -webkit-box-orient: vertical;
             &.detail {
               display: block;
