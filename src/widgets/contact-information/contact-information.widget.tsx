@@ -1,7 +1,6 @@
 import { map, size } from 'lodash-es';
 import isEmpty from 'lodash-es/isEmpty';
 import { FunctionalComponent, h } from 'preact';
-import { Link } from 'preact-router/match';
 import { BindFontFaceClassNames } from '_stdio/core/font-faces/font-face-utils';
 import { BuildClassNameBind } from '_stdio/core/theme/theme-utils';
 import { WidgetFactory } from '_stdio/core/widget/widget-factory';
@@ -47,9 +46,9 @@ const ContactInformationWidget: FunctionalComponent<ContactInformationWidgetArgs
                     )
                   ) : null}
                   {p.Link ? (
-                    <Link href={p.Link}>
+                    <a href={p.Link}>
                       <span class={cx('value')}>{p.Value}</span>
-                    </Link>
+                    </a>
                   ) : (
                     <span class={cx('value')}>{p.Value}</span>
                   )}

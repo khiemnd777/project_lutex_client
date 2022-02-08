@@ -1,6 +1,5 @@
 import { isEmpty } from 'lodash-es';
 import { FunctionalComponent, h } from 'preact';
-import { Link } from 'preact-router/match';
 import { BindFontFaceClassNames } from '_stdio/core/font-faces/font-face-utils';
 import { BuildClassNameBind } from '_stdio/core/theme/theme-utils';
 import { WidgetFactory } from '_stdio/core/widget/widget-factory';
