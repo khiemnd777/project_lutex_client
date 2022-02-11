@@ -1,7 +1,6 @@
 import { first, size } from 'lodash-es';
 import { createElement, FunctionComponent } from 'preact';
 import { useState } from 'preact/hooks';
-import { useAuthGuard } from '_stdio/core/auth/auth-guard';
 import { WidgetFactory } from '_stdio/core/widget/widget-factory';
 import { WidgetConfigArgs } from '_stdio/core/widget/widget-interfaces';
 import { ParameterConsumedType } from '_stdio/shared/types/parameter-types';

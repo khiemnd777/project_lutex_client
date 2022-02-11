@@ -13,6 +13,9 @@ import graphqlClient from '_stdio/shared/utils/graphql/graphql-client';
 import RouterProvider from '_stdio/core/router/router-provider';
 import { GetTheme } from '_stdio/core/theme/theme-utils';
 import { useVisitorId } from '_stdio/shared/utils/hooks';
+import { AuthGuard, useAuthGuard } from '_stdio/core/auth/auth-guard';
+import { AUTH_TOKEN } from '_stdio/core/auth/auth-constants';
+import LoginPage from '_stdio/core/auth/pages/login-page';
 
 const App = () => {
   return (
@@ -43,6 +46,13 @@ const StdApp = () => {
   //     </div>
   //   );
   // }
+  const authToken = localStorage.getItem(AUTH_TOKEN);
+  if (authToken) {
+    const isAuth = useAuthGuard();
+    if (!isAuth) {
+      return <LoginPage path="/auth/login" />;
+    }
+  }
 
   // init theming to the app at the html element.
   // const fetchedTheme = GetTheme(data?.environment.Theme.Theme);
