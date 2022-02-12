@@ -15,16 +15,31 @@ export const AuthLogin = async (identifier: string, password: string) => {
 
 export const AuthLogout = async () => {
   localStorage.removeItem(AUTH_TOKEN);
+  localStorage.removeItem('identifier');
+  localStorage.removeItem('password');
   await graphqlClient.resetStore();
   Axios_SetAuthToken('');
 };
 
-export const AuthTeardown = async (auth: AuthType) => {
+export const AuthTeardown = async (identifier: string, password: string, auth: AuthType) => {
   localStorage.setItem(AUTH_TOKEN, auth.jwt);
+  localStorage.setItem('identifier', identifier);
+  localStorage.setItem('password', password);
   await graphqlClient.resetStore();
   Axios_SetAuthToken(auth.jwt);
 };
 
 export const AuthMe = async () => {
   return await AuthAxiosResponse(() => axios.get(`${API_HOST}users/me`));
+};
+
+export const refreshToken = async () => {
+  const authToken = localStorage.getItem(AUTH_TOKEN);
+  const tokenRefreshResponse = await axios.post(`${API_HOST}auth/refresh-token`, {
+    token: authToken,
+  });
+  const jwt = tokenRefreshResponse.data.jwt;
+  localStorage.setItem(AUTH_TOKEN, jwt);
+  Axios_SetAuthToken(jwt);
+  await graphqlClient.resetStore();
 };

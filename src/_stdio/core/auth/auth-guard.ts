@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'preact/hooks';
+import { useEffect } from 'preact/hooks';
 import { AuthLogout, AuthMe } from './auth-service';
 
 export const AuthGuard = async () => {
@@ -11,12 +11,14 @@ export const AuthGuard = async () => {
   }
 };
 
-export const useAuthGuard = () => {
-  let [hasLoggedIn, setHasLoggedIn] = useState<boolean | null>(null);
+export const useAuthGuard = (handler: (isAuth: boolean) => void, errorHandler?: (exc: any) => void) => {
   useEffect(() => {
-    AuthGuard().then((loggedIn) => {
-      setHasLoggedIn(loggedIn);
-    });
-  }, [hasLoggedIn]);
-  return hasLoggedIn;
+    AuthGuard()
+      .then((isAuth) => {
+        handler(isAuth);
+      })
+      .catch((exc) => {
+        errorHandler && errorHandler(exc);
+      });
+  }, []);
 };

@@ -16,6 +16,7 @@ import { useVisitorId } from '_stdio/shared/utils/hooks';
 import { AuthGuard, useAuthGuard } from '_stdio/core/auth/auth-guard';
 import { AUTH_TOKEN } from '_stdio/core/auth/auth-constants';
 import LoginPage from '_stdio/core/auth/pages/login-page';
+import Loading from '_stdio/shared/components/loading/loading';
 
 const App = () => {
   return (
@@ -46,13 +47,15 @@ const StdApp = () => {
   //     </div>
   //   );
   // }
-  const authToken = localStorage.getItem(AUTH_TOKEN);
-  if (authToken) {
-    const isAuth = useAuthGuard();
-    if (!isAuth) {
-      return <LoginPage path="/auth/login" />;
-    }
-  }
+  let [isAuth, setIsAuth] = useState<boolean | null>(null);
+  useAuthGuard((isAuth) => setIsAuth(isAuth));
+  // const authToken = localStorage.getItem(AUTH_TOKEN);
+  // if (authToken) {
+  //   useAuthGuard((isAuth) => setIsAuth(isAuth));
+  //   if (!isAuth) {
+  //     return <Loading />;
+  //   }
+  // }
 
   // init theming to the app at the html element.
   // const fetchedTheme = GetTheme(data?.environment.Theme.Theme);
