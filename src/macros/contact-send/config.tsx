@@ -1,18 +1,24 @@
+import axios from 'axios';
+import { map, zipObject } from 'lodash-es';
 import { Fragment, FunctionalComponent, h } from 'preact';
 import { StateUpdater, useEffect, useState } from 'preact/hooks';
 import { MacroFactory } from '_stdio/core/macros/macro-factory';
 import { MacroArgs } from '_stdio/core/macros/macro-interfaces';
 import { BuildClassNameBind } from '_stdio/core/theme/theme-utils';
+import { API_HOST } from '_stdio/environment';
 import InputModel from '_stdio/shared/components/input/input-model';
 import { ExecutedState } from '_stdio/shared/enums/state-enums';
 import { GetParameterValueWithGeneric } from '_stdio/shared/utils/params.util';
 
-const sendContactViaInputs = (data?: InputModel[]) => {
-  return new Promise<void>((resolve) => {
-    setTimeout(() => {
-      resolve();
-    }, 3000);
-  });
+const sendContactViaInputs = async (data?: InputModel[]) => {
+  if (data) {
+    const sendModel = zipObject(
+      map(data, (x) => x.name),
+      map(data, (x) => x.val)
+    );
+    const result = await axios.post(`${API_HOST}queued-emails/insert`, sendModel);
+    return result.data;
+  }
 };
 
 const ContactSend: FunctionalComponent<MacroArgs> = ({ theme, parameters }) => {
