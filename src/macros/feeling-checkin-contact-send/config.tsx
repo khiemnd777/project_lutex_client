@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { find } from 'lodash-es';
 import { Fragment, FunctionalComponent, h } from 'preact';
 import { StateUpdater, useEffect, useState } from 'preact/hooks';
@@ -10,12 +11,48 @@ import {
 import { MacroFactory } from '_stdio/core/macros/macro-factory';
 import { MacroArgs } from '_stdio/core/macros/macro-interfaces';
 import { BuildClassNameBind } from '_stdio/core/theme/theme-utils';
+import { API_HOST } from '_stdio/environment';
 import { ExecutedState } from '_stdio/shared/enums/state-enums';
 import { GetParameterValueWithGeneric } from '_stdio/shared/utils/params.util';
 
+const generateWhatAmIFeelingResult = (data: AddFeelingAnswers[]) => {
+  let result = '';
+  if (data) {
+    if (data.length) {
+      data.forEach((j) => {
+        if (j.answers.length && j.answers.every(a => !!a.value)) {
+          if (j.answers.length === 1 && !!j.answers[0].value) {
+            result += `Câu hỏi: ${j.question} <br />`;
+            result += `Trả lời: ${j.answers[0].value} <br />`;
+            result += `<br />`;
+            return;
+          }
+          result += `Câu hỏi: ${j.question} <br />`;
+          result += 'Trả lời: <br />';
+          j.answers
+            .filter((a) => !!a.value)
+            .forEach((a) => {
+              result += ` - ${a.value} <br />`;
+            });
+          result += `<br />`;
+        }
+      });
+    }
+  }
+  return result;
+};
+
 const sendContactViaInputs = async (data?: AddFeelingContact) => {
   if (data) {
-    await AddFeelingCheckinContact(data);
+    const answers = generateWhatAmIFeelingResult(data.answers);
+    await Promise.all([
+      AddFeelingCheckinContact(data),
+      axios.post(`${API_HOST}queued-emails/insert`, {
+        emailTemplate: 'checkin-feeling',
+        contact: data.contact,
+        answers: answers,
+      }),
+    ]);
   }
 };
 
@@ -75,9 +112,7 @@ const ContactSend: FunctionalComponent<MacroArgs> = ({ theme, parameters }) => {
           <i class={cx('thank_you_message')}>
             {`Cảm ơn bạn đã dành thời gian,\nchúng tôi sẽ liên hệ với bạn trong thời gian sớm nhất.\nTrân trọng!`}
           </i>
-          <i class={cx('close_form_message')}>
-          {`(Bấm bất kỳ vị trí nào để tắt hộp thoại này)`}
-          </i>
+          <i class={cx('close_form_message')}>{`(Bấm bất kỳ vị trí nào để tắt hộp thoại này)`}</i>
         </span>
       </div>
     </Fragment>

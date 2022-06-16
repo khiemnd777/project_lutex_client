@@ -16,7 +16,7 @@ const sendContactViaInputs = async (data?: InputModel[]) => {
       map(data, (x) => x.name),
       map(data, (x) => x.val)
     );
-    const result = await axios.post(`${API_HOST}queued-emails/insert`, sendModel);
+    const result = await axios.post(`${API_HOST}queued-emails/insert`, { ...sendModel, emailTemplate: 'contact' });
     return result.data;
   }
 };
