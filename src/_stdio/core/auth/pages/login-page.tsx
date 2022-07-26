@@ -24,7 +24,7 @@ const onSubmit = async (data: InputModel[], setExecutedState: StateUpdater<Execu
     const password = find(data, (field) => field.name === 'password');
     if (identifier?.val && password?.val) {
       const authInfo = await AuthLogin(identifier.val, password.val);
-      await AuthTeardown(authInfo);
+      await AuthTeardown(identifier.val, password.val, authInfo);
       setExecutedState(ExecutedState.completed);
       redirect && route(decodeURIComponent(redirect));
     }
