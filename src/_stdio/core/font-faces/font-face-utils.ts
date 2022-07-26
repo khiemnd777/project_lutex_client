@@ -1,5 +1,5 @@
 import classNamesBind from 'classnames/bind';
-import { FontFaceFactory } from './Font-face-factory';
+import { FontFaceFactory } from './font-face-factory';
 
 export const BindFontFaceClassNames = (
   fontFace: string,
