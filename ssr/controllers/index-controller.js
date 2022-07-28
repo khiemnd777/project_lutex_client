@@ -38,7 +38,9 @@ async function fetchGTag(req) {
   try {
     const gtagResult = await axios.get(`${apiHost}googleAnalyticId`);
     gtag = gtagResult ? gtagResult.data : null;
-  } catch {}
+  } catch (e) {
+    console.log(e);
+  }
   return gtag;
 }
 
