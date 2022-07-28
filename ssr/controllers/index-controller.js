@@ -3,6 +3,11 @@ const path = require('path');
 const fs = require('fs');
 const env = require('../../src/_stdio/config/env.config');
 
+if (process.env.NODE_ENV === 'production') {
+  console.log('reject unauthorized!');
+  process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '0';
+}
+
 const distPath = env('DIST');
 // Api host
 const apiSecure = !!env('API_SECURE') || false;
@@ -81,7 +86,7 @@ const genrateHtml = (req, res, seoData, gtagData) => {
       data = data.replace('{{metaTags}}', '');
       data = data.replace('{{title}}', '');
     }
-    if(gtagData){
+    if (gtagData) {
       data = data.replace(/\{\{gtag\}\}/gm, gtagData);
     }
     return res.send(data);
